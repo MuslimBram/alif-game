@@ -25,6 +25,7 @@ export default function Alphabet() {
   const [selectedLang, setSelectedLang] = useState("shqip");
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");
   const [selectedLetter, setSelectedLetter] = useState(null);
+  const [learningIndex, setLearningIndex] = useState(null);
   const [activeTab, setActiveTab] = useState("germat");
 
   const { data: letters = [], isLoading } = useQuery({
