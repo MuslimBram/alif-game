@@ -1,0 +1,310 @@
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Volume2, BookOpen, ChevronLeft, ChevronRight, Lock, CheckCircle } from "lucide-react";
+import DrawingCanvas from "./DrawingCanvas";
+import VoiceRecorder from "./VoiceRecorder";
+import LetterQuiz from "./LetterQuiz";
+
+const formLabels = {
+  uppercase: "E Madhe shtypi",
+  lowercase: "E Vogël shtypi",
+  handwritten_upper: "E Madhe dorëshkrim",
+  handwritten_lower: "E Vogël dorëshkrim",
+};
+
+export default function LetterLearningView({ letters, initialIndex = 0, onProgressUpdate }) {
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [activeForm, setActiveForm] = useState("uppercase");
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [passedLetters, setPassedLetters] = useState({});
+  const [scores, setScores] = useState({});
+  const [voiceRecorded, setVoiceRecorded] = useState(false);
+  const [drawingSubmitted, setDrawingSubmitted] = useState(false);
+
+  const letter = letters[currentIndex];
+  const totalLetters = letters.length;
+
+  useEffect(() => {
+    setActiveForm("uppercase");
+    setShowQuiz(false);
+    setVoiceRecorded(false);
+    setDrawingSubmitted(false);
+  }, [currentIndex]);
+
+  if (!letter) return null;
+
+  const forms = {
+    uppercase: letter.form_uppercase || letter.letter?.toUpperCase(),
+    lowercase: letter.form_lowercase || letter.letter?.toLowerCase(),
+    handwritten_upper: letter.form_handwritten_upper || letter.letter?.toUpperCase(),
+    handwritten_lower: letter.form_handwritten_lower || letter.letter?.toLowerCase(),
+  };
+
+  const isLetterPassed = (idx) => passedLetters[letters[idx]?.id];
+  const canGoNext = isLetterPassed(currentIndex);
+
+  const handlePass = (score) => {
+    const newPassed = { ...passedLetters, [letter.id]: true };
+    const newScores = { ...scores, [letter.id]: score };
+    setPassedLetters(newPassed);
+    setScores(newScores);
+    setShowQuiz(false);
+    onProgressUpdate && onProgressUpdate(letter.id, score);
+    if (currentIndex + 1 < totalLetters) {
+      setTimeout(() => setCurrentIndex((i) => i + 1), 500);
+    }
+  };
+
+  const handleFail = () => {
+    setShowQuiz(false);
+    setTimeout(() => setShowQuiz(true), 100);
+  };
+
+  const goTo = (idx) => {
+    if (idx < 0 || idx >= totalLetters) return;
+    if (idx > currentIndex && !canGoNext && idx !== 0) {
+      alert("Duhet të arrini pakën 80% para se të vazhdoni!");
+      return;
+    }
+    setCurrentIndex(idx);
+  };
+
+  return (
+    <div className="space-y-4">
+      {/* Header */}
+      <div className="flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-4">
+        <div>
+          <h2 className="text-lg font-bold text-gray-900">Shkronja: {letter.letter}</h2>
+          <p className="text-xs text-gray-500">
+            Shkronja {currentIndex + 1} nga {totalLetters}
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          {passedLetters[letter.id] && (
+            <span className="flex items-center gap-1 text-sm font-bold text-emerald-600 bg-emerald-50 rounded-xl px-3 py-1">
+              <CheckCircle className="w-4 h-4" /> {scores[letter.id]}%
+            </span>
+          )}
+          <Button
+            size="sm"
+            className="bg-teal-600 hover:bg-teal-700 text-white rounded-xl"
+            onClick={() => {
+              if (letter.audio_url) new Audio(letter.audio_url).play();
+            }}
+          >
+            <Volume2 className="w-4 h-4 mr-1.5" />
+            Dëgjo Tingullin
+          </Button>
+        </div>
+      </div>
+
+      {/* Form selector */}
+      <div className="bg-white rounded-2xl border border-gray-100 p-4">
+        <p className="text-sm font-semibold text-gray-700 mb-3">Zgjidhni Formën</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {Object.keys(formLabels).map((key) => (
+            <button
+              key={key}
+              onClick={() => setActiveForm(key)}
+              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                activeForm === key
+                  ? "bg-orange-500 text-white shadow-md"
+                  : "bg-white border border-gray-200 text-gray-600 hover:border-orange-300"
+              }`}
+            >
+              {formLabels[key]} {activeForm === key && `(${forms[key]})`}
+            </button>
+          ))}
+        </div>
+
+        {/* Big letter display */}
+        <div className="bg-gray-50 rounded-2xl p-8 text-center mb-4">
+          <motion.div
+            key={activeForm}
+            initial={{ scale: 0.7, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="text-8xl font-bold text-gray-900 mb-3"
+            style={activeForm.includes("handwritten") ? { fontFamily: "cursive" } : {}}
+          >
+            {forms[activeForm]}
+          </motion.div>
+          <p className="text-sm text-emerald-600 italic">
+            Shqiptimi: Shqiptohet si '{letter.pronunciation}'
+          </p>
+        </div>
+
+        {/* Description */}
+        {letter.description && (
+          <div className="bg-emerald-50/50 rounded-xl p-4 flex items-start gap-3 mb-4">
+            <BookOpen className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="text-sm font-semibold text-emerald-700 mb-1">Përshkrimi</p>
+              <p className="text-sm text-gray-600">{letter.description}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Example words */}
+        {letter.example_words?.length > 0 && (
+          <div>
+            <p className="text-sm font-bold text-gray-700 mb-3">Shembuj Fjalësh</p>
+            <div className="grid grid-cols-2 gap-3">
+              {letter.example_words.map((ex, i) => (
+                <div key={i} className="bg-gray-50 rounded-xl p-3 border border-gray-100">
+                  <p className="font-bold text-gray-900">{ex.word}</p>
+                  <p className="text-xs text-gray-500">{ex.translation}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Dëgjo dhe Përsërit */}
+      <div className="bg-white rounded-2xl border border-gray-100 p-5 text-center">
+        <div className="flex items-center justify-center gap-2 mb-1">
+          <span className="text-lg">🎧</span>
+          <span className="font-semibold text-gray-800">Dëgjo dhe Përsërit</span>
+        </div>
+        <p className="text-xs text-teal-600 mb-4">Dëgjo tingullin dhe provo ta thuash!</p>
+        <Button
+          className="bg-teal-600 hover:bg-teal-700 text-white rounded-xl"
+          onClick={() => {
+            if (letter.audio_url) new Audio(letter.audio_url).play();
+          }}
+        >
+          <Volume2 className="w-4 h-4 mr-2" /> Dëgjo Tingullin
+        </Button>
+      </div>
+
+      {/* Drawing + Voice */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="bg-white rounded-2xl border border-gray-100 p-5">
+          <DrawingCanvas
+            onSubmit={() => {
+              setDrawingSubmitted(true);
+            }}
+          />
+          {drawingSubmitted && (
+            <p className="text-xs text-emerald-600 mt-2 flex items-center gap-1">
+              <CheckCircle className="w-3.5 h-3.5" /> Vizatimi u dërgua!
+            </p>
+          )}
+        </div>
+        <div className="bg-white rounded-2xl border border-gray-100 p-5">
+          <VoiceRecorder
+            onRecorded={() => setVoiceRecorded(true)}
+          />
+          {voiceRecorded && (
+            <p className="text-xs text-emerald-600 mt-2 flex items-center gap-1">
+              <CheckCircle className="w-3.5 h-3.5" /> Regjistrimi u ruajt!
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* Quiz Section */}
+      {!showQuiz ? (
+        <div className="bg-white rounded-2xl border border-gray-100 p-5">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <p className="font-bold text-gray-900">📝 Kontrollo Vlerësimin</p>
+              <p className="text-xs text-gray-500">
+                Duhet të marrësh pakën 80% për të vazhduar
+              </p>
+            </div>
+            {passedLetters[letter.id] && (
+              <span className="text-sm font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
+                ✓ Kaluar {scores[letter.id]}%
+              </span>
+            )}
+          </div>
+          <Button
+            onClick={() => setShowQuiz(true)}
+            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl"
+          >
+            {passedLetters[letter.id] ? "Bëj Kuizin Sërish" : "Fillo Kuizin"}
+          </Button>
+        </div>
+      ) : (
+        <LetterQuiz
+          letter={letter}
+          allLetters={letters}
+          letterIndex={currentIndex}
+          totalLetters={totalLetters}
+          onPass={handlePass}
+          onFail={handleFail}
+        />
+      )}
+
+      {/* Instructions */}
+      <div className="bg-white rounded-2xl border border-gray-100 p-5">
+        <p className="text-sm font-bold text-gray-700 mb-3">
+          📋 Shkronja {currentIndex + 1} nga {totalLetters}
+        </p>
+        <ol className="space-y-2 text-sm text-gray-600 list-decimal list-inside">
+          <li>Zgjidhni llojin e shkronjës që dëshironi të mësoni</li>
+          <li>Shikoni shkronjën dhe studioni formën e saj</li>
+          <li>Vizatoni shkronjën brenda kutisë duke ndjekur udhëzimet</li>
+          <li>Klikoni "Kontrollo Vizatimin" për të parë si e keni bërë</li>
+          <li>Dëgjoni tingullin dhe regjistroni zërin tuaj duke shqiptuar shkronjën</li>
+          <li>Klikoni "Kontrollo Shqiptimin" për të marrë reagime</li>
+          <li>Klikoni "Vazhdo" për të kaluar te shkronja tjetër</li>
+        </ol>
+        <div className="mt-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-2 flex items-center gap-2">
+          <span className="text-amber-500">⚠️</span>
+          <p className="text-xs text-amber-700 font-medium">
+            Duhet të marrësh pakën 80% për të vazhduar!
+          </p>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <div className="flex items-center justify-between gap-3">
+        <Button
+          variant="outline"
+          onClick={() => goTo(currentIndex - 1)}
+          disabled={currentIndex === 0}
+          className="rounded-xl flex items-center gap-2"
+        >
+          <ChevronLeft className="w-4 h-4" /> Para
+        </Button>
+
+        {/* Letter dots */}
+        <div className="flex gap-1.5 flex-wrap justify-center flex-1">
+          {letters.map((l, i) => (
+            <button
+              key={l.id}
+              onClick={() => goTo(i)}
+              className={`w-6 h-6 rounded-full text-xs font-bold transition-all ${
+                i === currentIndex
+                  ? "bg-emerald-600 text-white scale-110 shadow"
+                  : passedLetters[l.id]
+                  ? "bg-emerald-200 text-emerald-800"
+                  : i > currentIndex && !isLetterPassed(i - 1)
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              }`}
+            >
+              {i <= currentIndex || passedLetters[l.id] ? l.letter : <Lock className="w-3 h-3 mx-auto" />}
+            </button>
+          ))}
+        </div>
+
+        <Button
+          onClick={() => goTo(currentIndex + 1)}
+          disabled={currentIndex + 1 >= totalLetters || !canGoNext}
+          className={`rounded-xl flex items-center gap-2 ${
+            canGoNext
+              ? "bg-emerald-600 hover:bg-emerald-700 text-white"
+              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+          }`}
+        >
+          Tjetër <ChevronRight className="w-4 h-4" />
+        </Button>
+      </div>
+    </div>
+  );
+}
