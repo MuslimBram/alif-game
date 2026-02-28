@@ -112,48 +112,74 @@ export default function Alphabet() {
 
       {/* Content */}
       {activeTab === "germat" && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Letter Grid */}
-          <div className="lg:col-span-1">
-            {isLoading ? (
-              <div className="grid grid-cols-4 gap-3">
-                {Array(16).fill(0).map((_, i) => (
-                  <Skeleton key={i} className="h-20 rounded-2xl" />
-                ))}
+        <>
+          {learningIndex !== null && filteredLetters.length > 0 ? (
+            <div>
+              <button
+                onClick={() => setLearningIndex(null)}
+                className="flex items-center gap-2 text-sm text-gray-500 hover:text-emerald-700 mb-4 transition-colors"
+              >
+                ← Kthehu te lista
+              </button>
+              <LetterLearningView
+                letters={filteredLetters}
+                initialIndex={learningIndex}
+                onProgressUpdate={() => {}}
+              />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Letter Grid */}
+              <div className="lg:col-span-1">
+                {isLoading ? (
+                  <div className="grid grid-cols-4 gap-3">
+                    {Array(16).fill(0).map((_, i) => (
+                      <Skeleton key={i} className="h-20 rounded-2xl" />
+                    ))}
+                  </div>
+                ) : filteredLetters.length === 0 ? (
+                  <div className="text-center py-12 bg-white rounded-2xl border border-gray-100">
+                    <Languages className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+                    <p className="text-gray-500">Nuk ka shkronja ende</p>
+                    <p className="text-gray-400 text-sm mt-1">Admini duhet ti shtojë nga paneli</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-4 gap-3">
+                    {filteredLetters.map((letter, idx) => (
+                      <LetterCard
+                        key={letter.id}
+                        letter={letter}
+                        isSelected={false}
+                        onClick={() => {
+                          setLearningIndex(idx);
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
-            ) : filteredLetters.length === 0 ? (
-              <div className="text-center py-12 bg-white rounded-2xl border border-gray-100">
-                <Languages className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500">Nuk ka shkronja ende</p>
-                <p className="text-gray-400 text-sm mt-1">Admini duhet ti shtojë nga paneli</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-4 gap-3">
-                {filteredLetters.map((letter) => (
-                  <LetterCard
-                    key={letter.id}
-                    letter={letter}
-                    isSelected={selectedLetter?.id === letter.id}
-                    onClick={setSelectedLetter}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
 
-          {/* Letter Detail */}
-          <div className="lg:col-span-2">
-            {selectedLetter ? (
-              <LetterDetail letter={selectedLetter} />
-            ) : (
-              <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
-                <Languages className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 text-lg font-medium">Zgjidh një shkronjë</p>
-                <p className="text-gray-400 text-sm mt-1">Kliko mbi shkronjën për të parë detajet</p>
+              {/* Start Prompt */}
+              <div className="lg:col-span-2">
+                <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
+                  <Languages className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-500 text-lg font-medium">Zgjidh një shkronjë për të filluar</p>
+                  <p className="text-gray-400 text-sm mt-1">
+                    Kliko mbi shkronjën për të hapur mësimet dhe kuizin interaktiv
+                  </p>
+                  {filteredLetters.length > 0 && (
+                    <button
+                      onClick={() => setLearningIndex(0)}
+                      className="mt-6 px-6 py-3 bg-emerald-600 text-white rounded-xl font-medium hover:bg-emerald-700 transition-colors"
+                    >
+                      Fillo nga Fillimi →
+                    </button>
+                  )}
+                </div>
               </div>
-            )}
-          </div>
-        </div>
+            </div>
+          )}
+        </>
       )}
 
       {activeTab !== "germat" && (
