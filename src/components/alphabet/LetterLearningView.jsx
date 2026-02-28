@@ -90,7 +90,12 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
             size="sm"
             className="bg-teal-600 hover:bg-teal-700 text-white rounded-xl"
             onClick={() => {
-              if (letter.audio_url) new Audio(letter.audio_url).play();
+              if (window.speechSynthesis) {
+                const u = new SpeechSynthesisUtterance(letter.letter);
+                u.lang = letter.language === "arabisht" ? "ar" : letter.language === "anglisht" ? "en" : "sq";
+                u.rate = 0.7;
+                window.speechSynthesis.speak(u);
+              }
             }}
           >
             <Volume2 className="w-4 h-4 mr-1.5" />
