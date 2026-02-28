@@ -162,46 +162,19 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
         )}
       </div>
 
-      {/* Dëgjo dhe Përsërit */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-5 text-center">
-        <div className="flex items-center justify-center gap-2 mb-1">
-          <span className="text-lg">🎧</span>
-          <span className="font-semibold text-gray-800">Dëgjo dhe Përsërit</span>
-        </div>
-        <p className="text-xs text-teal-600 mb-4">Dëgjo tingullin dhe provo ta thuash!</p>
-        <Button
-          className="bg-teal-600 hover:bg-teal-700 text-white rounded-xl"
-          onClick={() => {
-            if (letter.audio_url) new Audio(letter.audio_url).play();
-          }}
-        >
-          <Volume2 className="w-4 h-4 mr-2" /> Dëgjo Tingullin
-        </Button>
-      </div>
-
-      {/* Drawing + Voice */}
+      {/* Drawing + Voice (no separate listen section - VoiceRecorder has it built in) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-white rounded-2xl border border-gray-100 p-5">
           <DrawingCanvas
-            onSubmit={() => {
-              setDrawingSubmitted(true);
-            }}
+            letter={letter}
+            onResult={(r) => setDrawingSubmitted(r.passed)}
           />
-          {drawingSubmitted && (
-            <p className="text-xs text-emerald-600 mt-2 flex items-center gap-1">
-              <CheckCircle className="w-3.5 h-3.5" /> Vizatimi u dërgua!
-            </p>
-          )}
         </div>
         <div className="bg-white rounded-2xl border border-gray-100 p-5">
           <VoiceRecorder
-            onRecorded={() => setVoiceRecorded(true)}
+            letter={letter}
+            onResult={(r) => setVoiceRecorded(r.passed)}
           />
-          {voiceRecorded && (
-            <p className="text-xs text-emerald-600 mt-2 flex items-center gap-1">
-              <CheckCircle className="w-3.5 h-3.5" /> Regjistrimi u ruajt!
-            </p>
-          )}
         </div>
       </div>
 
