@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Volume2, BookOpen, ChevronLeft, ChevronRight, Lock, CheckCircle } from "lucide-react";
+import { Volume2, BookOpen, ChevronLeft, ChevronRight, Lock, CheckCircle, Loader2 } from "lucide-react";
 import DrawingCanvas from "./DrawingCanvas";
 import VoiceRecorder from "./VoiceRecorder";
 import LetterQuiz from "./LetterQuiz";
