@@ -47,22 +47,22 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
-import Home from './pages/Home';
-import Tajweed from './pages/Tajweed';
-import Alphabet from './pages/Alphabet';
-import Progress from './pages/Progress';
-import Games from './pages/Games';
 import AdminPanel from './pages/AdminPanel';
+import Alphabet from './pages/Alphabet';
+import Games from './pages/Games';
+import Home from './pages/Home';
+import Progress from './pages/Progress';
+import Tajweed from './pages/Tajweed';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Home": Home,
-    "Tajweed": Tajweed,
-    "Alphabet": Alphabet,
-    "Progress": Progress,
-    "Games": Games,
     "AdminPanel": AdminPanel,
+    "Alphabet": Alphabet,
+    "Games": Games,
+    "Home": Home,
+    "Progress": Progress,
+    "Tajweed": Tajweed,
 }
 
 export const pagesConfig = {

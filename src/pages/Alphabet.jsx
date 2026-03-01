@@ -6,6 +6,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import LetterCard from "@/components/alphabet/LetterCard";
 import LetterLearningView from "@/components/alphabet/LetterLearningView";
+import SyllablesView from "@/components/alphabet/SyllablesView";
+import WordsView from "@/components/alphabet/WordsView";
+import ExercisesView from "@/components/alphabet/ExercisesView";
+import NumbersView from "@/components/alphabet/NumbersView";
 
 const languages = [
   { value: "shqip", label: "🇦🇱 Shqip" },
