@@ -53,6 +53,8 @@ import Games from './pages/Games';
 import Home from './pages/Home';
 import Progress from './pages/Progress';
 import Tajweed from './pages/Tajweed';
+import Quran from './pages/Quran';
+import UmraHajj from './pages/UmraHajj';
 import __Layout from './Layout.jsx';
 
 
@@ -63,6 +65,8 @@ export const PAGES = {
     "Home": Home,
     "Progress": Progress,
     "Tajweed": Tajweed,
+    "Quran": Quran,
+    "UmraHajj": UmraHajj,
 }
 
 export const pagesConfig = {
