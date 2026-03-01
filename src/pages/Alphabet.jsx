@@ -186,17 +186,10 @@ export default function Alphabet() {
         </>
       )}
 
-      {activeTab !== "germat" && (
-        <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
-          <p className="text-gray-500 text-lg font-medium">
-            {activeTab === "rrokjet" && "Rrokjet — së shpejti"}
-            {activeTab === "fjalët" && "Fjalët — së shpejti"}
-            {activeTab === "ushtrime" && "Ushtrimet — së shpejti"}
-            {activeTab === "numrat" && "Numrat — së shpejti"}
-          </p>
-          <p className="text-gray-400 text-sm mt-1">Ky seksion do të shtohet së shpejti</p>
-        </div>
-      )}
+      {activeTab === "rrokjet" && <SyllablesView language={selectedLang} />}
+      {activeTab === "fjalët" && <WordsView language={selectedLang} />}
+      {activeTab === "ushtrime" && <ExercisesView language={selectedLang} />}
+      {activeTab === "numrat" && <NumbersView language={selectedLang} />}
     </div>
   );
 }
