@@ -12,9 +12,9 @@ import {
   Menu,
   X,
   LogOut,
-  ChevronDown,
   Languages,
-  Scroll
+  Scroll,
+  MapPin
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
