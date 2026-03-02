@@ -19,8 +19,8 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
   const [showQuiz, setShowQuiz] = useState(false);
   const [passedLetters, setPassedLetters] = useState({});
   const [scores, setScores] = useState({});
-  const [voiceRecorded, setVoiceRecorded] = useState(false);
-  const [drawingSubmitted, setDrawingSubmitted] = useState(false);
+  const [drawingScore, setDrawingScore] = useState(null);
+  const [voiceScore, setVoiceScore] = useState(null);
 
   const letter = letters[currentIndex];
   const totalLetters = letters.length;
