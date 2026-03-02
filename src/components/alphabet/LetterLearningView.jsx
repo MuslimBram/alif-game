@@ -167,21 +167,39 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
         )}
       </div>
 
-      {/* Drawing + Voice (no separate listen section - VoiceRecorder has it built in) */}
+      {/* Drawing + Voice — each evaluated separately */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-white rounded-2xl border border-gray-100 p-5">
+        <div className={`bg-white rounded-2xl border-2 p-5 transition-all ${drawingScore !== null ? (drawingScore >= 60 ? "border-emerald-300" : "border-amber-300") : "border-gray-100"}`}>
           <DrawingCanvas
+            key={letter.id + "-draw"}
             letter={letter}
-            onResult={(r) => setDrawingSubmitted(r.passed)}
+            onResult={(r) => setDrawingScore(r.score)}
           />
         </div>
-        <div className="bg-white rounded-2xl border border-gray-100 p-5">
+        <div className={`bg-white rounded-2xl border-2 p-5 transition-all ${voiceScore !== null ? (voiceScore >= 60 ? "border-emerald-300" : "border-amber-300") : "border-gray-100"}`}>
           <VoiceRecorder
+            key={letter.id + "-voice"}
             letter={letter}
-            onResult={(r) => setVoiceRecorded(r.passed)}
+            onResult={(r) => setVoiceScore(r.score)}
           />
         </div>
       </div>
+
+      {/* Progress badges */}
+      {(drawingScore !== null || voiceScore !== null) && (
+        <div className="flex gap-3 flex-wrap">
+          {drawingScore !== null && (
+            <div className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold ${drawingScore >= 60 ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+              ✏️ Vizatim: {drawingScore}/100 {drawingScore >= 60 ? "✓" : "↺"}
+            </div>
+          )}
+          {voiceScore !== null && (
+            <div className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold ${voiceScore >= 60 ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+              🎤 Shqiptim: {voiceScore}/100 {voiceScore >= 60 ? "✓" : "↺"}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Quiz Section */}
       {!showQuiz ? (
