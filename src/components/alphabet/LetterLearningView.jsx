@@ -28,8 +28,8 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
   useEffect(() => {
     setActiveForm("uppercase");
     setShowQuiz(false);
-    setVoiceRecorded(false);
-    setDrawingSubmitted(false);
+    setDrawingScore(null);
+    setVoiceScore(null);
   }, [currentIndex]);
 
   if (!letter) return null;
