@@ -52,8 +52,8 @@ import Alphabet from './pages/Alphabet';
 import Games from './pages/Games';
 import Home from './pages/Home';
 import Progress from './pages/Progress';
-import Tajweed from './pages/Tajweed';
 import Quran from './pages/Quran';
+import Tajweed from './pages/Tajweed';
 import UmraHajj from './pages/UmraHajj';
 import __Layout from './Layout.jsx';
 
@@ -64,8 +64,8 @@ export const PAGES = {
     "Games": Games,
     "Home": Home,
     "Progress": Progress,
-    "Tajweed": Tajweed,
     "Quran": Quran,
+    "Tajweed": Tajweed,
     "UmraHajj": UmraHajj,
 }
 

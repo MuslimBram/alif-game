@@ -1,8 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, ChevronDown, ChevronUp, Volume2, Search, Star, Play } from "lucide-react";
+import { BookOpen, ChevronDown, ChevronUp, Volume2, Search, Heart, CheckCircle, RotateCcw, Trophy, BookMarked, List, SortAsc } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { base44 } from "@/api/base44Client";
+
+// Revelation order (kronologjike) - indeksi i çdo sureje sipas renditjes së shpalljes
+const REVELATION_ORDER = {
+  96:1,74:2,73:3,87:4,92:5,89:6,93:7,94:8,103:9,100:10,
+  108:11,102:12,107:13,109:14,105:15,113:16,114:17,112:18,53:19,80:20,
+  97:21,91:22,85:23,95:24,106:25,101:26,75:27,104:28,77:29,50:30,
+  90:31,86:32,54:33,38:34,7:35,72:36,36:37,25:38,35:39,19:40,
+  20:41,56:42,26:43,27:44,28:45,17:46,10:47,11:48,12:49,15:50,
+  6:51,37:52,31:53,34:54,39:55,40:56,41:57,42:58,43:59,44:60,
+  45:61,46:62,51:63,88:64,18:65,16:66,71:67,14:68,21:69,23:70,
+  32:71,52:72,67:73,69:74,70:75,78:76,79:77,82:78,84:79,30:80,
+  29:81,83:82,2:83,8:84,3:85,33:86,60:87,4:88,99:89,57:90,
+  47:91,13:92,55:93,76:94,65:95,98:96,59:97,24:98,22:99,63:100,
+  58:101,49:102,66:103,64:104,61:105,62:106,48:107,5:108,9:109,110:110,
+};
 
 const SURAHS = [
   { num: 1, name: "Al-Fatiha", name_sq: "Hapja", arabic: "الفاتحة", verses: 7, type: "Mekase", revelation: "Meke" },
@@ -121,187 +137,440 @@ const SURAHS = [
   { num: 114, name: "An-Nas", name_sq: "Njerëzit", arabic: "الناس", verses: 6, type: "Mekase", revelation: "Meke" },
 ];
 
-const JUZ_SHORT = [
-  { juz: 1, from: 1, to: 2 }, { juz: 2, from: 2, to: 2 }, { juz: 3, from: 2, to: 3 },
-  { juz: 30, from: 78, to: 114 },
+const QUIZ_QUESTIONS = [
+  { q: "Cila sure është e para sipas renditjes në Kur'an?", options: ["Al-Baqarah", "Al-Fatiha", "Al-'Alaq", "Al-Ikhlas"], correct: "Al-Fatiha" },
+  { q: "Cila sure është shpallur e para (sipas renditjes kronologjike)?", options: ["Al-Fatiha", "Al-Baqarah", "Al-'Alaq", "Al-Mudaththir"], correct: "Al-'Alaq" },
+  { q: "Sa ajete ka Sure Al-Baqarah?", options: ["200", "256", "286", "300"], correct: "286" },
+  { q: "Cila sure ka vetëm 3 ajete?", options: ["Al-Ikhlas", "Al-Kawthar", "An-Nasr", "Al-Falaq"], correct: "Al-Kawthar" },
+  { q: "Sa sure ka Kur'ani?", options: ["100", "110", "114", "120"], correct: "114" },
+  { q: "Sureja Al-Fatiha quhet ndryshe?", options: ["Umm Al-Quran", "Al-Mulk", "Ya-Sin", "Al-Baqarah"], correct: "Umm Al-Quran" },
+  { q: "Sa ajete ka Sure Al-Ikhlas?", options: ["3", "4", "5", "6"], correct: "4" },
+  { q: "Cila sure quhet 'Zemra e Kur'anit'?", options: ["Al-Fatiha", "Al-Baqarah", "Ya-Sin", "Al-Mulk"], correct: "Ya-Sin" },
+  { q: "Sureja Al-Kahf - sa ajete ka?", options: ["100", "110", "120", "108"], correct: "110" },
+  { q: "Cila sure quhet 'Kursi' (ajeti)?", options: ["Al-Fatiha", "Al-Baqarah ajet 255", "Al-Ikhlas", "Al-Mulk"], correct: "Al-Baqarah ajet 255" },
+  { q: "Sureja Al-Mulk sa ajete ka?", options: ["25", "28", "30", "32"], correct: "30" },
+  { q: "Sa xhuz ka Kur'ani?", options: ["20", "25", "30", "114"], correct: "30" },
+  { q: "Cila sure është e fundit sipas renditjes kronologjike të shpalljes?", options: ["An-Nas", "Al-Ikhlas", "An-Nasr", "Al-Ma'idah"], correct: "An-Nasr" },
+  { q: "Sure Ar-Rahman - çfarë ajeti përsëritet?", options: ["Subhanallah", "Alhamdulillah", "Allahu Akbar", "Febe ejje ala'i rabbikuma tukedhdhibani"], correct: "Febe ejje ala'i rabbikuma tukedhdhibani" },
+  { q: "Sa ajete ka Sure Al-Fatiha?", options: ["5", "6", "7", "8"], correct: "7" },
 ];
+
+const STORAGE_KEY = "quran_progress";
+
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch { return {}; }
+}
+function saveProgress(p) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+}
 
 export default function Quran() {
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("te_gjitha"); // te_gjitha | mekase | medinase
+  const [filter, setFilter] = useState("te_gjitha");
+  const [sortMode, setSortMode] = useState("mushaf"); // mushaf | revelation | favorites
   const [expanded, setExpanded] = useState(null);
-  const [viewMode, setViewMode] = useState("list"); // list | juz
+  const [tab, setTab] = useState("suret"); // suret | quiz | progress
+  const [favorites, setFavorites] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("quran_favorites") || "[]"); } catch { return []; }
+  });
+  const [progress, setProgress] = useState(loadProgress); // { [num]: "memorized" | "learning" | "read" }
+  const [lastRead, setLastRead] = useState(() => {
+    try { return parseInt(localStorage.getItem("quran_last_read") || "1"); } catch { return 1; }
+  });
 
-  const filtered = SURAHS.filter(s => {
+  // Quiz state
+  const [quizIdx, setQuizIdx] = useState(0);
+  const [answered, setAnswered] = useState(null);
+  const [score, setScore] = useState(0);
+  const [timer, setTimer] = useState(20);
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [quizFinished, setQuizFinished] = useState(false);
+
+  useEffect(() => {
+    if (!quizStarted || quizFinished || tab !== "quiz") return;
+    if (timer <= 0) { handleAnswer(null); return; }
+    const t = setInterval(() => setTimer(p => p - 1), 1000);
+    return () => clearInterval(t);
+  }, [timer, quizStarted, quizFinished, tab, quizIdx]);
+
+  const startQuiz = () => {
+    setQuizIdx(0); setAnswered(null); setScore(0); setTimer(20);
+    setQuizFinished(false); setQuizStarted(true);
+  };
+
+  const handleAnswer = (opt) => {
+    if (answered !== null) return;
+    const isCorrect = opt === QUIZ_QUESTIONS[quizIdx].correct;
+    setAnswered({ selected: opt, correct: QUIZ_QUESTIONS[quizIdx].correct, isCorrect });
+    if (isCorrect) setScore(s => s + 1);
+    setTimeout(() => {
+      if (quizIdx + 1 >= QUIZ_QUESTIONS.length) { setQuizFinished(true); return; }
+      setQuizIdx(i => i + 1); setTimer(20); setAnswered(null);
+    }, 1300);
+  };
+
+  const toggleFavorite = (num) => {
+    const next = favorites.includes(num) ? favorites.filter(f => f !== num) : [...favorites, num];
+    setFavorites(next);
+    localStorage.setItem("quran_favorites", JSON.stringify(next));
+  };
+
+  const markProgress = (num, status) => {
+    const next = { ...progress, [num]: status };
+    setProgress(next);
+    saveProgress(next);
+    setLastRead(num);
+    localStorage.setItem("quran_last_read", num.toString());
+  };
+
+  const speakArabic = (text) => {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "ar-SA";
+    const voices = window.speechSynthesis.getVoices();
+    const arVoice = voices.find(v => v.lang.startsWith("ar"));
+    if (arVoice) u.voice = arVoice;
+    u.rate = 0.6;
+    window.speechSynthesis.speak(u);
+  };
+
+  const getSorted = (list) => {
+    if (sortMode === "revelation") return [...list].sort((a, b) => (REVELATION_ORDER[a.num] || 999) - (REVELATION_ORDER[b.num] || 999));
+    if (sortMode === "favorites") return list.filter(s => favorites.includes(s.num));
+    return list;
+  };
+
+  const filtered = getSorted(SURAHS.filter(s => {
     const matchSearch = s.name.toLowerCase().includes(search.toLowerCase()) ||
       s.name_sq.toLowerCase().includes(search.toLowerCase()) ||
       s.arabic.includes(search) ||
       s.num.toString() === search;
     const matchType = filter === "te_gjitha" || s.type.toLowerCase() === filter;
     return matchSearch && matchType;
-  });
+  }));
 
-  const speakArabic = (text) => {
-    if (!window.speechSynthesis) return;
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = "ar";
-    u.rate = 0.6;
-    window.speechSynthesis.speak(u);
-  };
+  const memorized = Object.values(progress).filter(v => v === "memorized").length;
+  const learning = Object.values(progress).filter(v => v === "learning").length;
+  const read = Object.values(progress).filter(v => v === "read").length;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-2">
+      <div className="mb-6">
+        <div className="flex items-center gap-3 mb-4">
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-lg">
             <BookOpen className="w-6 h-6 text-white" />
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">Kur'ani Famëlartë</h1>
-            <p className="text-sm text-gray-500">114 Suretu — Lista e plotë me informacione</p>
+            <p className="text-sm text-gray-500">114 Suretu — Me gjurmim progresi dhe favoritet</p>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4 mt-6">
+        <div className="grid grid-cols-4 gap-3 mb-4">
           {[
             { label: "Suretu", value: "114", icon: "📖" },
-            { label: "Ayete gjithsej", value: "6,236", icon: "📝" },
-            { label: "Xhuz'e", value: "30", icon: "🔖" },
+            { label: "Mësuar", value: memorized, icon: "✅" },
+            { label: "Duke mësuar", value: learning, icon: "📚" },
+            { label: "Lexuar", value: read, icon: "👁️" },
           ].map(stat => (
-            <div key={stat.label} className="bg-amber-50 border border-amber-100 rounded-2xl p-4 text-center">
-              <div className="text-2xl mb-1">{stat.icon}</div>
-              <div className="text-2xl font-bold text-amber-700">{stat.value}</div>
+            <div key={stat.label} className="bg-amber-50 border border-amber-100 rounded-2xl p-3 text-center">
+              <div className="text-xl mb-1">{stat.icon}</div>
+              <div className="text-xl font-bold text-amber-700">{stat.value}</div>
               <div className="text-xs text-gray-500">{stat.label}</div>
             </div>
           ))}
         </div>
+
+        {/* Last read indicator */}
+        {lastRead && progress[lastRead] && (
+          <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2 flex items-center gap-2 mb-4">
+            <BookMarked className="w-4 h-4 text-emerald-600" />
+            <span className="text-sm text-emerald-700 font-medium">
+              Ke ngelur te: Sure {lastRead} — {SURAHS.find(s => s.num === lastRead)?.name}
+            </span>
+            <button onClick={() => setExpanded(lastRead)} className="ml-auto text-xs text-emerald-600 underline">Shko</button>
+          </div>
+        )}
       </div>
 
-      {/* Search + Filter */}
-      <div className="flex flex-wrap gap-3 mb-6">
-        <div className="relative flex-1 min-w-48">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-          <Input
-            placeholder="Kërko sure (emri, numri...)"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            className="pl-9 rounded-xl"
-          />
-        </div>
-        <div className="flex gap-2">
-          {[
-            { val: "te_gjitha", label: "Të Gjitha" },
-            { val: "mekase", label: "Mekase" },
-            { val: "medinase", label: "Medinase" },
-          ].map(f => (
-            <button key={f.val} onClick={() => setFilter(f.val)}
-              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${filter === f.val ? "bg-amber-500 text-white" : "bg-white border border-gray-200 text-gray-600 hover:border-amber-300"}`}>
-              {f.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <p className="text-sm text-gray-400 mb-4">{filtered.length} suretu gjetur</p>
-
-      {/* Surah list */}
-      <div className="space-y-2">
-        {filtered.map((surah) => (
-          <motion.div
-            key={surah.num}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-md transition-all"
-          >
-            <button
-              className="w-full flex items-center gap-4 p-4"
-              onClick={() => setExpanded(expanded === surah.num ? null : surah.num)}
-            >
-              {/* Number */}
-              <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center font-bold text-amber-700 text-sm flex-shrink-0">
-                {surah.num}
-              </div>
-
-              {/* Info */}
-              <div className="flex-1 text-left">
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-gray-900">{surah.name}</span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">{surah.name_sq}</span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${surah.type === "Mekase" ? "bg-orange-100 text-orange-700" : "bg-blue-100 text-blue-700"}`}>
-                    {surah.type}
-                  </span>
-                </div>
-                <p className="text-xs text-gray-400 mt-0.5">{surah.verses} ajete</p>
-              </div>
-
-              {/* Arabic name */}
-              <div className="text-right mr-2">
-                <p className="text-xl font-bold text-gray-800" style={{ fontFamily: "serif", direction: "rtl" }}>{surah.arabic}</p>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={e => { e.stopPropagation(); speakArabic(surah.arabic); }}
-                  className="w-8 h-8 rounded-xl bg-teal-50 flex items-center justify-center hover:bg-teal-100 transition-colors"
-                >
-                  <Volume2 className="w-4 h-4 text-teal-600" />
-                </button>
-                {expanded === surah.num
-                  ? <ChevronUp className="w-4 h-4 text-gray-400" />
-                  : <ChevronDown className="w-4 h-4 text-gray-400" />
-                }
-              </div>
-            </button>
-
-            <AnimatePresence>
-              {expanded === surah.num && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  className="border-t border-gray-100 bg-gray-50"
-                >
-                  <div className="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <h4 className="text-sm font-bold text-gray-700 mb-3">Informacione</h4>
-                      <div className="space-y-2">
-                        {[
-                          { label: "Numri", value: surah.num },
-                          { label: "Emri Latin", value: surah.name },
-                          { label: "Emri Shqip", value: surah.name_sq },
-                          { label: "Lloji", value: surah.type },
-                          { label: "Zbritja", value: surah.revelation },
-                          { label: "Numri i Ajeteve", value: surah.verses },
-                        ].map(item => (
-                          <div key={item.label} className="flex justify-between text-sm">
-                            <span className="text-gray-500">{item.label}:</span>
-                            <span className="font-medium text-gray-800">{item.value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="bg-amber-50 rounded-xl p-4 text-center border border-amber-100">
-                      <p className="text-xs text-amber-600 mb-2 font-medium">Emri Arabisht</p>
-                      <p className="text-4xl font-bold text-gray-900 mb-3" style={{ fontFamily: "serif", direction: "rtl" }}>
-                        {surah.arabic}
-                      </p>
-                      <p className="text-sm text-gray-600 mb-3">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
-                      <p className="text-xs text-gray-400 italic">Bismillahi r-Rahmani r-Rahim</p>
-                      <Button
-                        size="sm"
-                        onClick={() => speakArabic(surah.arabic)}
-                        className="mt-3 bg-amber-500 hover:bg-amber-600 text-white rounded-xl"
-                      >
-                        <Volume2 className="w-3.5 h-3.5 mr-1.5" /> Dëgjo
-                      </Button>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
+      {/* Main Tabs */}
+      <div className="flex gap-2 mb-5 bg-gray-100 p-1 rounded-2xl w-fit">
+        {[
+          { val: "suret", label: "📖 Suret" },
+          { val: "quiz", label: "🎯 Kuiz" },
+          { val: "progress", label: "📊 Progresi" },
+        ].map(t => (
+          <button key={t.val} onClick={() => setTab(t.val)}
+            className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${tab === t.val ? "bg-white shadow text-amber-700" : "text-gray-500 hover:text-gray-700"}`}>
+            {t.label}
+          </button>
         ))}
       </div>
+
+      {/* SURET TAB */}
+      {tab === "suret" && (
+        <>
+          {/* Search + Filter */}
+          <div className="flex flex-wrap gap-3 mb-4">
+            <div className="relative flex-1 min-w-48">
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <Input placeholder="Kërko sure..." value={search} onChange={e => setSearch(e.target.value)} className="pl-9 rounded-xl" />
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {[
+                { val: "te_gjitha", label: "Të Gjitha" },
+                { val: "mekase", label: "Mekase" },
+                { val: "medinase", label: "Medinase" },
+              ].map(f => (
+                <button key={f.val} onClick={() => setFilter(f.val)}
+                  className={`px-3 py-2 rounded-xl text-sm font-medium transition-all ${filter === f.val ? "bg-amber-500 text-white" : "bg-white border border-gray-200 text-gray-600 hover:border-amber-300"}`}>
+                  {f.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Sort mode */}
+          <div className="flex gap-2 mb-4">
+            {[
+              { val: "mushaf", icon: <List className="w-3.5 h-3.5" />, label: "Mushaf" },
+              { val: "revelation", icon: <SortAsc className="w-3.5 h-3.5" />, label: "Shpallja" },
+              { val: "favorites", icon: <Heart className="w-3.5 h-3.5" />, label: `Favoritet (${favorites.length})` },
+            ].map(s => (
+              <button key={s.val} onClick={() => setSortMode(s.val)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${sortMode === s.val ? "bg-amber-500 text-white" : "bg-white border border-gray-200 text-gray-600"}`}>
+                {s.icon} {s.label}
+              </button>
+            ))}
+          </div>
+
+          <p className="text-sm text-gray-400 mb-3">{filtered.length} suretu</p>
+
+          {filtered.length === 0 && (
+            <div className="text-center py-12 text-gray-400">
+              {sortMode === "favorites" ? "Nuk ke shtuar favoritet ende. Klikoni zemrën te ndonjë sure." : "Asnjë sure nuk u gjet."}
+            </div>
+          )}
+
+          <div className="space-y-2">
+            {filtered.map((surah) => {
+              const revOrder = REVELATION_ORDER[surah.num];
+              const isFav = favorites.includes(surah.num);
+              const prog = progress[surah.num];
+              return (
+                <motion.div key={surah.num} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                  className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-md transition-all">
+                  <div className="w-full flex items-center gap-3 p-4">
+                    {/* Number */}
+                    <button onClick={() => setExpanded(expanded === surah.num ? null : surah.num)}
+                      className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center font-bold text-amber-700 text-sm flex-shrink-0">
+                      {surah.num}
+                    </button>
+
+                    {/* Info */}
+                    <button className="flex-1 text-left" onClick={() => setExpanded(expanded === surah.num ? null : surah.num)}>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-bold text-gray-900">{surah.name}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">{surah.name_sq}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${surah.type === "Mekase" ? "bg-orange-100 text-orange-700" : "bg-blue-100 text-blue-700"}`}>{surah.type}</span>
+                        {prog && <span className={`text-xs px-2 py-0.5 rounded-full ${prog === "memorized" ? "bg-emerald-100 text-emerald-700" : prog === "learning" ? "bg-blue-100 text-blue-600" : "bg-gray-100 text-gray-600"}`}>{prog === "memorized" ? "✅ Mësuar" : prog === "learning" ? "📚 Duke mësuar" : "👁️ Lexuar"}</span>}
+                      </div>
+                      <p className="text-xs text-gray-400 mt-0.5">{surah.verses} ajete{revOrder ? ` · Shpallje #${revOrder}` : ""}</p>
+                    </button>
+
+                    {/* Arabic + Controls */}
+                    <div className="flex items-center gap-2">
+                      <p className="text-xl font-bold text-gray-800 hidden sm:block" style={{ fontFamily: "serif", direction: "rtl" }}>{surah.arabic}</p>
+                      <button onClick={e => { e.stopPropagation(); speakArabic(surah.arabic); }}
+                        className="w-8 h-8 rounded-xl bg-teal-50 flex items-center justify-center hover:bg-teal-100 transition-colors">
+                        <Volume2 className="w-4 h-4 text-teal-600" />
+                      </button>
+                      <button onClick={e => { e.stopPropagation(); toggleFavorite(surah.num); }}
+                        className={`w-8 h-8 rounded-xl flex items-center justify-center transition-colors ${isFav ? "bg-red-50 text-red-500" : "bg-gray-50 text-gray-300 hover:text-red-400"}`}>
+                        <Heart className={`w-4 h-4 ${isFav ? "fill-current" : ""}`} />
+                      </button>
+                      <button onClick={() => setExpanded(expanded === surah.num ? null : surah.num)}>
+                        {expanded === surah.num ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <AnimatePresence>
+                    {expanded === surah.num && (
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                        className="border-t border-gray-100 bg-gray-50">
+                        <div className="p-5 space-y-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="text-sm font-bold text-gray-700 mb-3">Informacione</h4>
+                              <div className="space-y-1.5">
+                                {[
+                                  { label: "Numri (Mushaf)", value: surah.num },
+                                  { label: "Renditja e Shpalljes", value: revOrder ? `#${revOrder} nga 114` : "—" },
+                                  { label: "Emri Latin", value: surah.name },
+                                  { label: "Emri Shqip", value: surah.name_sq },
+                                  { label: "Lloji", value: surah.type },
+                                  { label: "Zbritja", value: surah.revelation },
+                                  { label: "Numri i Ajeteve", value: surah.verses },
+                                ].map(item => (
+                                  <div key={item.label} className="flex justify-between text-sm">
+                                    <span className="text-gray-500">{item.label}:</span>
+                                    <span className="font-medium text-gray-800">{item.value}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="space-y-3">
+                              <div className="bg-amber-50 rounded-xl p-4 text-center border border-amber-100">
+                                <p className="text-xs text-amber-600 mb-2 font-medium">Bismillah</p>
+                                <p className="text-2xl font-bold text-gray-900 mb-1" style={{ fontFamily: "serif", direction: "rtl" }}>{surah.arabic}</p>
+                                <p className="text-xs text-gray-400 italic mb-2">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+                                <Button size="sm" onClick={() => speakArabic(surah.arabic)} className="bg-amber-500 hover:bg-amber-600 text-white rounded-xl">
+                                  <Volume2 className="w-3.5 h-3.5 mr-1.5" /> Dëgjo Emrin
+                                </Button>
+                              </div>
+                              {/* Progress marking */}
+                              <div className="bg-white rounded-xl p-3 border border-gray-100">
+                                <p className="text-xs font-semibold text-gray-600 mb-2">Shëno Progresin:</p>
+                                <div className="flex gap-2 flex-wrap">
+                                  {[
+                                    { val: "read", label: "👁️ Lexova", cls: "bg-gray-100 text-gray-700 hover:bg-gray-200" },
+                                    { val: "learning", label: "📚 Duke mësuar", cls: "bg-blue-50 text-blue-700 hover:bg-blue-100" },
+                                    { val: "memorized", label: "✅ Mësova", cls: "bg-emerald-50 text-emerald-700 hover:bg-emerald-100" },
+                                  ].map(p => (
+                                    <button key={p.val} onClick={() => markProgress(surah.num, p.val)}
+                                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border-2 ${progress[surah.num] === p.val ? "border-emerald-400 ring-2 ring-emerald-200" : "border-transparent"} ${p.cls}`}>
+                                      {p.label}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </div>
+        </>
+      )}
+
+      {/* QUIZ TAB */}
+      {tab === "quiz" && (
+        <div>
+          {!quizStarted && !quizFinished && (
+            <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
+              <div className="text-5xl mb-4">📖</div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Kuiz — Kur'ani</h3>
+              <p className="text-gray-500 mb-2">{QUIZ_QUESTIONS.length} pyetje, 20 sekonda secila</p>
+              <p className="text-sm text-amber-600 mb-6">Testo njohuritë e tua për suret, ajetet dhe renditjen!</p>
+              <Button onClick={startQuiz} className="bg-amber-500 hover:bg-amber-600 text-white rounded-xl px-8">Fillo Kuizin</Button>
+            </div>
+          )}
+          {quizStarted && !quizFinished && (
+            <div className="bg-white rounded-2xl border border-gray-100 p-5">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-sm font-semibold text-gray-600">Pyetja {quizIdx + 1}/{QUIZ_QUESTIONS.length}</span>
+                <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold ${timer <= 5 ? "bg-red-100 text-red-600 animate-pulse" : "bg-amber-100 text-amber-700"}`}>
+                  ⏱ {timer}s
+                </div>
+                <span className="text-sm font-semibold text-emerald-600">✓ {score}</span>
+              </div>
+              <div className="bg-amber-50 rounded-2xl p-6 text-center mb-5">
+                <p className="text-lg font-semibold text-gray-800">{QUIZ_QUESTIONS[quizIdx].q}</p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {QUIZ_QUESTIONS[quizIdx].options.map(opt => {
+                  let cls = "border-gray-200 bg-white text-gray-800 hover:border-amber-300 hover:bg-amber-50";
+                  if (answered) {
+                    if (opt === answered.correct) cls = "border-emerald-500 bg-emerald-50 text-emerald-800";
+                    else if (opt === answered.selected && !answered.isCorrect) cls = "border-red-400 bg-red-50 text-red-700";
+                    else cls = "border-gray-100 bg-gray-50 text-gray-400";
+                  }
+                  return (
+                    <button key={opt} disabled={!!answered} onClick={() => handleAnswer(opt)}
+                      className={`border-2 rounded-2xl p-4 font-semibold text-sm text-center transition-all ${cls}`}>
+                      {opt}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+          {quizFinished && (
+            <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
+              <Trophy className="w-14 h-14 text-amber-400 mx-auto mb-3" />
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">Kuizi Mbaroi!</h3>
+              <p className="text-5xl font-bold text-amber-600 mb-2">{score}/{QUIZ_QUESTIONS.length}</p>
+              <p className="text-gray-500 mb-6">{score >= 12 ? "Mashallah! Njohuri të shkëlqyera! 🌟" : score >= 8 ? "Shumë mirë! 👍" : "Vazhdo të stërvitesh! 💪"}</p>
+              <Button onClick={startQuiz} className="bg-amber-500 hover:bg-amber-600 text-white rounded-xl px-8">
+                <RotateCcw className="w-4 h-4 mr-2" /> Provo Sërish
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* PROGRESS TAB */}
+      {tab === "progress" && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-3 gap-4 mb-4">
+            {[
+              { label: "Mësuar", count: memorized, color: "bg-emerald-100 text-emerald-700 border-emerald-200", icon: "✅" },
+              { label: "Duke mësuar", count: learning, color: "bg-blue-100 text-blue-700 border-blue-200", icon: "📚" },
+              { label: "Lexuar", count: read, color: "bg-gray-100 text-gray-700 border-gray-200", icon: "👁️" },
+            ].map(s => (
+              <div key={s.label} className={`rounded-2xl border p-4 text-center ${s.color}`}>
+                <div className="text-2xl mb-1">{s.icon}</div>
+                <div className="text-3xl font-bold">{s.count}/114</div>
+                <div className="text-sm font-medium">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Progress bar */}
+          <div className="bg-white rounded-2xl border border-gray-100 p-5">
+            <p className="text-sm font-bold text-gray-700 mb-3">Progresi Total</p>
+            <div className="w-full bg-gray-100 rounded-full h-4 mb-2">
+              <div className="bg-emerald-500 h-4 rounded-full transition-all" style={{ width: `${(memorized / 114) * 100}%` }} />
+            </div>
+            <p className="text-xs text-gray-500">{memorized} nga 114 sure të mësuara ({Math.round((memorized / 114) * 100)}%)</p>
+          </div>
+
+          {/* List of tracked surahs */}
+          {Object.keys(progress).length === 0 ? (
+            <div className="text-center py-8 text-gray-400">
+              <p>Nuk ke shënuar asnjë progres ende.</p>
+              <p className="text-sm mt-1">Shko te "Suret" dhe kliko mbi ndonjë sure për të shënuar progresin.</p>
+            </div>
+          ) : (
+            <div className="bg-white rounded-2xl border border-gray-100 divide-y divide-gray-50">
+              {Object.entries(progress).sort(([a], [b]) => parseInt(a) - parseInt(b)).map(([num, status]) => {
+                const s = SURAHS.find(x => x.num === parseInt(num));
+                if (!s) return null;
+                return (
+                  <div key={num} className="flex items-center gap-3 px-4 py-3">
+                    <span className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-xs font-bold text-amber-700">{num}</span>
+                    <div className="flex-1">
+                      <p className="text-sm font-semibold text-gray-800">{s.name}</p>
+                      <p className="text-xs text-gray-500">{s.name_sq} · {s.verses} ajete</p>
+                    </div>
+                    <span className={`text-xs px-2 py-1 rounded-full font-semibold ${status === "memorized" ? "bg-emerald-100 text-emerald-700" : status === "learning" ? "bg-blue-100 text-blue-600" : "bg-gray-100 text-gray-600"}`}>
+                      {status === "memorized" ? "✅ Mësuar" : status === "learning" ? "📚 Duke mësuar" : "👁️ Lexuar"}
+                    </span>
+                    <button onClick={() => { const n = { ...progress }; delete n[num]; setProgress(n); saveProgress(n); }}
+                      className="text-gray-300 hover:text-red-400 transition-colors text-lg">×</button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
