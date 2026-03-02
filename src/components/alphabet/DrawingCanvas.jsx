@@ -107,7 +107,11 @@ export default function DrawingCanvas({ letter, onResult }) {
     if (!hasDrawing) return;
     setLoading(true);
     const canvas = canvasRef.current;
-    const dataUrl = canvas.toDataURL("image/png");
+
+    // Convert canvas to blob and upload it
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+    const file = new File([blob], "drawing.png", { type: "image/png" });
+    const { file_url } = await base44.integrations.Core.UploadFile({ file });
 
     const res = await base44.integrations.Core.InvokeLLM({
       prompt: `You are evaluating a student's attempt to draw/write the letter "${letter?.letter}" (${letter?.language} language, pronunciation: "${letter?.pronunciation}").
@@ -125,7 +129,7 @@ export default function DrawingCanvas({ letter, onResult }) {
       - 85-100: very good or perfect
       
       IMPORTANT: Respond ONLY in Albanian language. Be encouraging and specific.`,
-      file_urls: [dataUrl],
+      file_urls: [file_url],
       response_json_schema: {
         type: "object",
         properties: {
