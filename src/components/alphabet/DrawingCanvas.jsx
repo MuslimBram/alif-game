@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Eraser, Send, Pencil, CheckCircle, Loader2, Star } from "lucide-react";
+import { Eraser, Send, Pencil, CheckCircle, Loader2, Star, RotateCcw } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
 export default function DrawingCanvas({ letter, onResult }) {
@@ -8,18 +8,36 @@ export default function DrawingCanvas({ letter, onResult }) {
   const [isDrawing, setIsDrawing] = useState(false);
   const [hasDrawing, setHasDrawing] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null); // { score, feedback, passed }
+  const [result, setResult] = useState(null);
 
-  // Fix: resize canvas to match its display size
+  // Reset when letter changes
+  useEffect(() => {
+    setResult(null);
+    setHasDrawing(false);
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }, [letter?.letter]);
+
+  // Resize canvas to match display size
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      // Only resize if different to avoid clearing unnecessarily
-      if (canvas.width !== rect.width || canvas.height !== rect.height) {
-        canvas.width = rect.width;
-        canvas.height = rect.height;
+      if (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)) {
+        // Save drawing before resize
+        const imageData = canvas.toDataURL();
+        canvas.width = Math.round(rect.width);
+        canvas.height = Math.round(rect.height);
+        // Restore drawing
+        if (hasDrawing) {
+          const img = new Image();
+          img.src = imageData;
+          img.onload = () => canvas.getContext("2d").drawImage(img, 0, 0);
+        }
       }
     };
     resize();
@@ -64,7 +82,7 @@ export default function DrawingCanvas({ letter, onResult }) {
     ctx.moveTo(lastPosRef.current.x, lastPosRef.current.y);
     ctx.lineTo(pos.x, pos.y);
     ctx.strokeStyle = "#1a1a2e";
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.stroke();
@@ -91,22 +109,22 @@ export default function DrawingCanvas({ letter, onResult }) {
     const canvas = canvasRef.current;
     const dataUrl = canvas.toDataURL("image/png");
 
-    // Use AI to evaluate the drawing
     const res = await base44.integrations.Core.InvokeLLM({
-      prompt: `You are evaluating a child's attempt to draw/write the letter "${letter?.letter}" (${letter?.language} language, pronunciation: "${letter?.pronunciation}").
-      The image shows their drawing attempt. 
-      Please evaluate:
-      1. Does it look like the letter "${letter?.letter}"? (most important)
-      2. Is the proportions good?
-      3. General quality
+      prompt: `You are evaluating a student's attempt to draw/write the letter "${letter?.letter}" (${letter?.language} language, pronunciation: "${letter?.pronunciation}").
+      The image shows their drawing on a white canvas.
       
-      Give a score from 0-100. Be encouraging but honest.
-      If it's mostly blank or just a scribble with no resemblance, give score 10-30.
-      If it vaguely looks like the letter, give 40-60.
-      If it clearly looks like the letter, give 70-90.
-      If it's perfect, give 91-100.
+      Evaluate ONLY the drawing quality:
+      1. Does it look like the letter "${letter?.letter}"? (most important - 60%)
+      2. Proportions and stroke quality (20%)
+      3. Legibility (20%)
       
-      Respond in Albanian language.`,
+      Score from 0-100:
+      - 0-20: blank canvas or unrecognizable scribble
+      - 30-50: vague resemblance
+      - 60-80: clearly the letter, minor issues
+      - 85-100: very good or perfect
+      
+      IMPORTANT: Respond ONLY in Albanian language. Be encouraging and specific.`,
       file_urls: [dataUrl],
       response_json_schema: {
         type: "object",
@@ -118,7 +136,7 @@ export default function DrawingCanvas({ letter, onResult }) {
       }
     });
 
-    const score = res.score || 50;
+    const score = typeof res.score === "number" ? res.score : 50;
     const passed = score >= 60;
     setResult({ score, feedback: res.feedback, tips: res.tips, passed });
     onResult && onResult({ score, passed });
@@ -132,30 +150,56 @@ export default function DrawingCanvas({ letter, onResult }) {
         <span className="text-sm font-semibold text-gray-700">Vizato Shkronjën</span>
       </div>
       <p className="text-xs text-orange-500 mb-3">
-        Vizato shkronjën "<strong>{letter?.letter}</strong>" brenda kutisë!
+        Vizato shkronjën{" "}
+        <strong
+          style={letter?.language === "arabisht" ? { fontFamily: "serif", fontSize: "1.1em" } : {}}
+        >
+          "{letter?.letter}"
+        </strong>{" "}
+        brenda kutisë!
       </p>
 
-      <canvas
-        ref={canvasRef}
-        className="w-full h-48 border-2 border-dashed border-gray-300 rounded-xl bg-white cursor-crosshair touch-none block"
-        onMouseDown={startDrawing}
-        onMouseMove={draw}
-        onMouseUp={stopDrawing}
-        onMouseLeave={stopDrawing}
-        onTouchStart={startDrawing}
-        onTouchMove={draw}
-        onTouchEnd={stopDrawing}
-      />
+      {/* Reference letter faint in background */}
+      <div className="relative">
+        <canvas
+          ref={canvasRef}
+          className="w-full h-52 border-2 border-dashed border-orange-200 rounded-xl bg-white cursor-crosshair touch-none block"
+          onMouseDown={startDrawing}
+          onMouseMove={draw}
+          onMouseUp={stopDrawing}
+          onMouseLeave={stopDrawing}
+          onTouchStart={startDrawing}
+          onTouchMove={draw}
+          onTouchEnd={stopDrawing}
+        />
+        {/* Faint guide letter */}
+        {!hasDrawing && (
+          <div
+            className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+            style={{ opacity: 0.08 }}
+          >
+            <span
+              className="font-bold text-gray-900"
+              style={{
+                fontSize: "8rem",
+                fontFamily: letter?.language === "arabisht" ? "serif" : "inherit",
+              }}
+            >
+              {letter?.letter}
+            </span>
+          </div>
+        )}
+      </div>
 
       <div className="flex gap-2 mt-3">
-        <Button variant="outline" size="sm" onClick={clearCanvas} className="rounded-xl text-gray-500">
+        <Button variant="outline" size="sm" onClick={clearCanvas} className="rounded-xl text-gray-500 border-gray-200">
           <Eraser className="w-3.5 h-3.5 mr-1.5" /> Fshi
         </Button>
         <Button
           size="sm"
           disabled={!hasDrawing || loading}
           onClick={handleSubmit}
-          className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl"
+          className="flex-1 bg-orange-500 hover:bg-orange-600 text-white rounded-xl"
         >
           {loading ? (
             <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Duke vlerësuar...</>
@@ -175,10 +219,15 @@ export default function DrawingCanvas({ letter, onResult }) {
             <span className={`font-bold text-lg ${result.passed ? "text-emerald-700" : "text-amber-700"}`}>
               {result.score}/100
             </span>
-            <span className="text-sm text-gray-600">{result.passed ? "Shkëlqyer!" : "Provo sërish!"}</span>
+            <span className="text-sm text-gray-600">{result.passed ? "Shkëlqyer! ✨" : "Provo sërish! 💪"}</span>
           </div>
           {result.feedback && <p className="text-sm text-gray-700 mb-1">{result.feedback}</p>}
           {result.tips && <p className="text-xs text-gray-500 italic">{result.tips}</p>}
+          {!result.passed && (
+            <Button size="sm" variant="outline" onClick={clearCanvas} className="mt-2 rounded-xl text-orange-600 border-orange-200">
+              <RotateCcw className="w-3.5 h-3.5 mr-1.5" /> Provo Sërish
+            </Button>
+          )}
         </div>
       )}
     </div>

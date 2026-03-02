@@ -1,7 +1,47 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Mic, MicOff, Volume2, CheckCircle, Loader2, Star } from "lucide-react";
+import { Mic, MicOff, Volume2, CheckCircle, Loader2, Star, RotateCcw } from "lucide-react";
 import { base44 } from "@/api/base44Client";
+
+// Robust TTS that waits for voices to load
+function speakText(text, lang) {
+  return new Promise((resolve) => {
+    if (!window.speechSynthesis) { resolve(); return; }
+    window.speechSynthesis.cancel();
+
+    const doSpeak = () => {
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.65;
+      u.pitch = 1;
+      u.volume = 1;
+
+      const voices = window.speechSynthesis.getVoices();
+      // Try to find best matching voice
+      const langCode = lang === "arabisht" ? "ar" : lang === "anglisht" ? "en" : "sq";
+      const exactVoice = voices.find(v => v.lang.startsWith(langCode));
+      const fallbackEn = voices.find(v => v.lang.startsWith("en"));
+      if (exactVoice) u.voice = exactVoice;
+      else if (lang !== "anglisht" && fallbackEn) u.voice = fallbackEn;
+
+      u.lang = langCode === "sq" ? "sq-AL" : langCode === "ar" ? "ar-SA" : "en-US";
+      u.onend = resolve;
+      u.onerror = resolve;
+      window.speechSynthesis.speak(u);
+    };
+
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      doSpeak();
+    } else {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.onvoiceschanged = null;
+        doSpeak();
+      };
+      // Fallback timeout
+      setTimeout(doSpeak, 500);
+    }
+  });
+}
 
 export default function VoiceRecorder({ letter, onResult }) {
   const [recording, setRecording] = useState(false);
@@ -14,25 +54,35 @@ export default function VoiceRecorder({ letter, onResult }) {
   const chunksRef = useRef([]);
   const audioBlobRef = useRef(null);
 
-  // Text-to-speech using browser SpeechSynthesis
-  const speakLetter = () => {
-    if (!window.speechSynthesis) return;
+  // Reset when letter changes
+  useEffect(() => {
+    setResult(null);
+    setAudioUrl(null);
+    setError(null);
+    audioBlobRef.current = null;
+  }, [letter?.letter]);
+
+  const speakLetter = async () => {
+    if (playingTTS) return;
     setPlayingTTS(true);
-    const utterance = new SpeechSynthesisUtterance(letter?.letter || "");
-    // Try Albanian or default
-    utterance.lang = letter?.language === "arabisht" ? "ar" : letter?.language === "anglisht" ? "en" : "sq";
-    utterance.rate = 0.7;
-    utterance.pitch = 1;
-    utterance.onend = () => setPlayingTTS(false);
-    window.speechSynthesis.speak(utterance);
+    await speakText(letter?.letter || "", letter?.language || "shqip");
+    setPlayingTTS(false);
   };
 
   const startRecording = async () => {
     setError(null);
     setResult(null);
+    setAudioUrl(null);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
+      // Try different mime types for compatibility
+      const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+        ? "audio/webm;codecs=opus"
+        : MediaRecorder.isTypeSupported("audio/webm")
+        ? "audio/webm"
+        : "audio/ogg";
+
+      const mediaRecorder = new MediaRecorder(stream, { mimeType });
       mediaRecorderRef.current = mediaRecorder;
       chunksRef.current = [];
 
@@ -41,7 +91,7 @@ export default function VoiceRecorder({ letter, onResult }) {
       };
 
       mediaRecorder.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: "audio/webm" });
+        const blob = new Blob(chunksRef.current, { type: mimeType });
         audioBlobRef.current = blob;
         const url = URL.createObjectURL(blob);
         setAudioUrl(url);
@@ -51,7 +101,7 @@ export default function VoiceRecorder({ letter, onResult }) {
       mediaRecorder.start();
       setRecording(true);
     } catch (e) {
-      setError("Nuk mund të aksesohet mikrofoni. Lejoni aksesin në browser.");
+      setError("Nuk mund të aksesohet mikrofoni. Lejo aksesin në browser.");
     }
   };
 
@@ -66,24 +116,25 @@ export default function VoiceRecorder({ letter, onResult }) {
     if (!audioBlobRef.current) return;
     setLoading(true);
 
-    // Upload audio for AI evaluation
-    const file = new File([audioBlobRef.current], "recording.webm", { type: "audio/webm" });
+    const file = new File([audioBlobRef.current], "recording.webm", { type: audioBlobRef.current.type });
     const { file_url } = await base44.integrations.Core.UploadFile({ file });
 
     const res = await base44.integrations.Core.InvokeLLM({
-      prompt: `You are evaluating a student's pronunciation of the letter "${letter?.letter}" (${letter?.language} language, pronunciation guide: "${letter?.pronunciation}").
+      prompt: `You are evaluating a student's pronunciation of the letter/sound "${letter?.letter}" in ${letter?.language} language.
+      Pronunciation guide: "${letter?.pronunciation || letter?.letter}".
       
-      Listen to the audio recording and evaluate:
-      1. Does it sound like the correct pronunciation of "${letter?.letter}"?
-      2. Clarity of the sound
-      3. Overall quality
+      Listen to the audio and evaluate ONLY pronunciation quality:
+      1. Does it match the expected sound "${letter?.pronunciation || letter?.letter}"? (60%)
+      2. Clarity and confidence of speech (25%)
+      3. Duration and timing (15%)
       
-      Give a score 0-100. Be encouraging.
-      If there's mostly silence or background noise, give 10-30.
-      If there's speech but unclear, give 40-65.
-      If it sounds correct, give 70-100.
+      Scoring:
+      - 0-20: silence, heavy noise, completely wrong sound
+      - 30-55: some speech but incorrect or unclear
+      - 60-80: correct sound, minor issues
+      - 85-100: clear and correct pronunciation
       
-      Respond in Albanian language.`,
+      IMPORTANT: Respond ONLY in Albanian. Be encouraging with specific feedback.`,
       file_urls: [file_url],
       response_json_schema: {
         type: "object",
@@ -95,18 +146,24 @@ export default function VoiceRecorder({ letter, onResult }) {
       }
     });
 
-    const score = res.score || 50;
+    const score = typeof res.score === "number" ? res.score : 50;
     const passed = score >= 60;
     setResult({ score, feedback: res.feedback, tips: res.tips, passed });
     onResult && onResult({ score, passed });
     setLoading(false);
   };
 
+  const reset = () => {
+    setResult(null);
+    setAudioUrl(null);
+    audioBlobRef.current = null;
+  };
+
   return (
     <div>
       <div className="flex items-center gap-2 mb-1">
         <Mic className="w-4 h-4 text-teal-500" />
-        <span className="text-sm font-semibold text-gray-700">Regjistro Zërin</span>
+        <span className="text-sm font-semibold text-gray-700">Shqiptimi & Regjistrim</span>
       </div>
       <p className="text-xs text-teal-600 mb-3">
         Dëgjo shqiptimin, pastaj regjistro zërin tënd!
@@ -122,34 +179,42 @@ export default function VoiceRecorder({ letter, onResult }) {
       >
         {playingTTS
           ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Duke luajtur...</>
-          : <><Volume2 className="w-4 h-4 mr-2" /> Dëgjo Shqiptimin</>
+          : <><Volume2 className="w-4 h-4 mr-2" /> Dëgjo Shqiptimin ({letter?.pronunciation || letter?.letter})</>
         }
       </Button>
 
-      {error && <p className="text-xs text-red-500 mb-2">{error}</p>}
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-3 mb-3">
+          <p className="text-xs text-red-600">{error}</p>
+        </div>
+      )}
 
+      {/* Recording area */}
       <div className="bg-teal-50 rounded-xl p-4 flex flex-col items-center gap-3 min-h-[90px] justify-center">
         {recording ? (
           <div className="flex flex-col items-center gap-2 w-full">
             <div className="flex gap-1 items-end h-8">
-              {[1,2,3,4,5].map(i => (
+              {[1,2,3,4,5,6,7].map(i => (
                 <div
                   key={i}
-                  className="w-1.5 bg-red-400 rounded-full animate-pulse"
-                  style={{ height: `${Math.random() * 20 + 10}px`, animationDelay: `${i*0.1}s` }}
+                  className="w-1.5 bg-red-400 rounded-full"
+                  style={{
+                    height: `${12 + (i % 3) * 8}px`,
+                    animation: `pulse 0.${i + 5}s ease-in-out infinite alternate`,
+                  }}
                 />
               ))}
             </div>
-            <p className="text-xs text-red-500 font-medium">Duke regjistruar...</p>
+            <p className="text-xs text-red-500 font-semibold animate-pulse">🔴 Duke regjistruar...</p>
             <Button size="sm" onClick={stopRecording} className="bg-red-500 hover:bg-red-600 text-white rounded-xl">
-              <MicOff className="w-4 h-4 mr-1.5" /> Ndalo
+              <MicOff className="w-4 h-4 mr-1.5" /> Ndalo Regjistrimin
             </Button>
           </div>
         ) : (
           <Button
             size="sm"
             onClick={startRecording}
-            className="bg-teal-600 hover:bg-teal-700 text-white rounded-xl"
+            className="bg-teal-600 hover:bg-teal-700 text-white rounded-xl px-6"
           >
             <Mic className="w-4 h-4 mr-1.5" />
             {audioUrl ? "Regjistro Sërish" : "Fillo Regjistrimin"}
@@ -159,18 +224,28 @@ export default function VoiceRecorder({ letter, onResult }) {
 
       {audioUrl && !recording && (
         <div className="mt-3 space-y-2">
-          <audio src={audioUrl} controls className="w-full h-8" />
-          <Button
-            size="sm"
-            onClick={evaluatePronunciation}
-            disabled={loading}
-            className="w-full bg-teal-600 hover:bg-teal-700 text-white rounded-xl"
-          >
-            {loading
-              ? <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Duke vlerësuar...</>
-              : "Kontrollo Shqiptimin"
-            }
-          </Button>
+          <audio src={audioUrl} controls className="w-full h-9 rounded-lg" />
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={reset}
+              className="rounded-xl border-gray-200 text-gray-500"
+            >
+              <RotateCcw className="w-3.5 h-3.5 mr-1" /> Riprovo
+            </Button>
+            <Button
+              size="sm"
+              onClick={evaluatePronunciation}
+              disabled={loading}
+              className="flex-1 bg-teal-600 hover:bg-teal-700 text-white rounded-xl"
+            >
+              {loading
+                ? <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Duke vlerësuar...</>
+                : "✓ Kontrollo Shqiptimin"
+              }
+            </Button>
+          </div>
         </div>
       )}
 
@@ -184,7 +259,7 @@ export default function VoiceRecorder({ letter, onResult }) {
             <span className={`font-bold text-lg ${result.passed ? "text-emerald-700" : "text-amber-700"}`}>
               {result.score}/100
             </span>
-            <span className="text-sm text-gray-600">{result.passed ? "Shumë mirë!" : "Provo sërish!"}</span>
+            <span className="text-sm text-gray-600">{result.passed ? "Shumë mirë! 🎉" : "Provo sërish! 💪"}</span>
           </div>
           {result.feedback && <p className="text-sm text-gray-700 mb-1">{result.feedback}</p>}
           {result.tips && <p className="text-xs text-gray-500 italic">{result.tips}</p>}
