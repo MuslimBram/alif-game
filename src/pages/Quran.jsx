@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, ChevronDown, ChevronUp, Volume2, Search, Heart, CheckCircle, RotateCcw, Trophy, BookMarked, List, SortAsc } from "lucide-react";
 import SurahQuiz from "@/components/quran/SurahQuiz";
+import SurahAudioPlayer from "@/components/quran/SurahAudioPlayer";
+import SevapeBox from "@/components/quran/SevapeBox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { base44 } from "@/api/base44Client";
