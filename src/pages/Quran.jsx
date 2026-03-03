@@ -485,63 +485,7 @@ export default function Quran() {
       )}
 
       {/* QUIZ TAB */}
-      {tab === "quiz" && (
-        <div>
-          {!quizStarted && !quizFinished && (
-            <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
-              <div className="text-5xl mb-4">📖</div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">Kuiz — Kur'ani</h3>
-              <p className="text-gray-500 mb-2">{ALL_QUIZ_QUESTIONS.length} pyetje (të rastësishme), 20 sekonda secila</p>
-              <p className="text-sm text-amber-600 mb-6">Testo njohuritë e tua për suret, ajetet dhe renditjen!</p>
-              <Button onClick={startQuiz} className="bg-amber-500 hover:bg-amber-600 text-white rounded-xl px-8">Fillo Kuizin</Button>
-            </div>
-          )}
-          {quizStarted && !quizFinished && quizQuestions.length > 0 && (
-            <div className="bg-white rounded-2xl border border-gray-100 p-5">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-sm font-semibold text-gray-600">Pyetja {quizIdx + 1}/{quizQuestions.length}</span>
-                <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold ${timer <= 5 ? "bg-red-100 text-red-600 animate-pulse" : "bg-amber-100 text-amber-700"}`}>
-                  ⏱ {timer}s
-                </div>
-                <span className="text-sm font-semibold text-emerald-600">✓ {score}</span>
-              </div>
-              <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
-                <div className="bg-amber-500 h-2 rounded-full transition-all" style={{ width: `${(quizIdx / quizQuestions.length) * 100}%` }} />
-              </div>
-              <div className="bg-amber-50 rounded-2xl p-6 text-center mb-5">
-                <p className="text-lg font-semibold text-gray-800">{quizQuestions[quizIdx].q}</p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {quizQuestions[quizIdx].options.map(opt => {
-                  let cls = "border-gray-200 bg-white text-gray-800 hover:border-amber-300 hover:bg-amber-50";
-                  if (answered) {
-                    if (opt === answered.correct) cls = "border-emerald-500 bg-emerald-50 text-emerald-800";
-                    else if (opt === answered.selected && !answered.isCorrect) cls = "border-red-400 bg-red-50 text-red-700";
-                    else cls = "border-gray-100 bg-gray-50 text-gray-400";
-                  }
-                  return (
-                    <button key={opt} disabled={!!answered} onClick={() => handleAnswer(opt)}
-                      className={`border-2 rounded-2xl p-4 font-semibold text-sm text-center transition-all ${cls}`}>
-                      {opt}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-          {quizFinished && (
-            <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
-              <Trophy className="w-14 h-14 text-amber-400 mx-auto mb-3" />
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">Kuizi Mbaroi!</h3>
-              <p className="text-5xl font-bold text-amber-600 mb-2">{score}/{quizQuestions.length}</p>
-              <p className="text-gray-500 mb-6">{score >= 25 ? "Mashallah! Njohuri të shkëlqyera! 🌟" : score >= 18 ? "Shumë mirë! 👍" : score >= 12 ? "Mirë, vazhdo! 💪" : "Studjoi suret sërish! 📚"}</p>
-              <Button onClick={startQuiz} className="bg-amber-500 hover:bg-amber-600 text-white rounded-xl px-8">
-                <RotateCcw className="w-4 h-4 mr-2" /> Provo Sërish
-              </Button>
-            </div>
-          )}
-        </div>
-      )}
+      {tab === "quiz" && <SurahQuiz />}
 
       {/* PROGRESS TAB */}
       {tab === "progress" && (
