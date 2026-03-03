@@ -137,23 +137,43 @@ const SURAHS = [
   { num: 114, name: "An-Nas", name_sq: "Njerëzit", arabic: "الناس", verses: 6, type: "Mekase", revelation: "Meke" },
 ];
 
-const QUIZ_QUESTIONS = [
+const ALL_QUIZ_QUESTIONS = [
   { q: "Cila sure është e para sipas renditjes në Kur'an?", options: ["Al-Baqarah", "Al-Fatiha", "Al-'Alaq", "Al-Ikhlas"], correct: "Al-Fatiha" },
-  { q: "Cila sure është shpallur e para (sipas renditjes kronologjike)?", options: ["Al-Fatiha", "Al-Baqarah", "Al-'Alaq", "Al-Mudaththir"], correct: "Al-'Alaq" },
+  { q: "Cila sure është shpallur e para (kronologjikisht)?", options: ["Al-Fatiha", "Al-Baqarah", "Al-'Alaq", "Al-Mudaththir"], correct: "Al-'Alaq" },
   { q: "Sa ajete ka Sure Al-Baqarah?", options: ["200", "256", "286", "300"], correct: "286" },
-  { q: "Cila sure ka vetëm 3 ajete?", options: ["Al-Ikhlas", "Al-Kawthar", "An-Nasr", "Al-Falaq"], correct: "Al-Kawthar" },
+  { q: "Cila sure ka vetëm 3 ajete (e shkurtër)?", options: ["Al-Ikhlas", "Al-Kawthar", "An-Nasr", "Al-Falaq"], correct: "Al-Kawthar" },
   { q: "Sa sure ka Kur'ani?", options: ["100", "110", "114", "120"], correct: "114" },
   { q: "Sureja Al-Fatiha quhet ndryshe?", options: ["Umm Al-Quran", "Al-Mulk", "Ya-Sin", "Al-Baqarah"], correct: "Umm Al-Quran" },
   { q: "Sa ajete ka Sure Al-Ikhlas?", options: ["3", "4", "5", "6"], correct: "4" },
   { q: "Cila sure quhet 'Zemra e Kur'anit'?", options: ["Al-Fatiha", "Al-Baqarah", "Ya-Sin", "Al-Mulk"], correct: "Ya-Sin" },
   { q: "Sureja Al-Kahf - sa ajete ka?", options: ["100", "110", "120", "108"], correct: "110" },
-  { q: "Cila sure quhet 'Kursi' (ajeti)?", options: ["Al-Fatiha", "Al-Baqarah ajet 255", "Al-Ikhlas", "Al-Mulk"], correct: "Al-Baqarah ajet 255" },
+  { q: "Ku ndodhet Ajetu'l-Kursi?", options: ["Al-Fatiha", "Al-Baqarah ajet 255", "Al-Ikhlas", "Al-Mulk"], correct: "Al-Baqarah ajet 255" },
   { q: "Sureja Al-Mulk sa ajete ka?", options: ["25", "28", "30", "32"], correct: "30" },
   { q: "Sa xhuz ka Kur'ani?", options: ["20", "25", "30", "114"], correct: "30" },
-  { q: "Cila sure është e fundit sipas renditjes kronologjike të shpalljes?", options: ["An-Nas", "Al-Ikhlas", "An-Nasr", "Al-Ma'idah"], correct: "An-Nasr" },
-  { q: "Sure Ar-Rahman - çfarë ajeti përsëritet?", options: ["Subhanallah", "Alhamdulillah", "Allahu Akbar", "Febe ejje ala'i rabbikuma tukedhdhibani"], correct: "Febe ejje ala'i rabbikuma tukedhdhibani" },
+  { q: "Cila sure është e fundit kronologjikisht?", options: ["An-Nas", "Al-Ikhlas", "An-Nasr", "Al-Ma'idah"], correct: "An-Nasr" },
+  { q: "Sure Ar-Rahman - çfarë ajeti përsëritet 31 herë?", options: ["Subhanallah", "Alhamdulillah", "Allahu Akbar", "Febe ejje ala'i rabbikuma tukedhdhibani"], correct: "Febe ejje ala'i rabbikuma tukedhdhibani" },
   { q: "Sa ajete ka Sure Al-Fatiha?", options: ["5", "6", "7", "8"], correct: "7" },
+  { q: "Cila sure ka 286 ajete dhe quhet 'Lopa'?", options: ["Al-Fatiha", "Al-Baqarah", "Ali Imran", "An-Nisa"], correct: "Al-Baqarah" },
+  { q: "Cila sure ka 200 ajete dhe i kushtohet Familjes së Imranit?", options: ["Al-Baqarah", "Ali Imran", "An-Nisa", "Al-Ma'idah"], correct: "Ali Imran" },
+  { q: "Sa ajete ka Sure An-Nas (e fundit)?", options: ["4", "5", "6", "7"], correct: "6" },
+  { q: "Sa ajete ka Sure Al-Falaq?", options: ["4", "5", "6", "7"], correct: "5" },
+  { q: "Cila sure i kushtohet Profetit Nuh (Noe)?", options: ["Sure 70", "Sure 71", "Sure 72", "Sure 73"], correct: "Sure 71" },
+  { q: "Sure Al-'Asr ka sa ajete?", options: ["2", "3", "4", "5"], correct: "3" },
+  { q: "Cila sure ka 227 ajete dhe quhet 'Poetët'?", options: ["Al-Furqan", "Ash-Shu'ara", "An-Naml", "Al-Qasas"], correct: "Ash-Shu'ara" },
+  { q: "Sa ajete ka Sure Al-Qadr (Nata e Kadrit)?", options: ["4", "5", "6", "7"], correct: "5" },
+  { q: "Cila sure i kushtohet profetit Jusufit dhe konsiderohet 'tregimi më i bukur'?", options: ["Sure Yunus", "Sure Yusuf", "Sure Ibrahim", "Sure Hud"], correct: "Sure Yusuf" },
+  { q: "Cila sure quhet 'Mbrojtëse nga syhakësia'?", options: ["Al-Fatiha", "Al-Falaq dhe An-Nas", "Al-Ikhlas", "Al-Baqarah"], correct: "Al-Falaq dhe An-Nas" },
+  { q: "Sa ajete ka Sure Al-Baqarah dhe Al-Fatiha bashkë?", options: ["289", "291", "293", "295"], correct: "293" },
+  { q: "Numri i sureve Mekase në Kur'an (të zbritura në Meke)?", options: ["Rreth 86", "Rreth 92", "Rreth 100", "Rreth 106"], correct: "Rreth 86" },
+  { q: "Cila sure ka ajetet 'La ilahe illallah' si temë kryesore?", options: ["Al-Fatiha", "Al-Ikhlas", "Al-Kafirun", "Al-Baqarah"], correct: "Al-Ikhlas" },
+  { q: "Sureja Al-Insan (Njeriu) cilës kategorie i përket?", options: ["Mekase", "Medinase", "Meso ose Meso", "Asnjëra"], correct: "Medinase" },
+  { q: "Cila sure ka verstin 'Allahu la ilahe illa Huvel Hayyul Qayyum'?", options: ["Al-Fatiha", "Al-Baqarah", "Al-Ikhlas", "Al-Mulk"], correct: "Al-Baqarah" },
 ];
+
+// Generate shuffled questions for quiz
+function getShuffledQuestions() {
+  return [...ALL_QUIZ_QUESTIONS].sort(() => Math.random() - 0.5);
+}
 
 const STORAGE_KEY = "quran_progress";
 
