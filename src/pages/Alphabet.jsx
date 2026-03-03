@@ -9,7 +9,7 @@ import LetterLearningView from "@/components/alphabet/LetterLearningView";
 import SyllablesView from "@/components/alphabet/SyllablesView";
 import WordsView from "@/components/alphabet/WordsView";
 import ExercisesView from "@/components/alphabet/ExercisesView";
-import NumbersView from "@/components/alphabet/NumbersView";
+import NumberLearningView from "@/components/alphabet/NumberLearningView";
 
 const languages = [
   { value: "shqip", label: "🇦🇱 Shqip" },
