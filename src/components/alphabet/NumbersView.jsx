@@ -190,10 +190,23 @@ function generateQuestion(language, level) {
 
 const speak = (text, lang) => {
   if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = lang === "arabisht" ? "ar" : lang === "anglisht" ? "en" : "sq";
-  u.rate = 0.7;
-  window.speechSynthesis.speak(u);
+  const langCode = lang === "arabisht" ? "ar-SA" : lang === "anglisht" ? "en-US" : "sq-AL";
+  u.lang = langCode;
+  u.rate = 0.65;
+  // Try to find matching voice
+  const doSpeak = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const prefix = langCode.split("-")[0];
+    const voice = voices.find(v => v.lang.startsWith(prefix)) ||
+                  voices.find(v => v.lang.startsWith("en"));
+    if (voice) u.voice = voice;
+    window.speechSynthesis.speak(u);
+  };
+  const voices = window.speechSynthesis.getVoices();
+  if (voices.length > 0) doSpeak();
+  else { window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.onvoiceschanged = null; doSpeak(); }; setTimeout(doSpeak, 500); }
 };
 
 const TOTAL_QUESTIONS = 10;
@@ -275,11 +288,10 @@ export default function NumbersView({ language }) {
           <h3 className="font-bold text-gray-700 mb-4">Tabela e Numrave — {language}</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {nums.filter(n => n.num <= (level === "fillestar" ? 20 : level === "mesatar" ? 100 : 1000)).map((n) => (
-              <motion.button
+              <motion.div
                 key={n.num}
                 whileHover={{ scale: 1.03 }}
-                onClick={() => speak(n.word, language)}
-                className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-2xl p-4 text-center hover:shadow-md transition-all"
+                className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-2xl p-4 text-center hover:shadow-md transition-all flex flex-col items-center"
               >
                 <div className="text-2xl font-bold text-emerald-700 mb-1">{n.num}</div>
                 {isArabic && n.num < 10 && (
@@ -291,8 +303,14 @@ export default function NumbersView({ language }) {
                 </div>
                 {n.transliteration && <div className="text-xs text-gray-400 mt-1 italic">{n.transliteration}</div>}
                 {n.ordinal && !isArabic && <div className="text-xs text-teal-500 mt-1">{n.ordinal}</div>}
-                <Volume2 className="w-3.5 h-3.5 text-teal-400 mx-auto mt-1" />
-              </motion.button>
+                <button
+                  onClick={() => speak(n.word, language)}
+                  className="mt-2 w-8 h-8 rounded-xl bg-teal-100 hover:bg-teal-200 flex items-center justify-center transition-colors"
+                  title="Dëgjo"
+                >
+                  <Volume2 className="w-3.5 h-3.5 text-teal-600" />
+                </button>
+              </motion.div>
             ))}
           </div>
         </div>

@@ -90,12 +90,22 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
             size="sm"
             className="bg-teal-600 hover:bg-teal-700 text-white rounded-xl"
             onClick={() => {
-              if (window.speechSynthesis) {
-                const u = new SpeechSynthesisUtterance(letter.letter);
-                u.lang = letter.language === "arabisht" ? "ar" : letter.language === "anglisht" ? "en" : "sq";
-                u.rate = 0.7;
+              if (!window.speechSynthesis) return;
+              window.speechSynthesis.cancel();
+              const u = new SpeechSynthesisUtterance(letter.pronunciation || letter.letter);
+              const langCode = letter.language === "arabisht" ? "ar-SA" : letter.language === "anglisht" ? "en-US" : "sq-AL";
+              u.lang = langCode;
+              u.rate = 0.55;
+              const doSpeak = () => {
+                const voices = window.speechSynthesis.getVoices();
+                const prefix = langCode.split("-")[0];
+                const voice = voices.find(v => v.lang.startsWith(prefix)) || voices.find(v => v.lang.startsWith("en"));
+                if (voice) u.voice = voice;
                 window.speechSynthesis.speak(u);
-              }
+              };
+              const voices = window.speechSynthesis.getVoices();
+              if (voices.length > 0) doSpeak();
+              else { window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.onvoiceschanged = null; doSpeak(); }; setTimeout(doSpeak, 500); }
             }}
           >
             <Volume2 className="w-4 h-4 mr-1.5" />
