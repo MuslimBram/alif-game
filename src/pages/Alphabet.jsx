@@ -189,7 +189,7 @@ export default function Alphabet() {
       {activeTab === "rrokjet" && <SyllablesView language={selectedLang} />}
       {activeTab === "fjalët" && <WordsView language={selectedLang} />}
       {activeTab === "ushtrime" && <ExercisesView language={selectedLang} />}
-      {activeTab === "numrat" && <NumbersView language={selectedLang} />}
+      {activeTab === "numrat" && <NumberLearningView language={selectedLang} />}
     </div>
   );
 }
