@@ -422,60 +422,64 @@ export default function Quran() {
                   </div>
 
                   <AnimatePresence>
-                    {expanded === surah.num && (
-                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                        className="border-t border-gray-100 bg-gray-50">
-                        <div className="p-5 space-y-4">
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                              <h4 className="text-sm font-bold text-gray-700 mb-3">Informacione</h4>
-                              <div className="space-y-1.5">
-                                {[
-                                  { label: "Numri (Mushaf)", value: surah.num },
-                                  { label: "Renditja e Shpalljes", value: revOrder ? `#${revOrder} nga 114` : "—" },
-                                  { label: "Emri Latin", value: surah.name },
-                                  { label: "Emri Shqip", value: surah.name_sq },
-                                  { label: "Lloji", value: surah.type },
-                                  { label: "Zbritja", value: surah.revelation },
-                                  { label: "Numri i Ajeteve", value: surah.verses },
-                                ].map(item => (
-                                  <div key={item.label} className="flex justify-between text-sm">
-                                    <span className="text-gray-500">{item.label}:</span>
-                                    <span className="font-medium text-gray-800">{item.value}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                            <div className="space-y-3">
-                              <div className="bg-amber-50 rounded-xl p-4 text-center border border-amber-100">
-                                <p className="text-xs text-amber-600 mb-2 font-medium">Bismillah</p>
-                                <p className="text-2xl font-bold text-gray-900 mb-1" style={{ fontFamily: "serif", direction: "rtl" }}>{surah.arabic}</p>
-                                <p className="text-xs text-gray-400 italic mb-2">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
-                                <Button size="sm" onClick={() => speakArabic(surah.arabic)} className="bg-amber-500 hover:bg-amber-600 text-white rounded-xl">
-                                  <Volume2 className="w-3.5 h-3.5 mr-1.5" /> Dëgjo Emrin
-                                </Button>
-                              </div>
-                              {/* Progress marking */}
-                              <div className="bg-white rounded-xl p-3 border border-gray-100">
-                                <p className="text-xs font-semibold text-gray-600 mb-2">Shëno Progresin:</p>
-                                <div className="flex gap-2 flex-wrap">
-                                  {[
-                                    { val: "read", label: "👁️ Lexova", cls: "bg-gray-100 text-gray-700 hover:bg-gray-200" },
-                                    { val: "learning", label: "📚 Duke mësuar", cls: "bg-blue-50 text-blue-700 hover:bg-blue-100" },
-                                    { val: "memorized", label: "✅ Mësova", cls: "bg-emerald-50 text-emerald-700 hover:bg-emerald-100" },
-                                  ].map(p => (
-                                    <button key={p.val} onClick={() => markProgress(surah.num, p.val)}
-                                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border-2 ${progress[surah.num] === p.val ? "border-emerald-400 ring-2 ring-emerald-200" : "border-transparent"} ${p.cls}`}>
-                                      {p.label}
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
+                   {expanded === surah.num && (
+                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                       className="border-t border-gray-100 bg-gray-50">
+                       <div className="p-5 space-y-4">
+                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                           <div>
+                             <h4 className="text-sm font-bold text-gray-700 mb-3">Informacione</h4>
+                             <div className="space-y-1.5">
+                               {[
+                                 { label: "Numri (Mushaf)", value: surah.num },
+                                 { label: "Renditja e Shpalljes", value: revOrder ? `#${revOrder} nga 114` : "—" },
+                                 { label: "Emri Latin", value: surah.name },
+                                 { label: "Emri Shqip", value: surah.name_sq },
+                                 { label: "Lloji", value: surah.type },
+                                 { label: "Zbritja", value: surah.revelation },
+                                 { label: "Numri i Ajeteve", value: surah.verses },
+                               ].map(item => (
+                                 <div key={item.label} className="flex justify-between text-sm">
+                                   <span className="text-gray-500">{item.label}:</span>
+                                   <span className="font-medium text-gray-800">{item.value}</span>
+                                 </div>
+                               ))}
+                             </div>
+                             {/* Minimumi i Sevapeve */}
+                             <SevapeBox surah={surah} />
+                           </div>
+                           <div className="space-y-3">
+                             <div className="bg-amber-50 rounded-xl p-4 text-center border border-amber-100">
+                               <p className="text-xs text-amber-600 mb-2 font-medium">Bismillah</p>
+                               <p className="text-2xl font-bold text-gray-900 mb-1" style={{ fontFamily: "serif", direction: "rtl" }}>{surah.arabic}</p>
+                               <p className="text-xs text-gray-400 italic mb-2">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+                               <Button size="sm" onClick={() => speakArabic(surah.arabic)} className="bg-amber-500 hover:bg-amber-600 text-white rounded-xl">
+                                 <Volume2 className="w-3.5 h-3.5 mr-1.5" /> Dëgjo Emrin
+                               </Button>
+                             </div>
+                             {/* Audio player for surah */}
+                             <SurahAudioPlayer surahNum={surah.num} surahName={surah.name} />
+                             {/* Progress marking */}
+                             <div className="bg-white rounded-xl p-3 border border-gray-100">
+                               <p className="text-xs font-semibold text-gray-600 mb-2">Shëno Progresin:</p>
+                               <div className="flex gap-2 flex-wrap">
+                                 {[
+                                   { val: "read", label: "👁️ Lexova", cls: "bg-gray-100 text-gray-700 hover:bg-gray-200" },
+                                   { val: "learning", label: "📚 Duke mësuar", cls: "bg-blue-50 text-blue-700 hover:bg-blue-100" },
+                                   { val: "memorized", label: "✅ Mësova", cls: "bg-emerald-50 text-emerald-700 hover:bg-emerald-100" },
+                                 ].map(p => (
+                                   <button key={p.val} onClick={() => markProgress(surah.num, p.val)}
+                                     className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border-2 ${progress[surah.num] === p.val ? "border-emerald-400 ring-2 ring-emerald-200" : "border-transparent"} ${p.cls}`}>
+                                     {p.label}
+                                   </button>
+                                 ))}
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     </motion.div>
+                   )}
                   </AnimatePresence>
                 </motion.div>
               );
