@@ -1,3 +1,4 @@
+
 // ============================================================
 //  WORDS DATA — 500+ per level, 2000+ per language
 // ============================================================
@@ -291,7 +292,7 @@ export const WORDS_DATA = {
       { word: "POL-A-RI-ZIM", meaning: "polarizim", translation: "polarization", emoji: "🔀", missing: "P" },
       { word: "KUAL-I-FI-KIM", meaning: "kualifikim", translation: "qualification", emoji: "🎓", missing: "K" },
       { word: "RA-DI-KA-LI-ZIM", meaning: "radikalizim", translation: "radicalization", emoji: "🔥", missing: "R" },
-      { word: "SO-VRA-NI-TET", meaning: "sovranitet", translation: "sovereignty", emoji: "👑", missing: "S" },
+      { word: "SO-VRA-NI-TET", meaning: "sovereignty", emoji: "👑", missing: "S" },
       { word: "TO-TA-LI-TA-RIZÄM", meaning: "totalitarizëm", translation: "totalitarianism", emoji: "🏴", missing: "T" },
       { word: "UR-BA-NI-ZIM", meaning: "urbanizim", translation: "urbanization", emoji: "🏙️", missing: "U" },
       { word: "CÄ-NU-ESHMÄRI", meaning: "cënueshmëri", translation: "vulnerability", emoji: "🛡️", missing: "C" },
