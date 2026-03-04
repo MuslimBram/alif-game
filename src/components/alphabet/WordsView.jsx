@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 import { WORDS_DATA } from "./wordsData.js";
 
 // Data is in wordsData.js (imported above)
-const _removeMe = {shqip:{fillestar:[
-      { word: "BU-KË", meaning: "bukë", translation: "bread", emoji: "🍞", missing: "U" },
+const _removeMe = null;
       { word: "MA-MÄ", meaning: "mamë", translation: "mom", emoji: "👩", missing: "A" },
       { word: "BA-BÄ", meaning: "babë", translation: "dad", emoji: "👨", missing: "B" },
       { word: "CA-JO", meaning: "cajo", translation: "ball", emoji: "⚽", missing: "C" },
