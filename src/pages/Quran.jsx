@@ -4,6 +4,7 @@ import { BookOpen, ChevronDown, ChevronUp, Volume2, Search, Heart, CheckCircle, 
 import SurahQuiz from "@/components/quran/SurahQuiz";
 import SurahAudioPlayer from "@/components/quran/SurahAudioPlayer";
 import SevapeBox from "@/components/quran/SevapeBox";
+import SurahVerseViewer from "@/components/quran/SurahVerseViewer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { base44 } from "@/api/base44Client";
