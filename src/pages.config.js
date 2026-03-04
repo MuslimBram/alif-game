@@ -58,6 +58,7 @@ import Quran from './pages/Quran';
 import Settings from './pages/Settings';
 import Tajweed from './pages/Tajweed';
 import UmraHajj from './pages/UmraHajj';
+import WordsAdmin from './pages/WordsAdmin';
 import __Layout from './Layout.jsx';
 
 
@@ -73,6 +74,7 @@ export const PAGES = {
     "Settings": Settings,
     "Tajweed": Tajweed,
     "UmraHajj": UmraHajj,
+    "WordsAdmin": WordsAdmin,
 }
 
 export const pagesConfig = {
