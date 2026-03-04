@@ -290,10 +290,16 @@ export default function WordsView({ language }) {
           {isArabic ? "🇸🇦 الكلمات العربية" : language === "anglisht" ? "🇬🇧 English Words" : "🇦🇱 Fjalët Shqipe"}
         </h2>
         <div className="flex flex-wrap gap-2 mb-4">
-          {["fillestar","mesatar","avancuar"].map(l => (
-            <button key={l} onClick={() => setLevel(l)}
-              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${level === l ? "bg-emerald-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
-              {l === "fillestar" ? "🌱 Fillestar" : l === "mesatar" ? "🌿 Mesatar" : "🌲 Avancuar"}
+          {[
+            { v: "fillestar", label: "🌱 Fillestar", sub: "50+ fjalë" },
+            { v: "mesatar",   label: "🌿 Mesatar",   sub: "500+ fjalë" },
+            { v: "avancuar",  label: "🌲 Avancuar",  sub: "2000+ fjalë" },
+            { v: "profesionist", label: "🏆 Profesionist", sub: "4000+ fjalë" },
+          ].map(l => (
+            <button key={l.v} onClick={() => setLevel(l.v)}
+              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex flex-col items-center ${level === l.v ? "bg-emerald-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+              <span>{l.label}</span>
+              <span className={`text-xs ${level === l.v ? "text-emerald-100" : "text-gray-400"}`}>{l.sub}</span>
             </button>
           ))}
         </div>
