@@ -15,6 +15,7 @@ import ExercisesView from "@/components/alphabet/ExercisesView";
 import NumberLearningView from "@/components/alphabet/NumberLearningView";
 import VerbConjugationView from "@/components/alphabet/VerbConjugationView";
 import NounDeclensionView from "@/components/alphabet/NounDeclensionView";
+import MedineArabicView from "@/components/alphabet/MedineArabicView";
 
 const languages = [
   { value: "shqip", label: "🇦🇱 Shqip" },
@@ -187,6 +188,7 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
       {activeTab === "numrat" && <NumberLearningView language={selectedLang} />}
       {activeTab === "zgjedhimi" && <VerbConjugationView sharedLang={selectedLang} />}
       {activeTab === "lakimi" && <NounDeclensionView sharedLang={selectedLang} />}
+      {activeTab === "medine" && <MedineArabicView />}
       {activeTab === "texhuidi" && (
         <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center">
           <div className="text-5xl mb-4">📖</div>
