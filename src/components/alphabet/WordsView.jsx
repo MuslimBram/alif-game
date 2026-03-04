@@ -781,6 +781,47 @@ const speak = (text, lang) => {
 const TOTAL = 10;
 const TIME = 25;
 
+function generateWordQuestionFromList(wordList, language, level) {
+  if (!wordList.length) return generateWordQuestion(language, level);
+  const isArabic = language === "arabisht";
+  const item = wordList[Math.floor(Math.random() * wordList.length)];
+  const type = QUIZ_TYPES_WORDS[Math.floor(Math.random() * QUIZ_TYPES_WORDS.length)];
+  const getOtherWords = () => wordList.filter(w => w.word !== item.word).sort(() => Math.random() - 0.5).slice(0, 3);
+
+  if (type === "emoji_to_word") {
+    const others = getOtherWords();
+    const options = [item, ...others].sort(() => Math.random() - 0.5);
+    return { question: `Çfarë tregon kjo figurë?`, display: item.emoji, displayType: "emoji",
+      options: options.map(o => o.meaning), correct: item.meaning,
+      hint: isArabic ? `(${item.transliteration || ""})` : "", type };
+  }
+  if (type === "missing_letter") {
+    const wordWithBlank = item.word.replace(item.missing || item.word[0], "_".repeat((item.missing || item.word[0]).length));
+    const allLetters = isArabic
+      ? ["ب","ت","ث","ج","ح","خ","د","ذ","ر","ز","س","ش","ص","ض","ط","ظ","ع","غ","ف","ق","ك","ل","م","ن","و","ه","ي"]
+      : language === "anglisht"
+        ? ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+        : ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","X","XH","Y","Z"];
+    const wrongOptions = allLetters.filter(l => l !== item.missing).sort(() => Math.random() - 0.5).slice(0, 3);
+    const options = [item.missing || "A", ...wrongOptions].sort(() => Math.random() - 0.5);
+    return { question: `Cila germë mungon?`, display: wordWithBlank,
+      subDisplay: item.emoji + " " + item.translation, displayType: "word",
+      options, correct: item.missing || item.word[0], isArabic, type };
+  }
+  if (type === "word_to_translation") {
+    const others = getOtherWords();
+    const options = [item, ...others].sort(() => Math.random() - 0.5);
+    return { question: isArabic ? `Çfarë do të thotë kjo fjalë arabe?` : `Çfarë do të thotë "${item.meaning}"?`,
+      display: item.meaning + " " + item.emoji, displayType: "word", isArabic,
+      options: options.map(o => o.translation), correct: item.translation, type };
+  }
+  const others = getOtherWords();
+  const options = [item, ...others].sort(() => Math.random() - 0.5);
+  return { question: `Si thuhet "${item.translation}" ${isArabic ? "në arabisht" : language === "anglisht" ? "në anglisht" : "në shqip"}?`,
+    display: item.emoji, displayType: "emoji",
+    options: options.map(o => o.meaning), correct: item.meaning, isArabic, type };
+}
+
 export default function WordsView({ language }) {
   const [level, setLevel] = useState("fillestar");
   const [mode, setMode] = useState("browse"); // browse | quiz
