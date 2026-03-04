@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Gamepad2 } from "lucide-react";
 import GameCard from "@/components/games/GameCard";
 import QuizGame from "@/components/games/QuizGame";
+import AdminEditOverlay from "@/components/admin/AdminEditOverlay";
+import { createPageUrl } from "@/utils";
 
 const allGames = [
   { id: 1, title: "Ngjyro Shkronjat", description: "Ngjyrosi shkronjat arabe, shqip dhe numrat me ngjyra", module: "alfabeti", level: "fillestar", duration: "60+ pyetje", points: 50 },
@@ -51,7 +53,7 @@ const levels = [
   { value: "profesionist", label: "Profesionist" },
 ];
 
-export default function Games() {
+export default function Games({ adminEditMode, isAdmin }) {
   const [selectedModule, setSelectedModule] = useState("te_gjitha");
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");
   const [activeGame, setActiveGame] = useState(null);
@@ -81,7 +83,11 @@ export default function Games() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="max-w-6xl mx-auto px-4 py-10 relative">
+      <AdminEditOverlay show={adminEditMode && isAdmin} title="Edito Lojërat" items={[
+        { label: "Shto Lojë", href: createPageUrl("AdminPanel"), icon: "➕" },
+        { label: "Menaxho Lojërat", href: createPageUrl("AdminPanel"), icon: "🎮" },
+      ]} />
       <div className="mb-6">
         <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">Lojëra Edukative</h1>
         <p className="text-sm text-gray-500 mt-1">Mëso duke luajtur dhe argëtuar</p>
