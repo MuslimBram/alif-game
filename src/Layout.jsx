@@ -163,16 +163,7 @@ export default function Layout({ children, currentPageName }) {
                   </Link>
                 );
               })}
-              {user?.role === "admin" && (
-                <Link
-                  to={createPageUrl("AdminPanel")}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:bg-emerald-50"
-                >
-                  <Shield className="w-5 h-5" />
-                  Admin Panel
-                </Link>
-              )}
+
             </nav>
           </div>
         )}
