@@ -1006,6 +1006,15 @@ export default function WordsView({ language }) {
         </div>
       )}
 
+      {/* Exercises mode */}
+      {mode === "exercises" && (
+        <WordExercises
+          words={wordList}
+          language={language}
+          onClose={() => setMode("browse")}
+        />
+      )}
+
       {mode === "quiz" && finished && (
         <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
           <Star className="w-14 h-14 text-amber-400 mx-auto mb-3" />
