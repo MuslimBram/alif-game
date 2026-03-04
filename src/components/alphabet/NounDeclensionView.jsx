@@ -364,18 +364,15 @@ function NounQuiz({ lang }) {
 }
 
 // ─── MAIN ─────────────────────────────────────────────────────────────────────
-export default function NounDeclensionView() {
-  const [activeLang, setActiveLang] = useState("sq");
+const LANG_MAP2 = { shqip: "sq", anglisht: "en", arabisht: "ar" };
+
+export default function NounDeclensionView({ sharedLang }) {
+  const activeLang = LANG_MAP2[sharedLang] || "sq";
   const [sqNoun, setSqNoun] = useState(SHQIP_NOUNS[0]);
   const [enNoun, setEnNoun] = useState(ENGLISH_NOUNS[0]);
   const [arNoun, setArNoun] = useState(ARABIC_NOUNS[0]);
   const [showQuiz, setShowQuiz] = useState(false);
 
-  const langs = [
-    { key: "sq", label: "🇦🇱 Shqip",   color: "bg-emerald-600" },
-    { key: "en", label: "🇬🇧 Anglisht", color: "bg-blue-600" },
-    { key: "ar", label: "🇸🇦 Arabisht", color: "bg-amber-600" },
-  ];
   const nouns = activeLang === "sq" ? SHQIP_NOUNS : activeLang === "en" ? ENGLISH_NOUNS : ARABIC_NOUNS;
   const current = activeLang === "sq" ? sqNoun : activeLang === "en" ? enNoun : arNoun;
   const setCurrent = activeLang === "sq" ? setSqNoun : activeLang === "en" ? setEnNoun : setArNoun;
