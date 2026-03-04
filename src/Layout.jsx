@@ -29,10 +29,7 @@ const navItems = [
   { name: "Texhuidi", page: "Tajweed", icon: BookMarked },
   { name: "Kur'ani", page: "Quran", icon: BookOpen },
   { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
-  { name: "Lojëra", page: "Games", icon: Gamepad2 },
-  { name: "Grupet", page: "Groups", icon: Users },
-  { name: "Kryesuesit", page: "Leaderboard", icon: Trophy },
-  { name: "Përparimi", page: "Progress", icon: BarChart3 },
+  { name: "Lojëra & Sfida", page: "Games", icon: Gamepad2 },
   { name: "Cilësimet", page: "Settings", icon: Settings },
 ];
 
