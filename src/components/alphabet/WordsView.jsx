@@ -247,7 +247,7 @@ export default function WordsView({ language }) {
   const [qNum, setQNum] = useState(1);
   const [finished, setFinished] = useState(false);
 
-  const wordList = WORDS_DATA[language]?.[level] || [];
+  const wordList = WORDS_DATA[language]?.[level] || WORDS_DATA[language]?.fillestar || [];
   const isArabic = language === "arabisht";
 
   const startQuiz = () => {
