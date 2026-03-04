@@ -30,7 +30,8 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
   const totalLetters = letters.length;
 
   useEffect(() => {
-    setActiveForm("uppercase");
+    const isArabic = letters[currentIndex]?.language === "arabisht";
+    setActiveForm(isArabic ? "handwritten_upper" : "uppercase");
     setShowQuiz(false);
     setDrawingScore(null);
     setVoiceScore(null);
