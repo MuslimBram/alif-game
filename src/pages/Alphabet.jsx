@@ -34,6 +34,7 @@ const levels = [
 
 export default function Alphabet({ adminEditMode, isAdmin }) {
   const [selectedLang, setSelectedLang] = useState("shqip");
+  const [viewMode, setViewMode] = useState("single"); // "single" or "triple"
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");
   const [selectedLetter, setSelectedLetter] = useState(null);
   const [learningIndex, setLearningIndex] = useState(null);
