@@ -915,7 +915,10 @@ export default function WordsView({ language }) {
             📚 Shfleto Fjalët
           </Button>
           <Button onClick={startQuiz} className="bg-teal-600 hover:bg-teal-700 text-white rounded-xl">
-            🎯 Fillo Ushtrimet
+            🎯 Fillo Kuizin
+          </Button>
+          <Button onClick={() => setMode("exercises")} className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl">
+            <Dumbbell className="w-4 h-4 mr-1" /> Ushtrime
           </Button>
         </div>
       </div>
