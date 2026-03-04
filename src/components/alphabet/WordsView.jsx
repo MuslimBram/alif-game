@@ -422,17 +422,20 @@ export default function WordsView({ language }) {
         </h2>
         <div className="flex flex-wrap gap-2 mb-4">
           {[
-            { v: "fillestar", label: "🌱 Fillestar", sub: "50+ fjalë" },
-            { v: "mesatar",   label: "🌿 Mesatar",   sub: "500+ fjalë" },
-            { v: "avancuar",  label: "🌲 Avancuar",  sub: "2000+ fjalë" },
-            { v: "profesionist", label: "🏆 Profesionist", sub: "4000+ fjalë" },
-          ].map(l => (
+            { v: "fillestar", label: "🌱 Fillestar" },
+            { v: "mesatar",   label: "🌿 Mesatar" },
+            { v: "avancuar",  label: "🌲 Avancuar" },
+            { v: "profesionist", label: "🏆 Profesionist" },
+          ].map(l => {
+            const count = WORDS_DATA[language]?.[l.v]?.length || 0;
+            return (
             <button key={l.v} onClick={() => setLevel(l.v)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex flex-col items-center ${level === l.v ? "bg-emerald-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
               <span>{l.label}</span>
-              <span className={`text-xs ${level === l.v ? "text-emerald-100" : "text-gray-400"}`}>{l.sub}</span>
+              <span className={`text-xs ${level === l.v ? "text-emerald-100" : "text-gray-400"}`}>{count} fjalë</span>
             </button>
-          ))}
+            );
+          })}
         </div>
         <div className="flex gap-2">
           <Button onClick={() => setMode("browse")} variant={mode === "browse" ? "default" : "outline"} className="rounded-xl">
