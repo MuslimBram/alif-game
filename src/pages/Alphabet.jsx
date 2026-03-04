@@ -35,7 +35,7 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");
   const [selectedLetter, setSelectedLetter] = useState(null);
   const [learningIndex, setLearningIndex] = useState(null);
-  const [activeTab, setActiveTab] = useState("germat");
+  const [activeTab, setActiveTab] = useState("numrat");
 
   const { data: letters = [], isLoading } = useQuery({
     queryKey: ["alphabet-letters"],
@@ -186,6 +186,19 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
       {activeTab === "numrat" && <NumberLearningView language={selectedLang} />}
       {activeTab === "zgjedhimi" && <VerbConjugationView sharedLang={selectedLang} />}
       {activeTab === "lakimi" && <NounDeclensionView sharedLang={selectedLang} />}
+      {activeTab === "texhuidi" && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center">
+          <div className="text-5xl mb-4">📖</div>
+          <h2 className="text-xl font-bold text-gray-800 mb-2">Texhuidi — Rregullat e Leximit të Kuranit</h2>
+          <p className="text-gray-500 mb-6">Mëso rregullat e texhuidit me shembuj interaktivë</p>
+          <Link
+            to={createPageUrl("Tajweed")}
+            className="inline-block px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-colors"
+          >
+            Shko te Texhuidi →
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
