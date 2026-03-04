@@ -115,7 +115,7 @@ export default function Settings() {
       {/* Header */}
       <div className="flex items-center gap-3 mb-8">
         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg">
-          <Settings className="w-6 h-6 text-white" />
+          <SettingsIcon className="w-6 h-6 text-white" />
         </div>
         <div>
           <h1 className="text-2xl font-extrabold text-gray-900">Cilësimet Personale</h1>
