@@ -75,6 +75,7 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
             { label: "Zgjedhimi", value: "zgjedhimi" },
             { label: "Lakimi", value: "lakimi" },
             { label: "📖 Texhuidi", value: "texhuidi" },
+            { label: "🕌 Arabisht Medinë", value: "medine" },
           ].map((tab) => (
             <TabsTrigger
               key={tab.value}
