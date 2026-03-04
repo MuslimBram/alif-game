@@ -49,6 +49,9 @@ export default function Home({ adminEditMode, isAdmin }) {
 
   return (
     <div className="relative">
+      {showLevelModal && (
+        <LevelSelectionModal onClose={(level) => setShowLevelModal(false)} />
+      )}
       {adminEditMode && isAdmin && (
         <div className="fixed top-24 left-4 z-50 bg-white border-2 border-amber-400 rounded-2xl shadow-xl p-3 space-y-1.5 min-w-[180px]">
           <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">✏️ Edit Ballina</p>
