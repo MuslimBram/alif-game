@@ -4,8 +4,7 @@ import { Volume2, Timer, CheckCircle, XCircle, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WORDS_DATA } from "./wordsData.js";
 
-// ---- data is in wordsData.js ----
-// Keeping a tiny placeholder so the block below closes correctly.
+// Data is in wordsData.js (imported above)
 const _removeMe = {shqip:{fillestar:[
       { word: "BU-KË", meaning: "bukë", translation: "bread", emoji: "🍞", missing: "U" },
       { word: "MA-MÄ", meaning: "mamë", translation: "mom", emoji: "👩", missing: "A" },
