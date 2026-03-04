@@ -121,11 +121,44 @@ export default function TajweedCard({ rule }) {
               {/* Example */}
               {rule.example_text && (
                 <div className="bg-amber-50/60 rounded-xl p-4 border border-amber-100">
-                  <p className="text-xs font-semibold text-amber-700 mb-2">Shembull:</p>
-                  <p className="text-2xl arabic-text text-gray-900 mb-1">{rule.example_text}</p>
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-xs font-semibold text-amber-700">Shembull:</p>
+                    <button onClick={() => {
+                      if (!window.speechSynthesis) return;
+                      window.speechSynthesis.cancel();
+                      const u = new SpeechSynthesisUtterance(rule.example_text);
+                      u.lang = "ar-SA"; u.rate = 0.5;
+                      const voices = window.speechSynthesis.getVoices();
+                      const v = voices.find(v => v.lang.startsWith("ar"));
+                      if (v) u.voice = v;
+                      window.speechSynthesis.speak(u);
+                    }} className="flex items-center gap-1 px-2 py-1 bg-amber-100 hover:bg-amber-200 rounded-lg text-xs text-amber-700 font-medium transition-all">
+                      <Volume2 className="w-3.5 h-3.5" /> Dëgjo
+                    </button>
+                  </div>
+                  <p className="text-3xl arabic-text text-gray-900 mb-2 text-center py-2">{rule.example_text}</p>
                   {rule.example_transliteration && (
-                    <p className="text-sm text-gray-500 italic">{rule.example_transliteration}</p>
+                    <p className="text-sm text-gray-500 italic text-center">{rule.example_transliteration}</p>
                   )}
+                </div>
+              )}
+
+              {/* How to pronounce guide */}
+              {rule.description_sq && (
+                <div className="bg-blue-50 rounded-xl p-3 border border-blue-100">
+                  <p className="text-xs font-bold text-blue-700 mb-1">💡 Si të aplikohet:</p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-xs text-blue-800 flex-1">{rule.description_sq.slice(0, 120)}{rule.description_sq.length > 120 ? "..." : ""}</p>
+                    <button onClick={() => {
+                      if (!window.speechSynthesis) return;
+                      window.speechSynthesis.cancel();
+                      const u = new SpeechSynthesisUtterance(rule.name_sq + ". " + rule.description_sq);
+                      u.lang = "sq"; u.rate = 0.85;
+                      window.speechSynthesis.speak(u);
+                    }} className="flex-shrink-0 w-8 h-8 bg-blue-100 hover:bg-blue-200 rounded-lg flex items-center justify-center">
+                      <Volume2 className="w-3.5 h-3.5 text-blue-600" />
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
