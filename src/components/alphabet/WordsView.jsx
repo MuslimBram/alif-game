@@ -825,7 +825,7 @@ function generateWordQuestionFromList(wordList, language, level) {
 
 export default function WordsView({ language }) {
   const [level, setLevel] = useState("fillestar");
-  const [mode, setMode] = useState("browse"); // browse | quiz
+  const [mode, setMode] = useState("browse"); // browse | quiz | exercises
   const [question, setQuestion] = useState(null);
   const [answered, setAnswered] = useState(null);
   const [timer, setTimer] = useState(TIME);
