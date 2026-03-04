@@ -4,7 +4,7 @@ import { Volume2, Timer, CheckCircle, XCircle, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WORDS_DATA } from "./wordsData.js";
 
-// ---- legacy stub so nothing below breaks ----
+// ---- (data moved to wordsData.js) ----
 const _unused = {
   shqip: {
     fillestar: [
