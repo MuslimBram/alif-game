@@ -207,9 +207,48 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
         </>
       )}
 
-      {activeTab === "rrokjet" && <SyllablesView language={selectedLang} />}
-      {activeTab === "fjalët" && <WordsView language={selectedLang} />}
-      {activeTab === "numrat" && <NumberLearningView language={selectedLang} />}
+      {activeTab === "rrokjet" && (
+        viewMode === "triple" ? (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {languages.map((lang) => (
+              <div key={lang.value} className="bg-white rounded-2xl p-4 border border-gray-100">
+                <p className="text-sm font-bold text-emerald-700 mb-3">{lang.label}</p>
+                <SyllablesView language={lang.value} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <SyllablesView language={selectedLang} />
+        )
+      )}
+      {activeTab === "fjalët" && (
+        viewMode === "triple" ? (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {languages.map((lang) => (
+              <div key={lang.value} className="bg-white rounded-2xl p-4 border border-gray-100">
+                <p className="text-sm font-bold text-emerald-700 mb-3">{lang.label}</p>
+                <WordsView language={lang.value} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <WordsView language={selectedLang} />
+        )
+      )}
+      {activeTab === "numrat" && (
+        viewMode === "triple" ? (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {languages.map((lang) => (
+              <div key={lang.value} className="bg-white rounded-2xl p-4 border border-gray-100">
+                <p className="text-sm font-bold text-emerald-700 mb-3">{lang.label}</p>
+                <NumberLearningView language={lang.value} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <NumberLearningView language={selectedLang} />
+        )
+      )}
       {activeTab === "zgjedhimi" && <VerbConjugationView sharedLang={selectedLang} />}
       {activeTab === "lakimi" && <NounDeclensionView sharedLang={selectedLang} />}
       {activeTab === "medine" && <MedineArabicView />}
