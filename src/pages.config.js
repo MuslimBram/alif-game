@@ -55,6 +55,8 @@ import Progress from './pages/Progress';
 import Quran from './pages/Quran';
 import Tajweed from './pages/Tajweed';
 import UmraHajj from './pages/UmraHajj';
+import Leaderboard from './pages/Leaderboard';
+import Groups from './pages/Groups';
 import __Layout from './Layout.jsx';
 
 
@@ -67,6 +69,8 @@ export const PAGES = {
     "Quran": Quran,
     "Tajweed": Tajweed,
     "UmraHajj": UmraHajj,
+    "Leaderboard": Leaderboard,
+    "Groups": Groups,
 }
 
 export const pagesConfig = {
