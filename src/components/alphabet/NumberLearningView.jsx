@@ -61,20 +61,30 @@ const ARABIC_NUMERALS = ["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"];
 function speakWord(text, lang) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
+  const langCode = lang === "arabisht" ? "ar" : lang === "anglisht" ? "en-US" : "sq";
   const u = new SpeechSynthesisUtterance(text);
-  const langCode = lang === "arabisht" ? "ar-SA" : lang === "anglisht" ? "en-US" : "sq-AL";
   u.lang = langCode;
-  u.rate = 0.6;
+  u.rate = 0.65;
+  u.pitch = 1;
   const doSpeak = () => {
     const voices = window.speechSynthesis.getVoices();
-    const prefix = langCode.split("-")[0];
-    const voice = voices.find(v => v.lang.startsWith(prefix)) || voices.find(v => v.lang.startsWith("en"));
+    // Try exact match, then prefix match, then any English as fallback
+    const voice = voices.find(v => v.lang === langCode)
+      || voices.find(v => v.lang.startsWith(langCode.split("-")[0]))
+      || voices.find(v => v.lang.startsWith("en"));
     if (voice) u.voice = voice;
+    // For Arabic text spoken without an Arabic voice, use transliteration if available
     window.speechSynthesis.speak(u);
   };
   const voices = window.speechSynthesis.getVoices();
   if (voices.length > 0) doSpeak();
-  else { window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.onvoiceschanged = null; doSpeak(); }; setTimeout(doSpeak, 500); }
+  else {
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.onvoiceschanged = null;
+      doSpeak();
+    };
+    setTimeout(doSpeak, 600);
+  }
 }
 
 // Drawing canvas sub-component
