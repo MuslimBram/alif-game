@@ -22,6 +22,7 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [activeForm, setActiveForm] = useState("uppercase");
   const [showQuiz, setShowQuiz] = useState(false);
+  const [showExercises, setShowExercises] = useState(false);
   const [passedLetters, setPassedLetters] = useState({});
   const [scores, setScores] = useState({});
   const [drawingScore, setDrawingScore] = useState(null);
