@@ -91,19 +91,7 @@ export default function Layout({ children, currentPageName }) {
                 </Link>
               );
             })}
-            {user?.role === "admin" && (
-              <Link
-                to={createPageUrl("AdminPanel")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  currentPageName === "AdminPanel"
-                    ? "bg-emerald-600 text-white shadow-md"
-                    : "text-gray-600 hover:text-emerald-700 hover:bg-emerald-50"
-                }`}
-              >
-                <Shield className="w-4 h-4" />
-                Admin
-              </Link>
-            )}
+  
           </nav>
 
           {/* Right side */}
