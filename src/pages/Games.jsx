@@ -54,6 +54,10 @@ const levels = [
 export default function Games() {
   const [selectedModule, setSelectedModule] = useState("te_gjitha");
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");
+  const [activeGame, setActiveGame] = useState(null);
+
+  // Games that have a quiz implementation
+  const QUIZ_GAME_IDS = [8, 9, 10, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 28];
 
   const filtered = allGames.filter((g) => {
     const moduleMatch = selectedModule === "te_gjitha" || g.module === selectedModule;
@@ -62,7 +66,11 @@ export default function Games() {
   });
 
   const handlePlay = (game) => {
-    alert(`Loja "${game.title}" do të hapet së shpejti!`);
+    if (QUIZ_GAME_IDS.includes(game.id)) {
+      setActiveGame(game);
+    } else {
+      alert(`Loja "${game.title}" do të hapet së shpejti!`);
+    }
   };
 
   return (
