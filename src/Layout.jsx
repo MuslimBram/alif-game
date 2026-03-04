@@ -33,12 +33,15 @@ const navItems = [
   { name: "Grupet", page: "Groups", icon: Users },
   { name: "Kryesuesit", page: "Leaderboard", icon: Trophy },
   { name: "Përparimi", page: "Progress", icon: BarChart3 },
+  { name: "Cilësimet", page: "Settings", icon: Settings },
 ];
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminEditMode, setAdminEditMode] = useState(false);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -48,6 +51,7 @@ export default function Layout({ children, currentPageName }) {
         if (authed) {
           const u = await base44.auth.me();
           setUser(u);
+          setIsAdmin(u?.role === "admin");
         }
       } catch (e) {
         setIsAuthenticated(false);
