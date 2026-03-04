@@ -202,8 +202,8 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
       {activeTab === "fjalët" && <WordsView language={selectedLang} />}
       {activeTab === "ushtrime" && <ExercisesView language={selectedLang} />}
       {activeTab === "numrat" && <NumberLearningView language={selectedLang} />}
-      {activeTab === "zgjedhimi" && <VerbConjugationView />}
-      {activeTab === "lakimi" && <NounDeclensionView />}
+      {activeTab === "zgjedhimi" && <VerbConjugationView sharedLang={selectedLang} />}
+      {activeTab === "lakimi" && <NounDeclensionView sharedLang={selectedLang} />}
     </div>
   );
 }
