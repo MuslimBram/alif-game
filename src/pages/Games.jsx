@@ -56,8 +56,15 @@ export default function Games() {
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");
   const [activeGame, setActiveGame] = useState(null);
 
-  // Games that have a quiz implementation
-  const QUIZ_GAME_IDS = [8, 9, 10, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 28];
+  // ALL games that show quiz — map any game to a quiz key
+  const QUIZ_GAME_MAP = {
+    8: "alphabeti_shqip", 9: "alfabeti_anglisht", 10: "alfabeti_arab",
+    11: "alphabeti_shqip", 23: "alphabeti_shqip", 24: "alfabeti_arab", 27: "alphabeti_shqip",
+    13: "texhuidi", 14: "texhuidi", 19: "texhuidi", 26: "alfabeti_arab",
+    15: "kurani", 16: "kurani", 20: "kurani",
+    17: "umra_haxh", 18: "umra_haxh", 21: "umra_haxh", 22: "umra_haxh", 28: "umra_haxh",
+    2: "lojera_numra", 7: "lojera_numra", 25: "lojera_numra",
+  };
 
   const filtered = allGames.filter((g) => {
     const moduleMatch = selectedModule === "te_gjitha" || g.module === selectedModule;
@@ -66,8 +73,8 @@ export default function Games() {
   });
 
   const handlePlay = (game) => {
-    if (QUIZ_GAME_IDS.includes(game.id)) {
-      setActiveGame(game);
+    if (QUIZ_GAME_MAP[game.id]) {
+      setActiveGame({ ...game, quizKey: QUIZ_GAME_MAP[game.id] });
     } else {
       alert(`Loja "${game.title}" do të hapet së shpejti!`);
     }
@@ -122,7 +129,7 @@ export default function Games() {
 
       {/* Active Quiz Modal */}
       {activeGame && (
-        <QuizGame gameId={activeGame.id} onClose={() => setActiveGame(null)} />
+        <QuizGame gameId={activeGame.id} quizKey={activeGame.quizKey} onClose={() => setActiveGame(null)} />
       )}
 
       {/* Games Grid */}
