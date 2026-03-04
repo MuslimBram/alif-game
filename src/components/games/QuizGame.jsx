@@ -139,12 +139,19 @@ export default function QuizGame({ gameId, onClose }) {
       setStreak(0);
     }
     setTimeout(() => {
-      if (idx + 1 >= questions.length) { setPhase("done"); return; }
+      if (idx + 1 >= questions.length) {
+        setPhase("done");
+        // Award points based on performance
+        const finalScore = isCorrect ? score + 1 : score;
+        const pts = finalScore * 10 + (maxStreak >= 3 ? 25 : 0);
+        if (pts > 0) awardPoints(pts, "lojera", `nga kuizi "${data.title}"`);
+        return;
+      }
       setIdx(i => i + 1);
       setTimer(data.timePerQ);
       setAnswered(null);
     }, 1200);
-  }, [answered, idx, questions, data.timePerQ]);
+  }, [answered, idx, questions, data.timePerQ, score, maxStreak, data.title]);
 
   const restart = () => {
     setPhase("start"); setIdx(0); setAnswered(null);
