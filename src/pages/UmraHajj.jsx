@@ -252,8 +252,16 @@ export default function UmraHajj() {
       {tab === "harita" && (
         <div className="space-y-4">
           <div className="bg-white rounded-2xl border border-gray-100 p-5">
-            <h2 className="text-lg font-bold text-gray-900 mb-1">🗺️ Vendet e Shenjta të Haxhit & Umrës</h2>
-            <p className="text-sm text-gray-500 mb-4">Eksploroni vendet kryesore të pelegrinazhit Islam</p>
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h2 className="text-lg font-bold text-gray-900">🗺️ Vendet e Shenjta të Haxhit & Umrës</h2>
+                <p className="text-sm text-gray-500">Eksploroni vendet kryesore të pelegrinazhit Islam</p>
+              </div>
+              <button onClick={() => setShow3D(true)}
+                className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold rounded-xl hover:opacity-90 transition-all shadow-md">
+                🥽 3D
+              </button>
+            </div>
 
             {/* Visual "map" */}
             <div className="bg-gradient-to-b from-amber-50 to-amber-100 rounded-2xl p-4 mb-4 border border-amber-200 relative overflow-hidden">
