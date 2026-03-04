@@ -28,6 +28,7 @@ const navItems = [
   { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
   { name: "Lojëra & Sfida", page: "Games", icon: Gamepad2 },
   { name: "Cilësimet", page: "Settings", icon: Settings },
+  { name: "Fjalë Admin", page: "WordsAdmin", icon: Settings, adminOnly: true },
 ];
 
 export default function Layout({ children, currentPageName }) {
