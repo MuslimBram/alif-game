@@ -201,6 +201,7 @@ export default function Quran() {
   const [lastRead, setLastRead] = useState(() => {
     try { return parseInt(localStorage.getItem("quran_last_read") || "1"); } catch { return 1; }
   });
+  const [verseViewSurah, setVerseViewSurah] = useState(null);
 
   // Quiz state
   const [quizQuestions, setQuizQuestions] = useState([]);
