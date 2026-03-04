@@ -120,6 +120,11 @@ export default function Games() {
         </div>
       </div>
 
+      {/* Active Quiz Modal */}
+      {activeGame && (
+        <QuizGame gameId={activeGame.id} onClose={() => setActiveGame(null)} />
+      )}
+
       {/* Games Grid */}
       {filtered.length === 0 ? (
         <div className="text-center py-20">
