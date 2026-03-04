@@ -185,10 +185,9 @@ export default function Layout({ children, currentPageName }) {
       {/* Floating admin edit button */}
       {isAdmin && adminEditMode && (
         <div className="fixed bottom-6 right-6 z-50">
-          <Link to={createPageUrl("AdminPanel")}
+          <Link to={createPageUrl("Settings")}
             className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-4 py-3 rounded-2xl shadow-2xl font-bold text-sm transition-all">
-            <Shield className="w-4 h-4" />
-            Admin Panel
+            ⚙️ Admin Panel
           </Link>
         </div>
       )}
