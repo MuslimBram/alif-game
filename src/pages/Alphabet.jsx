@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
-import { Languages } from "lucide-react";
+import { Languages, Pencil } from "lucide-react";
+import AdminEditOverlay from "@/components/admin/AdminEditOverlay";
+import { createPageUrl } from "@/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import LetterCard from "@/components/alphabet/LetterCard";
@@ -26,7 +28,7 @@ const levels = [
   { value: "profesionist", label: "Profesionist" },
 ];
 
-export default function Alphabet() {
+export default function Alphabet({ adminEditMode, isAdmin }) {
   const [selectedLang, setSelectedLang] = useState("shqip");
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");
   const [selectedLetter, setSelectedLetter] = useState(null);
@@ -45,7 +47,11 @@ export default function Alphabet() {
   });
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="max-w-6xl mx-auto px-4 py-10 relative">
+      <AdminEditOverlay show={adminEditMode && isAdmin} title="Edito Alfabetin" items={[
+        { label: "Shto Shkronjë", href: createPageUrl("AdminPanel"), icon: "➕" },
+        { label: "Menaxho Shkronjat", href: createPageUrl("AdminPanel"), icon: "📝" },
+      ]} />
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl md:text-3xl font-extrabold text-emerald-800">
