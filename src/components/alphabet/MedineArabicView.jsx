@@ -382,6 +382,9 @@ export default function MedineArabicView() {
 
           {openUnit === idx && (
             <div className="border-t border-gray-100 p-5 space-y-5">
+              {/* Progress Tracker */}
+              <MedineProgressTracker level={level} unit={unit} onCompleted={() => {}} />
+
               {/* Vocabulary */}
               <div>
                 <h4 className="font-bold text-gray-700 mb-3 flex items-center gap-2">
