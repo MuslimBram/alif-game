@@ -422,6 +422,14 @@ export default function MedineArabicView() {
                   ))}
                 </div>
               </div>
+
+              {/* Exercises Button */}
+              <button
+                onClick={() => setSelectedUnit(unit)}
+                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl p-4 font-bold flex items-center justify-center gap-2 hover:shadow-lg transition-shadow"
+              >
+                <Lightbulb className="w-5 h-5" /> Fillo Ushtrimin
+              </button>
             </div>
           )}
         </motion.div>
