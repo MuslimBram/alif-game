@@ -77,6 +77,21 @@ const QUIZ_DATA = {
       { q: "Kur u kompletua shpallja e Kur'anit?", opts: ["5 AH", "10 AH", "23 vjet", "30 vjet"], correct: "23 vjet" },
     ]
   },
+  lojera_numra: {
+    title: "Kuiz Numrat", emoji: "🔢", timePerQ: 15,
+    questions: [
+      { q: "Si shkruhet numri 1 shqip?", opts: ["dy", "një", "tre", "katër"], correct: "një" },
+      { q: "Si shkruhet numri 2 anglisht?", opts: ["one", "three", "two", "four"], correct: "two" },
+      { q: "Numri arab 'واحد' është?", opts: ["2", "3", "1", "4"], correct: "1" },
+      { q: "Sa është 5 + 3?", opts: ["7", "8", "9", "6"], correct: "8" },
+      { q: "Sa është 7 + 4?", opts: ["10", "11", "12", "9"], correct: "11" },
+      { q: "Si quhet numri rreshtor i 1-it shqip?", opts: ["i parë", "i dytë", "i tretë", "i katërt"], correct: "i parë" },
+      { q: "Si quhet numri rreshtor i 1-it anglisht?", opts: ["second", "third", "first", "fourth"], correct: "first" },
+      { q: "Numri arab 'عَشَرَة' është?", opts: ["5", "8", "10", "20"], correct: "10" },
+      { q: "Sa është 9 + 9?", opts: ["16", "17", "18", "19"], correct: "18" },
+      { q: "Si shkruhet 100 shqip?", opts: ["njëzet", "njëqind", "dhjetë", "dyqind"], correct: "njëqind" },
+    ]
+  },
   umra_haxh: {
     title: "Kuiz Umra & Haxhi", emoji: "🕋", timePerQ: 20,
     questions: [
@@ -94,8 +109,8 @@ const QUIZ_DATA = {
   }
 };
 
-export default function QuizGame({ gameId, onClose }) {
-  const quizKey = {
+export default function QuizGame({ gameId, quizKey: quizKeyProp, onClose }) {
+  const quizKey = quizKeyProp || {
     8: "alphabeti_shqip", 9: "alfabeti_anglisht", 10: "alfabeti_arab",
     13: "texhuidi", 14: "texhuidi", 19: "texhuidi",
     15: "kurani", 16: "kurani", 20: "kurani",
