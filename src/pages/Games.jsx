@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Gamepad2 } from "lucide-react";
 import GameCard from "@/components/games/GameCard";
+import QuizGame from "@/components/games/QuizGame";
 
 const allGames = [
   { id: 1, title: "Ngjyro Shkronjat", description: "Ngjyrosi shkronjat arabe, shqip dhe numrat me ngjyra", module: "alfabeti", level: "fillestar", duration: "60+ pyetje", points: 50 },
