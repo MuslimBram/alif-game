@@ -463,6 +463,13 @@ export default function Quran() {
                              </div>
                              {/* Audio player for surah */}
                              <SurahAudioPlayer surahNum={surah.num} surahName={surah.name} />
+                             {/* Verse viewer button */}
+                             <button
+                               onClick={() => setVerseViewSurah(surah)}
+                               className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-sm font-bold hover:opacity-90 transition-all shadow-md"
+                             >
+                               📖 Lexo Ajetet — Ajet pas Ajeti
+                             </button>
                              {/* Progress marking */}
                              <div className="bg-white rounded-xl p-3 border border-gray-100">
                                <p className="text-xs font-semibold text-gray-600 mb-2">Shëno Progresin:</p>
