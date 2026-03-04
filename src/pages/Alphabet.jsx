@@ -86,49 +86,45 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
         </TabsList>
       </Tabs>
 
-      {/* Language & Level Filters */}
-      <div className="flex flex-wrap items-center gap-6 mb-8">
-        <div>
-          <p className="text-xs font-semibold text-emerald-700 mb-2">Gjuha</p>
-          <div className="flex gap-2">
-            {languages.map((lang) => (
-              <button
-                key={lang.value}
-                onClick={() => {
-                  setSelectedLang(lang.value);
-                  setSelectedLetter(null);
-                }}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                  selectedLang === lang.value
-                    ? "bg-gray-900 text-white"
-                    : "bg-white border border-gray-200 text-gray-600 hover:border-gray-400"
-                }`}
-              >
-                {lang.label}
-              </button>
-            ))}
+      {/* Language & Level Filters — only for tabs that use them */}
+      {(activeTab === "germat" || activeTab === "rrokjet" || activeTab === "fjalët" || activeTab === "ushtrime" || activeTab === "numrat") && (
+        <div className="flex flex-wrap items-center gap-6 mb-8">
+          <div>
+            <p className="text-xs font-semibold text-emerald-700 mb-2">Gjuha</p>
+            <div className="flex gap-2">
+              {languages.map((lang) => (
+                <button
+                  key={lang.value}
+                  onClick={() => { setSelectedLang(lang.value); setSelectedLetter(null); }}
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                    selectedLang === lang.value ? "bg-gray-900 text-white" : "bg-white border border-gray-200 text-gray-600 hover:border-gray-400"
+                  }`}
+                >
+                  {lang.label}
+                </button>
+              ))}
+            </div>
           </div>
+          {activeTab === "germat" && (
+            <div>
+              <p className="text-xs font-semibold text-emerald-700 mb-2">Niveli i Vështirësisë</p>
+              <div className="flex gap-2">
+                {levels.map((lvl) => (
+                  <button
+                    key={lvl.value}
+                    onClick={() => setSelectedLevel(lvl.value)}
+                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                      selectedLevel === lvl.value ? "bg-gray-900 text-white" : "bg-white border border-gray-200 text-gray-600 hover:border-gray-400"
+                    }`}
+                  >
+                    {lvl.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-
-        <div>
-          <p className="text-xs font-semibold text-emerald-700 mb-2">Niveli i Vështirësisë</p>
-          <div className="flex gap-2">
-            {levels.map((lvl) => (
-              <button
-                key={lvl.value}
-                onClick={() => setSelectedLevel(lvl.value)}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                  selectedLevel === lvl.value
-                    ? "bg-gray-900 text-white"
-                    : "bg-white border border-gray-200 text-gray-600 hover:border-gray-400"
-                }`}
-              >
-                {lvl.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+      )}
 
       {/* Content */}
       {activeTab === "germat" && (
