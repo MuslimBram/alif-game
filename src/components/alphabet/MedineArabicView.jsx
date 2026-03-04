@@ -308,6 +308,20 @@ export default function MedineArabicView() {
   const [selectedUnit, setSelectedUnit] = useState(null);
 
   const data = MEDINE_DATA[level];
+  
+  if (selectedUnit) {
+    return (
+      <div className="space-y-5">
+        <button
+          onClick={() => setSelectedUnit(null)}
+          className="flex items-center gap-2 text-sm text-emerald-600 hover:text-emerald-700 font-medium mb-4"
+        >
+          ← Kthehu te Mësimet
+        </button>
+        <MedineExercises unit={selectedUnit} onBack={() => setSelectedUnit(null)} />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-5">
