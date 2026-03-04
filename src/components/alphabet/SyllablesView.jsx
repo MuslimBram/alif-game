@@ -27,10 +27,6 @@ const SYLLABLES = {
         {s: cons.toLowerCase()+"u", p: cons.toLowerCase()+"oo"},
         {s: cons.toLowerCase()+"ee", p: cons.toLowerCase()+"ee"},
         {s: cons.toLowerCase()+"oo", p: cons.toLowerCase()+"oo"},
-        {s: cons.toLowerCase()+"in", p: cons.toLowerCase()+"in"},
-        {s: cons.toLowerCase()+"un", p: cons.toLowerCase()+"un"},
-        {s: cons.toLowerCase()+"en", p: cons.toLowerCase()+"en"},
-        {s: cons.toLowerCase()+"an", p: cons.toLowerCase()+"an"},
       ];
       return combos.map(c => ({ syllable: c.s, pronunciation: c.p }));
     }
