@@ -115,6 +115,16 @@ export default function Layout({ children, currentPageName }) {
           <div className="flex items-center gap-3">
             {isAuthenticated ? (
               <div className="hidden sm:flex items-center gap-2">
+                {isAdmin && (
+                  <Button
+                    size="sm"
+                    onClick={() => setAdminEditMode(m => !m)}
+                    className={`rounded-xl text-xs font-bold gap-1.5 ${adminEditMode ? "bg-amber-500 hover:bg-amber-600 text-white" : "bg-gray-100 hover:bg-gray-200 text-gray-700"}`}
+                  >
+                    <Pencil className="w-3.5 h-3.5" />
+                    {adminEditMode ? "Edit: ON" : "Edit"}
+                  </Button>
+                )}
                 <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-semibold text-sm">
                   {user?.full_name?.[0] || "U"}
                 </div>
@@ -185,10 +195,28 @@ export default function Layout({ children, currentPageName }) {
         )}
       </header>
 
+      {/* Admin edit mode banner */}
+      {adminEditMode && (
+        <div className="bg-amber-500 text-white text-center py-1.5 text-xs font-bold z-40 sticky top-16">
+          ✏️ Modaliteti i Editimit është aktiv — Admini mund të ndryshojë çdo opsion
+        </div>
+      )}
+
       {/* Content */}
       <main className="min-h-[calc(100vh-4rem)]">
-        {children}
+        {React.cloneElement(children, { adminEditMode, isAdmin })}
       </main>
+
+      {/* Floating admin edit button */}
+      {isAdmin && adminEditMode && (
+        <div className="fixed bottom-6 right-6 z-50">
+          <Link to={createPageUrl("AdminPanel")}
+            className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-4 py-3 rounded-2xl shadow-2xl font-bold text-sm transition-all">
+            <Shield className="w-4 h-4" />
+            Admin Panel
+          </Link>
+        </div>
+      )}
       <PointsToast />
 
       {/* Footer */}
