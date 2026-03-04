@@ -364,10 +364,14 @@ function NounQuiz({ lang }) {
 }
 
 // ─── MAIN ─────────────────────────────────────────────────────────────────────
-const LANG_MAP2 = { shqip: "sq", anglisht: "en", arabisht: "ar" };
+const LANG_OPTS2 = [
+  { value: "sq", label: "🇦🇱 Shqip" },
+  { value: "en", label: "🇬🇧 Anglisht" },
+  { value: "ar", label: "🇸🇦 Arabisht" },
+];
 
 export default function NounDeclensionView({ sharedLang }) {
-  const activeLang = LANG_MAP2[sharedLang] || "sq";
+  const [activeLang, setActiveLang] = useState("sq");
   const [sqNoun, setSqNoun] = useState(SHQIP_NOUNS[0]);
   const [enNoun, setEnNoun] = useState(ENGLISH_NOUNS[0]);
   const [arNoun, setArNoun] = useState(ARABIC_NOUNS[0]);
