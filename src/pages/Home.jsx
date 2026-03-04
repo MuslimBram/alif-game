@@ -2,15 +2,34 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { createPageUrl } from "@/utils";
 import HeroSection from "@/components/home/HeroSection";
+import LevelSelectionModal from "@/components/home/LevelSelectionModal";
 
 export default function Home({ adminEditMode, isAdmin }) {
   const [stats, setStats] = useState({ lessons: 0, completed: 0, avgScore: 0 });
+  const [showLevelModal, setShowLevelModal] = useState(false);
 
   useEffect(() => {
     const loadStats = async () => {
       try {
         const authed = await base44.auth.isAuthenticated();
-        if (!authed) return;
+        if (!authed) {
+          // Show level selection for new/unauthenticated visitors
+          const seen = sessionStorage.getItem("levelModalSeen");
+          if (!seen) {
+            setShowLevelModal(true);
+            sessionStorage.setItem("levelModalSeen", "1");
+          }
+          return;
+        }
+        const user = await base44.auth.me();
+        // If logged in but no level set, show modal once
+        if (!user?.user_level) {
+          const seen = sessionStorage.getItem("levelModalSeen");
+          if (!seen) {
+            setShowLevelModal(true);
+            sessionStorage.setItem("levelModalSeen", "1");
+          }
+        }
         const progress = await base44.entities.UserProgress.list();
         const completed = progress.filter((p) => p.status === "completed");
         const avgScore = completed.length
