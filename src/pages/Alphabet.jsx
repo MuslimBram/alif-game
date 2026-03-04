@@ -16,6 +16,7 @@ import NumberLearningView from "@/components/alphabet/NumberLearningView";
 import VerbConjugationView from "@/components/alphabet/VerbConjugationView";
 import NounDeclensionView from "@/components/alphabet/NounDeclensionView";
 import MedineArabicView from "@/components/alphabet/MedineArabicView";
+import TajweedInline from "@/components/alphabet/TajweedInline";
 
 const languages = [
   { value: "shqip", label: "🇦🇱 Shqip" },
