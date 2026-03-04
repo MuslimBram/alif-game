@@ -79,7 +79,7 @@ export default function Games({ adminEditMode, isAdmin }) {
     if (QUIZ_GAME_MAP[game.id]) {
       setActiveGame({ ...game, quizKey: QUIZ_GAME_MAP[game.id] });
     } else {
-      alert(`Loja "${game.title}" do të hapet së shpejti!`);
+      toast.info(`Loja "${game.title}" do të hapet së shpejti!`);
     }
   };
 
