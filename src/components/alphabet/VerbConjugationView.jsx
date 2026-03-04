@@ -544,18 +544,14 @@ function QuizSection({ lang }) {
 }
 
 // ─── MAIN COMPONENT ────────────────────────────────────────────────────────────
-export default function VerbConjugationView() {
-  const [activeLang, setActiveLang] = useState("sq");
+const LANG_MAP = { shqip: "sq", anglisht: "en", arabisht: "ar" };
+
+export default function VerbConjugationView({ sharedLang }) {
+  const activeLang = LANG_MAP[sharedLang] || "sq";
   const [sqVerb, setSqVerb] = useState(SHQIP_VERBS[0]);
   const [enVerb, setEnVerb] = useState(ENGLISH_VERBS[0]);
   const [arVerb, setArVerb] = useState(ARABIC_VERBS[0]);
   const [showQuiz, setShowQuiz] = useState(false);
-
-  const langs = [
-    { key: "sq", label: "🇦🇱 Shqip",    color: "bg-emerald-600" },
-    { key: "en", label: "🇬🇧 Anglisht",  color: "bg-blue-600" },
-    { key: "ar", label: "🇸🇦 Arabisht",  color: "bg-amber-600" },
-  ];
 
   const currentVerbs = activeLang === "sq" ? SHQIP_VERBS : activeLang === "en" ? ENGLISH_VERBS : ARABIC_VERBS;
   const currentVerb  = activeLang === "sq" ? sqVerb       : activeLang === "en" ? enVerb        : arVerb;
@@ -566,17 +562,7 @@ export default function VerbConjugationView() {
       {/* Header card */}
       <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
         <h2 className="text-lg font-extrabold text-gray-900 mb-1">📚 Zgjedhimi i Foljeve</h2>
-        <p className="text-sm text-gray-500 mb-5">Tabela e plotë e zgjedhimit në të tri gjuhët — Shqip, Anglisht, Arabisht</p>
-
-        {/* Language tabs */}
-        <div className="flex gap-2 mb-5 bg-gray-100 rounded-2xl p-1">
-          {langs.map(l => (
-            <button key={l.key} onClick={() => { setActiveLang(l.key); setShowQuiz(false); }}
-              className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all ${activeLang === l.key ? `${l.color} text-white shadow-md` : "text-gray-500 hover:text-gray-700"}`}>
-              {l.label}
-            </button>
-          ))}
-        </div>
+        <p className="text-sm text-gray-500 mb-4">Ndërroni gjuhën nga butonat e gjuhës sipër ↑</p>
 
         {/* Verb selector */}
         <div className="mb-4">
