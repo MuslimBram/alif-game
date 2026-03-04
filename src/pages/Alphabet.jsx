@@ -43,7 +43,7 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
   });
 
   const filteredLetters = letters.filter((l) => {
-    const langMatch = l.language === selectedLang;
+    const langMatch = activeTab === "germat" ? l.language === selectedLang : l.language === selectedLang;
     const levelMatch = selectedLevel === "te_gjitha" || l.level === selectedLevel;
     return langMatch && levelMatch;
   });
