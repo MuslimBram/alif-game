@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Volume2, Timer, CheckCircle, XCircle, Star } from "lucide-react";
+import { Volume2, Timer, CheckCircle, XCircle, Star, Dumbbell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
+import WordExercises from "./WordExercises";
 
 // Words by level for each language with emoji "images"
 const WORDS_DATA = {
