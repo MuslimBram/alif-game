@@ -225,8 +225,13 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
         </div>
       )}
 
+      {/* Exercises Section */}
+      {showExercises ? (
+        <LetterExercises letters={letters} onClose={() => setShowExercises(false)} />
+      ) : null}
+
       {/* Quiz Section */}
-      {!showQuiz ? (
+      {!showQuiz && !showExercises ? (
         <div className="bg-white rounded-2xl border border-gray-100 p-5">
           <div className="flex items-center justify-between mb-3">
             <div>
@@ -241,14 +246,22 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
               </span>
             )}
           </div>
-          <Button
-            onClick={() => setShowQuiz(true)}
-            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl"
-          >
-            {passedLetters[letter.id] ? "Bëj Kuizin Sërish" : "Fillo Kuizin"}
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              onClick={() => setShowQuiz(true)}
+              className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl"
+            >
+              {passedLetters[letter.id] ? "Bëj Kuizin Sërish" : "Fillo Kuizin"}
+            </Button>
+            <Button
+              onClick={() => setShowExercises(true)}
+              className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl"
+            >
+              ✏️ Ushtrime
+            </Button>
+          </div>
         </div>
-      ) : (
+      ) : showQuiz ? (
         <LetterQuiz
           letter={letter}
           allLetters={letters}
@@ -257,7 +270,7 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
           onPass={handlePass}
           onFail={handleFail}
         />
-      )}
+      ) : null}
 
       {/* Instructions */}
       <div className="bg-white rounded-2xl border border-gray-100 p-5">
