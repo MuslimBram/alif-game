@@ -93,7 +93,7 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
 
       {/* Language Filter */}
       {(activeTab === "germat" || activeTab === "rrokjet" || activeTab === "fjalët" || activeTab === "numrat") && (
-        <div className="flex flex-wrap items-center gap-6 mb-8">
+        <div className="flex flex-wrap items-center gap-8 mb-8">
           <div>
             <p className="text-xs font-semibold text-emerald-700 mb-2">Gjuha</p>
             <div className="flex gap-2">
@@ -108,6 +108,28 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
                   {lang.label}
                 </button>
               ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs font-semibold text-emerald-700 mb-2">Pamje</p>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setViewMode("single")}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                  viewMode === "single" ? "bg-emerald-600 text-white" : "bg-white border border-gray-200 text-gray-600 hover:border-gray-400"
+                }`}
+              >
+                📌 Njëa Gjuhe
+              </button>
+              <button
+                onClick={() => setViewMode("triple")}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                  viewMode === "triple" ? "bg-emerald-600 text-white" : "bg-white border border-gray-200 text-gray-600 hover:border-gray-400"
+                }`}
+              >
+                🌐 Tri Gjuhe
+              </button>
             </div>
           </div>
         </div>
