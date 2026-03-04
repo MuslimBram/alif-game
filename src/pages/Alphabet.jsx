@@ -87,8 +87,8 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
         </TabsList>
       </Tabs>
 
-      {/* Language Filter — for tabs that use it (not zgjedhimi/lakimi which have their own) */}
-      {(activeTab === "rrokjet" || activeTab === "fjalët" || activeTab === "numrat") && (
+      {/* Language Filter */}
+      {(activeTab === "germat" || activeTab === "rrokjet" || activeTab === "fjalët" || activeTab === "numrat") && (
         <div className="flex flex-wrap items-center gap-6 mb-8">
           <div>
             <p className="text-xs font-semibold text-emerald-700 mb-2">Gjuha</p>
