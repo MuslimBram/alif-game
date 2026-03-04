@@ -65,13 +65,20 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
         <TabsList className="bg-white border border-gray-200 rounded-xl p-1">
-          {["Germat", "Rrokjet", "Fjalët", "Ushtrime", "Numrat", "Lakimi"].map((tab) => (
+          {[
+            { label: "Germat", value: "germat" },
+            { label: "Rrokjet", value: "rrokjet" },
+            { label: "Fjalët", value: "fjalët" },
+            { label: "Ushtrime", value: "ushtrime" },
+            { label: "Numrat", value: "numrat" },
+            { label: "Zgjedhimi", value: "zgjedhimi" },
+          ].map((tab) => (
             <TabsTrigger
-              key={tab}
-              value={tab.toLowerCase()}
+              key={tab.value}
+              value={tab.value}
               className="rounded-lg text-sm data-[state=active]:bg-emerald-600 data-[state=active]:text-white"
             >
-              {tab}
+              {tab.label}
             </TabsTrigger>
           ))}
         </TabsList>

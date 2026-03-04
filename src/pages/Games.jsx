@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Gamepad2 } from "lucide-react";
+import { toast } from "sonner";
 import GameCard from "@/components/games/GameCard";
 import QuizGame from "@/components/games/QuizGame";
 import AdminEditOverlay from "@/components/admin/AdminEditOverlay";
