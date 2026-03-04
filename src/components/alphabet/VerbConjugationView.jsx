@@ -544,10 +544,14 @@ function QuizSection({ lang }) {
 }
 
 // ─── MAIN COMPONENT ────────────────────────────────────────────────────────────
-const LANG_MAP = { shqip: "sq", anglisht: "en", arabisht: "ar" };
+const LANG_OPTS = [
+  { value: "sq", label: "🇦🇱 Shqip" },
+  { value: "en", label: "🇬🇧 Anglisht" },
+  { value: "ar", label: "🇸🇦 Arabisht" },
+];
 
 export default function VerbConjugationView({ sharedLang }) {
-  const activeLang = LANG_MAP[sharedLang] || "sq";
+  const [activeLang, setActiveLang] = useState("sq");
   const [sqVerb, setSqVerb] = useState(SHQIP_VERBS[0]);
   const [enVerb, setEnVerb] = useState(ENGLISH_VERBS[0]);
   const [arVerb, setArVerb] = useState(ARABIC_VERBS[0]);
