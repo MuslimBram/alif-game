@@ -8,7 +8,6 @@ import {
   BookMarked,
   Gamepad2,
   BarChart3,
-  Shield,
   Menu,
   X,
   LogOut,
