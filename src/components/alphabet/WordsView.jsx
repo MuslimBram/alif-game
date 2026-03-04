@@ -4,10 +4,9 @@ import { Volume2, Timer, CheckCircle, XCircle, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WORDS_DATA } from "./wordsData.js";
 
-// ---- (data moved to wordsData.js) ----
-const _unused = {
-  shqip: {
-    fillestar: [
+// ---- data is in wordsData.js ----
+// Keeping a tiny placeholder so the block below closes correctly.
+const _removeMe = {shqip:{fillestar:[
       { word: "BU-KË", meaning: "bukë", translation: "bread", emoji: "🍞", missing: "U" },
       { word: "MA-MÄ", meaning: "mamë", translation: "mom", emoji: "👩", missing: "A" },
       { word: "BA-BÄ", meaning: "babë", translation: "dad", emoji: "👨", missing: "B" },
