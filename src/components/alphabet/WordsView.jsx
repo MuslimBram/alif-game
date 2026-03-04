@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Volume2, Timer, CheckCircle, XCircle, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { WORDS_DATA } from "@/components/alphabet/wordsData";
+import { WORDS_DATA } from "@/components/alphabet/wordsData.jsx";
 
 const QUIZ_TYPES_WORDS = ["emoji_to_word", "missing_letter", "word_to_translation", "translation_to_word"];
 
