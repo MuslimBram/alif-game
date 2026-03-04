@@ -6,6 +6,7 @@ import AdminEditOverlay from "@/components/admin/AdminEditOverlay";
 import { createPageUrl } from "@/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Link } from "react-router-dom";
 import LetterCard from "@/components/alphabet/LetterCard";
 import LetterLearningView from "@/components/alphabet/LetterLearningView";
 import SyllablesView from "@/components/alphabet/SyllablesView";
