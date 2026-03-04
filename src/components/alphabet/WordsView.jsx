@@ -78,6 +78,7 @@ const WORDS_DATA = {
   },
   anglisht: {
     fillestar: [
+      { word: "ANT", meaning: "ant", translation: "milingonë", emoji: "🐜", missing: "A" },
       { word: "APPLE", meaning: "apple", translation: "mollë", emoji: "🍎", missing: "A" },
       { word: "BALL", meaning: "ball", translation: "top", emoji: "⚽", missing: "B" },
       { word: "CAT", meaning: "cat", translation: "mace", emoji: "🐱", missing: "C" },

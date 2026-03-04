@@ -13,6 +13,10 @@ const formLabels = {
   handwritten_lower: "E Vogël dorëshkrim",
 };
 
+const arabicFormLabels = {
+  handwritten_upper: "Stypi Dore",
+};
+
 export default function LetterLearningView({ letters, initialIndex = 0, onProgressUpdate }) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [activeForm, setActiveForm] = useState("uppercase");
