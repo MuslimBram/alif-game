@@ -811,7 +811,7 @@ export default function WordsView({ language }) {
   };
 
   const startQuiz = () => {
-    const q = generateWordQuestion(language, level);
+    const q = generateWordQuestionFromList(wordList, language, level);
     setQuestion(q);
     setTimer(TIME);
     setScore(0);
