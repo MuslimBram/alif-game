@@ -381,7 +381,8 @@ export default function NounDeclensionView({ sharedLang }) {
     <div className="space-y-5">
       <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
         <h2 className="text-lg font-extrabold text-gray-900 mb-1">📘 Lakimi i Emrit</h2>
-        <p className="text-sm text-gray-500 mb-5">Pesë rasat e shqipes • English noun forms • الإعراب العربي — në të tri gjuhët</p>
+        <p className="text-sm text-gray-500 mb-2">Pesë rasat e shqipes • English noun forms • الإعراب العربي — në të tri gjuhët</p>
+        <p className="text-xs text-emerald-600 mb-4 font-medium">Ndërroni gjuhën nga butonat e gjuhës sipër ↑</p>
 
         {/* Info boxes */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-5">
