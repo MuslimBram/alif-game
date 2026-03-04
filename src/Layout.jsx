@@ -183,6 +183,7 @@ export default function Layout({ children, currentPageName }) {
       <main className="min-h-[calc(100vh-4rem)]">
         {children}
       </main>
+      <PointsToast />
 
       {/* Footer */}
       <footer className="border-t border-emerald-100 bg-white/60 backdrop-blur-sm py-6">
