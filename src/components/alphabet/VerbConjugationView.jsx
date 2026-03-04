@@ -134,8 +134,8 @@ export default function VerbConjugationView() {
   return (
     <div className="space-y-5">
       <div className="bg-white rounded-2xl border border-gray-100 p-5">
-        <h2 className="text-lg font-bold text-gray-900 mb-1">📚 Lakimi Zgjedhor — Folje Shqipe</h2>
-        <p className="text-sm text-gray-500 mb-4">Mëso zgjedhimin e foljeve të shqipes</p>
+        <h2 className="text-lg font-bold text-gray-900 mb-1">📚 Zgjedhimi i Foljeve Shqipe</h2>
+        <p className="text-sm text-gray-500 mb-4">Mëso zgjedhimin e foljeve të shqipes në të gjitha kohët</p>
 
         {/* Verb selector */}
         <div className="flex flex-wrap gap-2 mb-4">
@@ -198,7 +198,7 @@ export default function VerbConjugationView() {
 
         <button onClick={() => { setQuizMode(true); generateQuiz(); setScore(0); setQuizCount(0); }}
           className="mt-4 w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-bold text-sm transition-all">
-          🎯 Fillo Kuizin e Zgjedhimit
+          🎯 Fillo Kuizin e Zgjedhimit (Quiz)
         </button>
       </div>
 
