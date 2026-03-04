@@ -5,6 +5,7 @@ import { Volume2, BookOpen, ChevronLeft, ChevronRight, Lock, CheckCircle, Loader
 import DrawingCanvas from "./DrawingCanvas";
 import VoiceRecorder from "./VoiceRecorder";
 import LetterQuiz from "./LetterQuiz";
+import LetterExercises from "./LetterExercises";
 
 const formLabels = {
   uppercase: "E Madhe shtypi",
