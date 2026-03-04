@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
+import VR3DExperience from "@/components/umra/VR3DExperience";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, ChevronDown, ChevronUp, Volume2, CheckCircle, Timer, XCircle, Star, Heart, Trophy, RotateCcw, Map, BookOpen, Camera, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -152,6 +153,7 @@ const speak = (text) => {
 export default function UmraHajj() {
   const [tab, setTab] = useState("harita"); // harita | umra | hajj | quiz
   const [expanded, setExpanded] = useState(null);
+  const [show3D, setShow3D] = useState(false);
   const [completedSteps, setCompletedSteps] = useState(loadUHProgress);
   const [quizIdx, setQuizIdx] = useState(0);
   const [answered, setAnswered] = useState(null);
@@ -196,6 +198,7 @@ export default function UmraHajj() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6">
+      {show3D && <VR3DExperience onClose={() => setShow3D(false)} />}
       {/* Header */}
       <div className="mb-6">
         <div className="relative bg-gradient-to-br from-emerald-700 via-teal-700 to-emerald-800 rounded-3xl p-6 text-white overflow-hidden shadow-2xl">
@@ -208,6 +211,10 @@ export default function UmraHajj() {
                 <p className="text-emerald-200 text-sm">Udhëzues interaktiv — hap pas hapi</p>
               </div>
             </div>
+            <button onClick={() => setShow3D(true)}
+              className="mb-3 flex items-center gap-2 px-4 py-2.5 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-xl text-white text-sm font-bold transition-all border border-white/30">
+              🥽 Eksplorimi 3D i Vendeve të Shenjta — Vizitë Virtuale
+            </button>
             <div className="grid grid-cols-3 gap-3">
               {[
                 { label: "Hapat Umra", val: UMRA_STEPS.length, icon: "🕌" },
