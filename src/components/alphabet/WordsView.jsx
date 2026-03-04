@@ -893,10 +893,10 @@ export default function WordsView({ language }) {
         </h2>
         <div className="flex flex-wrap gap-2 mb-4">
           {[
-            { v: "fillestar", label: "🌱 Fillestar", target: "500+" },
-            { v: "mesatar",   label: "🌿 Mesatar",   target: "2000+" },
-            { v: "avancuar",  label: "🌲 Avancuar",  target: "4000+" },
-            { v: "profesionist", label: "🏆 Profesionist", target: "500+" },
+            { v: "fillestar", label: "🌱 Fillestar", target: "5+" },
+            { v: "mesatar",   label: "🌿 Mesatar",   target: "500+" },
+            { v: "avancuar",  label: "🌲 Avancuar",  target: "2000+" },
+            { v: "profesionist", label: "🏆 Profesionist", target: "5000+" },
           ].map(l => {
             const dbCount = l.v === level ? wordList.length : 0;
             const staticCount = WORDS_DATA[language]?.[l.v]?.length || 0;
