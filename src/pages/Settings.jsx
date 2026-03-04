@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Settings, Globe, Moon, Sun, Bell, BellOff, Save, User, Palette, Languages, Check } from "lucide-react";
+import { Settings as SettingsIcon, Globe, Moon, Sun, Bell, BellOff, Save, User, Palette, Languages, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
