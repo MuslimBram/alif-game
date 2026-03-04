@@ -363,6 +363,100 @@ function NounQuiz({ lang }) {
   );
 }
 
+// ─── AI DECLENSION (custom word) ──────────────────────────────────────────────
+function CustomNounForm({ lang, onResult }) {
+  const [word, setWord] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const generate = async () => {
+    if (!word.trim()) return;
+    setLoading(true);
+    setResult(null);
+    try {
+      const { base44 } = await import("@/api/base44Client");
+      const langLabel = lang === "sq" ? "Albanian (shqip)" : lang === "en" ? "English" : "Arabic";
+      let schema;
+      if (lang === "sq") {
+        schema = {
+          type: "object",
+          properties: {
+            gender: { type: "string" },
+            pashquar: {
+              type: "object",
+              properties: {
+                njejes: { type: "object", properties: { emerore: {type:"string"}, gjinore: {type:"string"}, dhanore: {type:"string"}, kallezore: {type:"string"}, rrjedhore: {type:"string"} } },
+                shumes: { type: "object", properties: { emerore: {type:"string"}, gjinore: {type:"string"}, dhanore: {type:"string"}, kallezore: {type:"string"}, rrjedhore: {type:"string"} } },
+              }
+            },
+            shquar: {
+              type: "object",
+              properties: {
+                njejes: { type: "object", properties: { emerore: {type:"string"}, gjinore: {type:"string"}, dhanore: {type:"string"}, kallezore: {type:"string"}, rrjedhore: {type:"string"} } },
+                shumes: { type: "object", properties: { emerore: {type:"string"}, gjinore: {type:"string"}, dhanore: {type:"string"}, kallezore: {type:"string"}, rrjedhore: {type:"string"} } },
+              }
+            }
+          }
+        };
+      } else if (lang === "en") {
+        schema = {
+          type: "object",
+          properties: {
+            singular: { type: "object", properties: { nominative:{type:"string"}, possessive:{type:"string"}, objective:{type:"string"}, prepositional:{type:"string"} } },
+            plural: { type: "object", properties: { nominative:{type:"string"}, possessive:{type:"string"}, objective:{type:"string"}, prepositional:{type:"string"} } },
+            definite: { type: "object", properties: { singular:{type:"string"}, plural:{type:"string"} } },
+          }
+        };
+      } else {
+        schema = {
+          type: "object",
+          properties: {
+            nakerah: { type: "object", properties: {
+              mufrad: { type: "object", properties: { rafe:{type:"string"}, nasb:{type:"string"}, jarr:{type:"string"} } },
+              jama: { type: "object", properties: { rafe:{type:"string"}, nasb:{type:"string"}, jarr:{type:"string"} } },
+            }},
+            marifah: { type: "object", properties: {
+              mufrad: { type: "object", properties: { rafe:{type:"string"}, nasb:{type:"string"}, jarr:{type:"string"} } },
+              jama: { type: "object", properties: { rafe:{type:"string"}, nasb:{type:"string"}, jarr:{type:"string"} } },
+            }},
+          }
+        };
+      }
+      const res = await base44.integrations.Core.InvokeLLM({
+        prompt: `Provide the full noun declension for the ${langLabel} word: "${word}". Fill all forms correctly according to grammar rules.`,
+        response_json_schema: schema
+      });
+      setResult({ noun: word.trim(), meaning: `(${word.trim()})`, ...res, ...(lang === "sq" ? { gender: res.gender || "mashkullore" } : {}) });
+      onResult && onResult({ noun: word.trim(), meaning: `(${word.trim()})`, ...res });
+    } catch(e) {
+      setResult({ error: e.message });
+    }
+    setLoading(false);
+  };
+
+  return (
+    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 p-4 mb-4">
+      <p className="text-xs font-bold text-indigo-700 mb-2">✨ Provo me fjalën tënde (AI):</p>
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={word}
+          onChange={e => setWord(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && !loading && generate()}
+          placeholder={lang === "ar" ? "أدخل كلمة..." : lang === "en" ? "Enter a word..." : "Shkruaj emrin..."}
+          className={`flex-1 border border-indigo-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 ${lang === "ar" ? "arabic-text text-right" : ""}`}
+          dir={lang === "ar" ? "rtl" : "ltr"}
+        />
+        <button onClick={generate} disabled={!word.trim() || loading}
+          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold disabled:opacity-40 transition-all">
+          {loading ? "⏳" : "→"}
+        </button>
+      </div>
+      {result?.error && <p className="text-red-500 text-xs mt-2">{result.error}</p>}
+    </div>
+  );
+}
+
 // ─── MAIN ─────────────────────────────────────────────────────────────────────
 const LANG_OPTS2 = [
   { value: "sq", label: "🇦🇱 Shqip" },
@@ -380,6 +474,12 @@ export default function NounDeclensionView({ sharedLang }) {
   const nouns = activeLang === "sq" ? SHQIP_NOUNS : activeLang === "en" ? ENGLISH_NOUNS : ARABIC_NOUNS;
   const current = activeLang === "sq" ? sqNoun : activeLang === "en" ? enNoun : arNoun;
   const setCurrent = activeLang === "sq" ? setSqNoun : activeLang === "en" ? setEnNoun : setArNoun;
+
+  const handleCustomResult = (data) => {
+    if (activeLang === "sq") setSqNoun(data);
+    else if (activeLang === "en") setEnNoun(data);
+    else setArNoun(data);
+  };
 
   return (
     <div className="space-y-5">
@@ -412,9 +512,12 @@ export default function NounDeclensionView({ sharedLang }) {
           </div>
         </div>
 
+        {/* Custom word input */}
+        <CustomNounForm lang={activeLang} onResult={handleCustomResult} />
+
         {/* Noun selector */}
         <div className="mb-4">
-          <p className="text-xs font-semibold text-gray-500 mb-2">Zgjidhni emrin:</p>
+          <p className="text-xs font-semibold text-gray-500 mb-2">Ose zgjidhni nga lista:</p>
           <div className="flex flex-wrap gap-2">
             {nouns.map(n => (
               <button key={n.noun} onClick={() => setCurrent(n)}

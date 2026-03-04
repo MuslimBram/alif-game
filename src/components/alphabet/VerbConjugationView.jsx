@@ -543,6 +543,61 @@ function QuizSection({ lang }) {
   );
 }
 
+// ─── CUSTOM VERB FORM (AI) ────────────────────────────────────────────────────
+function CustomVerbForm({ lang, onResult }) {
+  const [word, setWord] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const generate = async () => {
+    if (!word.trim()) return;
+    setLoading(true);
+    try {
+      const { base44 } = await import("@/api/base44Client");
+      const langLabel = lang === "sq" ? "Albanian (shqip)" : lang === "en" ? "English" : "Arabic";
+      let schema;
+      if (lang === "sq") {
+        const vetaObj = { type:"object", properties: { une:{type:"string"}, ti_m:{type:"string"}, ti_f:{type:"string"}, ai:{type:"string"}, ajo:{type:"string"}, ne:{type:"string"}, ju_m:{type:"string"}, ju_f:{type:"string"}, ata:{type:"string"}, ato:{type:"string"} } };
+        schema = { type:"object", properties: { verb:{type:"string"}, meaning:{type:"string"}, conjugation:{type:"object", properties:{ present:vetaObj, past:vetaObj, future:vetaObj, subjunctive:vetaObj, imperative:vetaObj }} } };
+      } else if (lang === "en") {
+        const vetaObj = { type:"object", properties: { i:{type:"string"}, you_sg:{type:"string"}, he:{type:"string"}, she:{type:"string"}, we:{type:"string"}, you_pl:{type:"string"}, they:{type:"string"} } };
+        schema = { type:"object", properties: { verb:{type:"string"}, meaning:{type:"string"}, conjugation:{type:"object", properties:{ present:vetaObj, past:vetaObj, future:vetaObj, present_perf:vetaObj, conditional:vetaObj }} } };
+      } else {
+        const vetaObj = { type:"object", properties: { ana:{type:"string"}, nahnu:{type:"string"}, anta:{type:"string"}, anti:{type:"string"}, antuma:{type:"string"}, antum:{type:"string"}, antunna:{type:"string"}, hua:{type:"string"}, hia:{type:"string"}, huma_m:{type:"string"}, huma_f:{type:"string"}, hum:{type:"string"}, hunna:{type:"string"} } };
+        schema = { type:"object", properties: { verb:{type:"string"}, meaning:{type:"string"}, transliteration:{type:"string"}, conjugation:{type:"object", properties:{ past:vetaObj, present:vetaObj, subjunctive:vetaObj, jussive:vetaObj, imperative:vetaObj }} } };
+      }
+      const res = await base44.integrations.Core.InvokeLLM({
+        prompt: `Provide the full verb conjugation for the ${langLabel} verb "${word}". Fill all tenses and persons correctly. For Albanian use the 5 tenses (e tashmja, e kryera, e ardhmja, lidhore, urdhërorja).`,
+        response_json_schema: schema
+      });
+      onResult && onResult({ ...res, verb: res.verb || word.trim() });
+    } catch(e) {
+      console.error(e);
+    }
+    setLoading(false);
+  };
+
+  return (
+    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 p-4 mb-4">
+      <p className="text-xs font-bold text-indigo-700 mb-2">✨ Provo me foljen tënde (AI):</p>
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={word}
+          onChange={e => setWord(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && !loading && generate()}
+          placeholder={lang === "ar" ? "أدخل فعلاً..." : lang === "en" ? "Enter a verb..." : "Shkruaj foljen..."}
+          className={`flex-1 border border-indigo-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 ${lang === "ar" ? "arabic-text text-right" : ""}`}
+          dir={lang === "ar" ? "rtl" : "ltr"}
+        />
+        <button onClick={generate} disabled={!word.trim() || loading}
+          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold disabled:opacity-40 transition-all">
+          {loading ? "⏳" : "→"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ─── MAIN COMPONENT ────────────────────────────────────────────────────────────
 const LANG_OPTS = [
   { value: "sq", label: "🇦🇱 Shqip" },
@@ -561,6 +616,12 @@ export default function VerbConjugationView({ sharedLang }) {
   const currentVerb  = activeLang === "sq" ? sqVerb       : activeLang === "en" ? enVerb        : arVerb;
   const setVerb      = activeLang === "sq" ? setSqVerb    : activeLang === "en" ? setEnVerb      : setArVerb;
 
+  const handleCustomVerb = (data) => {
+    if (activeLang === "sq") setSqVerb(data);
+    else if (activeLang === "en") setEnVerb(data);
+    else setArVerb(data);
+  };
+
   return (
     <div className="space-y-5">
       {/* Header card */}
@@ -576,9 +637,12 @@ export default function VerbConjugationView({ sharedLang }) {
           ))}
         </div>
 
+        {/* Custom verb input */}
+        <CustomVerbForm lang={activeLang} onResult={handleCustomVerb} />
+
         {/* Verb selector */}
         <div className="mb-4">
-          <p className="text-xs font-semibold text-gray-500 mb-2">Zgjidhni foljen:</p>
+          <p className="text-xs font-semibold text-gray-500 mb-2">Ose zgjidhni nga lista:</p>
           <div className="flex flex-wrap gap-2">
             {currentVerbs.map(v => (
               <button key={v.verb} onClick={() => setVerb(v)}
