@@ -791,8 +791,24 @@ export default function WordsView({ language }) {
   const [qNum, setQNum] = useState(1);
   const [finished, setFinished] = useState(false);
 
-  const wordList = WORDS_DATA[language]?.[level] || WORDS_DATA[language]?.fillestar || [];
   const isArabic = language === "arabisht";
+
+  // Try to load from DB first
+  const { data: dbWords = [] } = useQuery({
+    queryKey: ["words", language, level],
+    queryFn: () => base44.entities.Word.filter({ language, level }, null, 5000),
+    staleTime: 5 * 60 * 1000,
+  });
+
+  // Fall back to static data if DB is empty
+  const staticWords = WORDS_DATA[language]?.[level] || WORDS_DATA[language]?.fillestar || [];
+  const wordList = dbWords.length > 0 ? dbWords : staticWords;
+
+  // Count per level (from DB or static)
+  const getLevelCount = (lvl) => {
+    // Use the DB query data if available, else static
+    return WORDS_DATA[language]?.[lvl]?.length || 0;
+  };
 
   const startQuiz = () => {
     const q = generateWordQuestion(language, level);
