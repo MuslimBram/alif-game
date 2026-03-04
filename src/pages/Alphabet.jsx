@@ -13,6 +13,7 @@ import WordsView from "@/components/alphabet/WordsView";
 import ExercisesView from "@/components/alphabet/ExercisesView";
 import NumberLearningView from "@/components/alphabet/NumberLearningView";
 import VerbConjugationView from "@/components/alphabet/VerbConjugationView";
+import NounDeclensionView from "@/components/alphabet/NounDeclensionView";
 
 const languages = [
   { value: "shqip", label: "🇦🇱 Shqip" },
@@ -72,6 +73,7 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
             { label: "Ushtrime", value: "ushtrime" },
             { label: "Numrat", value: "numrat" },
             { label: "Zgjedhimi", value: "zgjedhimi" },
+            { label: "Lakimi", value: "lakimi" },
           ].map((tab) => (
             <TabsTrigger
               key={tab.value}
@@ -205,6 +207,7 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
       {activeTab === "ushtrime" && <ExercisesView language={selectedLang} />}
       {activeTab === "numrat" && <NumberLearningView language={selectedLang} />}
       {activeTab === "zgjedhimi" && <VerbConjugationView />}
+      {activeTab === "lakimi" && <NounDeclensionView />}
     </div>
   );
 }
