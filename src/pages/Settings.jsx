@@ -271,6 +271,21 @@ export default function Settings() {
           )}
         </div>
 
+        {/* Admin Panel Link — only for admins */}
+        {user?.role === "admin" && (
+          <Link to={createPageUrl("AdminPanel")}
+            className="flex items-center gap-3 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-2xl p-5 shadow-lg hover:opacity-90 transition-all">
+            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+              <Shield className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1">
+              <p className="font-bold text-base">Admin Panel</p>
+              <p className="text-xs text-red-100">Ndrysho ose shto përmbajtje në të gjitha faqet</p>
+            </div>
+            <span className="text-white/70 text-lg">→</span>
+          </Link>
+        )}
+
         {/* Save Button */}
         <Button onClick={handleSave}
           className={`w-full py-4 rounded-2xl font-bold text-base shadow-lg transition-all ${saved ? "bg-emerald-500" : "bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-90"}`}>
