@@ -566,7 +566,15 @@ export default function VerbConjugationView({ sharedLang }) {
       {/* Header card */}
       <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
         <h2 className="text-lg font-extrabold text-gray-900 mb-1">📚 Zgjedhimi i Foljeve</h2>
-        <p className="text-sm text-gray-500 mb-4">Ndërroni gjuhën nga butonat e gjuhës sipër ↑</p>
+        {/* Language selector */}
+        <div className="flex gap-2 mb-4">
+          {LANG_OPTS.map(l => (
+            <button key={l.value} onClick={() => setActiveLang(l.value)}
+              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${activeLang === l.value ? "bg-gray-900 text-white" : "bg-white border border-gray-200 text-gray-600 hover:border-gray-400"}`}>
+              {l.label}
+            </button>
+          ))}
+        </div>
 
         {/* Verb selector */}
         <div className="mb-4">
