@@ -835,7 +835,7 @@ export default function WordsView({ language }) {
     if (isCorrect) setScore(s => s + 1);
     setTimeout(() => {
       if (qNum >= TOTAL) { setFinished(true); return; }
-      const q = generateWordQuestion(language, level);
+      const q = generateWordQuestionFromList(wordList, language, level);
       setQuestion(q);
       setTimer(TIME);
       setQNum(n => n + 1);
