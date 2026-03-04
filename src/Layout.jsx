@@ -144,7 +144,7 @@ export default function Layout({ children, currentPageName }) {
         {mobileOpen && (
           <div className="lg:hidden border-t border-emerald-100 bg-white/95 backdrop-blur-md">
             <nav className="px-4 py-3 space-y-1">
-              {navItems.map((item) => {
+              {navItems.filter(item => !item.adminOnly || isAdmin).map((item) => {
                 const Icon = item.icon;
                 const isActive = currentPageName === item.page;
                 return (
