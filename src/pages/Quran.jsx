@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, ChevronDown, ChevronUp, Volume2, Search, Heart, CheckCircle, RotateCcw, Trophy, BookMarked, List, SortAsc } from "lucide-react";
+import AdminEditOverlay from "@/components/admin/AdminEditOverlay";
+import { createPageUrl } from "@/utils";
 import SurahQuiz from "@/components/quran/SurahQuiz";
 import SurahAudioPlayer from "@/components/quran/SurahAudioPlayer";
 import SevapeBox from "@/components/quran/SevapeBox";
@@ -284,7 +286,10 @@ export default function Quran({ adminEditMode, isAdmin }) {
   const read = Object.values(progress).filter(v => v === "read").length;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
+    <div className="max-w-5xl mx-auto px-4 py-10 relative">
+      <AdminEditOverlay show={adminEditMode && isAdmin} title="Edito Kuranin" items={[
+        { label: "Menaxho Suret", href: createPageUrl("AdminPanel"), icon: "📖" },
+      ]} />
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-4">
