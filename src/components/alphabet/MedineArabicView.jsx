@@ -305,6 +305,7 @@ const speak = (text) => {
 export default function MedineArabicView() {
   const [level, setLevel] = useState("fillestar");
   const [openUnit, setOpenUnit] = useState(0);
+  const [selectedUnit, setSelectedUnit] = useState(null);
 
   const data = MEDINE_DATA[level];
 
