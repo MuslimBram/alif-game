@@ -35,6 +35,7 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
     const isArabic = letters[currentIndex]?.language === "arabisht";
     setActiveForm(isArabic ? "handwritten_upper" : "uppercase");
     setShowQuiz(false);
+    setShowExercises(false);
     setDrawingScore(null);
     setVoiceScore(null);
   }, [currentIndex]);
