@@ -280,10 +280,25 @@ const MEDINE_DATA = {
 
 const speak = (text) => {
   if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = "ar";
-  u.rate = 0.7;
-  window.speechSynthesis.speak(u);
+  u.lang = "ar-SA";
+  u.rate = 0.65;
+  const doSpeak = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const arVoice = voices.find(v => v.lang.startsWith("ar")) || voices.find(v => v.lang.startsWith("en"));
+    if (arVoice) u.voice = arVoice;
+    window.speechSynthesis.speak(u);
+  };
+  const voices = window.speechSynthesis.getVoices();
+  if (voices.length > 0) doSpeak();
+  else {
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.onvoiceschanged = null;
+      doSpeak();
+    };
+    setTimeout(doSpeak, 800);
+  }
 };
 
 export default function MedineArabicView() {
