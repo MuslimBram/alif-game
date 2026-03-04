@@ -57,6 +57,7 @@ import Tajweed from './pages/Tajweed';
 import UmraHajj from './pages/UmraHajj';
 import Leaderboard from './pages/Leaderboard';
 import Groups from './pages/Groups';
+import Settings from './pages/Settings';
 import __Layout from './Layout.jsx';
 
 
@@ -71,6 +72,7 @@ export const PAGES = {
     "UmraHajj": UmraHajj,
     "Leaderboard": Leaderboard,
     "Groups": Groups,
+    "Settings": Settings,
 }
 
 export const pagesConfig = {

@@ -16,7 +16,9 @@ import {
   Scroll,
   MapPin,
   Trophy,
-  Users
+  Users,
+  Settings,
+  Pencil
 } from "lucide-react";
 import PointsToast from "@/components/gamification/PointsToast";
 import { Button } from "@/components/ui/button";
