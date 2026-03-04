@@ -204,7 +204,9 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Content */}
       <main className="min-h-[calc(100vh-4rem)]">
-        {React.cloneElement(children, { adminEditMode, isAdmin })}
+        {React.isValidElement(children)
+          ? React.cloneElement(children, { adminEditMode, isAdmin })
+          : children}
       </main>
 
       {/* Floating admin edit button */}
