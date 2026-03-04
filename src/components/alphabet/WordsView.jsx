@@ -892,17 +892,19 @@ export default function WordsView({ language }) {
         </h2>
         <div className="flex flex-wrap gap-2 mb-4">
           {[
-            { v: "fillestar", label: "🌱 Fillestar" },
-            { v: "mesatar",   label: "🌿 Mesatar" },
-            { v: "avancuar",  label: "🌲 Avancuar" },
-            { v: "profesionist", label: "🏆 Profesionist" },
+            { v: "fillestar", label: "🌱 Fillestar", target: "500+" },
+            { v: "mesatar",   label: "🌿 Mesatar",   target: "2000+" },
+            { v: "avancuar",  label: "🌲 Avancuar",  target: "4000+" },
+            { v: "profesionist", label: "🏆 Profesionist", target: "500+" },
           ].map(l => {
-            const count = WORDS_DATA[language]?.[l.v]?.length || 0;
+            const dbCount = l.v === level ? wordList.length : 0;
+            const staticCount = WORDS_DATA[language]?.[l.v]?.length || 0;
+            const displayCount = l.v === level && dbWords.length > 0 ? `${dbWords.length} fjalë` : staticCount > 0 ? `${staticCount} fjalë` : l.target;
             return (
             <button key={l.v} onClick={() => setLevel(l.v)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex flex-col items-center ${level === l.v ? "bg-emerald-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
               <span>{l.label}</span>
-              <span className={`text-xs ${level === l.v ? "text-emerald-100" : "text-gray-400"}`}>{count} fjalë</span>
+              <span className={`text-xs ${level === l.v ? "text-emerald-100" : "text-gray-400"}`}>{displayCount}</span>
             </button>
             );
           })}
