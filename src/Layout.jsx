@@ -14,8 +14,11 @@ import {
   LogOut,
   Languages,
   Scroll,
-  MapPin
+  MapPin,
+  Trophy,
+  Users
 } from "lucide-react";
+import PointsToast from "@/components/gamification/PointsToast";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
@@ -25,6 +28,8 @@ const navItems = [
   { name: "Kur'ani", page: "Quran", icon: BookOpen },
   { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
   { name: "Lojëra", page: "Games", icon: Gamepad2 },
+  { name: "Grupet", page: "Groups", icon: Users },
+  { name: "Kryesuesit", page: "Leaderboard", icon: Trophy },
   { name: "Përparimi", page: "Progress", icon: BarChart3 },
 ];
 
