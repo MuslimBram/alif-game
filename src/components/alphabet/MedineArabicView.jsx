@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Volume2, ChevronRight, BookOpen, Star } from "lucide-react";
+import { Volume2, ChevronRight, BookOpen, Star, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MedineExercises from "@/components/medine/MedineExercises";
 
 const LEVELS = [
   { value: "fillestar", label: "🌱 Fillestar", desc: "Libri 1 — Bazat" },
