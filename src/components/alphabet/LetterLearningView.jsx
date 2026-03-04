@@ -122,19 +122,25 @@ export default function LetterLearningView({ letters, initialIndex = 0, onProgre
       <div className="bg-white rounded-2xl border border-gray-100 p-4">
         <p className="text-sm font-semibold text-gray-700 mb-3">Zgjidhni Formën</p>
         <div className="flex flex-wrap gap-2 mb-4">
-          {Object.keys(formLabels).map((key) => (
-            <button
-              key={key}
-              onClick={() => setActiveForm(key)}
-              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                activeForm === key
-                  ? "bg-orange-500 text-white shadow-md"
-                  : "bg-white border border-gray-200 text-gray-600 hover:border-orange-300"
-              }`}
-            >
-              {formLabels[key]} {activeForm === key && `(${forms[key]})`}
-            </button>
-          ))}
+          {(letter.language === "arabisht"
+            ? Object.keys(arabicFormLabels)
+            : Object.keys(formLabels)
+          ).map((key) => {
+            const labels = letter.language === "arabisht" ? arabicFormLabels : formLabels;
+            return (
+              <button
+                key={key}
+                onClick={() => setActiveForm(key)}
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                  activeForm === key
+                    ? "bg-orange-500 text-white shadow-md"
+                    : "bg-white border border-gray-200 text-gray-600 hover:border-orange-300"
+                }`}
+              >
+                {labels[key]} {activeForm === key && forms[key] && `(${forms[key]})`}
+              </button>
+            );
+          })}
         </div>
 
         {/* Big letter display */}
