@@ -66,14 +66,15 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-        <TabsList className="bg-white border border-gray-200 rounded-xl p-1">
+        <TabsList className="bg-white border border-gray-200 rounded-xl p-1 flex-wrap">
           {[
+            { label: "Numrat", value: "numrat" },
             { label: "Germat", value: "germat" },
             { label: "Rrokjet", value: "rrokjet" },
             { label: "Fjalët", value: "fjalët" },
-            { label: "Numrat", value: "numrat" },
             { label: "Zgjedhimi", value: "zgjedhimi" },
             { label: "Lakimi", value: "lakimi" },
+            { label: "Texhuidi", value: "texhuidi" },
           ].map((tab) => (
             <TabsTrigger
               key={tab.value}
