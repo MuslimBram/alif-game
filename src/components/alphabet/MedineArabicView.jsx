@@ -352,6 +352,9 @@ export default function MedineArabicView() {
         </div>
       </div>
 
+      {/* Progress Chart */}
+      <MedineProgressChart level={level} />
+
       {/* Book Title */}
       <div className="text-center">
         <h3 className="text-lg font-bold text-gray-800" style={{ fontFamily: "serif" }}>{data.title}</h3>
