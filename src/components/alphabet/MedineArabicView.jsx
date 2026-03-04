@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Volume2, ChevronRight, BookOpen, Star, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MedineExercises from "@/components/medine/MedineExercises";
+import MedineProgressTracker from "@/components/medine/MedineProgressTracker";
+import MedineProgressChart from "@/components/medine/MedineProgressChart";
 
 const LEVELS = [
   { value: "fillestar", label: "🌱 Fillestar", desc: "Libri 1 — Bazat" },
