@@ -400,16 +400,6 @@ export default function NounDeclensionView({ sharedLang }) {
           </div>
         </div>
 
-        {/* Language tabs */}
-        <div className="flex gap-2 mb-5 bg-gray-100 rounded-2xl p-1">
-          {langs.map(l => (
-            <button key={l.key} onClick={() => { setActiveLang(l.key); setShowQuiz(false); }}
-              className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all ${activeLang === l.key ? `${l.color} text-white shadow-md` : "text-gray-500 hover:text-gray-700"}`}>
-              {l.label}
-            </button>
-          ))}
-        </div>
-
         {/* Noun selector */}
         <div className="mb-4">
           <p className="text-xs font-semibold text-gray-500 mb-2">Zgjidhni emrin:</p>
