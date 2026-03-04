@@ -15,8 +15,6 @@ import {
   Languages,
   Scroll,
   MapPin,
-  Trophy,
-  Users,
   Settings,
   Pencil
 } from "lucide-react";
