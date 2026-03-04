@@ -50,14 +50,14 @@
 import AdminPanel from './pages/AdminPanel';
 import Alphabet from './pages/Alphabet';
 import Games from './pages/Games';
+import Groups from './pages/Groups';
 import Home from './pages/Home';
+import Leaderboard from './pages/Leaderboard';
 import Progress from './pages/Progress';
 import Quran from './pages/Quran';
+import Settings from './pages/Settings';
 import Tajweed from './pages/Tajweed';
 import UmraHajj from './pages/UmraHajj';
-import Leaderboard from './pages/Leaderboard';
-import Groups from './pages/Groups';
-import Settings from './pages/Settings';
 import __Layout from './Layout.jsx';
 
 
@@ -65,14 +65,14 @@ export const PAGES = {
     "AdminPanel": AdminPanel,
     "Alphabet": Alphabet,
     "Games": Games,
+    "Groups": Groups,
     "Home": Home,
+    "Leaderboard": Leaderboard,
     "Progress": Progress,
     "Quran": Quran,
+    "Settings": Settings,
     "Tajweed": Tajweed,
     "UmraHajj": UmraHajj,
-    "Leaderboard": Leaderboard,
-    "Groups": Groups,
-    "Settings": Settings,
 }
 
 export const pagesConfig = {
