@@ -489,6 +489,23 @@ export default function NumberLearningView({ language }) {
         {item.transliteration && <p className="text-sm text-gray-500 italic mb-1">{item.transliteration}</p>}
         <p className="text-sm text-emerald-600 italic">Shqiptimi: "{item.pronunciation}"</p>
         {item.ordinal && <p className="text-sm text-teal-600 mt-1">Rreshtor: {item.ordinal}</p>}
+        {/* Extra audio buttons for all forms */}
+        <div className="flex justify-center gap-2 mt-3 flex-wrap">
+          <button onClick={() => speakWord(item.word, language)}
+            className="flex items-center gap-1 px-3 py-1.5 bg-teal-100 hover:bg-teal-200 text-teal-700 rounded-xl text-xs font-semibold transition-all">
+            <Volume2 className="w-3.5 h-3.5" /> {isArabic ? "الكلمة" : "Dëgjo fjalën"}
+          </button>
+          <button onClick={() => speakWord(item.num.toString(), language)}
+            className="flex items-center gap-1 px-3 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 rounded-xl text-xs font-semibold transition-all">
+            <Volume2 className="w-3.5 h-3.5" /> {isArabic ? "الرقم" : "Dëgjo numrin"}
+          </button>
+          {item.ordinal && (
+            <button onClick={() => speakWord(item.ordinal, language)}
+              className="flex items-center gap-1 px-3 py-1.5 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-xl text-xs font-semibold transition-all">
+              <Volume2 className="w-3.5 h-3.5" /> {isArabic ? "الترتيبي" : "Rreshtor"}
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Drawing + Voice */}
