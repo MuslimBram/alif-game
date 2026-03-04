@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import TajweedFilters from "@/components/tajweed/TajweedFilters";
 import TajweedCard from "@/components/tajweed/TajweedCard";
 
-export default function Tajweed() {
+export default function Tajweed({ adminEditMode, isAdmin }) {
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");
   const [selectedCategory, setSelectedCategory] = useState("te_gjitha");
   const [searchQuery, setSearchQuery] = useState("");

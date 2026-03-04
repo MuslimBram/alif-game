@@ -188,7 +188,7 @@ function saveProgress(p) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
 }
 
-export default function Quran() {
+export default function Quran({ adminEditMode, isAdmin }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("te_gjitha");
   const [sortMode, setSortMode] = useState("mushaf"); // mushaf | revelation | favorites
