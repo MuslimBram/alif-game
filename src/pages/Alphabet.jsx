@@ -10,6 +10,7 @@ import SyllablesView from "@/components/alphabet/SyllablesView";
 import WordsView from "@/components/alphabet/WordsView";
 import ExercisesView from "@/components/alphabet/ExercisesView";
 import NumberLearningView from "@/components/alphabet/NumberLearningView";
+import VerbConjugationView from "@/components/alphabet/VerbConjugationView";
 
 const languages = [
   { value: "shqip", label: "🇦🇱 Shqip" },
@@ -58,7 +59,7 @@ export default function Alphabet() {
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
         <TabsList className="bg-white border border-gray-200 rounded-xl p-1">
-          {["Germat", "Rrokjet", "Fjalët", "Ushtrime", "Numrat"].map((tab) => (
+          {["Germat", "Rrokjet", "Fjalët", "Ushtrime", "Numrat", "Lakimi"].map((tab) => (
             <TabsTrigger
               key={tab}
               value={tab.toLowerCase()}
@@ -190,6 +191,7 @@ export default function Alphabet() {
       {activeTab === "fjalët" && <WordsView language={selectedLang} />}
       {activeTab === "ushtrime" && <ExercisesView language={selectedLang} />}
       {activeTab === "numrat" && <NumberLearningView language={selectedLang} />}
+      {activeTab === "lakimi" && <VerbConjugationView />}
     </div>
   );
 }
