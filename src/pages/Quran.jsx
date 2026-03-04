@@ -499,6 +499,11 @@ export default function Quran() {
         </>
       )}
 
+      {/* Verse Viewer Modal */}
+      {verseViewSurah && (
+        <SurahVerseViewer surah={verseViewSurah} onClose={() => setVerseViewSurah(null)} />
+      )}
+
       {/* QUIZ TAB */}
       {tab === "quiz" && <SurahQuiz />}
 
