@@ -213,7 +213,7 @@ export default function VerbConjugationView() {
             </div>
           </div>
           <div className="bg-amber-50 rounded-xl p-4 mb-4 text-center">
-            <p className="text-sm text-gray-500 mb-1">Zgjedho foljen:</p>
+            <p className="text-sm text-gray-500 mb-1">Zgjedho foljen (conjugate the verb):</p>
             <p className="text-2xl font-extrabold text-amber-700">"{quizQ.verb.verb}"</p>
             <p className="text-sm text-gray-600 mt-1">
               Koha: <strong>{TENSE_LABELS[quizQ.tense]}</strong> · Veta: <strong>{quizQ.pronoun.label}</strong>
