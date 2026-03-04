@@ -70,7 +70,6 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
             { label: "Germat", value: "germat" },
             { label: "Rrokjet", value: "rrokjet" },
             { label: "Fjalët", value: "fjalët" },
-            { label: "Ushtrime", value: "ushtrime" },
             { label: "Numrat", value: "numrat" },
             { label: "Zgjedhimi", value: "zgjedhimi" },
             { label: "Lakimi", value: "lakimi" },
