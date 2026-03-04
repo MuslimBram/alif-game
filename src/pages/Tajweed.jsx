@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { BookMarked, Search } from "lucide-react";
+import AdminEditOverlay from "@/components/admin/AdminEditOverlay";
+import { createPageUrl } from "@/utils";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import TajweedFilters from "@/components/tajweed/TajweedFilters";
@@ -54,7 +56,11 @@ export default function Tajweed({ adminEditMode, isAdmin }) {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
+    <div className="max-w-5xl mx-auto px-4 py-10 relative">
+      <AdminEditOverlay show={adminEditMode && isAdmin} title="Edito Texhuidin" items={[
+        { label: "Shto Rregull", href: createPageUrl("AdminPanel"), icon: "➕" },
+        { label: "Menaxho Rregullat", href: createPageUrl("AdminPanel"), icon: "📝" },
+      ]} />
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
