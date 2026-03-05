@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Volume2, Star, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import GrammarRulesView from "./GrammarRulesView";
+import FlashcardsView from "./FlashcardsView";
 
 const speak = (text, lang = "arabisht") => {
   if (!window.speechSynthesis) return;
