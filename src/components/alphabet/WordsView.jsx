@@ -1018,8 +1018,9 @@ export default function WordsView({ language }) {
       {mode === "quiz" && finished && (
         <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
           <Star className="w-14 h-14 text-amber-400 mx-auto mb-3" />
-          <h3 className="text-2xl font-bold text-gray-800 mb-2">Ushtrimet Mbaruan!</h3>
+          <h3 className="text-2xl font-bold text-gray-800 mb-2">Kuizi Mbaroi!</h3>
           <p className="text-5xl font-bold text-emerald-600 mb-2">{score}/{TOTAL}</p>
+          <p className="text-2xl font-bold text-emerald-500 mb-2">{Math.round((score / TOTAL) * 100)}%</p>
           <p className="text-gray-500 mb-6">{score >= 8 ? "Fantastike! 🎉" : score >= 5 ? "Shumë mirë! 👍" : "Provo sërish! 💪"}</p>
           <Button onClick={startQuiz} className="bg-teal-600 hover:bg-teal-700 text-white rounded-xl px-8">
             Provo Sërish
