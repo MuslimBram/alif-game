@@ -1,146 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, ChevronRight, CheckCircle, XCircle, Timer, Star } from "lucide-react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Volume2, Star, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Syllables data for all 3 languages
-const SYLLABLES = {
-  shqip: {
-    title: "Rrokjet Shqipe",
-    vowels: ["a", "e", "ë", "i", "o", "u", "y"],
-    consonants: ["B", "C", "Ç", "D", "Dh", "F", "G", "Gj", "H", "J", "K", "L", "Ll", "M", "N", "Nj", "P", "Q", "R", "Rr", "S", "Sh", "T", "Th", "V", "X", "Xh", "Z", "Zh"],
-    generateSyllables: (cons) => {
-      const v = ["a","e","ë","i","o","u","y"];
-      return v.map(vow => ({ syllable: cons.toLowerCase() + vow, pronunciation: cons.toLowerCase() + vow }));
-    }
-  },
-  anglisht: {
-    title: "English Syllables",
-    vowels: ["a","e","i","o","u"],
-    consonants: ["B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","Z"],
-    generateSyllables: (cons) => {
-      const combos = [
-        {s: cons.toLowerCase()+"a", p: cons.toLowerCase()+"ay"},
-        {s: cons.toLowerCase()+"e", p: cons.toLowerCase()+"ee"},
-        {s: cons.toLowerCase()+"i", p: cons.toLowerCase()+"ai"},
-        {s: cons.toLowerCase()+"o", p: cons.toLowerCase()+"oh"},
-        {s: cons.toLowerCase()+"u", p: cons.toLowerCase()+"oo"},
-        {s: cons.toLowerCase()+"ee", p: cons.toLowerCase()+"ee"},
-        {s: cons.toLowerCase()+"oo", p: cons.toLowerCase()+"oo"},
-      ];
-      return combos.map(c => ({ syllable: c.s, pronunciation: c.p }));
-    }
-  },
-  arabisht: {
-  title: "المقاطع العربية",
-  vowels: ["َ", "ِ", "ُ", "ً", "ٍ", "ٌ", "اَ", "ِي", "وُ", "ّ"],
-  consonants: ["ب","ت","ث","ج","ح","خ","د","ذ","ر","ز","س","ش","ص","ض","ط","ظ","ع","غ","ف","ق","ك","ل","م","ن","و","ه","ي"],
-  arabicWithHarakat: {
-    "ب": [
-      {syllable:"بَ", pronunciation:"Ba (fatha — vokal i shkurtër a)"},
-      {syllable:"بَا", pronunciation:"Baa (fatha + alif — vokal i gjatë aa)"},
-      {syllable:"بِ", pronunciation:"Bi (kasra — vokal i shkurtër i)"},
-      {syllable:"بِي", pronunciation:"Bii (kasra + ya — vokal i gjatë ii)"},
-      {syllable:"بُ", pronunciation:"Bu (damma — vokal i shkurtër u)"},
-      {syllable:"بُو", pronunciation:"Buu (damma + waw — vokal i gjatë uu)"},
-      {syllable:"بَن", pronunciation:"Ban (tanwin fatha)"},
-      {syllable:"بِن", pronunciation:"Bin (tanwin kasra)"},
-      {syllable:"بُن", pronunciation:"Bun (tanwin damma)"},
-      {syllable:"بَّ", pronunciation:"Bba (shadda — shkronja e dyfishuar)"},
-      {syllable:"ءَ", pronunciation:"Hamza fatha — a (glotal)"},
-      {syllable:"ءِ", pronunciation:"Hamza kasra — i (glotal)"},
-      {syllable:"ءُ", pronunciation:"Hamza damma — u (glotal)"},
-    ],
-    "ت": [
-      {syllable:"تَ", pronunciation:"Ta (fatha)"},
-      {syllable:"تَا", pronunciation:"Taa (fatha + alif — e gjatë)"},
-      {syllable:"تِ", pronunciation:"Ti (kasra)"},
-      {syllable:"تِي", pronunciation:"Tii (kasra + ya — e gjatë)"},
-      {syllable:"تُ", pronunciation:"Tu (damma)"},
-      {syllable:"تُو", pronunciation:"Tuu (damma + waw — e gjatë)"},
-      {syllable:"تَّ", pronunciation:"Tta (shadda)"},
-    ],
-    "ك": [
-      {syllable:"كَ", pronunciation:"Ka (fatha)"},
-      {syllable:"كَا", pronunciation:"Kaa (fatha + alif — e gjatë)"},
-      {syllable:"كِ", pronunciation:"Ki (kasra)"},
-      {syllable:"كِي", pronunciation:"Kii (kasra + ya — e gjatë)"},
-      {syllable:"كُ", pronunciation:"Ku (damma)"},
-      {syllable:"كُو", pronunciation:"Kuu (damma + waw — e gjatë)"},
-      {syllable:"كَّ", pronunciation:"Kka (shadda)"},
-    ],
-    "ل": [
-      {syllable:"لَ", pronunciation:"La (fatha)"},
-      {syllable:"لَا", pronunciation:"Laa (fatha + alif — e gjatë)"},
-      {syllable:"لِ", pronunciation:"Li (kasra)"},
-      {syllable:"لِي", pronunciation:"Lii (kasra + ya — e gjatë)"},
-      {syllable:"لُ", pronunciation:"Lu (damma)"},
-      {syllable:"لُو", pronunciation:"Luu (damma + waw — e gjatë)"},
-      {syllable:"لَّ", pronunciation:"Lla (shadda)"},
-    ],
-    "م": [
-      {syllable:"مَ", pronunciation:"Ma (fatha)"},
-      {syllable:"مَا", pronunciation:"Maa (fatha + alif — e gjatë)"},
-      {syllable:"مِ", pronunciation:"Mi (kasra)"},
-      {syllable:"مِي", pronunciation:"Mii (kasra + ya — e gjatë)"},
-      {syllable:"مُ", pronunciation:"Mu (damma)"},
-      {syllable:"مُو", pronunciation:"Muu (damma + waw — e gjatë)"},
-      {syllable:"مَّ", pronunciation:"Mma (shadda)"},
-    ],
-    "ن": [
-      {syllable:"نَ", pronunciation:"Na (fatha)"},
-      {syllable:"نَا", pronunciation:"Naa (fatha + alif — e gjatë)"},
-      {syllable:"نِ", pronunciation:"Ni (kasra)"},
-      {syllable:"نِي", pronunciation:"Nii (kasra + ya — e gjatë)"},
-      {syllable:"نُ", pronunciation:"Nu (damma)"},
-      {syllable:"نُو", pronunciation:"Nuu (damma + waw — e gjatë)"},
-      {syllable:"نَّ", pronunciation:"Nna (shadda — ghunnah)"},
-    ],
-  }
-  }
-};
-
-// Standalone Arabic vowel signs with explanations
-const ARABIC_VOWELS = [
-  { symbol: "َ",  name: "Fatha",        sound: "e / a (i shkurtër)",   color: "bg-amber-50 border-amber-200",  example: "بَ → Be" },
-  { symbol: "ِ",  name: "Kasra",        sound: "i (i shkurtër)",       color: "bg-sky-50 border-sky-200",      example: "بِ → Bi" },
-  { symbol: "ُ",  name: "Damma",        sound: "u (i shkurtër)",       color: "bg-emerald-50 border-emerald-200", example: "بُ → Bu" },
-  { symbol: "ً",  name: "Tanwin fatha", sound: "en (fundore)",         color: "bg-orange-50 border-orange-200",example: "بً → Ben" },
-  { symbol: "ٍ",  name: "Tanwin kasra", sound: "in (fundore)",         color: "bg-indigo-50 border-indigo-200",example: "بٍ → Bin" },
-  { symbol: "ٌ",  name: "Tanwin damma", sound: "un (fundore)",         color: "bg-teal-50 border-teal-200",    example: "بٌ → Bun" },
-  { symbol: "اَ", name: "Alif + fatha", sound: "aa (i gjatë — ea)",    color: "bg-yellow-50 border-yellow-200",example: "بَا → Baa" },
-  { symbol: "وُ", name: "Waw + damma",  sound: "uu (i gjatë)",         color: "bg-lime-50 border-lime-200",    example: "بُو → Buu" },
-  { symbol: "يِ", name: "Ya + kasra",   sound: "ii (i gjatë)",         color: "bg-cyan-50 border-cyan-200",    example: "بِي → Bii" },
-  { symbol: "ّ",  name: "Shadda",       sound: "shkronja dyfishohet",  color: "bg-rose-50 border-rose-200",    example: "بَّ → Bba" },
-];
-
-const ARABIC_LETTER_FORMS = {
-  "ب": { isolated: "ب", initial: "بـ", medial: "ـبـ", final: "ـب" },
-  "ت": { isolated: "ت", initial: "تـ", medial: "ـتـ", final: "ـت" },
-  "ث": { isolated: "ث", initial: "ثـ", medial: "ـثـ", final: "ـث" },
-  "ج": { isolated: "ج", initial: "جـ", medial: "ـجـ", final: "ـج" },
-  "ح": { isolated: "ح", initial: "حـ", medial: "ـحـ", final: "ـح" },
-  "خ": { isolated: "خ", initial: "خـ", medial: "ـخـ", final: "ـخ" },
-  "س": { isolated: "س", initial: "سـ", medial: "ـسـ", final: "ـس" },
-  "ش": { isolated: "ش", initial: "شـ", medial: "ـشـ", final: "ـش" },
-  "ع": { isolated: "ع", initial: "عـ", medial: "ـعـ", final: "ـع" },
-  "غ": { isolated: "غ", initial: "غـ", medial: "ـغـ", final: "ـغ" },
-  "ف": { isolated: "ف", initial: "فـ", medial: "ـفـ", final: "ـف" },
-  "ق": { isolated: "ق", initial: "قـ", medial: "ـقـ", final: "ـق" },
-  "ك": { isolated: "ك", initial: "كـ", medial: "ـكـ", final: "ـك" },
-  "ل": { isolated: "ل", initial: "لـ", medial: "ـلـ", final: "ـل" },
-  "م": { isolated: "م", initial: "مـ", medial: "ـمـ", final: "ـم" },
-  "ن": { isolated: "ن", initial: "نـ", medial: "ـنـ", final: "ـن" },
-  "ه": { isolated: "ه", initial: "هـ", medial: "ـهـ", final: "ـه" },
-  "ي": { isolated: "ي", initial: "يـ", medial: "ـيـ", final: "ـي" },
-  "ر": { isolated: "ر", initial: "ر", medial: "ـر", final: "ـر" },
-  "ز": { isolated: "ز", initial: "ز", medial: "ـز", final: "ـز" },
-  "د": { isolated: "د", initial: "د", medial: "ـد", final: "ـد" },
-  "ذ": { isolated: "ذ", initial: "ذ", medial: "ـذ", final: "ـذ" },
-  "و": { isolated: "و", initial: "و", medial: "ـو", final: "ـو" },
-};
-
-const speak = (text, lang) => {
+const speak = (text, lang = "arabisht") => {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
@@ -149,304 +12,421 @@ const speak = (text, lang) => {
   window.speechSynthesis.speak(u);
 };
 
+// ─────────────────────────────────────────────
+// HAREKET — shenjat e vokaleve
+// ─────────────────────────────────────────────
+const HAREKET = [
+  { symbol: "بَ",  sign: "َ",  name: "Fatha",           sound: "a / e (i shkurtër)", color: "bg-amber-50 border-amber-300",   tip: "Vizë e vogël sipër germës → lexohet 'a'" },
+  { symbol: "بِ",  sign: "ِ",  name: "Kasra",           sound: "i (i shkurtër)",      color: "bg-sky-50 border-sky-300",       tip: "Vizë e vogël poshtë germës → lexohet 'i'" },
+  { symbol: "بُ",  sign: "ُ",  name: "Damma",           sound: "u (i shkurtër)",      color: "bg-emerald-50 border-emerald-300", tip: "Kërpudhë e vogël sipër → lexohet 'u'" },
+  { symbol: "بَا", sign: "اَ", name: "Alif (Madd)",     sound: "ea / aa (i gjatë)",   color: "bg-yellow-50 border-yellow-300", tip: "Fatha + Alif → tingulli 'ea' zgjatet 2 beat" },
+  { symbol: "بِي", sign: "يِ", name: "Ya (Madd)",       sound: "ii (i gjatë)",        color: "bg-cyan-50 border-cyan-300",     tip: "Kasra + Ya → tingulli 'ii' zgjatet 2 beat" },
+  { symbol: "بُو", sign: "وُ", name: "Waw (Madd)",      sound: "uu (i gjatë)",        color: "bg-lime-50 border-lime-300",     tip: "Damma + Waw → tingulli 'uu' zgjatet 2 beat" },
+  { symbol: "بً",  sign: "ً",  name: "Tanwin Fatha",    sound: "en (fundore)",        color: "bg-orange-50 border-orange-300", tip: "Dy fatha → lexohet '-en' në fund të fjalës" },
+  { symbol: "بٍ",  sign: "ٍ",  name: "Tanwin Kasra",    sound: "in (fundore)",        color: "bg-indigo-50 border-indigo-300", tip: "Dy kasra → lexohet '-in' në fund të fjalës" },
+  { symbol: "بٌ",  sign: "ٌ",  name: "Tanwin Damma",    sound: "un (fundore)",        color: "bg-teal-50 border-teal-300",     tip: "Dy damma → lexohet '-un' në fund të fjalës" },
+  { symbol: "بْ",  sign: "ْ",  name: "Sukun (ـْ)",      sound: "pa vokal (i qetë)",   color: "bg-gray-50 border-gray-300",     tip: "Rreth i vogël → asnjë vokal, germë e qetë/e mbyllur" },
+  { symbol: "بَّ", sign: "ّ",  name: "Shadda (ّ)",      sound: "dyfishim germës",     color: "bg-rose-50 border-rose-300",     tip: "W e vogël → germë e dyfishuar, lexohet dyfish më fortë" },
+  { symbol: "آ",   sign: "آ",  name: "Alif Madda (آ)", sound: "aaa (shumë i gjatë)", color: "bg-purple-50 border-purple-300", tip: "Alif me tilda sipër → tingull 'aa' shumë i zgjatur (4 beat)" },
+  { symbol: "ء",   sign: "ء",  name: "Hamza (ء)",       sound: "glotal stop",         color: "bg-pink-50 border-pink-300",     tip: "Ndalim glotal — si mbyllja e fytit para 'a' në shqip" },
+  { symbol: "ة",   sign: "ة",  name: "Ta Marbuta (ة)",  sound: "a / at",              color: "bg-fuchsia-50 border-fuchsia-300", tip: "Ta e lidhur — lexohet 'a' veças, 'at' kur lidhet me fjalën tjetër" },
+  { symbol: "ـٰـ", sign: "ٰ",  name: "Dagger Alif (ٰ)", sound: "ea / aa (i gjatë)",   color: "bg-violet-50 border-violet-300", tip: "Alif i vogël sipër germës (أَلِفْ خَنْجَرِيَّة) → si alif madd por shkruhet sipër" },
+];
+
+// ─────────────────────────────────────────────
+// RREGULLA DIELLI/HËNA (Shamsiyye / Qamariyye)
+// ─────────────────────────────────────────────
+const SHAMS_LETTERS = ["ت","ث","د","ذ","ر","ز","س","ش","ص","ض","ط","ظ","ل","ن"];
+const QAMAR_LETTERS = ["ا","ب","ج","ح","خ","ع","غ","ف","ق","ك","م","ه","و","ي"];
+
+const AL_RULE = {
+  shamsiyye: {
+    title: "🌞 Harfet Shamsiyye (شَمْسِيَّة)",
+    color: "bg-orange-50 border-orange-200",
+    headerColor: "bg-orange-100",
+    explanation: "Kur artikulli 'ال' (al) vjen para këtyre germave, 'ل' absorbohet dhe germë e parë e fjalës dyfishohet (shadda). Pra NUK thuhet 'al-...' por thuhet drejtpërdrejt germë e dyfishuar.",
+    examples: [
+      { ar: "الشَّمْس", trans: "ash-Shams", meaning: "Dielli" },
+      { ar: "الرَّحْمٰن", trans: "ar-Rahmaan", meaning: "I Mëshirshmi" },
+      { ar: "النَّاس", trans: "an-Naas", meaning: "Njerëzit" },
+      { ar: "الدِّين", trans: "ad-Diin", meaning: "Feja" },
+      { ar: "التَّوْبَة", trans: "at-Tawbah", meaning: "Pendimi" },
+      { ar: "الزَّيْتُون", trans: "az-Zaytun", meaning: "Ulliri" },
+    ],
+    letters: SHAMS_LETTERS,
+  },
+  qamariyye: {
+    title: "🌙 Harfet Qamariyye (قَمَرِيَّة)",
+    color: "bg-blue-50 border-blue-200",
+    headerColor: "bg-blue-100",
+    explanation: "Kur artikulli 'ال' (al) vjen para këtyre germave, 'ل' lexohet normalisht — thuhet 'al-...' në mënyrë të qartë.",
+    examples: [
+      { ar: "الْقَمَر", trans: "al-Qamar", meaning: "Hëna" },
+      { ar: "الْكِتَاب", trans: "al-Kitaab", meaning: "Libri" },
+      { ar: "الْبَيْت", trans: "al-Bayt", meaning: "Shtëpia" },
+      { ar: "الْحَمْد", trans: "al-Hamd", meaning: "Lavdërimi" },
+      { ar: "الْعَالَم", trans: "al-'Aalam", meaning: "Bota" },
+      { ar: "الْمَسْجِد", trans: "al-Masjid", meaning: "Xhamia" },
+    ],
+    letters: QAMAR_LETTERS,
+  }
+};
+
+// ─────────────────────────────────────────────
+// RROKJET PER CDO GERMË — funksion gjenerik
+// ─────────────────────────────────────────────
+const generateArabicSyllables = (letter) => [
+  { syllable: letter + "َ",   pronunciation: letter + "a  (fatha — e shkurtër)" },
+  { syllable: letter + "ِ",   pronunciation: letter + "i  (kasra — i shkurtër)" },
+  { syllable: letter + "ُ",   pronunciation: letter + "u  (damma — u shkurtër)" },
+  { syllable: letter + "َا",  pronunciation: letter + "aa (fatha+alif — ea i gjatë)" },
+  { syllable: letter + "ِي",  pronunciation: letter + "ii (kasra+ya — ii i gjatë)" },
+  { syllable: letter + "ُو",  pronunciation: letter + "uu (damma+waw — uu i gjatë)" },
+  { syllable: letter + "ً",   pronunciation: letter + "en (tanwin fatha — fundore)" },
+  { syllable: letter + "ٍ",   pronunciation: letter + "in (tanwin kasra — fundore)" },
+  { syllable: letter + "ٌ",   pronunciation: letter + "un (tanwin damma — fundore)" },
+  { syllable: letter + "ْ",   pronunciation: letter + "° (sukun — pa vokal, e qetë)" },
+  { syllable: letter + "َّ",  pronunciation: letter + letter + "a (shadda — dyfishim)" },
+];
+
+// Rrokjet speciale vetëm për disa germë
+const SPECIAL_SYLLABLES = {
+  "ر": [
+    ...generateArabicSyllables("ر"),
+    { syllable: "الرَّ", pronunciation: "ar-Ra (shamsiyye — 'al' bëhet 'ar')" },
+  ],
+  "ن": [
+    ...generateArabicSyllables("ن"),
+    { syllable: "نَّ",   pronunciation: "nna (shadda + ghunnah — zë nga hunda)" },
+    { syllable: "نْ",    pronunciation: "n° (nun sukun — shiko texhuid)" },
+  ],
+  "م": [
+    ...generateArabicSyllables("م"),
+    { syllable: "مَّ",   pronunciation: "mma (shadda + ghunnah)" },
+    { syllable: "مْ",    pronunciation: "m° (mim sukun)" },
+  ],
+  "ا": [
+    { syllable: "آ",    pronunciation: "Alif Madda — aaa (shumë i gjatë, 4 beat)" },
+    { syllable: "أَ",   pronunciation: "Hamzat al-wasl — a (glotal+fatha)" },
+    { syllable: "إِ",   pronunciation: "Hamzat al-wasl — i (glotal+kasra)" },
+    { syllable: "أُ",   pronunciation: "Hamzat al-wasl — u (glotal+damma)" },
+    { syllable: "اَ",   pronunciation: "Alif madd fatha — ea/aa (2 beat)" },
+  ],
+  "ء": [
+    { syllable: "ءَ",   pronunciation: "Hamza + fatha — a (glotal)" },
+    { syllable: "ءِ",   pronunciation: "Hamza + kasra — i (glotal)" },
+    { syllable: "ءُ",   pronunciation: "Hamza + damma — u (glotal)" },
+    { syllable: "ئِ",   pronunciation: "Hamza mbi ya — i" },
+    { syllable: "ؤُ",   pronunciation: "Hamza mbi waw — u" },
+    { syllable: "أَ",   pronunciation: "Hamza mbi alif — a" },
+  ],
+  "ة": [
+    { syllable: "ةً",   pronunciation: "-eten / -atan (tanwin e ta marbutës)" },
+    { syllable: "ةٍ",   pronunciation: "-etin / -atin (tanwin kasra)" },
+    { syllable: "ةٌ",   pronunciation: "-etun / -atun (tanwin damma)" },
+    { syllable: "ةَ",   pronunciation: "-eta / -ata (fatha, e lidhur)" },
+    { syllable: "ة",    pronunciation: "-a / -ah (veças ose në fund)" },
+  ],
+  "و": [
+    { syllable: "وَ",   pronunciation: "Wa (fatha)" },
+    { syllable: "وِ",   pronunciation: "Wi (kasra)" },
+    { syllable: "وُ",   pronunciation: "Wu (damma)" },
+    { syllable: "وُو",  pronunciation: "Wuu (madd waw — uu i gjatë)" },
+    { syllable: "وْ",   pronunciation: "W° (sukun — waw e qetë)" },
+  ],
+  "ي": [
+    { syllable: "يَ",   pronunciation: "Ya (fatha)" },
+    { syllable: "يِ",   pronunciation: "Yi (kasra)" },
+    { syllable: "يُ",   pronunciation: "Yu (damma)" },
+    { syllable: "يِي",  pronunciation: "Yii (madd ya — ii i gjatë)" },
+    { syllable: "يْ",   pronunciation: "Y° (sukun — ya e qetë)" },
+  ],
+};
+
+const ALL_ARABIC_LETTERS = [
+  "ا","ء","ب","ت","ث","ج","ح","خ","د","ذ",
+  "ر","ز","س","ش","ص","ض","ط","ظ","ع","غ",
+  "ف","ق","ك","ل","م","ن","ه","و","ي","ة"
+];
+
+const LETTER_NAMES = {
+  "ا": "Alif","ء": "Hamza","ب": "Ba","ت": "Ta","ث": "Tha","ج": "Jiim",
+  "ح": "Ha","خ": "Kha","د": "Dal","ذ": "Dhal","ر": "Ra","ز": "Zayn",
+  "س": "Siin","ش": "Shiin","ص": "Saad","ض": "Daad","ط": "Taa",
+  "ظ": "Dhaa","ع": "Ayn","غ": "Ghayn","ف": "Fa","ق": "Qaaf",
+  "ك": "Kaaf","ل": "Lam","م": "Miim","ن": "Nuun","ه": "Ha",
+  "و": "Waw","ي": "Ya","ة": "Ta Marbuta"
+};
+
+// ─── SHQIP ────────────────────────────────────
+const SHQIP_SYLLABLES = {
+  title: "Rrokjet Shqipe",
+  consonants: ["B","C","Ç","D","Dh","F","G","Gj","H","J","K","L","Ll","M","N","Nj","P","Q","R","Rr","S","Sh","T","Th","V","X","Xh","Z","Zh"],
+  generate: (c) => ["a","e","ë","i","o","u","y"].map(v => ({ syllable: c.toLowerCase()+v, pronunciation: c.toLowerCase()+v }))
+};
+
+// ─── ANGLISHT ─────────────────────────────────
+const ANGLISHT_SYLLABLES = {
+  title: "English Syllables",
+  consonants: ["B","C","D","F","G","H","J","K","L","M","N","P","R","S","T","V","W","X","Y","Z"],
+  generate: (c) => [
+    {syllable: c.toLowerCase()+"a", pronunciation: c.toLowerCase()+"ay"},
+    {syllable: c.toLowerCase()+"e", pronunciation: c.toLowerCase()+"ee"},
+    {syllable: c.toLowerCase()+"i", pronunciation: c.toLowerCase()+"ai"},
+    {syllable: c.toLowerCase()+"o", pronunciation: c.toLowerCase()+"oh"},
+    {syllable: c.toLowerCase()+"u", pronunciation: c.toLowerCase()+"oo"},
+  ]
+};
+
+// ─────────────────────────────────────────────
+// TABS per arabisht
+// ─────────────────────────────────────────────
+const AR_TABS = [
+  { id: "hareket", label: "🔤 Hareket (Zanore)" },
+  { id: "rrokje",  label: "📖 Rrokjet" },
+  { id: "al_rule", label: "☀️🌙 Rregulli AL" },
+];
+
 export default function SyllablesView({ language }) {
+  const [arTab, setArTab] = useState("hareket");
+  const [selectedLetter, setSelectedLetter] = useState(null);
   const [selectedCons, setSelectedCons] = useState(null);
-  const [mode, setMode] = useState("learn"); // learn | forms | quiz
-  const [quizState, setQuizState] = useState(null);
-  const [timer, setTimer] = useState(30);
-  const [score, setScore] = useState(0);
-  const [questionNum, setQuestionNum] = useState(0);
-  const [answered, setAnswered] = useState(null);
-  const [quizFinished, setQuizFinished] = useState(false);
+  const [showTip, setShowTip] = useState(null);
 
-  const langData = SYLLABLES[language] || SYLLABLES.shqip;
-  const arabicLetters = Object.keys(ARABIC_LETTER_FORMS);
-  const consonants = language === "arabisht" ? arabicLetters : langData.consonants;
+  const getSyllables = (letter) =>
+    SPECIAL_SYLLABLES[letter] || generateArabicSyllables(letter);
 
-  useEffect(() => {
-    setSelectedCons(null);
-    setMode("learn");
-  }, [language]);
+  // ── ARABIC ──
+  if (language === "arabisht") {
+    return (
+      <div className="space-y-4">
+        {/* Tab bar */}
+        <div className="bg-white rounded-2xl border border-gray-100 p-4">
+          <h2 className="text-lg font-bold text-gray-800 mb-3">المقاطع العربية — Rrokjet Arabe</h2>
+          <div className="flex flex-wrap gap-2">
+            {AR_TABS.map(t => (
+              <button key={t.id} onClick={() => setArTab(t.id)}
+                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+                  arTab === t.id ? "bg-emerald-600 text-white shadow" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                }`}>
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
-  const getSyllables = (cons) => {
-    if (language === "arabisht") {
-      return SYLLABLES.arabisht.arabicWithHarakat[cons] || [
-        {syllable: cons + "َ", pronunciation: cons + "a"},
-        {syllable: cons + "ِ", pronunciation: cons + "i"},
-        {syllable: cons + "ُ", pronunciation: cons + "u"},
-        {syllable: cons + "َا", pronunciation: cons + "aa"},
-        {syllable: cons + "ِي", pronunciation: cons + "ii"},
-        {syllable: cons + "ُو", pronunciation: cons + "uu"},
-      ];
-    }
-    return langData.generateSyllables(cons);
-  };
+        {/* ── TAB 1: HAREKET ── */}
+        {arTab === "hareket" && (
+          <div className="bg-white rounded-2xl border border-gray-100 p-5">
+            <h3 className="font-bold text-gray-800 mb-1">Shenjat e Vokaleve (حَرَكَات)</h3>
+            <p className="text-sm text-gray-500 mb-4">Kliko çdo shenjë për ta dëgjuar dhe mëso rregullin e saj</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+              {HAREKET.map((h, i) => (
+                <motion.div key={i} initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay: i*0.04 }}>
+                  <button
+                    onClick={() => { speak(h.symbol, "arabisht"); setShowTip(showTip === i ? null : i); }}
+                    className={`w-full ${h.color} border-2 rounded-2xl p-3 text-center hover:shadow-md transition-all`}
+                  >
+                    <div className="text-3xl font-bold mb-1" style={{ fontFamily: "serif", direction:"rtl" }}>{h.symbol}</div>
+                    <div className="text-xs font-bold text-gray-800">{h.name}</div>
+                    <div className="text-xs text-emerald-700 font-medium mt-0.5">{h.sound}</div>
+                    <Volume2 className="w-3 h-3 text-gray-400 mx-auto mt-1" />
+                  </button>
+                  {showTip === i && (
+                    <div className="mt-1 p-2 bg-gray-800 text-white text-xs rounded-xl text-center">{h.tip}</div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
 
-  const generateQuizQuestion = (cons) => {
-    const sylls = getSyllables(cons);
-    const correct = sylls[Math.floor(Math.random() * sylls.length)];
-    const wrongOptions = sylls.filter(s => s.syllable !== correct.syllable).slice(0, 3);
-    const allOptions = [...wrongOptions, correct].sort(() => Math.random() - 0.5);
-    return {
-      question: `Cila rrokje shqiptohet "${correct.pronunciation}"?`,
-      options: allOptions.map(o => o.syllable),
-      correct: correct.syllable,
-      type: "syllable"
-    };
-  };
+            {/* Shpjegim shtesë */}
+            <div className="mt-5 p-4 bg-amber-50 border border-amber-200 rounded-2xl">
+              <h4 className="font-bold text-amber-800 mb-2 flex items-center gap-2"><Info className="w-4 h-4" /> Rregull i rëndësishëm: Madd (زِيَادَة) — Zgjatja</h4>
+              <div className="grid sm:grid-cols-3 gap-3 text-sm">
+                {[
+                  { name: "Madd Asli (طبيعي)", beats: "2 beat", ex: "بَا / بِي / بُو", desc: "Fatha+Alif, Kasra+Ya, Damma+Waw = zgjatje e thjeshtë" },
+                  { name: "Madd Munfasil", beats: "4-5 beat", ex: "يَا أَيُّهَا", desc: "Madd para Hamzës në fjalën tjetër" },
+                  { name: "Madd Muttasil", beats: "4-5 beat", ex: "جَاءَ", desc: "Madd para Hamzës në të njëjtën fjalë" },
+                ].map((m, i) => (
+                  <div key={i} className="bg-white rounded-xl p-3 border border-amber-100">
+                    <div className="font-bold text-amber-700 text-xs">{m.name}</div>
+                    <div className="text-lg font-bold text-gray-800 my-1" style={{ fontFamily:"serif", direction:"rtl" }}>{m.ex}</div>
+                    <div className="text-xs text-emerald-600 font-semibold">{m.beats}</div>
+                    <div className="text-xs text-gray-500 mt-1">{m.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
-  const startQuiz = () => {
-    if (!selectedCons) return;
-    const q = generateQuizQuestion(selectedCons);
-    setQuizState(q);
-    setTimer(30);
-    setScore(0);
-    setQuestionNum(1);
-    setAnswered(null);
-    setQuizFinished(false);
-    setMode("quiz");
-  };
+        {/* ── TAB 2: RROKJET ── */}
+        {arTab === "rrokje" && (
+          <div className="bg-white rounded-2xl border border-gray-100 p-5">
+            <h3 className="font-bold text-gray-800 mb-1">Rrokjet e çdo Germë</h3>
+            <p className="text-sm text-gray-500 mb-4">Zgjidh germën — do të shohësh të gjitha rrokjet (fatha, kasra, damma, madd, tanwin, sukun, shadda)</p>
+            {/* Letter grid */}
+            <div className="flex flex-wrap gap-2 mb-5">
+              {ALL_ARABIC_LETTERS.map((l) => (
+                <button key={l} onClick={() => setSelectedLetter(selectedLetter === l ? null : l)}
+                  className={`w-12 h-12 rounded-xl font-bold text-xl transition-all border-2 ${
+                    selectedLetter === l
+                      ? "bg-emerald-600 text-white border-emerald-600 shadow-md"
+                      : "bg-gray-50 border-gray-200 text-gray-800 hover:border-emerald-300"
+                  }`}
+                  style={{ fontFamily:"serif" }}
+                  title={LETTER_NAMES[l]}
+                >
+                  {l}
+                </button>
+              ))}
+            </div>
 
-  useEffect(() => {
-    if (mode !== "quiz" || quizFinished) return;
-    if (timer <= 0) {
-      handleAnswer(null);
-      return;
-    }
-    const t = setInterval(() => setTimer(p => p - 1), 1000);
-    return () => clearInterval(t);
-  }, [timer, mode, quizFinished]);
+            {selectedLetter && (
+              <motion.div initial={{ opacity:0, y:10 }} animate={{ opacity:1, y:0 }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-5xl font-bold text-emerald-600" style={{ fontFamily:"serif" }}>{selectedLetter}</span>
+                  <div>
+                    <div className="font-bold text-gray-800 text-lg">{LETTER_NAMES[selectedLetter]}</div>
+                    {SHAMS_LETTERS.includes(selectedLetter) && (
+                      <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-semibold">☀️ Shamsiyye — AL bëhet shkrirje</span>
+                    )}
+                    {QAMAR_LETTERS.includes(selectedLetter) && (
+                      <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold">🌙 Qamariyye — AL qartë</span>
+                    )}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {getSyllables(selectedLetter).map((s, i) => (
+                    <motion.button key={i} initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay: i*0.04 }}
+                      onClick={() => speak(s.syllable, "arabisht")}
+                      className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-2xl p-4 text-center hover:shadow-md hover:border-emerald-300 transition-all group"
+                    >
+                      <div className="text-3xl font-bold text-gray-900 mb-1" style={{ fontFamily:"serif", direction:"rtl" }}>{s.syllable}</div>
+                      <div className="text-xs text-emerald-700 font-medium leading-tight">{s.pronunciation}</div>
+                      <Volume2 className="w-3 h-3 text-teal-400 mx-auto mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
 
-  const handleAnswer = (opt) => {
-    if (answered !== null) return;
-    const isCorrect = opt === quizState.correct;
-    setAnswered({ selected: opt, correct: quizState.correct, isCorrect });
-    if (isCorrect) setScore(s => s + 1);
+            {!selectedLetter && (
+              <div className="text-center py-10 text-gray-400">
+                <div className="text-4xl mb-2">☝️</div>
+                <p className="text-sm">Zgjidh një germë sipër për të parë rrokjet e saj</p>
+              </div>
+            )}
+          </div>
+        )}
 
-    setTimeout(() => {
-      if (questionNum >= 10) {
-        setQuizFinished(true);
-      } else {
-        const q = generateQuizQuestion(selectedCons);
-        setQuizState(q);
-        setTimer(30);
-        setQuestionNum(n => n + 1);
-        setAnswered(null);
-      }
-    }, 1200);
-  };
+        {/* ── TAB 3: RREGULLI AL ── */}
+        {arTab === "al_rule" && (
+          <div className="space-y-4">
+            {Object.values(AL_RULE).map((rule) => (
+              <div key={rule.title} className={`${rule.color} border rounded-2xl p-5`}>
+                <h3 className="font-bold text-gray-800 text-lg mb-2">{rule.title}</h3>
+                <p className="text-sm text-gray-700 mb-4 bg-white/70 rounded-xl p-3">{rule.explanation}</p>
 
+                {/* Letra */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {rule.letters.map(l => (
+                    <button key={l} onClick={() => speak("ال"+l, "arabisht")}
+                      className={`w-10 h-10 rounded-xl font-bold text-xl border-2 transition-all hover:shadow-md
+                        ${rule === AL_RULE.shamsiyye ? "bg-orange-100 border-orange-300 text-orange-800 hover:bg-orange-200" : "bg-blue-100 border-blue-300 text-blue-800 hover:bg-blue-200"}`}
+                      style={{ fontFamily:"serif" }} title={LETTER_NAMES[l]}>
+                      {l}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Shembujt */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {rule.examples.map((ex, i) => (
+                    <button key={i} onClick={() => speak(ex.ar, "arabisht")}
+                      className="bg-white border border-gray-100 rounded-2xl p-3 text-center hover:shadow-md transition-all group">
+                      <div className="text-2xl font-bold text-gray-900 mb-1" style={{ fontFamily:"serif", direction:"rtl" }}>{ex.ar}</div>
+                      <div className="text-xs font-bold text-emerald-700">{ex.trans}</div>
+                      <div className="text-xs text-gray-500">{ex.meaning}</div>
+                      <Volume2 className="w-3 h-3 text-gray-300 mx-auto mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+
+            {/* Shembull i thjeshtë vizual */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-5">
+              <h4 className="font-bold text-gray-800 mb-3">📝 Si funksionon në praktikë?</h4>
+              <div className="grid sm:grid-cols-2 gap-4 text-sm">
+                <div className="bg-orange-50 rounded-xl p-4 border border-orange-200">
+                  <div className="font-bold text-orange-700 mb-2">☀️ Shamsiyye: al+ر → ar-Ra</div>
+                  <div className="space-y-1">
+                    {[["الرَّحْمٰن","ar-Rahmaan"],["الرُّسُل","ar-Rusul"],["الرِّجَال","ar-Rijaal"]].map(([a,t]) => (
+                      <div key={a} className="flex justify-between items-center bg-white rounded-lg px-3 py-1.5 border border-orange-100">
+                        <span style={{ fontFamily:"serif" }} className="text-xl">{a}</span>
+                        <span className="text-xs font-mono text-orange-700">{t}</span>
+                        <button onClick={() => speak(a,"arabisht")} className="text-gray-400 hover:text-orange-600"><Volume2 className="w-3.5 h-3.5" /></button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
+                  <div className="font-bold text-blue-700 mb-2">🌙 Qamariyye: al+ك → al-Ka</div>
+                  <div className="space-y-1">
+                    {[["الْكَعْبَة","al-Ka'bah"],["الْكِتَاب","al-Kitaab"],["الْكُرْسِي","al-Kursii"]].map(([a,t]) => (
+                      <div key={a} className="flex justify-between items-center bg-white rounded-lg px-3 py-1.5 border border-blue-100">
+                        <span style={{ fontFamily:"serif" }} className="text-xl">{a}</span>
+                        <span className="text-xs font-mono text-blue-700">{t}</span>
+                        <button onClick={() => speak(a,"arabisht")} className="text-gray-400 hover:text-blue-600"><Volume2 className="w-3.5 h-3.5" /></button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ── SHQIP / ANGLISHT ──
+  const langData = language === "anglisht" ? ANGLISHT_SYLLABLES : SHQIP_SYLLABLES;
   return (
     <div className="space-y-4">
       <div className="bg-white rounded-2xl border border-gray-100 p-5">
         <h2 className="text-lg font-bold text-gray-800 mb-1">{langData.title}</h2>
-        <p className="text-sm text-gray-500 mb-4">
-          Zgjidh shkronjën dhe shiko rrokjet e saj me të gjitha zanoret
-        </p>
-
-        {/* Consonant selector */}
-        <div className="flex flex-wrap gap-2 mb-5">
-          {consonants.map((c) => (
-            <button
-              key={c}
-              onClick={() => { setSelectedCons(c); setMode("learn"); }}
-              className={`px-3 py-2 rounded-xl font-bold text-sm transition-all ${
-                selectedCons === c
-                  ? "bg-emerald-600 text-white shadow-md"
-                  : "bg-gray-50 border border-gray-200 text-gray-700 hover:border-emerald-300"
-              } ${language === "arabisht" ? "text-xl font-arabic" : ""}`}
-              style={language === "arabisht" ? { fontFamily: "serif", direction: "rtl" } : {}}
-            >
+        <p className="text-sm text-gray-500 mb-4">Zgjidh shkronjën dhe shiko rrokjet me të gjitha zanoret</p>
+        <div className="flex flex-wrap gap-2">
+          {langData.consonants.map(c => (
+            <button key={c} onClick={() => setSelectedCons(selectedCons === c ? null : c)}
+              className={`px-3 py-2 rounded-xl font-bold text-sm transition-all border-2 ${
+                selectedCons === c ? "bg-emerald-600 text-white border-emerald-600 shadow-md" : "bg-gray-50 border-gray-200 text-gray-700 hover:border-emerald-300"
+              }`}>
               {c}
             </button>
           ))}
         </div>
-
-        {selectedCons && (
-          <div className="flex gap-2 mb-4">
-            {["learn", "forms", "quiz"].map(m => (
-              <button
-                key={m}
-                onClick={() => { setMode(m); if (m === "quiz") startQuiz(); }}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                  mode === m
-                    ? "bg-teal-600 text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                }`}
-              >
-                {m === "learn" ? "📚 Mëso Rrokjet" : m === "forms" ? "🔤 Format e Shkronjës" : "🎯 Kuiz Rrokjesh"}
-              </button>
-            ))}
-          </div>
-        )}
       </div>
 
-      {language === "arabisht" && !selectedCons && (
-        <div className="bg-white rounded-2xl border border-gray-100 p-5">
-          <h3 className="font-bold text-gray-800 mb-1 text-lg">🔤 Zanoret Arabisht (Hareket)</h3>
-          <p className="text-sm text-gray-500 mb-4">Shenjat e vokalizimit — si lexohet çdo shkronjë</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            {ARABIC_VOWELS.map((v, i) => (
-              <motion.button
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-                onClick={() => speak(v.symbol, "arabisht")}
-                className={`${v.color} border rounded-2xl p-4 text-center hover:shadow-md transition-all group`}
-              >
-                <div className="text-4xl font-bold text-gray-900 mb-1" style={{ fontFamily: "serif", direction: "rtl" }}>
-                  {v.symbol}
-                </div>
-                <div className="text-xs font-bold text-gray-700 mb-0.5">{v.name}</div>
-                <div className="text-xs text-emerald-700 font-medium">{v.sound}</div>
-                <div className="text-xs text-gray-400 mt-1 italic">{v.example}</div>
-                <Volume2 className="w-3 h-3 text-gray-400 mx-auto mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
-              </motion.button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {selectedCons && mode === "learn" && (
+      {selectedCons && (
         <div className="bg-white rounded-2xl border border-gray-100 p-5">
           <h3 className="font-bold text-gray-800 mb-4 text-lg">
-            Rrokjet me shkronjën{" "}
-            <span className={`text-emerald-600 ${language === "arabisht" ? "text-3xl" : "text-2xl"}`}
-              style={language === "arabisht" ? { fontFamily: "serif" } : {}}
-            >{selectedCons}</span>
+            Rrokjet me <span className="text-emerald-600 text-2xl">{selectedCons}</span>
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            {getSyllables(selectedCons).map((syll, i) => (
-              <motion.button
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-                onClick={() => speak(syll.syllable, language)}
+            {langData.generate(selectedCons).map((s, i) => (
+              <motion.button key={i} initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay: i*0.05 }}
+                onClick={() => speak(s.syllable, language)}
                 className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-2xl p-4 text-center hover:shadow-md hover:border-emerald-300 transition-all group"
               >
-                <div
-                  className={`font-bold text-gray-900 mb-1 ${language === "arabisht" ? "text-3xl" : "text-2xl"}`}
-                  style={language === "arabisht" ? { fontFamily: "serif", direction: "rtl" } : {}}
-                >
-                  {syll.syllable}
-                </div>
-                <div className="text-xs text-emerald-600 font-medium">{syll.pronunciation}</div>
+                <div className="text-2xl font-bold text-gray-900 mb-1">{s.syllable}</div>
+                <div className="text-xs text-emerald-600 font-medium">{s.pronunciation}</div>
                 <Volume2 className="w-3.5 h-3.5 text-teal-400 mx-auto mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
               </motion.button>
             ))}
           </div>
-        </div>
-      )}
-
-      {selectedCons && mode === "forms" && language === "arabisht" && (
-        <div className="bg-white rounded-2xl border border-gray-100 p-5">
-          <h3 className="font-bold text-gray-800 mb-4">
-            Format e shkronjës{" "}
-            <span className="text-3xl text-emerald-600" style={{ fontFamily: "serif" }}>{selectedCons}</span>
-            {" "}brenda fjalës
-          </h3>
-          {ARABIC_LETTER_FORMS[selectedCons] ? (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {[
-                { label: "E vetme", key: "isolated", color: "bg-purple-50 border-purple-200" },
-                { label: "Në fillim", key: "initial", color: "bg-blue-50 border-blue-200" },
-                { label: "Në mes", key: "medial", color: "bg-amber-50 border-amber-200" },
-                { label: "Në fund", key: "final", color: "bg-rose-50 border-rose-200" },
-              ].map(({ label, key, color }) => (
-                <div key={key} className={`${color} border rounded-2xl p-6 text-center`}>
-                  <p className="text-xs font-semibold text-gray-500 mb-3">{label}</p>
-                  <p className="text-5xl font-bold text-gray-900" style={{ fontFamily: "serif", direction: "rtl" }}>
-                    {ARABIC_LETTER_FORMS[selectedCons][key]}
-                  </p>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="mt-2"
-                    onClick={() => speak(ARABIC_LETTER_FORMS[selectedCons][key], "arabisht")}
-                  >
-                    <Volume2 className="w-3.5 h-3.5" />
-                  </Button>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-400 text-sm">Format per kete shkronje nuk jane te disponueshme</p>
-          )}
-        </div>
-      )}
-
-      {selectedCons && mode === "forms" && language !== "arabisht" && (
-        <div className="bg-white rounded-2xl border border-gray-100 p-5">
-          <h3 className="font-bold text-gray-800 mb-4">Format e shkronjës <span className="text-2xl text-emerald-600">{selectedCons}</span></h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {[
-              { label: "E madhe shtypi", form: selectedCons.toUpperCase(), color: "bg-blue-50 border-blue-200" },
-              { label: "E vogël shtypi", form: selectedCons.toLowerCase(), color: "bg-emerald-50 border-emerald-200" },
-              { label: "E madhe dorëshkrim", form: selectedCons.toUpperCase(), style: { fontFamily: "cursive" }, color: "bg-amber-50 border-amber-200" },
-              { label: "E vogël dorëshkrim", form: selectedCons.toLowerCase(), style: { fontFamily: "cursive" }, color: "bg-rose-50 border-rose-200" },
-            ].map(({ label, form, style, color }) => (
-              <div key={label} className={`${color} border rounded-2xl p-6 text-center`}>
-                <p className="text-xs font-semibold text-gray-500 mb-3">{label}</p>
-                <p className="text-6xl font-bold text-gray-900" style={style}>{form}</p>
-                <Button variant="ghost" size="sm" className="mt-2" onClick={() => speak(form, language)}>
-                  <Volume2 className="w-3.5 h-3.5" />
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {mode === "quiz" && !quizFinished && quizState && (
-        <div className="bg-white rounded-2xl border border-gray-100 p-5">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-semibold text-gray-600">Pyetja {questionNum}/10</span>
-            <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold ${timer <= 5 ? "bg-red-100 text-red-600" : "bg-emerald-100 text-emerald-700"}`}>
-              <Timer className="w-4 h-4" /> {timer}s
-            </div>
-            <span className="text-sm font-semibold text-emerald-600">Pikë: {score}</span>
-          </div>
-          <div className="bg-gray-50 rounded-2xl p-6 text-center mb-6">
-            <p className="text-lg font-semibold text-gray-800">{quizState.question}</p>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            {quizState.options.map((opt) => {
-              let cls = "border-gray-200 bg-white text-gray-800 hover:border-emerald-300";
-              if (answered) {
-                if (opt === answered.correct) cls = "border-emerald-500 bg-emerald-50 text-emerald-800";
-                else if (opt === answered.selected && !answered.isCorrect) cls = "border-red-400 bg-red-50 text-red-700";
-                else cls = "border-gray-100 bg-gray-50 text-gray-400";
-              }
-              return (
-                <button
-                  key={opt}
-                  onClick={() => handleAnswer(opt)}
-                  disabled={!!answered}
-                  className={`border-2 rounded-2xl p-4 text-center font-bold text-2xl transition-all ${cls}`}
-                  style={language === "arabisht" ? { fontFamily: "serif", direction: "rtl" } : {}}
-                >
-                  {opt}
-                  {answered && opt === answered.correct && <CheckCircle className="w-4 h-4 inline ml-2 text-emerald-600" />}
-                  {answered && opt === answered.selected && !answered.isCorrect && <XCircle className="w-4 h-4 inline ml-2 text-red-500" />}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {mode === "quiz" && quizFinished && (
-        <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
-          <Star className="w-12 h-12 text-amber-400 mx-auto mb-3" />
-          <h3 className="text-2xl font-bold text-gray-800 mb-2">Kuizi Mbaroi!</h3>
-          <p className="text-4xl font-bold text-emerald-600 mb-2">{score}/10</p>
-          <p className="text-2xl font-bold text-emerald-500 mb-2">{Math.round((score / 10) * 100)}%</p>
-          <p className="text-gray-500 mb-6">{score >= 8 ? "Shkëlqyer! 🎉" : score >= 5 ? "Shumë mirë! 👍" : "Provo sërish! 💪"}</p>
-          <Button onClick={startQuiz} className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl">
-            Provo Sërish
-          </Button>
         </div>
       )}
     </div>
