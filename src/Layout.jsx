@@ -24,6 +24,7 @@ const navItems = [
 { name: "Kur'ani", page: "Quran", icon: BookOpen },
 { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
 { name: "Lojëra & Sfida", page: "Games", icon: Gamepad2 },
+{ name: "Fikh Elementar", page: "FE", icon: BookOpen },
 { name: "Cilësimet", page: "Settings", icon: Settings },
 { name: "Fjalë Admin", page: "WordsAdmin", icon: Settings, adminOnly: true }];
 
