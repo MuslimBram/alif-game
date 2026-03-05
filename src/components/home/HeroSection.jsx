@@ -16,11 +16,11 @@ export default function HeroSection({ stats }) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-sm font-medium mb-6">
-            <Sparkles className="w-4 h-4" />
-            Platforma më e plotë edukative
+          transition={{ duration: 0.6 }}>
+
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-sm font-medium mb-6">Platformë e plotë edukative
+
+
           </span>
 
           <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 tracking-tight">
@@ -28,8 +28,8 @@ export default function HeroSection({ stats }) {
             <span className="text-gradient">Edukim Interaktiv</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Mëso alfabetin, texhuidin, Kuranin dhe ritualet e Umras dhe Haxhit me AI dhe teknologji 3D
+          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">Mëso alfabetin në 3 gjuhë, Kuranin me texhuid dhe ritualet e Umras dhe Haxhit. Duke u argëtuar.
+
           </p>
         </motion.div>
 
@@ -38,22 +38,22 @@ export default function HeroSection({ stats }) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4 md:gap-6 mb-12"
-        >
+          className="flex flex-wrap justify-center gap-4 md:gap-6 mb-12">
+
           {[
-            { label: "Mësime Aktive", value: stats.lessons, icon: "⏱" },
-            { label: "Të Kompletuara", value: stats.completed, icon: "🏆" },
-            { label: "Rezultat Mesatar", value: stats.avgScore + "%", icon: "✨" },
-          ].map((stat, i) => (
-            <div
-              key={i}
-              className="glass-card rounded-2xl px-8 py-5 min-w-[160px] hover:shadow-lg transition-shadow"
-            >
+          { label: "Mësime Aktive", value: stats.lessons, icon: "⏱" },
+          { label: "Të Kompletuara", value: stats.completed, icon: "🏆" },
+          { label: "Rezultat Mesatar", value: stats.avgScore + "%", icon: "✨" }].
+          map((stat, i) =>
+          <div
+            key={i}
+            className="glass-card rounded-2xl px-8 py-5 min-w-[160px] hover:shadow-lg transition-shadow">
+
               <span className="text-2xl mb-1 block">{stat.icon}</span>
               <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
               <p className="text-xs text-gray-500 mt-1">{stat.label}</p>
             </div>
-          ))}
+          )}
         </motion.div>
 
         {/* Quick links */}
@@ -61,30 +61,30 @@ export default function HeroSection({ stats }) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
-        >
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+
           {[
-            { name: "Alfabeti", page: "Alphabet", icon: Languages, color: "from-emerald-500 to-teal-500" },
-            { name: "Texhuidi", page: "Tajweed", icon: BookMarked, color: "from-amber-500 to-orange-500" },
-            { name: "Lojëra", page: "Games", icon: Gamepad2, color: "from-pink-500 to-rose-500" },
-            { name: "Përparimi", page: "Progress", icon: BookOpen, color: "from-blue-500 to-indigo-500" },
-          ].map((item) => {
+          { name: "Alfabeti", page: "Alphabet", icon: Languages, color: "from-emerald-500 to-teal-500" },
+          { name: "Texhuidi", page: "Tajweed", icon: BookMarked, color: "from-amber-500 to-orange-500" },
+          { name: "Lojëra", page: "Games", icon: Gamepad2, color: "from-pink-500 to-rose-500" },
+          { name: "Përparimi", page: "Progress", icon: BookOpen, color: "from-blue-500 to-indigo-500" }].
+          map((item) => {
             const Icon = item.icon;
             return (
               <Link
                 key={item.page}
                 to={createPageUrl(item.page)}
-                className="group glass-card rounded-2xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
+                className="group glass-card rounded-2xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-3 mx-auto shadow-lg group-hover:scale-110 transition-transform`}>
                   <Icon className="w-6 h-6 text-white" />
                 </div>
                 <p className="font-semibold text-gray-800 text-sm">{item.name}</p>
-              </Link>
-            );
+              </Link>);
+
           })}
         </motion.div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
