@@ -56,9 +56,201 @@ const JOBS = [
   { language: "arabisht", level: "profesionist", target: 200,  label: "🇸🇦 Arabisht — Profesionist" },
 ];
 
+function PilgrimageMapView() {
+  const [ritual, setRitual] = useState("umra");
+  const [activeStep, setActiveStep] = useState(null);
+  const places = ritual === "umra" ? UMRA_PLACES : HAJJ_PLACES;
+  const route = ritual === "umra" ? UMRA_ROUTE : HAJJ_ROUTE;
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
+      <h2 className="text-xl font-extrabold text-gray-800 mb-1">🗺️ Harta Interaktive e Rrugëtimit</h2>
+      <p className="text-sm text-gray-500 mb-4">Lëviz vizualisht nëpër vendet e shenjta</p>
+
+      <div className="flex gap-2 mb-5">
+        {["umra","hajj"].map(r => (
+          <button key={r} onClick={() => { setRitual(r); setActiveStep(null); }}
+            className={`px-5 py-2 rounded-xl font-semibold text-sm transition-all ${ritual === r ? "bg-emerald-600 text-white shadow" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+            {r === "umra" ? "🕌 Umra" : "🕋 Haxhi"}
+          </button>
+        ))}
+      </div>
+
+      {/* Route steps */}
+      <div className="mb-5">
+        <p className="text-xs font-bold text-gray-500 uppercase mb-3">Rrugëtimi hap pas hapi</p>
+        <div className="flex flex-wrap gap-2">
+          {route.map((step, i) => (
+            <button key={i} onClick={() => setActiveStep(activeStep === i ? null : i)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border-2 transition-all ${
+                activeStep === i ? "bg-gray-800 text-white border-gray-800" : "bg-gray-50 border-gray-200 text-gray-700 hover:border-gray-400"
+              }`}>
+              <span className={`w-5 h-5 rounded-full ${step.color} text-white text-[10px] flex items-center justify-center font-bold flex-shrink-0`}>{i+1}</span>
+              {step.label}
+            </button>
+          ))}
+        </div>
+        {activeStep !== null && (
+          <div className="mt-3 p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+            <p className="text-sm font-bold text-emerald-800">Hapi {activeStep + 1}: {route[activeStep].label}</p>
+            {route[activeStep].from && (
+              <p className="text-xs text-emerald-600 mt-1">
+                📍 {places.find(p=>p.id===route[activeStep].from)?.emoji} {places.find(p=>p.id===route[activeStep].from)?.name}
+                {route[activeStep].to && ` → ${places.find(p=>p.id===route[activeStep].to)?.emoji || ""} ${places.find(p=>p.id===route[activeStep].to)?.name || ""}`}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Places grid */}
+      <p className="text-xs font-bold text-gray-500 uppercase mb-3">Vendet e shenjta</p>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        {places.map(place => {
+          const isOnRoute = route.some(r => r.from === place.id || r.to === place.id);
+          return (
+            <div key={place.id}
+              className={`rounded-2xl border-2 p-3 text-center transition-all ${isOnRoute ? "border-emerald-300 bg-emerald-50" : "border-gray-200 bg-gray-50"}`}>
+              <div className="text-3xl mb-1">{place.emoji}</div>
+              <p className="font-bold text-gray-800 text-xs">{place.name}</p>
+              <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">{place.desc}</p>
+              {isOnRoute && <span className="inline-block mt-1.5 text-[9px] px-1.5 py-0.5 bg-emerald-100 text-emerald-700 rounded-full font-bold">✓ Rrugë</span>}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function BrainGymGame() {
+  const PATTERNS = [
+    { shapes: ["▐▌","▐▌","▐▌"], type: "lines", answer: "▐▌", options: ["▐▌","◀▶","▲▼","▌▐"] },
+    { shapes: ["❮❮","❮❮","❮❮"], type: "chevron", answer: "❮❮", options: ["❯❯","❮❮","⟨⟩","◁◁"] },
+    { shapes: ["⊏⊐","⊏⊐","⊏⊐"], type: "bracket", answer: "⊏⊐", options: ["⊏⊐","⊢⊣","[]","()"] },
+    { shapes: ["◤◥","◤◥","◤◥"], type: "triangle", answer: "◤◥", options: ["◤◥","▲▼","△▽","◣◢"] },
+  ];
+
+  const ARABIC_LETTERS = ["ب","ت","ث","ج","ح","خ","د","ذ","ر","ز","س","ش","ص","ض"];
+  const ARABIC_FORMS = ["isolated", "initial", "medial", "final"];
+
+  // Visual pattern matching game — Brain Gym style
+  const [gameType, setGameType] = useState("pattern"); // pattern | arabic_forms | mirror
+  const [score, setScore] = useState(0);
+  const [round, setRound] = useState(0);
+  const [answered, setAnswered] = useState(null);
+  const [showResult, setShowResult] = useState(false);
+
+  const generatePatternRound = () => {
+    // Generate a pattern: show 3 shapes, user picks the matching one
+    const counts = [2, 3, 4, 5];
+    const count = counts[Math.floor(Math.random() * counts.length)];
+    const filledPositions = [];
+    while (filledPositions.length < count) {
+      const pos = Math.floor(Math.random() * 9);
+      if (!filledPositions.includes(pos)) filledPositions.push(pos);
+    }
+    return { filledPositions, count };
+  };
+
+  const [currentPattern, setCurrentPattern] = useState(() => generatePatternRound());
+  const [options, setOptions] = useState(() => {
+    const correct = generatePatternRound();
+    const wrongs = [generatePatternRound(), generatePatternRound(), generatePatternRound()];
+    const all = [correct, ...wrongs].sort(() => Math.random() - 0.5);
+    return { correct: correct.filledPositions.sort().join(","), choices: all };
+  });
+
+  const nextRound = () => {
+    const newPattern = generatePatternRound();
+    const wrongs = [generatePatternRound(), generatePatternRound(), generatePatternRound()];
+    const all = [newPattern, ...wrongs].sort(() => Math.random() - 0.5);
+    setCurrentPattern(newPattern);
+    setOptions({ correct: newPattern.filledPositions.sort().join(","), choices: all });
+    setAnswered(null);
+    setShowResult(false);
+    setRound(r => r + 1);
+  };
+
+  const handleAnswer = (choice) => {
+    if (answered !== null) return;
+    const isCorrect = choice.filledPositions.sort().join(",") === options.correct;
+    setAnswered(isCorrect ? "correct" : "wrong");
+    if (isCorrect) setScore(s => s + 1);
+    setShowResult(true);
+    setTimeout(nextRound, 1500);
+  };
+
+  const GridDisplay = ({ pattern, size = "sm" }) => (
+    <div className={`grid grid-cols-3 gap-1 ${size === "lg" ? "w-32 h-32" : "w-20 h-20"}`}>
+      {Array.from({length: 9}, (_, i) => (
+        <div key={i} className={`rounded-sm transition-all ${
+          pattern.filledPositions.includes(i)
+            ? "bg-blue-600 border border-blue-700"
+            : "bg-gray-100 border border-gray-200"
+        }`} />
+      ))}
+    </div>
+  );
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h2 className="text-xl font-extrabold text-gray-800">🧠 Brain Gym — Lojëra Vizuale</h2>
+          <p className="text-sm text-gray-500">Gjej modelin e njëjtë — stërvit trurin!</p>
+        </div>
+        <div className="text-right">
+          <p className="text-2xl font-bold text-emerald-600">{score}</p>
+          <p className="text-xs text-gray-400">pikë</p>
+        </div>
+      </div>
+
+      <div className="bg-gray-50 rounded-2xl p-5 mb-4">
+        <p className="text-xs font-bold text-gray-500 uppercase mb-3 text-center">Modeli origjinal — gjej njëjtin!</p>
+        <div className="flex justify-center mb-2">
+          <GridDisplay pattern={currentPattern} size="lg" />
+        </div>
+        <p className="text-center text-xs text-gray-400">{currentPattern.count} sheshe të mbushura</p>
+      </div>
+
+      {showResult && (
+        <div className={`text-center font-bold text-lg mb-3 ${answered === "correct" ? "text-emerald-600" : "text-red-500"}`}>
+          {answered === "correct" ? "✅ Saktë!" : "❌ Jo e saktë!"}
+        </div>
+      )}
+
+      <p className="text-xs font-bold text-gray-500 uppercase mb-3 text-center">Zgjidh modelin e njëjtë:</p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {options.choices.map((choice, i) => (
+          <button key={i} disabled={!!answered}
+            onClick={() => handleAnswer(choice)}
+            className={`flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all ${
+              answered && choice.filledPositions.sort().join(",") === options.correct
+                ? "border-emerald-500 bg-emerald-50"
+                : answered && choice === options.choices.find(c => c.filledPositions.sort().join(",") !== options.correct && answered === "wrong")
+                ? "border-red-400 bg-red-50"
+                : "border-gray-200 hover:border-blue-300 hover:bg-blue-50"
+            }`}>
+            <GridDisplay pattern={choice} size="sm" />
+          </button>
+        ))}
+      </div>
+
+      <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+        <p className="text-xs text-gray-400">Rundi: {round + 1}</p>
+        <button onClick={nextRound} className="text-xs px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-xl font-semibold text-gray-600 transition-all">
+          Kapërceje →
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function WordsAdmin() {
   const [statuses, setStatuses] = useState({});
   const [running, setRunning] = useState(false);
+  const [adminTab, setAdminTab] = useState("words"); // words | map | games
 
   const { data: counts, refetch } = useQuery({
     queryKey: ["word-counts"],
