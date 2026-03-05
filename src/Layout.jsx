@@ -5,9 +5,7 @@ import { base44 } from "@/api/base44Client";
 import {
   Home,
   BookOpen,
-  BookMarked,
   Gamepad2,
-  BarChart3,
   Menu,
   X,
   LogOut,
@@ -23,7 +21,6 @@ import { Button } from "@/components/ui/button";
 const navItems = [
   { name: "Ballina", page: "Home", icon: Home },
   { name: "Alfabeti", page: "Alphabet", icon: Languages },
-  { name: "Texhuidi", page: "Tajweed", icon: BookMarked },
   { name: "Kur'ani", page: "Quran", icon: BookOpen },
   { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
   { name: "Lojëra & Sfida", page: "Games", icon: Gamepad2 },
