@@ -192,6 +192,126 @@ const AR_TABS = [
   { id: "flashcards", label: "🃏 Flashcards" },
 ];
 
+function ArabicSyllableQuiz() {
+  const [score, setScore] = useState(0);
+  const [round, setRound] = useState(0);
+  const [timer, setTimer] = useState(10);
+  const [answered, setAnswered] = useState(null);
+  const [started, setStarted] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const TOTAL_ROUNDS = 12;
+
+  const generateQuestion = () => {
+    const letter = ALL_ARABIC_LETTERS[Math.floor(Math.random() * ALL_ARABIC_LETTERS.length)];
+    const syllables = SPECIAL_SYLLABLES[letter] || generateArabicSyllables(letter);
+    const correct = syllables[Math.floor(Math.random() * syllables.length)];
+    // Wrong options from different letters
+    const wrongLetters = ALL_ARABIC_LETTERS.filter(l => l !== letter);
+    const wrongs = [];
+    while (wrongs.length < 3) {
+      const wl = wrongLetters[Math.floor(Math.random() * wrongLetters.length)];
+      const ws = SPECIAL_SYLLABLES[wl] || generateArabicSyllables(wl);
+      const w = ws[Math.floor(Math.random() * ws.length)];
+      if (!wrongs.find(x => x.pronunciation === w.pronunciation)) wrongs.push(w);
+    }
+    const options = [correct, ...wrongs].sort(() => Math.random() - 0.5);
+    return { syllable: correct.syllable, correctPronunciation: correct.pronunciation, options };
+  };
+
+  const [question, setQuestion] = useState(() => generateQuestion());
+
+  useEffect(() => {
+    if (!started || finished) return;
+    if (timer <= 0) { handleAnswer(null); return; }
+    const t = setInterval(() => setTimer(p => p - 1), 1000);
+    return () => clearInterval(t);
+  }, [timer, started, finished, round]);
+
+  const handleAnswer = (opt) => {
+    if (answered !== null) return;
+    const isCorrect = opt?.pronunciation === question.correctPronunciation;
+    setAnswered({ selected: opt?.pronunciation || null, correct: question.correctPronunciation, isCorrect });
+    if (isCorrect) setScore(s => s + 1);
+    speak(question.syllable, "arabisht");
+    setTimeout(() => {
+      if (round + 1 >= TOTAL_ROUNDS) { setFinished(true); return; }
+      setQuestion(generateQuestion());
+      setAnswered(null);
+      setTimer(10);
+      setRound(r => r + 1);
+    }, 1500);
+  };
+
+  if (!started) return (
+    <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
+      <div className="text-5xl mb-4">⏱️</div>
+      <h3 className="text-xl font-bold text-gray-800 mb-2">Pyesor Rrokjesh Arabe</h3>
+      <p className="text-gray-500 mb-1">{TOTAL_ROUNDS} pyetje · 10 sekonda secila</p>
+      <p className="text-sm text-teal-600 mb-6">Shiko rrokjen dhe zgjidh shqiptimin e saktë!</p>
+      <button onClick={() => setStarted(true)}
+        className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl px-8 py-3 font-bold transition-all">
+        🚀 Fillo Pyesorin
+      </button>
+    </div>
+  );
+
+  if (finished) return (
+    <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
+      <div className="text-5xl mb-3">🏆</div>
+      <h3 className="text-2xl font-bold text-gray-800 mb-2">Mbaroi!</h3>
+      <p className={`text-5xl font-bold mb-3 ${score >= 9 ? "text-emerald-600" : score >= 6 ? "text-amber-600" : "text-red-500"}`}>
+        {score}/{TOTAL_ROUNDS}
+      </p>
+      <p className="text-gray-500 mb-6">
+        {score >= 10 ? "🌟 Mashallah! Ekspert i rrokjeve!" : score >= 7 ? "👍 Shumë mirë!" : "📚 Praktiko më shumë!"}
+      </p>
+      <button onClick={() => { setStarted(false); setFinished(false); setScore(0); setRound(0); setTimer(10); setAnswered(null); setQuestion(generateQuestion()); }}
+        className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl px-8 py-3 font-bold transition-all">
+        🔄 Provo Sërish
+      </button>
+    </div>
+  );
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 p-5">
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-sm font-semibold text-gray-600">Pyetja {round + 1}/{TOTAL_ROUNDS}</span>
+        <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold ${timer <= 3 ? "bg-red-100 text-red-600 animate-pulse" : "bg-emerald-100 text-emerald-700"}`}>
+          ⏱️ {timer}s
+        </div>
+        <span className="text-sm font-semibold text-emerald-600">✓ {score}</span>
+      </div>
+      <div className="w-full bg-gray-100 rounded-full h-2 mb-5">
+        <div className="bg-emerald-500 h-2 rounded-full transition-all" style={{ width: `${(round / TOTAL_ROUNDS) * 100}%` }} />
+      </div>
+      <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-6 text-center mb-5">
+        <p className="text-xs text-gray-400 mb-2">Cili është shqiptimi i kësaj rrokje?</p>
+        <div className="text-6xl font-bold text-gray-900 mb-1" style={{ fontFamily: "serif", direction: "rtl" }}>{question.syllable}</div>
+        <button onClick={() => speak(question.syllable, "arabisht")}
+          className="text-xs text-teal-600 hover:text-teal-700 flex items-center gap-1 mx-auto mt-2">
+          <Volume2 className="w-3 h-3" /> Dëgjo
+        </button>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {question.options.map((opt, i) => {
+          let cls = "border-gray-200 bg-white text-gray-800 hover:border-teal-300 hover:bg-teal-50";
+          if (answered) {
+            if (opt.pronunciation === answered.correct) cls = "border-emerald-500 bg-emerald-50 text-emerald-800 font-bold";
+            else if (opt.pronunciation === answered.selected && !answered.isCorrect) cls = "border-red-400 bg-red-50 text-red-700";
+            else cls = "border-gray-100 bg-gray-50 text-gray-400";
+          }
+          return (
+            <button key={i} disabled={!!answered} onClick={() => handleAnswer(opt)}
+              className={`border-2 rounded-2xl p-3 text-sm text-center transition-all ${cls}`}>
+              {opt.pronunciation}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function SyllablesView({ language }) {
   const [arTab, setArTab] = useState("hareket");
   const [selectedLetter, setSelectedLetter] = useState(null);
