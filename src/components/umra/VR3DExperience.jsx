@@ -67,7 +67,19 @@ const SITES = [
 ];
 
 function buildScene(canvas, onSiteClick) {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  // Ensure canvas has dimensions before creating WebGL context
+  const w = canvas.clientWidth || canvas.offsetWidth || 800;
+  const h = canvas.clientHeight || canvas.offsetHeight || 600;
+  canvas.width = w;
+  canvas.height = h;
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  } catch (e) {
+    console.warn("WebGL not supported:", e);
+    return () => {};
+  }
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
   renderer.shadowMap.enabled = true;
