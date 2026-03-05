@@ -90,7 +90,7 @@ function buildScene(canvas, onSiteClick) {
   scene.fog = new THREE.FogExp2(0x0a1628, 0.008);
 
   // Camera
-  const camera = new THREE.PerspectiveCamera(60, canvas.clientWidth / canvas.clientHeight, 0.1, 500);
+  const camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 500);
   camera.position.set(0, 30, 60);
   camera.lookAt(0, 0, 0);
 
