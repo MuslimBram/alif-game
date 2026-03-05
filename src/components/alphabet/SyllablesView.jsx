@@ -445,6 +445,9 @@ export default function SyllablesView({ language }) {
           </div>
         )}
 
+        {/* ── TAB 3: PYESOR ── */}
+        {arTab === "pyesor" && <ArabicSyllableQuiz />}
+
         {/* ── TAB 4: GRAMATIKA ── */}
         {arTab === "gramatika" && <GrammarRulesView language="arabisht" />}
 
