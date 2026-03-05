@@ -17,6 +17,8 @@ import VerbConjugationView from "@/components/alphabet/VerbConjugationView";
 import NounDeclensionView from "@/components/alphabet/NounDeclensionView";
 import MedineArabicView from "@/components/alphabet/MedineArabicView";
 import TajweedInline from "@/components/alphabet/TajweedInline.jsx";
+import FlashcardsView from "@/components/alphabet/FlashcardsView";
+import GrammarRulesView from "@/components/alphabet/GrammarRulesView";
 
 const languages = [
   { value: "shqip", label: "🇦🇱 Shqip" },
