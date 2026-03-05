@@ -499,7 +499,7 @@ function QuizSection({ lang }) {
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-bold text-gray-900">🎯 Kuizi i Zgjedhimit</h3>
         <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold text-emerald-600">✓ {score.ok}/{score.total}</span>
+          <span className="text-sm font-semibold text-emerald-600">✓ {score.ok}/{score.total} {score.total > 0 ? `(${Math.round((score.ok/score.total)*100)}%)` : ""}</span>
           <button onClick={() => setQuizQ(null)} className="text-gray-400 hover:text-gray-600 text-lg">✕</button>
         </div>
       </div>
