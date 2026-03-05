@@ -100,6 +100,20 @@ const SYLLABLES = {
   }
 };
 
+// Standalone Arabic vowel signs with explanations
+const ARABIC_VOWELS = [
+  { symbol: "َ",  name: "Fatha",        sound: "e / a (i shkurtër)",   color: "bg-amber-50 border-amber-200",  example: "بَ → Be" },
+  { symbol: "ِ",  name: "Kasra",        sound: "i (i shkurtër)",       color: "bg-sky-50 border-sky-200",      example: "بِ → Bi" },
+  { symbol: "ُ",  name: "Damma",        sound: "u (i shkurtër)",       color: "bg-emerald-50 border-emerald-200", example: "بُ → Bu" },
+  { symbol: "ً",  name: "Tanwin fatha", sound: "en (fundore)",         color: "bg-orange-50 border-orange-200",example: "بً → Ben" },
+  { symbol: "ٍ",  name: "Tanwin kasra", sound: "in (fundore)",         color: "bg-indigo-50 border-indigo-200",example: "بٍ → Bin" },
+  { symbol: "ٌ",  name: "Tanwin damma", sound: "un (fundore)",         color: "bg-teal-50 border-teal-200",    example: "بٌ → Bun" },
+  { symbol: "اَ", name: "Alif + fatha", sound: "aa (i gjatë — ea)",    color: "bg-yellow-50 border-yellow-200",example: "بَا → Baa" },
+  { symbol: "وُ", name: "Waw + damma",  sound: "uu (i gjatë)",         color: "bg-lime-50 border-lime-200",    example: "بُو → Buu" },
+  { symbol: "يِ", name: "Ya + kasra",   sound: "ii (i gjatë)",         color: "bg-cyan-50 border-cyan-200",    example: "بِي → Bii" },
+  { symbol: "ّ",  name: "Shadda",       sound: "shkronja dyfishohet",  color: "bg-rose-50 border-rose-200",    example: "بَّ → Bba" },
+];
+
 const ARABIC_LETTER_FORMS = {
   "ب": { isolated: "ب", initial: "بـ", medial: "ـبـ", final: "ـب" },
   "ت": { isolated: "ت", initial: "تـ", medial: "ـتـ", final: "ـت" },
