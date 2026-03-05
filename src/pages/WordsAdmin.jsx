@@ -2,7 +2,44 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
+
+const UMRA_PLACES = [
+  { id: "mikat", name: "Mikati", emoji: "⬜", desc: "Pika e hyrjes në ihram — prag i shenjtë" },
+  { id: "kaabe", name: "Qabeja", emoji: "🕋", desc: "Shtëpia e Allahut — qendra e tavafit" },
+  { id: "hatim", name: "Hatim", emoji: "🌙", desc: "Gjysëmhëna pranë Qabesë — pjesë e saj" },
+  { id: "maqam", name: "Makam Ibrahim", emoji: "👣", desc: "Guri i gjurmës së Ibrahimit (a.s.)" },
+  { id: "zemzem", name: "Burimi Zamzam", emoji: "💧", desc: "Uji i shenjtë i shpallur nga Allahu" },
+  { id: "safa", name: "Safa", emoji: "⛰️", desc: "Kodra e parë e Sa'jit — fillon këtu" },
+  { id: "merva", name: "Merva", emoji: "🏔️", desc: "Kodra e fundit e Sa'jit" },
+];
+
+const HAJJ_PLACES = [
+  ...UMRA_PLACES,
+  { id: "mina", name: "Mina", emoji: "⛺", desc: "Qyteti i çadrave — 3 netë" },
+  { id: "arafat", name: "Arafati", emoji: "🌄", desc: "Shtylla kryesore e Haxhit" },
+  { id: "muzdalifa", name: "Muzdelifa", emoji: "🌙", desc: "Nata e mbledhjes së gurëve" },
+  { id: "xhemra_sugra", name: "Xhemretul-Sugra", emoji: "🪨", desc: "Xhemraja e vogël" },
+  { id: "xhemra_vusta", name: "Xhemretul-Vusta", emoji: "🪨", desc: "Xhemraja e mesme" },
+  { id: "xhemra_akabe", name: "Xhemretul-Akabe", emoji: "🪨", desc: "Xhemraja e madhe" },
+];
+
+const UMRA_ROUTE = [
+  { from: "mikat", to: "kaabe", label: "Ihram → Tavaf", color: "bg-emerald-500" },
+  { from: "kaabe", to: "maqam", label: "Tavaf → Namaz", color: "bg-blue-500" },
+  { from: "maqam", to: "safa", label: "Namaz → Sa'j", color: "bg-amber-500" },
+  { from: "safa", to: "merva", label: "Sa'j ×7", color: "bg-orange-500" },
+  { from: "merva", to: null, label: "Qethja → Ihrami mbaron", color: "bg-rose-500" },
+];
+
+const HAJJ_ROUTE = [
+  { from: "mikat", to: "mina", label: "8 Dhul-Hixhe: Ihram → Mina", color: "bg-emerald-500" },
+  { from: "mina", to: "arafat", label: "9 Dhul-Hixhe: Arafati (Wuquf)", color: "bg-amber-500" },
+  { from: "arafat", to: "muzdalifa", label: "Muzdelifa — Nata", color: "bg-indigo-500" },
+  { from: "muzdalifa", to: "xhemra_akabe", label: "10 Dhul-Hixhe: Gurët", color: "bg-red-500" },
+  { from: "xhemra_akabe", to: "kaabe", label: "Tavafi i Ifadës", color: "bg-blue-500" },
+  { from: "kaabe", to: "mina", label: "Ditët e Teshrîkut (11-13)", color: "bg-teal-500" },
+  { from: "mina", to: "kaabe", label: "Tavafi i Vedas — Lamtumirë", color: "bg-purple-500" },
+];
 
 const JOBS = [
   { language: "shqip",    level: "fillestar",    target: 500,  label: "🇦🇱 Shqip — Fillestar" },
