@@ -261,6 +261,7 @@ export default function ExercisesView({ language }) {
           <Star className="w-14 h-14 text-amber-400 mx-auto mb-3" />
           <h3 className="text-2xl font-bold text-gray-800 mb-2">Ushtrimet Mbaruan!</h3>
           <p className="text-5xl font-bold text-emerald-600 mb-2">{score}/{TOTAL}</p>
+          <p className="text-2xl font-bold text-emerald-500 mb-2">{Math.round((score / TOTAL) * 100)}%</p>
           <p className="text-gray-500 mb-6">{score >= 8 ? "Fantastike! 🎉" : score >= 5 ? "Shumë mirë! 👍" : "Vazhdo të stërvitesh! 💪"}</p>
           <Button onClick={start} className="bg-amber-500 hover:bg-amber-600 text-white rounded-xl px-8">
             Provo Sërish
