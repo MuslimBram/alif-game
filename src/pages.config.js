@@ -59,6 +59,7 @@ import Settings from './pages/Settings';
 import Tajweed from './pages/Tajweed';
 import UmraHajj from './pages/UmraHajj';
 import WordsAdmin from './pages/WordsAdmin';
+import FE from './pages/FE';
 import __Layout from './Layout.jsx';
 
 
@@ -75,6 +76,7 @@ export const PAGES = {
     "Tajweed": Tajweed,
     "UmraHajj": UmraHajj,
     "WordsAdmin": WordsAdmin,
+    "FE": FE,
 }
 
 export const pagesConfig = {
