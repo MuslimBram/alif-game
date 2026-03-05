@@ -95,7 +95,7 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
       </Tabs>
 
       {/* Language Filter */}
-      {(activeTab === "germat" || activeTab === "rrokjet" || activeTab === "fjalët" || activeTab === "numrat" || activeTab === "gramatika" || activeTab === "flashcards") && (
+      {(activeTab === "germat" || activeTab === "rrokjet" || activeTab === "fjalët" || activeTab === "numrat") && (
         <div className="flex flex-wrap items-center gap-8 mb-8">
           <div>
             <p className="text-xs font-semibold text-emerald-700 mb-2">Gjuha</p>
