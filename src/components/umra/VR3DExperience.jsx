@@ -431,9 +431,26 @@ export default function VR3DExperience({ onClose }) {
               <p className="text-white/90 text-sm">{selectedSite.ritual}</p>
             </div>
             <button onClick={() => speakDescription(selectedSite)}
-              className="w-full flex items-center justify-center gap-2 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-xl transition-all">
+              className="w-full flex items-center justify-center gap-2 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-xl transition-all mb-3">
               <Volume2 className="w-4 h-4" /> Dëgjo Shpjegimin
             </button>
+
+            {/* Navigation arrows */}
+            <div className="flex items-center justify-between gap-2">
+              <button
+                onClick={() => goToSite((currentIndex ?? SITES.findIndex(s => s.id === selectedSite.id)) - 1)}
+                className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-xl transition-all border border-white/10">
+                ← E mëparshme
+              </button>
+              <span className="text-white/40 text-xs">
+                {(currentIndex ?? SITES.findIndex(s => s.id === selectedSite.id)) + 1}/{SITES.length}
+              </span>
+              <button
+                onClick={() => goToSite((currentIndex ?? SITES.findIndex(s => s.id === selectedSite.id)) + 1)}
+                className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-xl transition-all border border-white/10">
+                E ardhshme →
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
