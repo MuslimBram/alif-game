@@ -335,7 +335,7 @@ function NounQuiz({ lang }) {
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-bold text-gray-900">🎯 Kuizi i Lakimit</h3>
         <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold text-emerald-600">✓ {score.ok}/{score.total}</span>
+          <span className="text-sm font-semibold text-emerald-600">✓ {score.ok}/{score.total} {score.total > 0 ? `(${Math.round((score.ok/score.total)*100)}%)` : ""}</span>
           <button onClick={() => setQ(null)} className="text-gray-400 text-lg">✕</button>
         </div>
       </div>
