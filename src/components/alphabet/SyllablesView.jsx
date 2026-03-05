@@ -281,6 +281,33 @@ export default function SyllablesView({ language }) {
         )}
       </div>
 
+      {language === "arabisht" && !selectedCons && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-5">
+          <h3 className="font-bold text-gray-800 mb-1 text-lg">🔤 Zanoret Arabisht (Hareket)</h3>
+          <p className="text-sm text-gray-500 mb-4">Shenjat e vokalizimit — si lexohet çdo shkronjë</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            {ARABIC_VOWELS.map((v, i) => (
+              <motion.button
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05 }}
+                onClick={() => speak(v.symbol, "arabisht")}
+                className={`${v.color} border rounded-2xl p-4 text-center hover:shadow-md transition-all group`}
+              >
+                <div className="text-4xl font-bold text-gray-900 mb-1" style={{ fontFamily: "serif", direction: "rtl" }}>
+                  {v.symbol}
+                </div>
+                <div className="text-xs font-bold text-gray-700 mb-0.5">{v.name}</div>
+                <div className="text-xs text-emerald-700 font-medium">{v.sound}</div>
+                <div className="text-xs text-gray-400 mt-1 italic">{v.example}</div>
+                <Volume2 className="w-3 h-3 text-gray-400 mx-auto mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {selectedCons && mode === "learn" && (
         <div className="bg-white rounded-2xl border border-gray-100 p-5">
           <h3 className="font-bold text-gray-800 mb-4 text-lg">
