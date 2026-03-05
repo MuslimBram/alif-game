@@ -773,8 +773,9 @@ function generateWordQuestion(language, level) {
 
 const speak = (text, lang) => {
   if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = lang === "arabisht" ? "ar" : lang === "anglisht" ? "en" : "sq";
+  u.lang = lang === "arabisht" ? "ar-SA" : lang === "anglisht" ? "en-GB" : "sq-AL";
   u.rate = 0.7;
   window.speechSynthesis.speak(u);
 };
