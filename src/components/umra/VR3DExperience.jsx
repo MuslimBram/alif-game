@@ -402,8 +402,8 @@ export default function VR3DExperience({ onClose }) {
 
       {/* Site list overlay */}
       <div className="absolute left-4 bottom-24 flex flex-col gap-1.5 z-10">
-        {SITES.map(site => (
-          <button key={site.id} onClick={() => setSelectedSite(site)}
+        {SITES.map((site, idx) => (
+          <button key={site.id} onClick={() => goToSite(idx)}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all backdrop-blur-sm ${selectedSite?.id === site.id ? "bg-amber-500 text-white" : "bg-black/50 text-white/80 hover:bg-black/70"}`}>
             <span>{site.emoji}</span> {site.name}
           </button>
