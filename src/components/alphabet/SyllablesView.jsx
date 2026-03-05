@@ -324,6 +324,12 @@ export default function SyllablesView({ language }) {
           </div>
         )}
 
+        {/* ── TAB 4: GRAMATIKA ── */}
+        {arTab === "gramatika" && <GrammarRulesView language="arabisht" />}
+
+        {/* ── TAB 5: FLASHCARDS ── */}
+        {arTab === "flashcards" && <FlashcardsView language="arabisht" />}
+
         {/* ── TAB 3: RREGULLI AL ── */}
         {arTab === "al_rule" && (
           <div className="space-y-4">
