@@ -184,9 +184,11 @@ const ANGLISHT_SYLLABLES = {
 // TABS per arabisht
 // ─────────────────────────────────────────────
 const AR_TABS = [
-  { id: "hareket", label: "🔤 Hareket (Zanore)" },
-  { id: "rrokje",  label: "📖 Rrokjet" },
-  { id: "al_rule", label: "☀️🌙 Rregulli AL" },
+  { id: "hareket",    label: "🔤 Hareket (Zanore)" },
+  { id: "rrokje",     label: "📖 Rrokjet" },
+  { id: "al_rule",    label: "☀️🌙 Rregulli AL" },
+  { id: "gramatika",  label: "📐 Gramatika" },
+  { id: "flashcards", label: "🃏 Flashcards" },
 ];
 
 export default function SyllablesView({ language }) {
