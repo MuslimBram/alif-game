@@ -321,7 +321,7 @@ export default function WordsAdmin() {
       {adminTab === "games" && <BrainGymGame />}
       {adminTab === "words" && (
 
-      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6">
+      {adminTab === "words" && <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6">
         <p className="text-amber-800 text-sm font-medium">
           ⚠️ Çdo gjenerim merr ~30-60 sekonda. Totali: ~6,600 fjalë për gjuhë × 3 gjuhë = ~19,800 fjalë.
         </p>
