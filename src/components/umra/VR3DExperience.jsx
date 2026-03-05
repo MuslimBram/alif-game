@@ -357,6 +357,13 @@ export default function VR3DExperience({ onClose }) {
   const canvasRef = useRef(null);
   const [selectedSite, setSelectedSite] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(null);
+
+  const goToSite = (index) => {
+    const idx = (index + SITES.length) % SITES.length;
+    setCurrentIndex(idx);
+    setSelectedSite(SITES[idx]);
+  };
 
   useEffect(() => {
     if (!canvasRef.current) return;
