@@ -186,6 +186,7 @@ const ANGLISHT_SYLLABLES = {
 const AR_TABS = [
   { id: "hareket",    label: "🔤 Hareket (Zanore)" },
   { id: "rrokje",     label: "📖 Rrokjet" },
+  { id: "pyesor",     label: "⏱️ Pyesor" },
   { id: "al_rule",    label: "☀️🌙 Rregulli AL" },
   { id: "gramatika",  label: "📐 Gramatika" },
   { id: "flashcards", label: "🃏 Flashcards" },
