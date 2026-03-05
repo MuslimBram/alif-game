@@ -256,8 +256,7 @@ export default function Alphabet({ adminEditMode, isAdmin }) {
       {activeTab === "lakimi" && <NounDeclensionView sharedLang={selectedLang} />}
       {activeTab === "medine" && <MedineArabicView />}
       {activeTab === "texhuidi" && <TajweedInline />}
-      {activeTab === "gramatika" && <GrammarRulesView language={selectedLang} />}
-      {activeTab === "flashcards" && <FlashcardsView language={selectedLang} />}
+
     </div>
   );
 }
