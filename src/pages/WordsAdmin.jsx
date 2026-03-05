@@ -299,9 +299,27 @@ export default function WordsAdmin() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="bg-gradient-to-br from-emerald-700 to-teal-700 rounded-2xl p-6 text-white mb-6">
-        <h1 className="text-2xl font-extrabold mb-1">🔤 Gjenerim Fjalësh me AI</h1>
-        <p className="text-emerald-100">Gjeneron 500+, 2000+, dhe 4000+ fjalë për çdo gjuhë duke përdorur AI</p>
+        <h1 className="text-2xl font-extrabold mb-1">⚙️ Admin Panel</h1>
+        <p className="text-emerald-100">Gjenerimi i fjalëve, harta e pelegrinazhit dhe lojëra vizuale</p>
       </div>
+
+      {/* Admin Tabs */}
+      <div className="flex gap-2 mb-6 bg-gray-100 p-1.5 rounded-2xl">
+        {[
+          { id: "words", label: "🔤 Fjalë" },
+          { id: "map", label: "🗺️ Harta Umra/Haxh" },
+          { id: "games", label: "🧠 Brain Gym" },
+        ].map(t => (
+          <button key={t.id} onClick={() => setAdminTab(t.id)}
+            className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all ${adminTab === t.id ? "bg-white shadow text-emerald-700" : "text-gray-500 hover:text-gray-700"}`}>
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {adminTab === "map" && <PilgrimageMapView />}
+      {adminTab === "games" && <BrainGymGame />}
+      {adminTab === "words" && (
 
       <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6">
         <p className="text-amber-800 text-sm font-medium">
