@@ -401,6 +401,7 @@ export default function SyllablesView({ language }) {
           <Star className="w-12 h-12 text-amber-400 mx-auto mb-3" />
           <h3 className="text-2xl font-bold text-gray-800 mb-2">Kuizi Mbaroi!</h3>
           <p className="text-4xl font-bold text-emerald-600 mb-2">{score}/10</p>
+          <p className="text-2xl font-bold text-emerald-500 mb-2">{Math.round((score / 10) * 100)}%</p>
           <p className="text-gray-500 mb-6">{score >= 8 ? "Shkëlqyer! 🎉" : score >= 5 ? "Shumë mirë! 👍" : "Provo sërish! 💪"}</p>
           <Button onClick={startQuiz} className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl">
             Provo Sërish
