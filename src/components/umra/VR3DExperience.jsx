@@ -379,8 +379,6 @@ export default function VR3DExperience({ onClose }) {
     };
   }, []);
 
-  const cleanupRef = useRef(null);
-
   const speakDescription = (site) => {
     if (!window.speechSynthesis) return;
     window.speechSynthesis.cancel();
