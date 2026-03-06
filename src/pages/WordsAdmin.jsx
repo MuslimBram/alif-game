@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
+import PhotoGenerator360 from "@/components/admin/PhotoGenerator360";
 
 const UMRA_PLACES = [
   { id: "mikat", name: "Mikati", emoji: "⬜", desc: "Pika e hyrjes në ihram — prag i shenjtë" },

@@ -49,6 +49,7 @@
  */
 import AdminPanel from './pages/AdminPanel';
 import Alphabet from './pages/Alphabet';
+import FE from './pages/FE';
 import Games from './pages/Games';
 import Groups from './pages/Groups';
 import Home from './pages/Home';
@@ -59,13 +60,13 @@ import Settings from './pages/Settings';
 import Tajweed from './pages/Tajweed';
 import UmraHajj from './pages/UmraHajj';
 import WordsAdmin from './pages/WordsAdmin';
-import FE from './pages/FE';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "AdminPanel": AdminPanel,
     "Alphabet": Alphabet,
+    "FE": FE,
     "Games": Games,
     "Groups": Groups,
     "Home": Home,
@@ -76,7 +77,6 @@ export const PAGES = {
     "Tajweed": Tajweed,
     "UmraHajj": UmraHajj,
     "WordsAdmin": WordsAdmin,
-    "FE": FE,
 }
 
 export const pagesConfig = {
