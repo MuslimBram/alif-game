@@ -413,6 +413,8 @@ export default function Games({ adminEditMode, isAdmin }) {
   const [selectedModule, setSelectedModule] = useState("te_gjitha");
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");
   const [activeGame, setActiveGame] = useState(null);
+  const [activeMath, setActiveMath] = useState(false);
+  const [activeMemory, setActiveMemory] = useState(false);
   const [mainTab, setMainTab] = useState("lojerat");
 
   const filtered = allGames.filter(g => {
