@@ -354,7 +354,7 @@ function buildScene(container, onSiteClick) {
 }
 
 export default function VR3DExperience({ onClose }) {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef(null); // now a div container
   const [selectedSite, setSelectedSite] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
