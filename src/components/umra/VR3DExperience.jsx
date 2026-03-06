@@ -349,6 +349,7 @@ function buildScene(container, onSiteClick) {
     canvas.removeEventListener("mouseup", onMouseUp);
     canvas.removeEventListener("wheel", onWheel);
     renderer.dispose();
+    if (container.contains(canvas)) container.removeChild(canvas);
   };
 }
 
