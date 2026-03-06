@@ -18,6 +18,8 @@ const PLACES = [
 
 export default function PhotoGenerator360() {
   const [selectedPlace, setSelectedPlace] = useState(PLACES[0]);
+  const [vrImage, setVrImage] = useState(null);
+  const [vrPlace, setVrPlace] = useState("");
   const [customPrompt, setCustomPrompt] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
   const [uploadedUrl, setUploadedUrl] = useState(null);
