@@ -198,9 +198,11 @@ export default function VR360Viewer({ imageUrl, placeName, onClose }) {
       container.removeEventListener("touchmove", onPointerMove);
       container.removeEventListener("touchend", onPointerUp);
       container.removeEventListener("wheel", onWheel);
-      renderer.dispose();
-      if (container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
+      if (renderer) {
+        renderer.dispose();
+        if (container.contains(renderer.domElement)) {
+          container.removeChild(renderer.domElement);
+        }
       }
     };
   }, [imageUrl]);
