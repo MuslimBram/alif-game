@@ -321,6 +321,7 @@ export default function WordsAdmin() {
 
       <div>
         {adminTab === "map" && <PilgrimageMapView />}
+        {adminTab === "photos" && <PhotoGenerator360 />}
         {adminTab === "games" && <BrainGymGame />}
         {adminTab === "words" && (
           <div>
