@@ -204,7 +204,7 @@ export default function FlashcardsView({ language }) {
               word={card}
               flipped={flipped}
               onFlip={() => setFlipped(f => !f)}
-              onAudio={() => speak(card.word, card.language)}
+              onAudio={() => speakText(card.word, card.language)}
             />
           )}
         </motion.div>
