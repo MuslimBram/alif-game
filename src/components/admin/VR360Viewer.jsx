@@ -12,11 +12,19 @@ export default function VR360Viewer({ imageUrl, placeName, onClose }) {
     const container = mountRef.current;
     if (!container || !imageUrl) return;
 
-    const w = container.clientWidth;
-    const h = container.clientHeight;
+    // Wait for container to have real dimensions
+    let w = container.clientWidth;
+    let h = container.clientHeight;
+    if (w === 0 || h === 0) return;
 
-    // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    // Renderer — failsafe context options
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "default", failIfMajorPerformanceCaveat: false });
+    } catch (e) {
+      console.warn("WebGL not available:", e);
+      return;
+    }
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(w, h);
     container.appendChild(renderer.domElement);
