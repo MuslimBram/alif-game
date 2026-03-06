@@ -4,6 +4,7 @@ import { Volume2, Star, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import GrammarRulesView from "./GrammarRulesView";
 import FlashcardsView from "./FlashcardsView";
+import LanguageRulesView from "./LanguageRulesView";
 import { speakText } from "@/components/utils/speakAlbanian";
 
 const speak = (text, lang = "arabisht") => speakText(text, lang);
