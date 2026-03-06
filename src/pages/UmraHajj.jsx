@@ -152,7 +152,7 @@ const speak = (text) => {
 };
 
 export default function UmraHajj() {
-  const [tab, setTab] = useState("harita"); // harita | umra | hajj | quiz
+  const [tab, setTab] = useState("harita"); // harita | umra | hajj | quiz | foto360
   const [expanded, setExpanded] = useState(null);
   const [show3D, setShow3D] = useState(false);
   const [completedSteps, setCompletedSteps] = useState(loadUHProgress);
