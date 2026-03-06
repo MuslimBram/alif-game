@@ -427,6 +427,11 @@ export default function UmraHajj() {
         </>
       )}
 
+      {/* FOTO 360 */}
+      {tab === "foto360" && (
+        <PhotoGenerator360 />
+      )}
+
       {/* QUIZ */}
       {tab === "quiz" && (
         <div>
