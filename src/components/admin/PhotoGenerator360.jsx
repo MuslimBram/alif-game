@@ -85,6 +85,13 @@ export default function PhotoGenerator360() {
 
   return (
     <div className="space-y-6">
+      {vrImage && (
+        <VR360Viewer
+          imageUrl={vrImage}
+          placeName={vrPlace}
+          onClose={() => setVrImage(null)}
+        />
+      )}
       {/* Place selector */}
       <div className="bg-white rounded-2xl border border-gray-100 p-5">
         <h3 className="font-bold text-gray-800 mb-3">📍 Zgjidh Vendin e Shenjtë</h3>
