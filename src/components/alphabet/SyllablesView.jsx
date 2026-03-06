@@ -524,10 +524,9 @@ export default function SyllablesView({ language }) {
   const langData = language === "anglisht" ? ANGLISHT_SYLLABLES : SHQIP_SYLLABLES;
   const SQ_EN_TABS = [
     { id: "rrokjet",    label: "📖 Rrokjet" },
-    { id: "rregullat",  label: language === "shqip" ? "📚 Rregullat Gjuhësore" : "📚 Language Rules" },
+    { id: "rregullat",  label: language === "shqip" ? "📚 Rregullat & Kuiz" : "📚 Rules & Quiz" },
     { id: "gramatika",  label: "📐 Gramatika" },
     { id: "flashcards", label: "🃏 Flashcards" },
-    { id: "kuiz",       label: "🎯 Kuiz" },
   ];
 
   return (
