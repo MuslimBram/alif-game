@@ -373,8 +373,8 @@ const LANG_TABS = {
   ],
 };
 
-export default function LanguageRulesView({ language }) {
-  const [tab, setTab] = useState("rregullat");
+export default function LanguageRulesView({ language, defaultTab }) {
+  const [tab, setTab] = useState(defaultTab || "rregullat");
   const rules = language === "shqip" ? SHQIP_RULES : ANGLISHT_RULES;
   const quiz  = language === "shqip" ? SHQIP_QUIZ  : ANGLISHT_QUIZ;
   const tabs  = LANG_TABS[language] || LANG_TABS.shqip;
