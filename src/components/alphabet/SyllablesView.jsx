@@ -522,42 +522,81 @@ export default function SyllablesView({ language }) {
 
   // ── SHQIP / ANGLISHT ──
   const langData = language === "anglisht" ? ANGLISHT_SYLLABLES : SHQIP_SYLLABLES;
+  const SQ_EN_TABS = [
+    { id: "rrokjet",    label: "📖 Rrokjet" },
+    { id: "rregullat",  label: language === "shqip" ? "📚 Rregullat Gjuhësore" : "📚 Language Rules" },
+    { id: "gramatika",  label: "📐 Gramatika" },
+    { id: "flashcards", label: "🃏 Flashcards" },
+    { id: "kuiz",       label: "🎯 Kuiz" },
+  ];
+
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-2xl border border-gray-100 p-5">
-        <h2 className="text-lg font-bold text-gray-800 mb-1">{langData.title}</h2>
-        <p className="text-sm text-gray-500 mb-4">Zgjidh shkronjën dhe shiko rrokjet me të gjitha zanoret</p>
+      {/* Tab bar */}
+      <div className="bg-white rounded-2xl border border-gray-100 p-4">
+        <h2 className="text-lg font-bold text-gray-800 mb-3">{langData.title}</h2>
         <div className="flex flex-wrap gap-2">
-          {langData.consonants.map(c => (
-            <button key={c} onClick={() => setSelectedCons(selectedCons === c ? null : c)}
-              className={`px-3 py-2 rounded-xl font-bold text-sm transition-all border-2 ${
-                selectedCons === c ? "bg-emerald-600 text-white border-emerald-600 shadow-md" : "bg-gray-50 border-gray-200 text-gray-700 hover:border-emerald-300"
+          {SQ_EN_TABS.map(t => (
+            <button key={t.id} onClick={() => { setArTab(t.id); setSelectedCons(null); }}
+              className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+                arTab === t.id ? "bg-emerald-600 text-white shadow" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}>
-              {c}
+              {t.label}
             </button>
           ))}
         </div>
       </div>
 
-      {selectedCons && (
-        <div className="bg-white rounded-2xl border border-gray-100 p-5">
-          <h3 className="font-bold text-gray-800 mb-4 text-lg">
-            Rrokjet me <span className="text-emerald-600 text-2xl">{selectedCons}</span>
-          </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            {langData.generate(selectedCons).map((s, i) => (
-              <motion.button key={i} initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay: i*0.05 }}
-                onClick={() => speak(s.syllable, language)}
-                className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-2xl p-4 text-center hover:shadow-md hover:border-emerald-300 transition-all group"
-              >
-                <div className="text-2xl font-bold text-gray-900 mb-1">{s.syllable}</div>
-                <div className="text-xs text-emerald-600 font-medium">{s.pronunciation}</div>
-                <Volume2 className="w-3.5 h-3.5 text-teal-400 mx-auto mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
-              </motion.button>
-            ))}
+      {/* ── RROKJET ── */}
+      {(arTab === "rrokjet" || !arTab) && (
+        <>
+          <div className="bg-white rounded-2xl border border-gray-100 p-5">
+            <p className="text-sm text-gray-500 mb-4">Zgjidh shkronjën dhe shiko rrokjet me të gjitha zanoret</p>
+            <div className="flex flex-wrap gap-2">
+              {langData.consonants.map(c => (
+                <button key={c} onClick={() => setSelectedCons(selectedCons === c ? null : c)}
+                  className={`px-3 py-2 rounded-xl font-bold text-sm transition-all border-2 ${
+                    selectedCons === c ? "bg-emerald-600 text-white border-emerald-600 shadow-md" : "bg-gray-50 border-gray-200 text-gray-700 hover:border-emerald-300"
+                  }`}>
+                  {c}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+
+          {selectedCons && (
+            <div className="bg-white rounded-2xl border border-gray-100 p-5">
+              <h3 className="font-bold text-gray-800 mb-4 text-lg">
+                Rrokjet me <span className="text-emerald-600 text-2xl">{selectedCons}</span>
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {langData.generate(selectedCons).map((s, i) => (
+                  <motion.button key={i} initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay: i*0.05 }}
+                    onClick={() => speak(s.syllable, language)}
+                    className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-2xl p-4 text-center hover:shadow-md hover:border-emerald-300 transition-all group"
+                  >
+                    <div className="text-2xl font-bold text-gray-900 mb-1">{s.syllable}</div>
+                    <div className="text-xs text-emerald-600 font-medium">{s.pronunciation}</div>
+                    <Volume2 className="w-3.5 h-3.5 text-teal-400 mx-auto mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
+
+      {/* ── RREGULLAT GJUHËSORE ── */}
+      {arTab === "rregullat" && <LanguageRulesView language={language} />}
+
+      {/* ── GRAMATIKA ── */}
+      {arTab === "gramatika" && <GrammarRulesView language={language} />}
+
+      {/* ── FLASHCARDS ── */}
+      {arTab === "flashcards" && <FlashcardsView language={language} />}
+
+      {/* ── KUIZ ── */}
+      {arTab === "kuiz" && <LanguageRulesView language={language} />}
     </div>
   );
 }
