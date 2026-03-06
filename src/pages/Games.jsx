@@ -492,6 +492,8 @@ export default function Games({ adminEditMode, isAdmin }) {
             <span className="text-xs text-gray-400 font-medium">{filtered.length} lojëra</span>
           </div>
           {activeGame && <QuizGame gameId={activeGame.id} quizKey={activeGame.quizKey} onClose={() => setActiveGame(null)} />}
+          {activeMath && <MathGame onClose={() => setActiveMath(false)} />}
+          {activeMemory && <MemoryGame onClose={() => setActiveMemory(false)} />}
           {filtered.length === 0 ? (
             <div className="text-center py-20"><Gamepad2 className="w-12 h-12 text-gray-300 mx-auto mb-4"/><p className="text-gray-500">Nuk ka lojëra për këto filtra</p></div>
           ) : (
