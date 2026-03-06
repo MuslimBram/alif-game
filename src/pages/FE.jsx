@@ -344,6 +344,18 @@ export default function FE() {
         </div>
       )}
 
+      {/* ===== KUIZ ===== */}
+      {mainTab === "kuiz" && (
+        <div>
+          <div className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-2xl p-4 mb-4 text-center">
+            <p className="text-sm text-emerald-700 font-medium">
+              📚 Kuiz nga të gjitha temat: Akide, Pastërtia, Namazi, Agjërimi, Zekati
+            </p>
+          </div>
+          <FikhQuiz />
+        </div>
+      )}
+
       {/* ===== ZEKATI ===== */}
       {mainTab === "zekati" && (
         <div>
