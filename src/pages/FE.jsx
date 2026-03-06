@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronRight, BookOpen, Droplets, Star, Shield, Heart } from "lucide-react";
+import FikhQuiz from "@/components/fikh/FikhQuiz";
 
 const Section = ({ title, icon, color, children }) => {
   const [open, setOpen] = useState(false);
@@ -60,6 +61,7 @@ export default function FE() {
     { id: "namazi", label: "🤲 Namazi" },
     { id: "agjrimi", label: "🌙 Agjërimi" },
     { id: "zekati", label: "💰 Zekati" },
+    { id: "kuiz", label: "🎯 Kuiz" },
   ];
 
   return (
