@@ -4,15 +4,7 @@ import { Volume2, RefreshCw, ChevronLeft, ChevronRight, Check, X, Shuffle } from
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-
-const speak = (text, lang) => {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = lang === "arabisht" ? "ar-SA" : lang === "anglisht" ? "en-GB" : "sq-AL";
-  u.rate = 0.7;
-  window.speechSynthesis.speak(u);
-};
+import { speakText } from "@/components/utils/speakAlbanian";
 
 function FlashCard({ word, flipped, onFlip, onAudio }) {
   return (
