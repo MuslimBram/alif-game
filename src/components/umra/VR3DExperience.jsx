@@ -332,9 +332,9 @@ function buildScene(container, onSiteClick) {
   animate();
 
   const resize = () => {
-    if (!canvas) return;
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    if (!container) return;
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    camera.aspect = container.clientWidth / container.clientHeight;
     camera.updateProjectionMatrix();
   };
   window.addEventListener("resize", resize);
