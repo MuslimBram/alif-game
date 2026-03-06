@@ -66,20 +66,19 @@ const SITES = [
   },
 ];
 
-function buildScene(canvas, onSiteClick) {
-  // Ensure canvas has dimensions before creating WebGL context
-  const w = canvas.clientWidth || canvas.offsetWidth || 800;
-  const h = canvas.clientHeight || canvas.offsetHeight || 600;
-  canvas.width = w;
-  canvas.height = h;
+function buildScene(container, onSiteClick) {
+  const w = container.clientWidth || 800;
+  const h = container.clientHeight || 600;
 
   let renderer;
   try {
-    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "default", failIfMajorPerformanceCaveat: false });
   } catch (e) {
     console.warn("WebGL not supported:", e);
     return () => {};
   }
+  const canvas = renderer.domElement;
+  container.appendChild(canvas);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
   renderer.shadowMap.enabled = true;
