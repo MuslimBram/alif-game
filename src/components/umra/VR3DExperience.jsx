@@ -397,8 +397,8 @@ export default function VR3DExperience({ onClose }) {
         </div>
       </div>
 
-      {/* 3D Canvas */}
-      <canvas ref={canvasRef} className="w-full h-full" style={{ display: "block" }} />
+      {/* 3D Canvas container — Three.js appends its canvas here */}
+      <div ref={canvasRef} className="w-full h-full" style={{ display: "block" }} />
 
       {/* Site list overlay */}
       <div className="absolute left-4 bottom-24 flex flex-col gap-1.5 z-10">
