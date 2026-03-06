@@ -59,12 +59,16 @@ export default function PhotoGenerator360() {
         existing_image_urls: uploadedUrl ? [uploadedUrl] : undefined,
       });
 
-      setGeneratedImages(prev => [{
+      const newImg = {
         url: result.url,
         place: selectedPlace.name,
         prompt: finalPrompt,
         timestamp: new Date().toLocaleTimeString(),
-      }, ...prev]);
+      };
+      setGeneratedImages(prev => [newImg, ...prev]);
+      // Auto-open VR viewer for the new image
+      setVrImage(result.url);
+      setVrPlace(selectedPlace.name);
     } catch (e) {
       setError("Gabim gjatë gjenerimit: " + e.message);
     }
