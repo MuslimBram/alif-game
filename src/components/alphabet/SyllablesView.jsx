@@ -595,8 +595,8 @@ export default function SyllablesView({ language }) {
       {/* ── FLASHCARDS ── */}
       {arTab === "flashcards" && <FlashcardsView language={language} />}
 
-      {/* ── KUIZ ── */}
-      {arTab === "kuiz" && <LanguageRulesView language={language} />}
+      {/* ── KUIZ (hap direkt te seksioni kuiz) ── */}
+      {arTab === "kuiz" && <LanguageRulesView language={language} defaultTab="kuiz" />}
     </div>
   );
 }
