@@ -367,9 +367,18 @@ export default function VR3DExperience({ onClose }) {
 
   useEffect(() => {
     if (!canvasRef.current) return;
-    const cleanup = buildScene(canvasRef.current, setSelectedSite);
-    return cleanup;
+    // Wait one frame so the div has real dimensions
+    const raf = requestAnimationFrame(() => {
+      const cleanup = buildScene(canvasRef.current, setSelectedSite);
+      cleanupRef.current = cleanup;
+    });
+    return () => {
+      cancelAnimationFrame(raf);
+      if (cleanupRef.current) cleanupRef.current();
+    };
   }, []);
+
+  const cleanupRef = useRef(null);
 
   const speakDescription = (site) => {
     if (!window.speechSynthesis) return;
