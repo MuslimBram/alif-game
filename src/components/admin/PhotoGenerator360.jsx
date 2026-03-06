@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
-import { Upload, Wand2, Download, RotateCcw, ImagePlus } from "lucide-react";
+import { Wand2, Download, RotateCcw, ImagePlus, Eye } from "lucide-react";
+import VR360Viewer from "./VR360Viewer";
 
 const PLACES = [
   { id: "kaabe", name: "Qabeja (Mesxhidul Haram)", prompt: "A stunning ultra-wide 360-degree panoramic photo of the Kaaba (Masjid al-Haram) in Mecca, Saudi Arabia, surrounded by thousands of pilgrims in white ihram clothing performing tawaf, magnificent mosque architecture with golden minarets, dramatic lighting, photorealistic, 8K quality" },
