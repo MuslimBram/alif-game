@@ -5,6 +5,10 @@ import { ChevronDown, ChevronUp, Volume2, CheckCircle, Timer, XCircle, Trophy, R
 import { Button } from "@/components/ui/button";
 import { speakArabic } from "@/components/utils/speakAlbanian";
 
+const PROGRESS_KEY = "umrahajj_progress";
+function loadUHProgress() { try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}"); } catch { return {}; } }
+const speak = (text) => speakArabic(text);
+
 export default function UmraHajj() {
   const [tab, setTab] = useState("harita"); // harita | umra | hajj | quiz | foto360
   const [expanded, setExpanded] = useState(null);
