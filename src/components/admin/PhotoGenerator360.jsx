@@ -188,15 +188,23 @@ export default function PhotoGenerator360() {
                     <p className="text-sm font-bold text-gray-800">{img.place}</p>
                     <p className="text-xs text-gray-400">{img.timestamp}</p>
                   </div>
-                  <a
-                    href={img.url}
-                    download={`${img.place}_360.jpg`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 px-3 py-1.5 rounded-xl transition-all"
-                  >
-                    <Download className="w-3.5 h-3.5" /> Shkarko
-                  </a>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => { setVrImage(img.url); setVrPlace(img.place); }}
+                      className="flex items-center gap-1.5 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 rounded-xl transition-all"
+                    >
+                      <Eye className="w-3.5 h-3.5" /> VR 360°
+                    </button>
+                    <a
+                      href={img.url}
+                      download={`${img.place}_360.jpg`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 px-3 py-1.5 rounded-xl transition-all"
+                    >
+                      <Download className="w-3.5 h-3.5" /> Shkarko
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
