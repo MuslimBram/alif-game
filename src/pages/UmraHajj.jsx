@@ -240,6 +240,7 @@ export default function UmraHajj() {
           { val: "umra", label: "🕌 Umra", desc: `${UMRA_STEPS.length} hapa` },
           { val: "hajj", label: "🕋 Haxhi", desc: `${HAJJ_STEPS.length} hapa` },
           { val: "quiz", label: "🎯 Kuiz", desc: `${QUIZ_QUESTIONS.length} pyetje` },
+          { val: "foto360", label: "📸 Foto 360°", desc: "VR virtuale" },
         ].map(t => (
           <button key={t.val} onClick={() => { setTab(t.val); setExpanded(null); }}
             className={`flex-1 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${tab === t.val ? "bg-white shadow text-emerald-700" : "text-gray-500 hover:text-gray-700"}`}>
