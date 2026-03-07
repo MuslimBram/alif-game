@@ -416,10 +416,6 @@ export default function Quran({ adminEditMode, isAdmin }) {
                     {/* Arabic + Controls */}
                     <div className="flex items-center gap-2">
                       <p className="text-xl font-bold text-gray-800 hidden sm:block" style={{ fontFamily: "serif", direction: "rtl" }}>{surah.arabic}</p>
-                      <button onClick={e => { e.stopPropagation(); speakArabic(surah.arabic); }}
-                        className="w-8 h-8 rounded-xl bg-teal-50 flex items-center justify-center hover:bg-teal-100 transition-colors">
-                        <Volume2 className="w-4 h-4 text-teal-600" />
-                      </button>
                       <button onClick={e => { e.stopPropagation(); toggleFavorite(surah.num); }}
                         className={`w-8 h-8 rounded-xl flex items-center justify-center transition-colors ${isFav ? "bg-red-50 text-red-500" : "bg-gray-50 text-gray-300 hover:text-red-400"}`}>
                         <Heart className={`w-4 h-4 ${isFav ? "fill-current" : ""}`} />
