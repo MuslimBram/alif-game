@@ -3,6 +3,8 @@ import { base44 } from "@/api/base44Client";
 import { createPageUrl } from "@/utils";
 import HeroSection from "@/components/home/HeroSection";
 import LevelSelectionModal from "@/components/home/LevelSelectionModal";
+import { Button } from "@/components/ui/button";
+import { LogIn, UserPlus, Shield } from "lucide-react";
 
 export default function Home({ adminEditMode, isAdmin }) {
   const [stats, setStats] = useState({ lessons: 0, completed: 0, avgScore: 0 });
