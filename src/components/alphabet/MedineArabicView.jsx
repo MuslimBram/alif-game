@@ -472,12 +472,12 @@ const MEDINE_DATA = {
   },
   avancuar: {
     title: "الكتاب الثالث — Libri i Tretë",
-    subtitle: "Avancim i plotë në arabishten klasike",
+    subtitle: "Madinah Book 3 — Gramatikë e Avancuar Arabe",
     units: [
       {
         id: 1,
-        title: "الوحدة الأولى — Njësia 1",
-        topic: "E ardhmja & urdhërorja • المضارع والأمر",
+        title: "الدرس الأول — Mësimi 1",
+        topic: "Sistemi i Foljeve • أوزان الأفعال",
         vocab: [
           { ar: "سَوفَ / سَ", trans: "do të (e ardhme)", roman: "sawfa / sa-" },
           { ar: "سَيَذهَبُ", trans: "do të shkojë", roman: "sa-yadhhabu" },
