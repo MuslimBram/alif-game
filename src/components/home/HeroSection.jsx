@@ -61,27 +61,28 @@ export default function HeroSection({ stats }) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          className="grid grid-cols-3 md:grid-cols-6 gap-3 max-w-4xl mx-auto">
 
           {[
           { name: "Alfabeti", page: "Alphabet", icon: Languages, color: "from-emerald-500 to-teal-500" },
-          { name: "Texhuidi", page: "Tajweed", icon: BookMarked, color: "from-amber-500 to-orange-500" },
+          { name: "Kur'ani", page: "Quran", icon: BookOpen, color: "from-amber-500 to-orange-500" },
+          { name: "Texhuidi", page: "Tajweed", icon: BookMarked, color: "from-violet-500 to-purple-500" },
+          { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin, color: "from-teal-500 to-cyan-500" },
+          { name: "Fikh Elementar", page: "FE", icon: Star, color: "from-green-500 to-emerald-600" },
           { name: "Lojëra", page: "Games", icon: Gamepad2, color: "from-pink-500 to-rose-500" },
-          { name: "Përparimi", page: "Progress", icon: BookOpen, color: "from-blue-500 to-indigo-500" }].
-          map((item) => {
+          ].map((item) => {
             const Icon = item.icon;
             return (
               <Link
                 key={item.page}
                 to={createPageUrl(item.page)}
-                className="group glass-card rounded-2xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                className="group glass-card rounded-2xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
 
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-3 mx-auto shadow-lg group-hover:scale-110 transition-transform`}>
-                  <Icon className="w-6 h-6 text-white" />
+                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-2 mx-auto shadow-lg group-hover:scale-110 transition-transform`}>
+                  <Icon className="w-5 h-5 text-white" />
                 </div>
-                <p className="font-semibold text-gray-800 text-sm">{item.name}</p>
+                <p className="font-semibold text-gray-800 text-xs leading-tight">{item.name}</p>
               </Link>);
-
           })}
         </motion.div>
       </div>
