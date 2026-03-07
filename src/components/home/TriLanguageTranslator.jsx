@@ -51,6 +51,7 @@ export default function TriLanguageTranslator() {
   const [selectedLang, setSelectedLang] = useState("sq");
   const [inputWord, setInputWord] = useState("");
   const [translation, setTranslation] = useState(null);
+  const [showLanguageSelector, setShowLanguageSelector] = useState(true);
 
   const handleTranslate = (word) => {
     const normalized = word.toLowerCase().trim();
@@ -73,12 +74,21 @@ export default function TriLanguageTranslator() {
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-      <div className="flex items-center gap-2 mb-5">
-        <Globe className="w-5 h-5 text-emerald-600" />
-        <h3 className="font-bold text-gray-800">Përkthyes Tri-Gjuhësor</h3>
+      <div className="flex items-center justify-between gap-2 mb-5">
+        <div className="flex items-center gap-2">
+          <Globe className="w-5 h-5 text-emerald-600" />
+          <h3 className="font-bold text-gray-800">Përkthyes Tri-Gjuhësor</h3>
+        </div>
+        <button
+          onClick={() => setShowLanguageSelector(!showLanguageSelector)}
+          className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 px-3 py-1 rounded-lg hover:bg-emerald-50 transition-colors"
+        >
+          {showLanguageSelector ? "Fshih" : "Shfaq"} Gjuhët
+        </button>
       </div>
 
       {/* Language Selector */}
+      {showLanguageSelector && (
       <div className="flex gap-2 mb-5">
         {Object.entries(LANGUAGES).map(([code, lang]) => (
           <button
@@ -95,6 +105,7 @@ export default function TriLanguageTranslator() {
           </button>
         ))}
       </div>
+      )}
 
       {/* Input */}
       <div className="relative mb-5">
