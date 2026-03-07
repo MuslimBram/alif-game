@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Sparkles, BookOpen, Languages, Gamepad2, BookMarked } from "lucide-react";
+import { BookOpen, Languages, Gamepad2, BookMarked, MapPin, Star } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function HeroSection({ stats }) {
