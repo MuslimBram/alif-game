@@ -61,6 +61,7 @@ export default function FE() {
     { id: "namazi", label: "🤲 Namazi" },
     { id: "agjrimi", label: "🌙 Agjërimi" },
     { id: "zekati", label: "💰 Zekati" },
+    { id: "duate", label: "🌿 Duatë" },
     { id: "kuiz", label: "🎯 Kuiz" },
   ];
 
