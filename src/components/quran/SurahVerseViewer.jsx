@@ -406,7 +406,12 @@ export default function SurahVerseViewer({ surah, onClose }) {
               <div className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-2xl p-5">
                 <p className="text-xs text-emerald-600 font-semibold mb-3 text-center">Ajeti {currentVerse} / {surah.verses}</p>
 
-                {currentVerseData ? (
+                {apiLoading ? (
+                  <div className="text-center py-6">
+                    <div className="inline-block w-8 h-8 border-4 border-emerald-300 border-t-emerald-600 rounded-full animate-spin mb-2" />
+                    <p className="text-sm text-gray-500">Duke ngarkuar ajetet...</p>
+                  </div>
+                ) : currentVerseData ? (
                   <>
                     {/* Arabic text */}
                     <p className="text-2xl text-gray-900 mb-3 leading-loose text-center" style={{ fontFamily: "Amiri, serif", direction: "rtl" }}>
