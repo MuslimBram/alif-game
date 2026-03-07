@@ -262,9 +262,29 @@ export default function SurahVerseViewer({ surah, onClose }) {
   const [answered, setAnswered] = useState(null);
   const [score, setScore] = useState(0);
   const [quizDone, setQuizDone] = useState(false);
+  const [apiVerses, setApiVerses] = useState([]);
+  const [apiLoading, setApiLoading] = useState(false);
   const audioRef = useRef(null);
 
-  const surahVerses = VERSE_DATA[surah.num] || [];
+  const localVerses = VERSE_DATA[surah.num] || [];
+  const hasLocalData = localVerses.length > 0;
+
+  // Fetch from API if no local data
+  React.useEffect(() => {
+    if (hasLocalData) return;
+    setApiLoading(true);
+    fetch(`https://api.alquran.cloud/v1/surah/${surah.num}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.code === 200 && data.data?.ayahs) {
+          setApiVerses(data.data.ayahs.map(a => ({ ar: a.text, translit: null, sq: null, tafsir: null })));
+        }
+      })
+      .catch(() => {})
+      .finally(() => setApiLoading(false));
+  }, [surah.num, hasLocalData]);
+
+  const surahVerses = hasLocalData ? localVerses : apiVerses;
   const hasVerseData = surahVerses.length > 0;
   const currentVerse = verseIdx + 1;
   const revCtx = REVELATION_CONTEXT[surah.num] || getDefaultContext(surah);
