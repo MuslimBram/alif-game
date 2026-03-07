@@ -28,9 +28,16 @@ export default function HeroSection({ stats }) {
             <span className="text-gradient">Edukim Interaktiv</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">Mëso alfabetin në 3 gjuhë, Kuranin me texhuid dhe ritualet e Umras dhe Haxhit. Duke u argëtuar.
-
+          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-6 leading-relaxed">
+            Mëso alfabetin në 3 gjuhë, Kuranin me texhuid dhe ritualet e Umras dhe Haxhit. Duke u argëtuar.
           </p>
+
+          <div className="bg-white/70 backdrop-blur-sm border border-emerald-100 rounded-2xl px-6 py-4 max-w-xl mx-auto mb-10">
+            <p className="text-sm text-emerald-800 font-medium italic text-center leading-relaxed">
+              🌿 <strong>"Njerëzit më të mirë ndër ju janë ata që mësojnë Kur'anin dhe ua mësojnë të tjerëve."</strong>
+            </p>
+            <p className="text-xs text-emerald-500 text-center mt-1">— Transmeton Buhariu</p>
+          </div>
         </motion.div>
 
         {/* Stats */}
