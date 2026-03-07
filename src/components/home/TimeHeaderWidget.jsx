@@ -3,6 +3,7 @@ import { Calendar, Clock, Compass } from "lucide-react";
 
 export default function TimeHeaderWidget({ prayerTimes, timeFormat = "24" }) {
   const [time, setTime] = useState(new Date());
+  const [format, setFormat] = useState(timeFormat);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -24,7 +25,8 @@ export default function TimeHeaderWidget({ prayerTimes, timeFormat = "24" }) {
   const currentTime = time.toLocaleTimeString("sq-AL", {
     hour: "2-digit",
     minute: "2-digit",
-    second: "2-digit"
+    second: "2-digit",
+    hour12: format === "12"
   });
 
   // Upcoming prayer
@@ -32,12 +34,18 @@ export default function TimeHeaderWidget({ prayerTimes, timeFormat = "24" }) {
 
   return (
     <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-2xl p-6 mb-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="space-y-4">
         {/* Time & Calendars */}
         <div className="space-y-3">
           <div className="flex items-center gap-3 text-2xl font-bold">
             <Clock className="w-6 h-6" />
             {currentTime}
+            <button
+              onClick={() => setFormat(format === "24" ? "12" : "24")}
+              className="text-xs opacity-75 hover:opacity-100 font-semibold ml-2 px-2 py-1 rounded-lg bg-white/20 transition-opacity"
+            >
+              {format === "24" ? "12h" : "24h"}
+            </button>
           </div>
 
           <div className="flex items-center gap-2 text-emerald-100">
@@ -48,18 +56,6 @@ export default function TimeHeaderWidget({ prayerTimes, timeFormat = "24" }) {
             </div>
           </div>
         </div>
-
-        {/* Upcoming Prayer */}
-        {nextPrayer && (
-          <div className="flex items-center gap-3 bg-white/20 rounded-xl p-4 backdrop-blur-sm">
-            <div className="text-3xl">🕌</div>
-            <div className="flex-1">
-              <p className="text-xs opacity-90">Namazi i ardhshëm</p>
-              <p className="font-bold text-lg">{nextPrayer.name}</p>
-              <p className="text-sm opacity-90">{nextPrayer.time}</p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
