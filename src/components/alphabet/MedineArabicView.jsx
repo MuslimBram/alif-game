@@ -361,6 +361,40 @@ export default function MedineArabicView() {
         <p className="text-sm text-gray-500">{data.subtitle}</p>
       </div>
 
+      {/* Info box — vetëm për fillestar, para njësisë 1 */}
+      {level === "fillestar" && (
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-5 space-y-3">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-2xl">📱</span>
+            <h4 className="font-bold text-blue-800 text-sm">Rreth Kursit — Arabisht Medinase</h4>
+          </div>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            Aplikacioni për studimin e gjuhës arabe i zhvilluar sipas metodologjisë së kursit <strong>Medinah pjesa 1</strong>. I përshtatshëm për ata që fillojnë të mësojnë arabisht nga e para, si dhe për ata që duan të forcojnë njohurit e tyre.
+          </p>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            Thelbi i të gjithë aplikacionit është se ju duhet të mbledhni fraza në arabisht. Me ne do të mësoni gjuhën arabe në një kohë të shkurtër <strong>hap pas hapi</strong>.
+          </p>
+          <div className="bg-white/70 rounded-xl p-3 border border-blue-100">
+            <p className="text-xs font-bold text-blue-700 mb-1">📋 Çdo mësim ka 1 deri në 4 skeda:</p>
+            <ul className="text-xs text-gray-600 space-y-1 list-disc ml-4">
+              <li><strong>Sharh (Përshkrim)</strong> — Përshkrim i plotë i rregullave gramatikore</li>
+              <li><strong>Fjalët</strong> — Lista e fjalëve të reja me aktrim zanor</li>
+              <li><strong>Dialogë</strong> — Mbledh dialogë në arabisht</li>
+              <li><strong>Lidhja e foljeve</strong> — Ushtrime me foljet arabe</li>
+            </ul>
+          </div>
+          <p className="text-xs text-gray-500 italic">
+            💡 Nëse nuk keni mësuar ende alfabetin arab, rekomandojmë të filloni me modulin <strong>Alfabeti Arab</strong> më parë.
+          </p>
+          {level === "fillestar" && (
+            <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3">
+              <p className="text-xs font-bold text-emerald-700 mb-1">🎓 Pas Kursit 1, mund të vazhdoni:</p>
+              <p className="text-xs text-gray-600">Kursi i gjuhës arabe Medina <strong>pjesa 2</strong> — Zgjerim i mëtejshëm i fjalorit dhe gramatikës.</p>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Units */}
       {data.units.map((unit, idx) => (
         <motion.div key={unit.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.08 }}
