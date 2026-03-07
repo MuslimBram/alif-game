@@ -14,6 +14,7 @@ export default function Tajweed({ adminEditMode, isAdmin }) {
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");
   const [selectedCategory, setSelectedCategory] = useState("te_gjitha");
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("rregullat");
 
   const { data: rules = [], isLoading } = useQuery({
     queryKey: ["tajweed-rules"],
