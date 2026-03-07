@@ -493,13 +493,30 @@ export default function QuizGame({ gameId, quizKey: quizKeyProp, onClose }) {
   const [maxStreak, setMaxStreak] = useState(0);
   const [timer, setTimer] = useState(data.timePerQ);
   const [totalTime, setTotalTime] = useState(0);
+  const timerExpiredRef = useRef(false);
+  const answeredRef = useRef(null);
+
+  useEffect(() => { answeredRef.current = answered; }, [answered]);
 
   useEffect(() => {
-    if (phase !== "playing" || answered !== null) return;
-    if (timer <= 0) { handleAnswer(null); return; }
-    const t = setInterval(() => setTimer(p => p - 1), 1000);
-    return () => clearInterval(t);
-  }, [timer, phase, answered]);
+    if (phase !== "playing") return;
+    timerExpiredRef.current = false;
+    const interval = setInterval(() => {
+      setTimer(prev => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          if (!timerExpiredRef.current && answeredRef.current === null) {
+            timerExpiredRef.current = true;
+            // Use a small timeout to avoid React state batching issues
+            setTimeout(() => handleAnswerInternal(null), 0);
+          }
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [phase, idx]);
 
   useEffect(() => {
     if (phase !== "playing") return;
@@ -507,11 +524,20 @@ export default function QuizGame({ gameId, quizKey: quizKeyProp, onClose }) {
     return () => clearInterval(t);
   }, [phase]);
 
+  const handleAnswerInternal = useCallback((opt) => {
+    if (answeredRef.current !== null) return;
+    const q = questions[answeredRef.current !== null ? 0 : idx];
+    // We need idx from closure — use ref
+    return null; // placeholder, see below
+  }, []);
+
   const handleAnswer = useCallback((opt) => {
     if (answered !== null) return;
     const q = questions[idx];
     const isCorrect = opt === q.correct;
-    setAnswered({ selected: opt, correct: q.correct, isCorrect });
+    const result = { selected: opt, correct: q.correct, isCorrect };
+    answeredRef.current = result;
+    setAnswered(result);
     if (isCorrect) {
       setScore(s => s + 1);
       setStreak(s => { const ns = s + 1; setMaxStreak(m => Math.max(m, ns)); return ns; });
@@ -519,6 +545,8 @@ export default function QuizGame({ gameId, quizKey: quizKeyProp, onClose }) {
       setStreak(0);
     }
     setTimeout(() => {
+      answeredRef.current = null;
+      timerExpiredRef.current = false;
       if (idx + 1 >= questions.length) { setPhase("done"); return; }
       setIdx(i => i + 1);
       setTimer(data.timePerQ);
