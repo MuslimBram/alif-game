@@ -5,7 +5,7 @@ import { Languages, Pencil } from "lucide-react";
 import AdminEditOverlay from "@/components/admin/AdminEditOverlay";
 import { createPageUrl } from "@/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import DragDropTabs from "@/components/alphabet/DragDropTabs";
 import { Link } from "react-router-dom";
 import LetterCard from "@/components/alphabet/LetterCard";
 import LetterLearningView from "@/components/alphabet/LetterLearningView";
@@ -69,30 +69,12 @@ export default function Alphabet({ adminEditMode = false, isAdmin = false }) {
         </p>
       </div>
 
-      {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-        <TabsList className="bg-white border border-gray-200 rounded-xl p-1 flex-wrap">
-          {[
-          { label: "Numrat", value: "numrat" },
-          { label: "Germat", value: "germat" },
-          { label: "Rrokjet", value: "rrokjet" },
-          { label: "Fjalët", value: "fjalët" },
-          { label: "Zgjedhimi", value: "zgjedhimi" },
-          { label: "Lakimi", value: "lakimi" },
-          { label: "📖 Texhuidi", value: "texhuidi" },
-          { label: "🕌 Arabisht Medinë", value: "medine" }].
-
-          map((tab) =>
-          <TabsTrigger
-            key={tab.value}
-            value={tab.value}
-            className="rounded-lg text-sm data-[state=active]:bg-emerald-600 data-[state=active]:text-white">
-
-              {tab.label}
-            </TabsTrigger>
-          )}
-        </TabsList>
-      </Tabs>
+      {/* Drag & Drop Tabs */}
+      <DragDropTabs
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        adminEditMode={adminEditMode}
+      ></DragDropTabs>
 
       {/* Language Filter */}
       {(activeTab === "germat" || activeTab === "rrokjet" || activeTab === "fjalët" || activeTab === "numrat") &&
