@@ -9,6 +9,7 @@ import { LogIn, UserPlus, Shield } from "lucide-react";
 export default function Home({ adminEditMode, isAdmin }) {
   const [stats, setStats] = useState({ lessons: 0, completed: 0, avgScore: 0 });
   const [showLevelModal, setShowLevelModal] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(null); // null = loading
 
   useEffect(() => {
     const loadStats = async () => {
