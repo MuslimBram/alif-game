@@ -29,7 +29,7 @@ function addMinutes(timeStr, mins) {
   return `${String(newH).padStart(2, "0")}:${String(newM).padStart(2, "0")}`;
 }
 
-export default function PrayerTimesWidget() {
+export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
   const [times, setTimes] = useState(null);
   const [city, setCity] = useState("Tirane");
   const [coords, setCoords] = useState(null); // { lat, lng }
@@ -43,6 +43,12 @@ export default function PrayerTimesWidget() {
     const t = setInterval(() => setCurrentTime(new Date()), 60000);
     return () => clearInterval(t);
   }, []);
+
+  useEffect(() => {
+    if (times && onPrayerTimesUpdate) {
+      onPrayerTimesUpdate(times);
+    }
+  }, [times, onPrayerTimesUpdate]);
 
   const fetchByCoords = async (lat, lng) => {
     setLoading(true); setError(null);
