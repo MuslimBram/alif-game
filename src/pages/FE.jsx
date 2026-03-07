@@ -171,14 +171,62 @@ export default function FE() {
           </Section>
 
           {/* Isra dhe Miraxh */}
-          <Section title="Hadithi i Isra & Mi'raxhit" icon={<Star className="w-5 h-5 text-indigo-500" />} color="border-indigo-300">
+          <Section title="Hadithi i Isra & Mi'raxhit — me Argumente të Plota" icon={<Star className="w-5 h-5 text-indigo-500" />} color="border-indigo-300">
             <HadithBox
-              arabic="سُبْحَانَ الَّذِي أَسْرَى بِعَبْدِهِ لَيْلًا مِّنَ الْمَسْجِدِ الْحَرَامِ إِلَى الْمَسْجِدِ الْأَقْصَى"
-              text="Kur'an 17:1 – 'I Lartësuar është Ai që e çoi robin e Vet natën nga Mesxhidi Haram në Mesxhidi Aksa...'"
-              tefsir="Isra është udhëtimi i natës me trup dhe shpirt nga Mekka në Kuds (Jeruzalem). Ndodhi vitin e 10-të ose 12-të të profetësisë."
+              title="1. Isra — Udhëtimi i Natës (nga Mekka në Jeruzalem)"
+              arabic="سُبْحَانَ الَّذِي أَسْرَى بِعَبْدِهِ لَيْلًا مِّنَ الْمَسْجِدِ الْحَرَامِ إِلَى الْمَسْجِدِ الْأَقْصَى الَّذِي بَارَكْنَا حَوْلَهُ"
+              text="Kur'an 17:1 – 'I Lartësuar është Ai që e çoi robin e Vet natën nga Mesxhidi Haram (Mekka) në Mesxhidi Aksa (Jeruzalem) — të cilin Ne e kemi bekuar rrethinën e tij — për t'i treguar atij nga shenjat Tona. Vërtet Ai është Dëgjuesi, Shikuesi.'"
+              tefsir="'Isra' në arabisht do të thotë 'udhëtim nate'. Ndodhi vitin e 10-të ose 12-të të profetësisë — 'Viti i Pikëllimit' kur vdiqën Hatixheja dhe Ebu Talibi. Allahu ia ngriti shpirtin Profetit ﷺ me këtë mrekulli si ngushëllim hyjnor. Udhëtimi u bë me trup dhe shpirt, jo vetëm shpirtërisht — kjo e bën atë mrekulli të vërtetë dhe jo ëndërr."
             />
-            <Item title="Mi'raxhi (Ngjitja në qiej)" text="Nga Mesxhidi Aksa, Profeti ﷺ u ngrit me Xhibrilin nëpër shtatë qiejt dhe u ndesh me profetët: Adem (qielli i parë), Isa & Jahja (i dyti), Jusuf (i treti), Idris (i katërti), Harun (i pesti), Musa (i gjashti), Ibrahim (i shtati). Pastaj kaloi Sidretul Muntehën dhe arriti afri Allahut." dalil="Kur'an 53:13-18 – 'E pa atë edhe herën tjetër, pranë Sidretul Muntes... Syri i tij nuk u shmang e as nuk e kaloi kufirin.'" />
-            <Item title="Obligimi i Namazit" text="Fillimisht Allahu obligoi 50 namaze. Musa ﷺ i tha Profetit ﷺ: 'Kthehu, umeti yt nuk mban dot.' U kthye disa herë derisa u bënë 5 namaze por me shpërblimin e 50-ve." dalil="Transmeton Buhariu dhe Muslimi nga Enesi." />
+            <HadithBox
+              title="Hadithi Detajues i Isra & Mi'raxhit"
+              arabic="أُتِيتُ بِالْبُرَاقِ وَهُوَ دَابَّةٌ أَبْيَضُ طَوِيلٌ فَوْقَ الْحِمَارِ وَدُونَ الْبَغْلِ"
+              text="Hadith Muslimi (162) — Enesi transmeton nga Profeti ﷺ: 'Më u soll Buraku — kafshë e bardhë, e gjatë, mbi gomarr dhe nën mushkë — vendos thundrat ku i shkon syri...' Profeti ﷺ u ngjit dhe arriti Bejtul Makdes, ku lidhi Burakun te unaza ku lidhnin profetët. Hyri dhe u fal dy rekat. Pastaj Xhibrili i solli dy kupa: një me qumësht, një me verë. Profeti ﷺ zgjodhi qumështin. Xhibrili tha: 'Zgjodhe natyrën (Fitran) e pastër.'"
+              tefsir="Buraku është kafsha hyjnore e transportit. Zgjedhja e qumështit mbi verën simbolizon zgjedhjen e natyrës së pastër njerëzore dhe Islamit."
+            />
+            <HadithBox
+              title="2. Mi'raxhi — Ngjitja nëpër 7 Qiej dhe Takimet me Profetët"
+              arabic="ثُمَّ عُرِجَ بِي حَتَّى ظَهَرْتُ لِمُسْتَوًى أَسْمَعُ فِيهِ صَرِيفَ الأَقْلامِ"
+              text="Hadith Buhariu (3887) — Profeti ﷺ: 'Pastaj u ngrita (nëpër qiej) deri sa arrita në nivel ku dëgjohet gërvima e penave (kur shkruhen caktimet hyjnore).'"
+              tefsir="Mi'raxhi është ngjitja fizike dhe shpirtërore nëpër shtatë qiejt deri tek Allahu i Madhërishëm. Kjo mrekulli nuk ndodhi vetëm shpirtërisht — Kur'ani dhe Hadithi konfirmojnë se Profeti ﷺ udhëtoi me trup. Mushrikët e Mekës dyshuan pikërisht sepse ishte me trup."
+            />
+            {[
+              { qiell: "Qielli i 1-rë", profet: "Ademi ﷺ", detail: "Profeti ﷺ e pa Ademin me shpirtra djathtas (banorë të Xhennetit) dhe majtas (banorë të Xhehenemit). Ademi ﷺ qante nga ata të majtë.", dalil: "Buhariu 3887, Muslimi 162" },
+              { qiell: "Qielli i 2-të", profet: "Isa & Jahja ﷺ", detail: "I pa dy kushërinjtë — Isa bin Merjemi dhe Jahjaja. Të dy ishin me fytyrë të bukur dhe të ngjashëm.", dalil: "Muslimi 162" },
+              { qiell: "Qielli i 3-të", profet: "Jusufi ﷺ", detail: "Profeti ﷺ e pa Jusufin — i kishte dhënë gjysëm të bukurisë (sipas hadithit). Fytyrën e tij si hëna e plotë.", dalil: "Muslimi 162" },
+              { qiell: "Qielli i 4-të", profet: "Idrisi ﷺ", detail: "Allahu e lartësoi Idrisin në vend të lartë. (Kur'an 19:57 — 'Ne e lartësuam atë në vend të lartë.')", dalil: "Muslimi 162, Kur'an 19:57" },
+              { qiell: "Qielli i 5-të", profet: "Haruni ﷺ", detail: "I ka ballin të gjatë dhe mjekrën të gjerë, të bardhë. I dashur nga populli i tij.", dalil: "Muslimi 162" },
+              { qiell: "Qielli i 6-të", profet: "Musa ﷺ", detail: "Musa ﷺ qau pas ngjitjes. Pyetën: 'Pse qan?' Tha: 'Ky djalosh (Muhammedi ﷺ) që erdhi pas meje, do të hyjë në Xhennet me umet më të madh se imi.'", dalil: "Buhariu 3887, Muslimi 162" },
+              { qiell: "Qielli i 7-të", profet: "Ibrahimi ﷺ", detail: "Ibrahimi ﷺ ishte mbështetur te Bejtul Mamur (Qabeja e qiellit) — çdo ditë hyjnë 70,000 engjëj dhe nuk kthehen më. Ibrahimi tha Profetit ﷺ: 'Transmeto selamin tim umetit tënd dhe tregoju se Xhenneti ka tokë të mirë, ujë të ëmbël e fushë të gjerë — farzet e tij janë: Subhanallah, Alhamdulilah, La ilahe ilallah, Allahu Ekber.'", dalil: "Buhariu 3887, Tirmidhiu 3462" },
+            ].map((s, i) => (
+              <div key={i} className="mb-3 bg-indigo-50 rounded-xl p-4 border border-indigo-100">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="bg-indigo-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">{i + 1}</span>
+                  <span className="font-bold text-indigo-900">{s.qiell} — {s.profet}</span>
+                </div>
+                <p className="text-sm text-gray-700 mb-2 ml-8">{s.detail}</p>
+                <div className="ml-8 bg-indigo-100 rounded-lg px-3 py-1.5">
+                  <p className="text-xs text-indigo-700 italic">📖 {s.dalil}</p>
+                </div>
+              </div>
+            ))}
+            <HadithBox
+              title="3. Sidretul Munteha — Kufiri i Fundit"
+              arabic="عِندَ سِدْرَةِ الْمُنتَهَىٰ ۝ عِندَهَا جَنَّةُ الْمَأْوَىٰ ۝ إِذْ يَغْشَى السِّدْرَةَ مَا يَغْشَىٰ"
+              text="Kur'an 53:14-16 – 'Pranë Sidretul Muntes. Pranë saj është Xhenneti i Qëndrimit. Kur mbulonte Sidren ajo që e mbulon (drita hyjnore e engjëjve).'"
+              tefsir="Sidretul Munteha është pema e fundit ku arrin dija e krijesave — asnjë engjëll apo profet nuk ka kaluar tej kësaj pike. Xhibrili qëndroi aty. Vetëm Profeti Muhammed ﷺ kaloi tej dhe iu afrua Allahut. Engjëjt e mbuloshin si flutura të artë."
+            />
+            <HadithBox
+              title="4. Obligimi i Namazit — Dhurata e Isra & Mi'raxhit"
+              arabic="فَفَرَضَ اللَّهُ عَلَى أُمَّتِي خَمْسِينَ صَلاَةً"
+              text="Hadith Buhariu (3887) — Allahu obligoi fillimisht 50 namaze. Musa ﷺ i tha: 'Kthehu, umeti yt nuk mund t'i mbajë!' Profeti ﷺ u kthye vazhdimisht tek Allahu duke kërkuar lehtësim — derisa u bënë 5 namaze. Musa ﷺ sërish tha: 'Kthehu!' Por Profeti ﷺ tha: 'Jam turpëruar nga Zoti im, pranoj.' Allahu tha: 'Ke shpërblimin e 50-ve — Fjala Ime nuk ndryshon.'"
+              tefsir="Namazi është dhurata e vetme nga Isra & Mi'raxhi — çdo obligim tjetër zbrit me Xhibrilin në tokë, por namazi u dha personalisht Profetit ﷺ mbi qiej. Ky është shkaku i madhështisë unike të namazit në Islam. | Kur'an 17:1 — Isra shpie direkt te kapitulli 17 'Beni Israil' ku trajtohen temat e namazit."
+            />
+            <HadithBox
+              title="5. Çfarë Pa Profeti ﷺ gjatë Mi'raxhit (vizionet)"
+              text="Hadith Buhariu (1386, 6519) — Profeti ﷺ pa: ata që hanin kamata (Riba) — duke notuar në lumë gjaku; ata që nuk i jepnin zekat — u rrëzoheshin gurë në gojë; zinaqarët — hanin mish të kalbur; ata që ndalnin namazin — i rriheshin kokat me gurë; ata që bënin backbiting (ghibet) — gërvishtnin fytyrat e tyre me thonj bakri; etj."
+              tefsir="Allahu i tregoi Profetit ﷺ dënimet e veprave të këqija si paralajmërim — dhe Profeti ﷺ i transmetoi ato tek umeti për ta mbrojtur. Çdo dënim korrespondon me gjynahun specifik."
+            />
           </Section>
         </div>
       )}
