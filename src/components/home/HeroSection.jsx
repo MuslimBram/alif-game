@@ -75,24 +75,28 @@ export default function HeroSection({ stats }) {
               title: "TE Alfabeti", 
               items: ["Germat", "Rrokjet", "Fjalët", "Zgjedhimi", "Lakimi"],
               icon: "🔤",
-              color: "from-blue-500 to-cyan-500"
+              color: "from-blue-500 to-cyan-500",
+              page: "AlphabetMain"
             },
             {
               title: "📖 Texhuidi",
               items: ["Rregulla", "Praktikë", "Audio", "Ushtrime", "Testim"],
               icon: "📖",
-              color: "from-purple-500 to-violet-500"
+              color: "from-purple-500 to-violet-500",
+              page: "TajweedMain"
             },
             {
               title: "🕌 Arabisht Medinë",
               items: ["Fillestar", "Mesatar", "Avancuar", "Profesionist", "Mësime"],
               icon: "🕌",
-              color: "from-green-500 to-emerald-600"
+              color: "from-green-500 to-emerald-600",
+              page: "MedineArabicMain"
             }
           ].map((section, idx) => (
-            <div
+            <Link
               key={idx}
-              className={`glass-card rounded-2xl p-5 bg-gradient-to-br ${section.color} bg-opacity-5 border border-current border-opacity-20`}>
+              to={createPageUrl(section.page)}
+              className={`glass-card rounded-2xl p-5 bg-gradient-to-br ${section.color} bg-opacity-5 border border-current border-opacity-20 hover:shadow-lg transition-shadow cursor-pointer`}>
 
               <p className="font-bold text-gray-800 mb-3 text-sm">{section.title}</p>
               <div className="space-y-2">
@@ -103,7 +107,7 @@ export default function HeroSection({ stats }) {
                   </div>
                 ))}
               </div>
-            </div>
+            </Link>
           ))}
         </motion.div>
 
