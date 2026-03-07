@@ -10,6 +10,15 @@ const PRAYER_NAMES = {
   Isha: "Jacia",
 };
 
+// Ikona dhe ngjyra për çdo namaz
+const PRAYER_ICONS = {
+  Fajr:    { emoji: "🌄", label: "Agimi", color: "text-sky-300",    bg: "bg-sky-500/10",    border: "border-sky-500/20"    },
+  Dhuhr:   { emoji: "☀️",  label: "Mesditja", color: "text-yellow-300", bg: "bg-yellow-500/10", border: "border-yellow-500/20" },
+  Asr:     { emoji: "🌤️", label: "Pasditja", color: "text-orange-300", bg: "bg-orange-500/10", border: "border-orange-500/20" },
+  Maghrib: { emoji: "🌇", label: "Perëndimi", color: "text-rose-300",   bg: "bg-rose-500/10",   border: "border-rose-500/20"   },
+  Isha:    { emoji: "🌙", label: "Nata",     color: "text-indigo-300", bg: "bg-indigo-500/10", border: "border-indigo-500/20" },
+};
+
 // Shton minuta në formatin HH:MM dhe kthen HH:MM
 function addMinutes(timeStr, mins) {
   if (!timeStr) return "";

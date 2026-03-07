@@ -261,20 +261,77 @@ export default function FE() {
           </Section>
 
           {/* Kushtet e Gusulit */}
-          <Section title="Kushtet e Gusulit (Larja e Plotë)" icon={<Droplets className="w-5 h-5 text-teal-500" />} color="border-teal-300">
-            <p className="text-sm text-gray-600 mb-3">Gusuli është i obligueshëm (farz) pas këtyre rasteve:</p>
+          <Section title="Kushtet e Gusulit (Larja e Plotë) — Kur Obligohet?" icon={<Droplets className="w-5 h-5 text-teal-500" />} color="border-teal-300">
+            <HadithBox
+              arabic="وَإِن كُنتُمْ جُنُبًا فَاطَّهَّرُوا"
+              text="Kur'an 5:6 – 'Dhe nëse jeni xhunub (papastër ritualisht), atëherë pastrohuni (me gusl).'"
+              tefsir="Ky ajet është argumenti kryesor Kur'anor për obligimin e Gusulit. 'Xhunub' nënkupton gjendjen e papastërtisë rituale që kërkon larim të plotë të trupit."
+            />
+            <HadithBox
+              arabic="إِذَا الْتَقَى الْخِتَانَانِ وَجَبَ الْغُسْلُ"
+              text="Hadith Muslimi (349) – Profeti ﷺ tha: 'Kur takohen dy synetllarjet (kryhet martedhënia), bëhet obligim Gusuli — edhe pa derdhje.'"
+              tefsir="Ky hadith sqaron se marrëdhënia intime, edhe pa ejakulim, e obligon Guslin. Ishte keqkuptim i hershëm mes sahabëve dhe ky hadith e sqaroi çështjen."
+            />
+            <p className="text-sm font-bold text-teal-800 mb-3 mt-2">📌 Rastet kur Gusuli bëhet Farz (i obliguar):</p>
             {[
-              { t: "Marrëdhëniet intime (edhe pa derdhje)", d: "Kur'an 4:43 – 'Ose keni qenë xhunub (papastër), atëherë pastrohuni.'" },
-              { t: "Derdhja e spermës (me ose pa marrëdhënie)", d: "Hadith Muslimi: 'Uji (gusuli) vjen nga uji (sperma).'" },
-              { t: "Menstruacionet (Hajdi)", d: "Kur'an 2:222 – '...kur të pastrohen, afrohuni atyre siç ju urdhëroi Allahu.'" },
-              { t: "Lehonia (Nifasi – gjaku pas lindjes)", d: "Analogji me Hajdin – te gjithë juristët islamë pajtohen." },
-              { t: "Vdekja (larja e të vdekurit)", d: "Hadith Buhariu: 'Laheni të vdekurit.' (Farz kifaje)" },
-              { t: "Islami i ri (kur dikush bëhet musliman)", d: "Hadith – Profeti ﷺ urdhëroi disa të rinj sahabi të lahen kur pranuan Islamin." },
-            ].map((g, i) => <Item key={i} num={i + 1} title={g.t} dalil={g.d} />)}
+              {
+                t: "1. Marrëdhëniet intime (edhe pa derdhje spermë)",
+                d: "Kur'an 4:43 – 'Ose keni qenë xhunub (papastër), atëherë pastrohuni.' | Hadith Muslimi: 'Kur takohen dy synetllarjet, Gusuli bëhet obligim.'",
+              },
+              {
+                t: "2. Derdhja e spermës (ihtilam — ëndërr e lagur, ose me vetëdije)",
+                d: "Hadith Muslimi (343): Profeteshja e Allahut (s.a.s) pyeti Profetin ﷺ: 'A obligohet gruaja me Gusl kur sheh ëndërr?' Tha: 'Po, nëse sheh ujë (lëng).' | Kur'an 5:6 — 'Nëse jeni xhunub, pastrohuni.'",
+              },
+              {
+                t: "3. Menstruacionet (Hajdi)",
+                d: "Kur'an 2:222 – 'Ato pyesin ty për menstruacionet. Thuaj: Është papastërti, qëndroni larg grave gjatë menstruacioneve dhe afrohuni atyre kur të pastrohen (Gusul kryejnë).' | Hadith Buhariu: Profeti ﷺ i tha Fatimes bint Ebi Hubejsh: 'Kur të vijë hajdi, le të lëre namazin, e kur të iket, le të lahet (gusl) dhe të falë namaz.'",
+              },
+              {
+                t: "4. Lehonia — Nifasi (gjaku pas lindjes)",
+                d: "Konsensus i dijetarëve (Ixhma) — Nifasi trajtohet si Hajdi në çdo aspekt. | Ibni Kudama (Al-Mughni): 'Nifasi ka të njëjtat dispozita si Hajdi në obligimin e Gusulit, ndalimin e namazit dhe agjërimit.'",
+              },
+              {
+                t: "5. Pranimi i Islamit (kur dikush bëhet musliman i ri)",
+                d: "Hadith i saktë: Kejs ibn Asim r.a. kur pranoi Islamin, Profeti ﷺ e urdhëroi të lahej me ujë dhe Sidr (gjethe lote). (Transmeton Ebu Davudi 355, Nesai 188 — Albani e vlerësoi sahih). | Mendimi më i fortë: Gusuli është mustehab (i rekomanduar) për të riun musliman — por shumë dijetarë e konsiderojnë obligim nëse ka qenë xhunub apo kishte menstruacione para pranimit.",
+              },
+              {
+                t: "6. Vdekja — Larja e të vdekurit (Farz Kifaje)",
+                d: "Hadith Buhariu (1254): Profeti ﷺ, kur ra djali i tij nga kali, tha: 'Laheni atë me ujë dhe Sidr.' | Kur'an (analogji): Pastërtia është e detyrueshme — dhe dijetarët e nxorën nga Sunneti obligimin e larjes së të vdekurit musliman.",
+              },
+              {
+                t: "7. Namazi i Xhumasë (Gusul — Mustehab/Sunet i fortë)",
+                d: "Hadith Buhariu (877): Profeti ﷺ tha: 'Gusuli i Xhumasë është obligim (hakk) mbi çdo të rritur (baligh).' | Shumica e dijetarëve: është Sunet Muekked (sunet i fortë), jo farz. Ibni Hazmi dhe disa dijetarë tjerë e konsiderojnë Farz.",
+              },
+            ].map((g, i) => <Item key={i} title={g.t} dalil={g.d} />)}
 
-            <p className="text-sm font-semibold text-gray-600 mb-3 mt-4">📌 Mënyra e Gusulit (Sunneti):</p>
-            <div className="bg-teal-50 rounded-xl p-4 text-sm text-teal-900 leading-relaxed">
-              1. Nijet (qëllim) → 2. Bism'Allah → 3. Laj duart 3 herë → 4. Pastro vendet intime → 5. Merr abdest të plotë → 6. Derdh ujë mbi kokë 3 herë → 7. Laj anën e djathtë → 8. Laj anën e majtë → 9. Mos harro nyjet dhe lëkurën pas veshëve.
+            <div className="bg-amber-50 border-l-4 border-amber-400 rounded-xl p-4 mt-4 mb-3">
+              <p className="text-amber-900 text-sm font-bold mb-2">⚠️ Shënim i rëndësishëm për Islamin e ri:</p>
+              <p className="text-amber-800 text-sm leading-relaxed">
+                Dijetarët kanë dy mendime: <strong>(1) Shafiu dhe Hambeliu:</strong> Gusuli është obligim për të riun musliman. <strong>(2) Hanefiu dhe Malikiu:</strong> është Mustehab (i rekomanduar). Argument shtesë: Thumame ibn Uthal r.a. kur pranoi Islamin, shkoi e u la vetë pa u urdhëruar nga Profeti ﷺ (Muslimi).
+              </p>
+            </div>
+
+            <p className="text-sm font-semibold text-gray-600 mb-3 mt-4">📌 Farzet e Gusulit (minimumi i obligueshëm — 3 gjëra):</p>
+            {[
+              { n: 1, t: "Nijeti", d: "Kur'an 98:5 — 'Dhe nuk u urdhëruan ndryshe veçse të adhurojnë Allahun, duke i kushtuar atij sinqerisht fenë.' | Hadith Buhariu: 'Veprat janë sipas qëllimeve.'" },
+              { n: 2, t: "Shpëlarja e gojës dhe hundës", d: "Hadith — shumica e dijetarëve e konsiderojnë farz. Hanefiu: farz. Shafiu: sunet." },
+              { n: 3, t: "Larja e të gjithë trupit me ujë", d: "Kur'an 5:6 – 'Pastrohuni (launi të gjithë trupin).' | Hadith Muslimi: Profeti ﷺ hidhte ujë mbi kokën e tij tre herë, pastaj lante të gjithë trupin." },
+            ].map(f => <Item key={f.n} num={f.n} title={f.t} dalil={f.d} />)}
+
+            <p className="text-sm font-semibold text-gray-600 mb-3 mt-4">📌 Mënyra e Gusulit sipas Sunnetit (e plotë):</p>
+            <div className="bg-teal-50 rounded-xl p-4 text-sm text-teal-900 leading-relaxed space-y-2">
+              <p><strong>1.</strong> Nijet (qëllim i sinqertë në zemër)</p>
+              <p><strong>2.</strong> Bism'Allah — "Me emrin e Allahut"</p>
+              <p><strong>3.</strong> Laj duart 3 herë</p>
+              <p><strong>4.</strong> Pastro vendet intime me dorën e majtë</p>
+              <p><strong>5.</strong> Merr abdest të plotë (si namazi) — shpëlarë gojën dhe hundën</p>
+              <p><strong>6.</strong> Derdh ujë mbi kokë 3 herë — sigurohu që arrin rrënjën e flokëve</p>
+              <p><strong>7.</strong> Laj anën e djathtë të plotë</p>
+              <p><strong>8.</strong> Laj anën e majtë të plotë</p>
+              <p><strong>9.</strong> Mos harro: pas veshëve, nën sqetullat, mes gishtave, nën gjunjët</p>
+              <div className="bg-teal-100 rounded-lg p-3 mt-2 border-l-4 border-teal-600">
+                <p className="text-xs text-teal-800">📖 <strong>Hadith Buhariu (248):</strong> Aishja r.a. përshkroi Guslin e Profetit ﷺ: "Ai fillonte duke larë duart, pastaj merrte abdest si namazi, pastaj futte gishtat në ujë dhe fërkonte rrënjën e flokëve, pastaj hidhte tre grushta ujë mbi kokë, pastaj lante të gjithë lëkurën."</p>
+              </div>
             </div>
           </Section>
         </div>
