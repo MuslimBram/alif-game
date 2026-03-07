@@ -462,8 +462,11 @@ export default function Quran({ adminEditMode, isAdmin }) {
                                <p className="text-xs text-amber-600 mb-2 font-medium">Bismillah</p>
                                <p className="text-2xl font-bold text-gray-900 mb-1" style={{ fontFamily: "serif", direction: "rtl" }}>{surah.arabic}</p>
                                <p className="text-xs text-gray-400 italic mb-2">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
-                               <Button size="sm" onClick={() => speakArabic(surah.arabic)} className="bg-amber-500 hover:bg-amber-600 text-white rounded-xl">
-                                 <Volume2 className="w-3.5 h-3.5 mr-1.5" /> Dëgjo Emrin
+                               <Button size="sm" onClick={() => {
+                                 const audio = new Audio(`https://everyayah.com/data/Alafasy_128kbps/${String(surah.num).padStart(3,'0')}001.mp3`);
+                                 audio.play().catch(() => speakArabic(surah.name));
+                               }} className="bg-amber-500 hover:bg-amber-600 text-white rounded-xl">
+                                 <Volume2 className="w-3.5 h-3.5 mr-1.5" /> Dëgjo Suren
                                </Button>
                              </div>
                              {/* Audio player for surah */}
