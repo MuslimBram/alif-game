@@ -345,6 +345,87 @@ export default function FE() {
         </div>
       )}
 
+      {/* ===== DUATË ===== */}
+      {mainTab === "duate" && (
+        <div className="space-y-4">
+          {[
+            {
+              title: "Dua para gjumit", arabic: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
+              translit: "Bismikal-lāhumma amūtu wa-aḥyā",
+              sq: "Me emrin Tënd, o Allah, vdes dhe jetoj (fle dhe zgjoj).",
+              source: "Buhariu"
+            },
+            {
+              title: "Dua pas zgjimit", arabic: "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
+              translit: "Al-ḥamdu lillāhi lladhī aḥyānā baʿda mā amātanā wa-ilayhi n-nushūr",
+              sq: "Falënderimet i takojnë Allahut që na dha jetë pas vdekjes (gjumit) dhe tek Ai është ringjallja.",
+              source: "Buhariu"
+            },
+            {
+              title: "Dua para ngrënies", arabic: "بِسْمِ اللَّهِ",
+              translit: "Bismillāh",
+              sq: "Me emrin e Allahut.",
+              source: "Ebu Davudi — nëse harron shto: بِسْمِ اللَّهِ أَوَّلَهُ وَآخِرَهُ"
+            },
+            {
+              title: "Dua pas ngrënies", arabic: "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ",
+              translit: "Al-ḥamdu lillāhi lladhī aṭʿamanā wa-saqānā wa-jaʿalanā muslimīn",
+              sq: "Falënderimet i takojnë Allahut që na ushqeu, na dha të pijë dhe na bëri muslimanë.",
+              source: "Ebu Davudi, Tirmidhiu"
+            },
+            {
+              title: "Dua kur hyn në shtëpi", arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ الْمَوْلَجِ وَخَيْرَ الْمَخْرَجِ",
+              translit: "Allāhumma innī asaluka khayra l-mawlaji wa-khayra l-makhraj",
+              sq: "O Allah, kërkoj prej Teje mirën e hyrjes dhe mirën e daljes.",
+              source: "Ebu Davudi"
+            },
+            {
+              title: "Dua kur del nga shtëpia", arabic: "بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+              translit: "Bismillāhi tawakkaltu ʿala-llāhi lā ḥawla wa-lā quwwata illā billāh",
+              sq: "Me emrin e Allahut, i mbështetem Allahut, nuk ka fuqi dhe pushtet veçse me Allahun.",
+              source: "Ebu Davudi, Tirmidhiu"
+            },
+            {
+              title: "Dua para abdestit", arabic: "بِسْمِ اللَّهِ",
+              translit: "Bismillāh",
+              sq: "Me emrin e Allahut.",
+              source: "Ebu Davudi — obligative sipas shumë dijetarëve"
+            },
+            {
+              title: "Dua pas abdestit (Shehadeti)", arabic: "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
+              translit: "Ashhadu an lā ilāha illā-llāhu wa-ashhadu anna Muḥammadan ʿabduhu wa-rasūluh",
+              sq: "Dëshmoj se nuk ka zot tjetër pos Allahut dhe dëshmoj se Muhammedi është robi dhe i dërguri i Tij.",
+              source: "Muslimi — hapen 8 dyert e Xhennetit"
+            },
+            {
+              title: "Istigfar — Kërkim faljeje", arabic: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ",
+              translit: "Astaghfiru-llāha l-ʿaẓīma lladhī lā ilāha illā huwa l-ḥayyu l-qayyūmu wa-atūbu ilayh",
+              sq: "Kërkoj falje nga Allahu i Madhërishëm, i Cili nuk ka zot tjetër pos Tij, i Gjallë, i Qëndrueshëm, dhe pendohem tek Ai.",
+              source: "Ebu Davudi, Tirmidhiu — Sejjid'ul-Istigfar"
+            },
+            {
+              title: "Dua kur ndjej pikëllim", arabic: "لَا إِلَهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ",
+              translit: "Lā ilāha illā anta subḥānaka innī kuntu mina ẓ-ẓālimīn",
+              sq: "Nuk ka zot tjetër pos Teje, i Lartësuar je Ti, unë isha nga zullumqarët.",
+              source: "Kur'an 21:87 — Dua e Junusit ﷺ kur ishte në barku të balenës"
+            },
+          ].map((dua, i) => (
+            <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+              <h3 className="font-bold text-gray-800 text-sm mb-2 flex items-center gap-2">
+                <span className="w-6 h-6 bg-emerald-100 text-emerald-700 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</span>
+                {dua.title}
+              </h3>
+              <p className="text-right text-xl font-bold text-gray-900 mb-2 leading-loose" style={{ fontFamily: "Amiri, serif", direction: "rtl" }}>
+                {dua.arabic}
+              </p>
+              <p className="text-sm text-teal-700 italic mb-1">{dua.translit}</p>
+              <p className="text-sm text-gray-700 leading-relaxed">"{dua.sq}"</p>
+              <p className="text-xs text-emerald-600 font-semibold mt-2">— {dua.source}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* ===== KUIZ ===== */}
       {mainTab === "kuiz" && (
         <div>
