@@ -454,7 +454,10 @@ export default function SurahVerseViewer({ surah, onClose }) {
                     {/* Tafsir */}
                     <div className="bg-white rounded-xl p-4 border border-emerald-100">
                       <p className="text-xs font-bold text-emerald-700 mb-1">📝 Tefsiri (Kuptimi & Shpjegimi)</p>
-                      <p className="text-sm text-gray-700 leading-relaxed">{currentVerseData.tafsir}</p>
+                      {currentVerseData.tafsir
+                        ? <p className="text-sm text-gray-700 leading-relaxed">{currentVerseData.tafsir}</p>
+                        : <p className="text-xs text-gray-400 italic">Tefsiri nuk është i disponueshëm për këtë ajet.</p>
+                      }
                     </div>
 
                     {/* Kuiz per kete ajet */}
