@@ -45,7 +45,7 @@ export default function Home({ adminEditMode, isAdmin }) {
           avgScore,
         });
       } catch (e) {
-        // user not logged in
+        setIsAuthenticated(false);
       }
     };
     loadStats();
