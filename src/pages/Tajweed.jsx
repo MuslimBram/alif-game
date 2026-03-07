@@ -159,8 +159,19 @@ export default function Tajweed({ adminEditMode, isAdmin }) {
               </div>
             );
           })}
+          {filteredRules.length === 0 && !isLoading && (
+            <div className="text-center py-8 text-gray-400">
+              <p className="text-sm mb-3">Nuk ka rregulla të shtuara në bazë të të dhënave.</p>
+              <button onClick={() => setActiveTab("builtIn")}
+                className="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-sm font-semibold transition-all">
+                🎓 Mëso Texhuidin — Rregulla të Integruara
+              </button>
+            </div>
+          )}
         </div>
       )}
+
+      </> }
     </div>
   );
 }
