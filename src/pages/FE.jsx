@@ -282,17 +282,133 @@ export default function FE() {
       {/* ===== NAMAZI ===== */}
       {mainTab === "namazi" && (
         <div>
-          <Section title="Kushtet e Namazit" icon={<BookOpen className="w-5 h-5 text-emerald-600" />} color="border-emerald-300">
+          <Section title="Kohët e 5 Namazeve" icon={<BookOpen className="w-5 h-5 text-emerald-600" />} color="border-emerald-300">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border-collapse">
+                <thead><tr className="bg-emerald-50">
+                  <th className="border border-emerald-200 p-2 text-left">Namazi</th>
+                  <th className="border border-emerald-200 p-2">Rekat (Sunnet+Farz+Sunnet)</th>
+                  <th className="border border-emerald-200 p-2">Koha</th>
+                </tr></thead>
+                <tbody>
+                  {[
+                    ["🌅 Sabahu (Fajri)", "2s + 2f", "Nga agimi deri para lindjes së diellit"],
+                    ["☀️ Dreka (Dhuhri)", "4s + 4f + 2s + 2s witr", "Nga mesditja deri sa hija = objekti"],
+                    ["🌤️ Ikindia (Asri)", "4s + 4f", "Nga hija=2×objekt deri perëndim"],
+                    ["🌇 Akshami (Magribi)", "3f + 2s", "Sapo perëndon dielli"],
+                    ["🌙 Jacia (Isha)", "4s + 4f + 2s + 3 witr", "Nga zi e errët deri agim"],
+                  ].map(([n, r, k], i) => (
+                    <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                      <td className="border border-gray-200 p-2 font-semibold">{n}</td>
+                      <td className="border border-gray-200 p-2 text-center text-xs">{r}</td>
+                      <td className="border border-gray-200 p-2 text-gray-600 text-xs">{k}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-gray-500 mt-2 italic">s = sunnet, f = farz | Kur'an 4:103 — Namazi është i obligueshëm në kohë të caktuara.</p>
+          </Section>
+
+          <Section title="Hapat e Namazit — Mënyra e Faljes" icon={<Star className="w-5 h-5 text-emerald-500" />} color="border-emerald-300">
+            <p className="text-xs text-gray-500 mb-3">Mënyra e faljes sipas Sunnetit të Profetit ﷺ (Buhariu, Muslimi)</p>
+            {[
+              {
+                n: 1, t: "Nijeti (Qëllimi)", text: "Bëj nijetin me zemër (jo me gojë sipas shumicës) për namazin specifik.",
+                arabic: "", translit: "", sq: ""
+              },
+              {
+                n: 2, t: "Tekbiri Fillestar (Allahu Ekber)", text: "Ngri duart deri te veshët ose supet dhe thuaj:",
+                arabic: "اللَّهُ أَكْبَرُ", translit: "Allāhu akbar", sq: "Allahu është më i Madhi"
+              },
+              {
+                n: 3, t: "Duaja Fillestare (Iftitah)", text: "Pas Tekbirit, thuaj kësaj duaje (sunet):",
+                arabic: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَى جَدُّكَ وَلَا إِلَهَ غَيْرُكَ",
+                translit: "Subhānaka Allāhumma wa bi-ḥamdika wa tabāraka smuka wa taʿālā jadduka wa lā ilāha ghayruk",
+                sq: "I pastër je Ti, o Allah, lavdia të takon, i bekuar është emri Yt, i Lartë madhështia Jote dhe nuk ka zot tjetër pos Teje."
+              },
+              {
+                n: 4, t: "El-Fatiha", text: "Lexo suren El-Fatiha — detyrë (farz) në çdo rekat:",
+                arabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ...",
+                translit: "Bismillāhi r-raḥmāni r-raḥīm. Al-ḥamdu lillāhi rabbi l-ʿālamīn...",
+                sq: "Me emrin e Allahut, të Gjithëmëshirshmit, Mëshirëplotit. Lavdërimi i takon Allahut..."
+              },
+              {
+                n: 5, t: "Sure ose Ajete shtesë", text: "Pas Fatihës, lexo sure ose ajete (sunet në 2 rekatet e para të Farzit):",
+                arabic: "قُلْ هُوَ اللَّهُ أَحَدٌ...", translit: "Qul huwa-llāhu aḥad...",
+                sq: "Mund të lexosh Al-Ikhlas, Al-Falaq, An-Nas ose çdo sure tjetër."
+              },
+              {
+                n: 6, t: "Rukuja (Përkulja)", text: "Perkulj trupin horizontalisht — shpina e drejtë, duart te gjunjët:",
+                arabic: "سُبْحَانَ رَبِّيَ الْعَظِيمِ", translit: "Subḥāna rabbiya l-ʿaẓīm",
+                sq: "I pastër je Ti, Zoti im, i Madhi! — Përsërit 3 herë"
+              },
+              {
+                n: 7, t: "Ngritja nga Rukuja", text: "Ngrihu duke thënë:",
+                arabic: "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ", translit: "Samiʿa-llāhu li-man ḥamidah",
+                sq: "Allahu dëgjon atë që Atë lavdëron! — pastaj: Rabbenā wa laka l-ḥamd."
+              },
+              {
+                n: 8, t: "Sexhdeja e Parë", text: "Bie me gjunjë, duart, ballë dhe hundë tokës — 7 gjymtyrë:",
+                arabic: "سُبْحَانَ رَبِّيَ الْأَعْلَى", translit: "Subḥāna rabbiya l-aʿlā",
+                sq: "I pastër je Ti, Zoti im, i Larti! — Përsërit 3 herë"
+              },
+              {
+                n: 9, t: "Qëndrimi mes dy Sexhdeve", text: "Ngrihu mes dy sexhdeve dhe thuaj:",
+                arabic: "رَبِّ اغْفِرْ لِي", translit: "Rabb-ighfir lī",
+                sq: "Zoti im, më fal! — Thuhet 3 herë"
+              },
+              {
+                n: 10, t: "Sexhdeja e Dytë", text: "Bie sërish në sexhde dhe thuaj si sexhden e parë.",
+                arabic: "سُبْحَانَ رَبِّيَ الْأَعْلَى", translit: "Subḥāna rabbiya l-aʿlā",
+                sq: "I pastër je Ti, Zoti im, i Larti! — 3 herë. Kjo mbyll rekatin e parë."
+              },
+              {
+                n: 11, t: "Et-Tehijjat (Ulja e Fundit)", text: "Pas dy rekateve, ulu dhe lexo Et-Tehijjat:",
+                arabic: "التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ السَّلامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ السَّلامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
+                translit: "At-taḥiyyātu lillāhi wa-ṣ-ṣalawātu wa-ṭ-ṭayyibāt...",
+                sq: "Përshëndetjet janë për Allahun, lutjet dhe veprat e mira. Selami mbi ty, o Profet, dhe mëshira e Allahut e bereqeti i Tij..."
+              },
+              {
+                n: 12, t: "Salavati (Durud Ibrahim)", text: "Pas Tehijjatit, lexo Salavatët:",
+                arabic: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+                translit: "Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammadin kamā ṣallayta ʿalā Ibrāhīma...",
+                sq: "O Allah, bekoje Muhamedin dhe familjen e Muhamedit, ashtu siç bekove Ibrahimin dhe familjen e tij."
+              },
+              {
+                n: 13, t: "Selami i Fundit (Tesvim)", text: "Kthehu djathtas pastaj majtas duke thënë:",
+                arabic: "السَّلامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ", translit: "As-salāmu ʿalaykum wa raḥmatu-llāh",
+                sq: "Paqja dhe mëshira e Allahut qofshin mbi ju! — Kjo mbyll namazin."
+              },
+            ].map((step, i) => (
+              <div key={i} className="mb-3 bg-white rounded-xl p-4 border border-gray-100 shadow-xs">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="inline-block bg-emerald-600 text-white text-xs font-bold rounded-full w-6 h-6 text-center leading-6 flex-shrink-0">{step.n}</span>
+                  <span className="font-bold text-gray-800">{step.t}</span>
+                </div>
+                <p className="text-gray-600 text-sm mb-2">{step.text}</p>
+                {step.arabic && (
+                  <>
+                    <p className="text-right text-lg font-bold text-gray-900 leading-loose mb-1" style={{ fontFamily: "Amiri, serif", direction: "rtl" }}>{step.arabic}</p>
+                    <p className="text-xs text-teal-700 italic mb-1">{step.translit}</p>
+                    <p className="text-xs text-gray-600">"{step.sq}"</p>
+                  </>
+                )}
+              </div>
+            ))}
+          </Section>
+
+          <Section title="Kushtet e Namazit" icon={<BookOpen className="w-5 h-5 text-blue-600" />} color="border-blue-300">
             <p className="text-sm font-semibold text-gray-600 mb-3">📌 Kushtet para Namazit (Shart):</p>
             {[
-              { n: 1, t: "Islam", d: "Kur'an 98:5 – 'Dhe nuk u urdhëruan ndryshe veçse të adhurojnë Allahun, duke qenë të sinqertë ndaj Tij në fe.'" },
-              { n: 2, t: "Mendja (akli)", d: "I çmenduri nuk obligohet. Hadith: 'Lapsi ngrihet nga tri persona – i çmenduri, fëmija, i fjeturi.'" },
+              { n: 1, t: "Islam", d: "Kur'an 98:5 – 'Dhe nuk u urdhëruan ndryshe veçse të adhurojnë Allahun...'" },
+              { n: 2, t: "Mendja (akli)", d: "I çmenduri nuk obligohet. Hadith: 'Lapsi ngrihet nga tri persona.'" },
               { n: 3, t: "Mosha (pubertet)", d: "Hadith Ebu Davudi: 'Urdhëroni fëmijët të falin namaz në 7 vjeç.'" },
               { n: 4, t: "Abdest (Tahare nga Hadesi)", d: "Kur'an 5:6 – 'O ju që besuat, kur të ngriheni për namaz, lani fytyrat tuaja...'" },
-              { n: 5, t: "Pastërtia e trupit, rrobave dhe vendit", d: "Kur'an 74:4 – 'Dhe rrobat e tua pastro!' | Hadith Buhariu: 'Pastrohuni nga urina.'" },
-              { n: 6, t: "Mbulimi i Auretit", d: "Kur'an 7:31 – 'O bijtë e Ademit, vishuni bukur (mbuloni auratin) për çdo namaz.'" },
-              { n: 7, t: "Drejtimi nga Kibla", d: "Kur'an 2:144 – 'Kthehu fytyrën nga Mesxhidul Haram.' | Kur'an 2:150" },
-              { n: 8, t: "Hyrja e kohës", d: "Kur'an 4:103 – 'Namazi është i obligueshëm për besimtarët në kohë të caktuara.'" },
+              { n: 5, t: "Pastërtia e trupit, rrobave dhe vendit", d: "Kur'an 74:4 – 'Dhe rrobat e tua pastro!'" },
+              { n: 6, t: "Mbulimi i Auretit", d: "Kur'an 7:31 – 'vishuni bukur (mbuloni auratin) për çdo namaz.'" },
+              { n: 7, t: "Drejtimi nga Kibla", d: "Kur'an 2:144 – 'Kthehu fytyrën nga Mesxhidul Haram.'" },
+              { n: 8, t: "Hyrja e kohës", d: "Kur'an 4:103 – 'Namazi është i obligueshëm në kohë të caktuara.'" },
               { n: 9, t: "Nijeti (qëllimi)", d: "Hadith Buhariu: 'Veprat janë sipas qëllimeve.'" },
             ].map(k => <Item key={k.n} num={k.n} title={k.t} dalil={k.d} />)}
           </Section>
@@ -305,8 +421,7 @@ export default function FE() {
               { n: 4, t: "Lëvizja e tepërt (tri veprime radhazi)", d: "Hadith – Lëvizja e shumtë pa arsye e prish namazin." },
               { n: 5, t: "Prishja e abdestit", d: "Hadith Buhariu: 'Allahu nuk pranon namazin pa abdest.'" },
               { n: 6, t: "Kthimi i shpinës nga Kibla pa arsye", d: "Kur'an 2:144 – Detyrimi i drejtimit nga Kibla." },
-              { n: 7, t: "Humbja e Nijetit ose ndryshimi i qëllimit", d: "Hadith: 'Veprat janë sipas qëllimeve.' (Buhariu)" },
-              { n: 8, t: "Ngrënia e diçkaje mes dhëmbëve (nëse është e madhe)", d: "Konsensus juristësh." },
+              { n: 7, t: "Humbja e Nijetit ose ndryshimi i qëllimit", d: "Hadith: 'Veprat janë sipas qëllimeve.'" },
             ].map(p => <Item key={p.n} num={p.n} title={p.t} dalil={p.d} />)}
           </Section>
         </div>
