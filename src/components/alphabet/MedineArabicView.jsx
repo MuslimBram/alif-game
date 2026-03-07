@@ -531,12 +531,6 @@ const MEDINE_DATA = {
           { ar: "رَأَيْتُ الطَّالِبَ — الطالبَ: منصوب", roman: "ra'aytu aṭ-ṭāliba — manṣūb", trans: "E pashë nxënësin — nxënësin: kallëzuesore" },
         ]
       },
-      {
-        id: 4,
-        title: "الدرس الرابع — Mësimi 4",
-        topic: "الأفعال الضعيفة — Foljet e Dobëta",
-    ]
-  },
   profesionist: {
     title: "الكتاب الرابع — Libri i Katërt",
     subtitle: "Thellim profesional në arabishten klasike",
