@@ -108,6 +108,7 @@ export default function Home({ adminEditMode, isAdmin }) {
         <div className="max-w-sm mx-auto">
           <PrayerTimesWidget onPrayerTimesUpdate={setPrayerTimes} />
         </div>
+        <PrayerPositionsGuide />
         <QuickStats />
         <TriLanguageTranslator />
       </div>
