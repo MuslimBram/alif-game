@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight, RotateCcw, X, Play, Pause, Mic, MicOff, BookOpen } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { VERSE_DATA, HADITH_QURAN, countArabicConsonants } from "./VERSE_DATA";
