@@ -419,30 +419,30 @@ export default function SurahVerseViewer({ surah, onClose }) {
                     </p>
 
                     {/* Transliterim */}
-                    {currentVerseData.translit && (
-                      <div className="mb-2">
-                        <button onClick={() => setShowTranslit(v => !v)}
-                          className="text-xs text-teal-600 underline font-semibold mb-1 flex items-center gap-1">
-                          {showTranslit ? "▲" : "▼"} Transliterim (Germat Latine)
-                        </button>
-                        {showTranslit && (
-                          <p className="text-sm text-teal-700 italic bg-teal-50 rounded-xl p-3 border border-teal-100 text-center">{currentVerseData.translit}</p>
-                        )}
-                      </div>
-                    )}
+                    <div className="mb-2">
+                      <button onClick={() => setShowTranslit(v => !v)}
+                        className="text-xs text-teal-600 underline font-semibold mb-1 flex items-center gap-1">
+                        {showTranslit ? "▲" : "▼"} Transliterim (Germat Latine)
+                      </button>
+                      {showTranslit && (
+                        currentVerseData.translit
+                          ? <p className="text-sm text-teal-700 italic bg-teal-50 rounded-xl p-3 border border-teal-100 text-center">{currentVerseData.translit}</p>
+                          : <p className="text-xs text-gray-400 italic px-2">Transliterimi nuk është i disponueshëm për këtë ajet.</p>
+                      )}
+                    </div>
 
                     {/* Përkthim shqip */}
-                    {currentVerseData.sq && (
-                      <div className="mb-3">
-                        <button onClick={() => setShowTranslation(v => !v)}
-                          className="text-xs text-blue-600 underline font-semibold mb-1 flex items-center gap-1">
-                          {showTranslation ? "▲" : "▼"} Kuptimi në Shqip
-                        </button>
-                        {showTranslation && (
-                          <p className="text-sm text-blue-800 bg-blue-50 rounded-xl p-3 border border-blue-100 leading-relaxed italic">"{currentVerseData.sq}"</p>
-                        )}
-                      </div>
-                    )}
+                    <div className="mb-3">
+                      <button onClick={() => setShowTranslation(v => !v)}
+                        className="text-xs text-blue-600 underline font-semibold mb-1 flex items-center gap-1">
+                        {showTranslation ? "▲" : "▼"} Kuptimi në Shqip
+                      </button>
+                      {showTranslation && (
+                        currentVerseData.sq
+                          ? <p className="text-sm text-blue-800 bg-blue-50 rounded-xl p-3 border border-blue-100 leading-relaxed italic">"{currentVerseData.sq}"</p>
+                          : <p className="text-xs text-gray-400 italic px-2">Përkthimi nuk është i disponueshëm për këtë ajet.</p>
+                      )}
+                    </div>
 
                     {/* Sevape for this verse */}
                     <div className="flex items-center justify-center gap-3 text-xs mb-3">
