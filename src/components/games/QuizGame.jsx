@@ -493,22 +493,28 @@ export default function QuizGame({ gameId, quizKey: quizKeyProp, onClose }) {
   const [maxStreak, setMaxStreak] = useState(0);
   const [timer, setTimer] = useState(data.timePerQ);
   const [totalTime, setTotalTime] = useState(0);
-  const timerExpiredRef = useRef(false);
-  const answeredRef = useRef(null);
-
-  useEffect(() => { answeredRef.current = answered; }, [answered]);
+  const stateRef = useRef({ answered: null, idx: 0, phase: "start", questions });
+  stateRef.current = { answered, idx, phase, questions };
 
   useEffect(() => {
     if (phase !== "playing") return;
-    timerExpiredRef.current = false;
+    setTimer(data.timePerQ);
     const interval = setInterval(() => {
       setTimer(prev => {
         if (prev <= 1) {
-          clearInterval(interval);
-          if (!timerExpiredRef.current && answeredRef.current === null) {
-            timerExpiredRef.current = true;
-            // Use a small timeout to avoid React state batching issues
-            setTimeout(() => handleAnswerInternal(null), 0);
+          // Time's up — answer null if not already answered
+          if (stateRef.current.answered === null && stateRef.current.phase === "playing") {
+            const q = stateRef.current.questions[stateRef.current.idx];
+            const result = { selected: null, correct: q.correct, isCorrect: false };
+            setAnswered(result);
+            setStreak(0);
+            setTimeout(() => {
+              const nextIdx = stateRef.current.idx + 1;
+              if (nextIdx >= stateRef.current.questions.length) { setPhase("done"); return; }
+              setIdx(nextIdx);
+              setTimer(data.timePerQ);
+              setAnswered(null);
+            }, 1200);
           }
           return 0;
         }
@@ -524,19 +530,11 @@ export default function QuizGame({ gameId, quizKey: quizKeyProp, onClose }) {
     return () => clearInterval(t);
   }, [phase]);
 
-  const handleAnswerInternal = useCallback((opt) => {
-    if (answeredRef.current !== null) return;
-    const q = questions[answeredRef.current !== null ? 0 : idx];
-    // We need idx from closure — use ref
-    return null; // placeholder, see below
-  }, []);
-
   const handleAnswer = useCallback((opt) => {
-    if (answered !== null) return;
-    const q = questions[idx];
+    if (stateRef.current.answered !== null) return;
+    const q = stateRef.current.questions[stateRef.current.idx];
     const isCorrect = opt === q.correct;
     const result = { selected: opt, correct: q.correct, isCorrect };
-    answeredRef.current = result;
     setAnswered(result);
     if (isCorrect) {
       setScore(s => s + 1);
@@ -545,14 +543,13 @@ export default function QuizGame({ gameId, quizKey: quizKeyProp, onClose }) {
       setStreak(0);
     }
     setTimeout(() => {
-      answeredRef.current = null;
-      timerExpiredRef.current = false;
-      if (idx + 1 >= questions.length) { setPhase("done"); return; }
-      setIdx(i => i + 1);
+      const nextIdx = stateRef.current.idx + 1;
+      if (nextIdx >= stateRef.current.questions.length) { setPhase("done"); return; }
+      setIdx(nextIdx);
       setTimer(data.timePerQ);
       setAnswered(null);
     }, 1200);
-  }, [answered, idx, questions, data.timePerQ]);
+  }, [data.timePerQ]);
 
   const restart = () => {
     setPhase("start"); setIdx(0); setAnswered(null);
