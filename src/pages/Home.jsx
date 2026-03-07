@@ -3,6 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { createPageUrl } from "@/utils";
 import HeroSection from "@/components/home/HeroSection";
 import DailyVerse from "@/components/home/DailyVerse";
+import PrayerTimesWidget from "@/components/home/PrayerTimesWidget";
 import LevelSelectionModal from "@/components/home/LevelSelectionModal";
 import { Button } from "@/components/ui/button";
 import { LogIn, UserPlus, Shield } from "lucide-react";
