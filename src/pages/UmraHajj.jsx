@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp, Volume2, CheckCircle, Timer, XCircle, Trophy, RotateCcw, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { speakArabic } from "@/components/utils/speakAlbanian";
+import { UMRA_STEPS, HAJJ_STEPS, HOLY_SITES, QUIZ_QUESTIONS } from "@/components/umra/UmraHajjData";
 
 const PROGRESS_KEY = "umrahajj_progress";
 function loadUHProgress() { try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}"); } catch { return {}; } }
