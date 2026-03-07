@@ -128,10 +128,14 @@ export default function Tajweed({ adminEditMode, isAdmin }) {
           ))}
         </div>
       ) : filteredRules.length === 0 ? (
-        <div className="text-center py-20">
+        <div className="text-center py-12">
           <BookMarked className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500 text-lg">Nuk u gjetën rregulla</p>
-          <p className="text-gray-400 text-sm mt-1">Provoni filtra të ndryshme</p>
+          <p className="text-gray-500 text-lg">Nuk u gjetën rregulla në bazën e të dhënave</p>
+          <p className="text-gray-400 text-sm mt-2 mb-4">Kaloni te "Mëso Texhuidin" për rregullat e integruara</p>
+          <button onClick={() => setActiveTab("builtIn")}
+            className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-sm font-bold transition-all">
+            🎓 Mëso Texhuidin — Rregulla të Integruara
+          </button>
         </div>
       ) : selectedCategory !== "te_gjitha" ? (
         <div className="space-y-3">
