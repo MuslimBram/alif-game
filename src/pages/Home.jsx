@@ -9,6 +9,7 @@ import LevelSelectionModal from "@/components/home/LevelSelectionModal";
 import TimeHeaderWidget from "@/components/home/TimeHeaderWidget";
 import TriLanguageTranslator from "@/components/home/TriLanguageTranslator";
 import PrayerPositionsGuide from "@/components/home/PrayerPositionsGuide";
+import DragDropSections from "@/components/home/DragDropSections";
 import { Button } from "@/components/ui/button";
 import { LogIn, UserPlus, Shield } from "lucide-react";
 
@@ -103,16 +104,11 @@ export default function Home({ adminEditMode, isAdmin }) {
         </div>
       )}
       <HeroSection stats={stats} adminEditMode={adminEditMode} isAdmin={isAdmin} />
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <TimeHeaderWidget prayerTimes={prayerTimes} />
-        <DailyVerse />
-        <div className="max-w-sm mx-auto">
-          <PrayerTimesWidget onPrayerTimesUpdate={setPrayerTimes} />
-        </div>
-        <PrayerPositionsGuide />
-        <QuickStats />
-        <TriLanguageTranslator />
-      </div>
+      <DragDropSections 
+        adminEditMode={adminEditMode} 
+        prayerTimes={prayerTimes} 
+        onPrayerTimesUpdate={setPrayerTimes}
+      />
     </div>
   );
 }
