@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, ChevronDown, ChevronUp, Volume2, Search, Heart, CheckCircle, RotateCcw, Trophy, BookMarked, List, SortAsc } from "lucide-react";
+import { BookOpen, ChevronDown, ChevronUp, Search, Heart, CheckCircle, RotateCcw, Trophy, BookMarked, List, SortAsc } from "lucide-react";
 import AdminEditOverlay from "@/components/admin/AdminEditOverlay";
 import { createPageUrl } from "@/utils";
 import SurahQuiz from "@/components/quran/SurahQuiz";
