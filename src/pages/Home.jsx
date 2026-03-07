@@ -56,6 +56,38 @@ export default function Home({ adminEditMode, isAdmin }) {
       {showLevelModal && (
         <LevelSelectionModal onClose={(level) => setShowLevelModal(false)} />
       )}
+
+      {/* Login/Register banner for visitors */}
+      {isAuthenticated === false && (
+        <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-4 px-4">
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <Shield className="w-6 h-6 text-emerald-200 flex-shrink-0" />
+              <div>
+                <p className="font-bold text-sm">Ruaj progresin tënd!</p>
+                <p className="text-xs text-emerald-100">Regjistrohu për të ruajtur rezultatet, progresin dhe sfidave.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <Button
+                size="sm"
+                onClick={() => base44.auth.redirectToLogin()}
+                className="bg-white text-emerald-700 hover:bg-emerald-50 font-bold rounded-xl gap-2"
+              >
+                <LogIn className="w-4 h-4" /> Hyr
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => base44.auth.redirectToLogin()}
+                className="bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded-xl gap-2 border border-emerald-500"
+              >
+                <UserPlus className="w-4 h-4" /> Regjistrohu
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {adminEditMode && isAdmin && (
         <div className="fixed top-24 left-4 z-50 bg-white border-2 border-amber-400 rounded-2xl shadow-xl p-3 space-y-1.5 min-w-[180px]">
           <p className="text-xs font-bold text-amber-600 uppercase tracking-wide mb-2">✏️ Edit Ballina</p>
