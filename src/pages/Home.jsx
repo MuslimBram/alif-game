@@ -15,6 +15,7 @@ export default function Home({ adminEditMode, isAdmin }) {
   const [stats, setStats] = useState({ lessons: 0, completed: 0, avgScore: 0 });
   const [showLevelModal, setShowLevelModal] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(null); // null = loading
+  const [prayerTimes, setPrayerTimes] = useState(null);
 
   useEffect(() => {
     const loadStats = async () => {
