@@ -499,9 +499,9 @@ export default function SurahVerseViewer({ surah, onClose }) {
                   </>
                 ) : (
                   <div className="text-center py-4">
-                    <p className="text-4xl mb-2">﴿{currentVerse}﴾</p>
+                    <p className="text-3xl text-gray-400 mb-2">📖</p>
                     <p className="text-sm text-gray-500 italic">{surah.name} — Ajeti {currentVerse}</p>
-                    <p className="text-xs text-gray-400 mt-2">Teksti i plotë i këtij ajeti do të shtohet së shpejti.</p>
+                    <p className="text-xs text-gray-400 mt-2">Nuk u ngarkua teksti. Mund të dëgjoni audion e ajetit.</p>
                   </div>
                 )}
               </div>
