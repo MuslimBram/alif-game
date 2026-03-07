@@ -15,6 +15,7 @@ export default function Home({ adminEditMode, isAdmin }) {
     const loadStats = async () => {
       try {
         const authed = await base44.auth.isAuthenticated();
+        setIsAuthenticated(authed);
         if (!authed) {
           // Show level selection for new/unauthenticated visitors
           const seen = sessionStorage.getItem("levelModalSeen");
