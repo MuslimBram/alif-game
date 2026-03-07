@@ -23,7 +23,10 @@ function addMinutes(timeStr, mins) {
 export default function PrayerTimesWidget() {
   const [times, setTimes] = useState(null);
   const [city, setCity] = useState("Tirane");
+  const [coords, setCoords] = useState(null); // { lat, lng }
+  const [locationName, setLocationName] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [gpsLoading, setGpsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -32,26 +35,72 @@ export default function PrayerTimesWidget() {
     return () => clearInterval(t);
   }, []);
 
-  useEffect(() => {
-    const fetch_times = async () => {
-      setLoading(true); setError(null);
-      try {
-        const today = new Date();
-        const dateStr = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
-        const res = await fetch(`https://api.aladhan.com/v1/timingsByCity/${dateStr}?city=${encodeURIComponent(city)}&country=Albania&method=3`);
-        const data = await res.json();
-        if (data.data?.timings) {
-          setTimes(data.data.timings);
-        } else {
-          setError("Nuk u gjeten kohët");
-        }
-      } catch {
-        setError("Nuk u lidh me serverin");
+  const fetchByCoords = async (lat, lng) => {
+    setLoading(true); setError(null);
+    try {
+      const today = new Date();
+      const dateStr = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+      const res = await fetch(`https://api.aladhan.com/v1/timings/${dateStr}?latitude=${lat}&longitude=${lng}&method=3`);
+      const data = await res.json();
+      if (data.data?.timings) {
+        setTimes(data.data.timings);
+      } else {
+        setError("Nuk u gjeten kohët");
       }
-      setLoading(false);
-    };
-    fetch_times();
-  }, [city]);
+    } catch {
+      setError("Nuk u lidh me serverin");
+    }
+    setLoading(false);
+  };
+
+  const fetchByCity = async (cityName) => {
+    setLoading(true); setError(null);
+    try {
+      const today = new Date();
+      const dateStr = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+      const res = await fetch(`https://api.aladhan.com/v1/timingsByCity/${dateStr}?city=${encodeURIComponent(cityName)}&country=Albania&method=3`);
+      const data = await res.json();
+      if (data.data?.timings) {
+        setTimes(data.data.timings);
+      } else {
+        setError("Nuk u gjeten kohët");
+      }
+    } catch {
+      setError("Nuk u lidh me serverin");
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (coords) {
+      fetchByCoords(coords.lat, coords.lng);
+    } else {
+      fetchByCity(city);
+    }
+  }, [city, coords]);
+
+  const detectLocation = () => {
+    if (!navigator.geolocation) { setError("GPS nuk mbështetet nga shfletuesi."); return; }
+    setGpsLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        setCoords({ lat, lng });
+        // Reverse geocode to get city name
+        try {
+          const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+          const d = await r.json();
+          const name = d.address?.city || d.address?.town || d.address?.village || d.address?.county || "Vendndodhja";
+          setLocationName(name);
+        } catch {
+          setLocationName("Vendndodhja GPS");
+        }
+        setGpsLoading(false);
+      },
+      () => { setError("GPS nuk u lejua. Zgjidh qytetin manualisht."); setGpsLoading(false); }
+    );
+  };
 
   const getNextPrayer = () => {
     if (!times) return null;
