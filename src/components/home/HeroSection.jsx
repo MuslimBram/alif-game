@@ -73,7 +73,7 @@ export default function HeroSection({ stats }) {
           {[
             { 
               title: "TE Alfabeti", 
-              items: ["Germat", "Rrokjet", "Fjalët", "Zgjedhimi", "Lakimi"],
+              items: ["Numrat", "Germat", "Rrokjet", "Fjalët", "Zgjedhimi", "Lakimi"],
               icon: "🔤",
               color: "from-blue-500 to-cyan-500",
               page: "AlphabetMain"
