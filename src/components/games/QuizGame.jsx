@@ -552,9 +552,9 @@ export default function QuizGame({ gameId, quizKey: quizKeyProp, onClose }) {
   }, [data.timePerQ]);
 
   const restart = () => {
-    setPhase("start"); setIdx(0); setAnswered(null);
-    setScore(0); setStreak(0); setMaxStreak(0);
-    setTimer(data.timePerQ); setTotalTime(0);
+    setAnswered(null); setIdx(0); setScore(0);
+    setStreak(0); setMaxStreak(0); setTimer(data.timePerQ);
+    setTotalTime(0); setPhase("start");
   };
 
   const pct = Math.round((score / questions.length) * 100);
