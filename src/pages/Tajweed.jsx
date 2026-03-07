@@ -175,7 +175,7 @@ export default function Tajweed({ adminEditMode, isAdmin }) {
         </div>
       )}
 
-      </> }
+      </>}
     </div>
   );
 }
