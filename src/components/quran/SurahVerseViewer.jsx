@@ -376,9 +376,9 @@ export default function SurahVerseViewer({ surah, onClose }) {
           {/* VERSES */}
           {phase === "verses" && (
             <div className="p-5 space-y-4">
-              {/* Revelation context */}
+              {/* Revelation context — Transmetimi */}
               <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4">
-                <p className="text-xs font-bold text-amber-700 mb-1">📅 {revCtx.period}</p>
+                <p className="text-xs font-bold text-amber-700 mb-1">📅 Transmetimi — {revCtx.period}</p>
                 <p className="text-sm text-gray-700 leading-relaxed">{revCtx.context}</p>
               </div>
 
@@ -389,20 +389,88 @@ export default function SurahVerseViewer({ surah, onClose }) {
                 {currentVerseData ? (
                   <>
                     {/* Arabic text */}
-                    <p className="text-2xl text-gray-900 mb-4 leading-loose text-center" style={{ fontFamily: "Amiri, serif", direction: "rtl" }}>
+                    <p className="text-2xl text-gray-900 mb-3 leading-loose text-center" style={{ fontFamily: "Amiri, serif", direction: "rtl" }}>
                       {currentVerseData.ar} ﴿{currentVerse}﴾
                     </p>
+
+                    {/* Transliterim */}
+                    {currentVerseData.translit && (
+                      <div className="mb-2">
+                        <button onClick={() => setShowTranslit(v => !v)}
+                          className="text-xs text-teal-600 underline font-semibold mb-1 flex items-center gap-1">
+                          {showTranslit ? "▲" : "▼"} Transliterim (Germat Latine)
+                        </button>
+                        {showTranslit && (
+                          <p className="text-sm text-teal-700 italic bg-teal-50 rounded-xl p-3 border border-teal-100 text-center">{currentVerseData.translit}</p>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Përkthim shqip */}
+                    {currentVerseData.sq && (
+                      <div className="mb-3">
+                        <button onClick={() => setShowTranslation(v => !v)}
+                          className="text-xs text-blue-600 underline font-semibold mb-1 flex items-center gap-1">
+                          {showTranslation ? "▲" : "▼"} Kuptimi në Shqip
+                        </button>
+                        {showTranslation && (
+                          <p className="text-sm text-blue-800 bg-blue-50 rounded-xl p-3 border border-blue-100 leading-relaxed italic">"{currentVerseData.sq}"</p>
+                        )}
+                      </div>
+                    )}
+
                     {/* Sevape for this verse */}
                     <div className="flex items-center justify-center gap-3 text-xs mb-3">
                       <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full font-semibold">
                         {letterCount} germa · {sevapeVerse} sevape
                       </span>
                     </div>
+
                     {/* Tafsir */}
                     <div className="bg-white rounded-xl p-4 border border-emerald-100">
                       <p className="text-xs font-bold text-emerald-700 mb-1">📝 Tefsiri (Kuptimi & Shpjegimi)</p>
                       <p className="text-sm text-gray-700 leading-relaxed">{currentVerseData.tafsir}</p>
                     </div>
+
+                    {/* Kuiz per kete ajet */}
+                    {!verseQuizActive ? (
+                      <button onClick={startVerseQuiz}
+                        className="w-full mt-2 py-2 rounded-xl bg-violet-100 hover:bg-violet-200 text-violet-700 text-xs font-bold border border-violet-200 transition-all">
+                        🎯 Testo veten — Kuiz për këtë Ajet
+                      </button>
+                    ) : (
+                      <div className="bg-violet-50 border border-violet-100 rounded-xl p-4 mt-2 space-y-3">
+                        {!verseQuizDone ? (
+                          <>
+                            <p className="text-xs font-bold text-violet-700">🎯 Kuiz — Pyetja {verseQuizIdx + 1}/{verseQuizQuestions.length}</p>
+                            <p className="text-sm font-semibold text-gray-800">{verseQuizQuestions[verseQuizIdx]?.q}</p>
+                            <div className="space-y-2">
+                              {verseQuizQuestions[verseQuizIdx]?.options.map(opt => {
+                                let cls = "border border-gray-200 bg-white hover:border-violet-400 text-gray-700";
+                                if (verseQuizAnswered) {
+                                  if (opt === verseQuizAnswered.correct) cls = "border-2 border-emerald-500 bg-emerald-50 text-emerald-800";
+                                  else if (opt === verseQuizAnswered.selected && !verseQuizAnswered.isCorrect) cls = "border-2 border-red-400 bg-red-50 text-red-700";
+                                  else cls = "border border-gray-100 bg-gray-50 text-gray-400";
+                                }
+                                return (
+                                  <button key={opt} onClick={() => handleVerseQuizAnswer(opt)}
+                                    className={`w-full p-2.5 rounded-xl text-left text-xs font-medium transition-all ${cls}`}>
+                                    {opt}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </>
+                        ) : (
+                          <div className="text-center space-y-2">
+                            <p className="text-2xl">{verseQuizScore === verseQuizQuestions.length ? "🏆" : "👍"}</p>
+                            <p className="font-bold text-gray-800">{verseQuizScore}/{verseQuizQuestions.length} të sakta</p>
+                            <button onClick={() => setVerseQuizActive(false)}
+                              className="text-xs px-3 py-1.5 rounded-xl bg-violet-600 text-white font-semibold">Mbyll Kuizin</button>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </>
                 ) : (
                   <div className="text-center py-4">
