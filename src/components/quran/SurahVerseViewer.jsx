@@ -270,7 +270,7 @@ export default function SurahVerseViewer({ surah, onClose }) {
   const hasLocalData = localVerses.length > 0;
 
   // Fetch from API if no local data
-  React.useEffect(() => {
+  useEffect(() => {
     if (hasLocalData) return;
     setApiLoading(true);
     fetch(`https://api.alquran.cloud/v1/surah/${surah.num}`)
