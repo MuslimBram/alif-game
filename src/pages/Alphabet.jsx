@@ -34,7 +34,7 @@ const levels = [
 { value: "profesionist", label: "Profesionist" }];
 
 
-export default function Alphabet({ adminEditMode, isAdmin }) {
+export default function Alphabet({ adminEditMode = false, isAdmin = false }) {
   const [selectedLang, setSelectedLang] = useState("shqip");
   const [viewMode, setViewMode] = useState("single"); // "single" or "triple"
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");

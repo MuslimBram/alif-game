@@ -49,40 +49,40 @@
  */
 import AdminPanel from './pages/AdminPanel';
 import Alphabet from './pages/Alphabet';
+import AlphabetMain from './pages/AlphabetMain';
 import FE from './pages/FE';
 import Games from './pages/Games';
 import Groups from './pages/Groups';
 import Home from './pages/Home';
 import Leaderboard from './pages/Leaderboard';
+import MedineArabicMain from './pages/MedineArabicMain';
 import Progress from './pages/Progress';
 import Quran from './pages/Quran';
 import Settings from './pages/Settings';
 import Tajweed from './pages/Tajweed';
+import TajweedMain from './pages/TajweedMain';
 import UmraHajj from './pages/UmraHajj';
 import WordsAdmin from './pages/WordsAdmin';
-import AlphabetMain from './pages/AlphabetMain';
-import TajweedMain from './pages/TajweedMain';
-import MedineArabicMain from './pages/MedineArabicMain';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "AdminPanel": AdminPanel,
     "Alphabet": Alphabet,
+    "AlphabetMain": AlphabetMain,
     "FE": FE,
     "Games": Games,
     "Groups": Groups,
     "Home": Home,
     "Leaderboard": Leaderboard,
+    "MedineArabicMain": MedineArabicMain,
     "Progress": Progress,
     "Quran": Quran,
     "Settings": Settings,
     "Tajweed": Tajweed,
+    "TajweedMain": TajweedMain,
     "UmraHajj": UmraHajj,
     "WordsAdmin": WordsAdmin,
-    "AlphabetMain": AlphabetMain,
-    "TajweedMain": TajweedMain,
-    "MedineArabicMain": MedineArabicMain,
 }
 
 export const pagesConfig = {
