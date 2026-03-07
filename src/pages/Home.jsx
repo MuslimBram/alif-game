@@ -4,6 +4,7 @@ import { createPageUrl } from "@/utils";
 import HeroSection from "@/components/home/HeroSection";
 import DailyVerse from "@/components/home/DailyVerse";
 import PrayerTimesWidget from "@/components/home/PrayerTimesWidget";
+import QuickStats from "@/components/home/QuickStats";
 import LevelSelectionModal from "@/components/home/LevelSelectionModal";
 import { Button } from "@/components/ui/button";
 import { LogIn, UserPlus, Shield } from "lucide-react";
