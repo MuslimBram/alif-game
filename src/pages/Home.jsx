@@ -97,6 +97,9 @@ export default function Home({ adminEditMode, isAdmin }) {
         </div>
       )}
       <HeroSection stats={stats} adminEditMode={adminEditMode} isAdmin={isAdmin} />
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <DailyVerse />
+      </div>
     </div>
   );
 }
