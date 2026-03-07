@@ -13,7 +13,9 @@ import {
   Scroll,
   MapPin,
   Settings,
-  Pencil } from
+  Pencil,
+  BarChart3,
+  BookMarked } from
 "lucide-react";
 import PointsToast from "@/components/gamification/PointsToast";
 import { Button } from "@/components/ui/button";
