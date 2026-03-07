@@ -194,36 +194,38 @@ export default function PrayerTimesWidget() {
             const displayTime = prayer === "Fajr" ? sabahTime : times[prayer];
             const displayName = PRAYER_NAMES[prayer] || prayer;
             return (
-              <motion.div key={prayer}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className={`flex items-center justify-between rounded-2xl px-4 py-2.5 transition-all ${
-                  isNext ? "bg-emerald-500/30 border border-emerald-500/50" : "bg-white/5"
-                }`}>
-                <div className="flex items-center gap-2">
-                  {isNext && <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />}
-                  <div>
-                    <span className={`text-sm font-semibold ${isNext ? "text-emerald-300" : "text-gray-300"}`}>
-                      {displayName}
-                    </span>
-                    {prayer === "Fajr" && fajrTime && (
-                      <p className="text-[10px] text-gray-500">Fajri (ezani): {fajrTime}</p>
-                    )}
+              <React.Fragment key={prayer}>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className={`flex items-center justify-between rounded-2xl px-4 py-2.5 transition-all ${
+                    isNext ? "bg-emerald-500/30 border border-emerald-500/50" : "bg-white/5"
+                  }`}>
+                  <div className="flex items-center gap-2">
+                    {isNext && <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />}
+                    <div>
+                      <span className={`text-sm font-semibold ${isNext ? "text-emerald-300" : "text-gray-300"}`}>
+                        {displayName}
+                      </span>
+                      {prayer === "Fajr" && fajrTime && (
+                        <p className="text-[10px] text-gray-500">Ezani (Fajr): {fajrTime}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <span className={`font-bold text-sm ${isNext ? "text-emerald-300" : "text-white"}`}>
-                  {displayTime}
-                </span>
-              </motion.div>
+                  <span className={`font-bold text-sm ${isNext ? "text-emerald-300" : "text-white"}`}>
+                    {displayTime}
+                  </span>
+                </motion.div>
+                {/* Lindja e Diellit — direkt pas Sabahut/Fajr */}
+                {prayer === "Fajr" && sunriseTime && (
+                  <div className="flex items-center justify-between rounded-2xl px-4 py-2 bg-amber-500/10 border border-amber-500/20">
+                    <span className="text-xs text-amber-300">☀️ Lindja e Diellit</span>
+                    <span className="text-xs font-semibold text-amber-300">{sunriseTime}</span>
+                  </div>
+                )}
+              </React.Fragment>
             );
           })}
-          {/* Lindja e Diellit */}
-          {sunriseTime && (
-            <div className="flex items-center justify-between rounded-2xl px-4 py-2 bg-white/5">
-              <span className="text-xs text-amber-300">☀️ Lindja e Diellit</span>
-              <span className="text-xs font-semibold text-amber-300">{sunriseTime}</span>
-            </div>
-          )}
           <p className="text-xs text-gray-500 text-center mt-2 pt-2 border-t border-white/10">
             Ora aktuale: {currentTime.toLocaleTimeString("sq-AL", { hour: "2-digit", minute: "2-digit" })}
           </p>
