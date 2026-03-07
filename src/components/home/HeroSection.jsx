@@ -78,13 +78,7 @@ export default function HeroSection({ stats }) {
               color: "from-blue-500 to-cyan-500",
               page: "AlphabetMain"
             },
-            {
-              title: "📖 Texhuidi",
-              items: ["Rregulla", "Praktikë", "Audio", "Ushtrime", "Testim"],
-              icon: "📖",
-              color: "from-purple-500 to-violet-500",
-              page: "TajweedMain"
-            },
+
             {
               title: "🕌 Arabisht Medinë",
               items: ["Fillestar", "Mesatar", "Avancuar", "Profesionist", "Mësime"],

@@ -24,7 +24,7 @@ const navItems = [
 { name: "Ballina", page: "Home", icon: Home },
 { name: "Alfabeti", page: "Alphabet", icon: Languages },
 { name: "Kur'ani", page: "Quran", icon: BookOpen },
-{ name: "Texhuidi", page: "TajweedMain", icon: BookMarked },
+
 { name: "Arabisht Medinë", page: "MedineArabicMain", icon: BookOpen },
 { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
 { name: "Lojëra", page: "Games", icon: Gamepad2 },
