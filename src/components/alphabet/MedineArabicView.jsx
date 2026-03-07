@@ -541,12 +541,84 @@ const MEDINE_DATA = {
     title: "الكتاب الرابع — Libri i Katërt",
     subtitle: "Thellim profesional në arabishten klasike",
     units: [
+      { id: 1, title: "الدرس الأول — Mësimi 1", topic: "أوزان الأفعال — Sistemit i Foljeve",
+        vocab: [{ ar: "فَعَلَ (I)", trans: "Forma I — bazë", roman: "fa'ala" }, { ar: "فَعَّلَ (II)", trans: "Forma II — intensitet", roman: "fa''ala" }, { ar: "أَفْعَلَ (IV)", trans: "Forma IV — kauzative", roman: "af'ala" }, { ar: "انْفَعَلَ (VII)", trans: "Forma VII — pasive", roman: "infa'ala" }, { ar: "اسْتَفْعَلَ (X)", trans: "Forma X — kërkon", roman: "istaf'ala" }, { ar: "تَفَعَّلَ (V)", trans: "Forma V — refleksive II", roman: "tafa''ala" }, { ar: "فَاعَلَ (III)", trans: "Forma III — reciproke", roman: "fā'ala" }, { ar: "الثُّلَاثِيّ", trans: "trikonsonantike", roman: "thulāthī" }],
+        grammar: "10 forma (awzān): II=intensifikim, IV=kauzative, VII=pasive, X=kërkon/konsideron. عَلِمَ(diti)→عَلَّمَ(mësoi)→أَعْلَمَ(njoftoi)→اسْتَعْلَمَ(hetoi).",
+        examples: [{ ar: "كَتَبَ (I) → كَتَّبَ (II) → أَكْتَبَ (IV)", roman: "kataba → kattaba → aktaba", trans: "shkroi → bëri të shkruajë → dikton" }, { ar: "خَرَجَ → أَخْرَجَ → اسْتَخْرَجَ", roman: "kharaja → akhraja → istakhraja", trans: "doli → nxori → shfrytëzoi" }]
+      },
+      { id: 2, title: "الدرس الثاني — Mësimi 2", topic: "الفعل الماضي والمضارع — E Kaluara & E Tashme",
+        vocab: [{ ar: "الفعل الماضي", trans: "folja e kaluar", roman: "al-fi'l al-māḍī" }, { ar: "الفعل المضارع", trans: "folja e tashme", roman: "al-fi'l al-muḍāri'" }, { ar: "ذَهَبَ / يَذْهَبُ", trans: "shkoi / shkon", roman: "dhahaba / yadhhabu" }, { ar: "قَرَأَ / يَقْرَأُ", trans: "lexoi / lexon", roman: "qara'a / yaqra'u" }, { ar: "كَتَبَ / يَكْتُبُ", trans: "shkroi / shkruan", roman: "kataba / yaktubu" }, { ar: "فَعَلَ / يَفْعَلُ", trans: "bëri / bën", roman: "fa'ala / yaf'alu" }, { ar: "سَمِعَ / يَسْمَعُ", trans: "dëgjoi / dëgjon", roman: "sami'a / yasma'u" }, { ar: "جَاءَ / يَجِيءُ", trans: "erdhi / vjen", roman: "jā'a / yajī'u" }],
+        grammar: "E tashme formohet me parashtesa: يَ(ai), تَ(ti/ajo), أَ(unë), نَ(ne). Vokali i mesit: يَفْعَلُ/يَفْعِلُ/يَفْعُلُ sipas formës.",
+        examples: [{ ar: "يَذْهَبُ حَامِدٌ وَهِيَ تَذْهَبُ", roman: "yadhhabu ḥāmidun wa hiya tadhhabu", trans: "Hamidi shkon dhe ajo shkon" }, { ar: "أَنَا أَتَعَلَّمُ العَرَبِيَّةَ", roman: "anā ata'allamu al-'arabiyya", trans: "Unë po mësoj arabishten" }]
+      },
+      { id: 3, title: "الدرس الثالث — Mësimi 3", topic: "إعراب الأسماء — Rasët Gramatikore",
+        vocab: [{ ar: "الرَّفْعُ (ـُ/ـٌ)", trans: "emërorja — subjekt", roman: "raf' — ḍamma" }, { ar: "النَّصْبُ (ـَ/ـً)", trans: "kallëzuesore — objekt", roman: "naṣb — fatḥa" }, { ar: "الْجَرُّ (ـِ/ـٍ)", trans: "gjenitore — pas prep.", roman: "jarr — kasra" }, { ar: "تَنْوِين", trans: "nunation (ـٌ/ـً/ـٍ)", roman: "tanwīn" }, { ar: "مَرْفُوع", trans: "në rasën emërore", roman: "marfū'" }, { ar: "مَنْصُوب", trans: "në rasën kallëzuesore", roman: "manṣūb" }, { ar: "مَجْرُور", trans: "në rasën gjenitore", roman: "majrūr" }, { ar: "مَبْنِي", trans: "e pandryshueshme", roman: "mabnī" }],
+        grammar: "3 rasa: Raf'(ـُ) subjekt, Naṣb(ـَ) objekt/ndajfolje, Jarr(ـِ) pas parafjalëve. Tanwīn = n si shenjë e papërcaktuar.",
+        examples: [{ ar: "جَاءَ الطَّالِبُ (مرفوع)", roman: "jā'a aṭ-ṭālibu", trans: "Nxënësi erdhi (emërorë)" }, { ar: "رَأَيْتُ الطَّالِبَ (منصوب)", roman: "ra'aytu aṭ-ṭāliba", trans: "E pashë nxënësin (kallëzuesore)" }]
+      },
+      { id: 4, title: "الدرس الرابع — Mësimi 4", topic: "الأفعال الضعيفة — Foljet e Dobëta",
+        vocab: [{ ar: "مِثَال (و/ي fillim)", trans: "Mithal — dhe/ji në fillim", roman: "mithāl" }, { ar: "أَجْوَف (علة mes)", trans: "Ajwaf — zanore e dobët në mes", roman: "ajwaf" }, { ar: "نَاقِص (علة fund)", trans: "Naqis — zanore e dobët në fund", roman: "nāqiṣ" }, { ar: "وَعَدَ / يَعِدُ", trans: "premtoi / premton", roman: "wa'ada / ya'idu" }, { ar: "قَالَ / يَقُولُ", trans: "tha / thotë (ajwaf-و)", roman: "qāla / yaqūlu" }, { ar: "بَاعَ / يَبِيعُ", trans: "shiti / shet (ajwaf-ي)", roman: "bā'a / yabī'u" }, { ar: "دَعَا / يَدْعُو", trans: "thirri / thërret (naqis)", roman: "da'ā / yad'ū" }, { ar: "مَشَى / يَمْشِي", trans: "eceu / ecën (naqis-ي)", roman: "mashā / yamshī" }],
+        grammar: "Ajwaf: zanori i mesit zgjatet ose bie. Naqis: fundi ndryshon format. Mithal: و/ي e parë bie shpesh në tashme.",
+        examples: [{ ar: "قَالَ الأُسْتَاذُ — يَقُولُ الأُسْتَاذُ", roman: "qāla al-ustādhu — yaqūlu", trans: "Mësuesi tha — Mësuesi thotë" }, { ar: "دَعَا إِلَى اللهِ", roman: "da'ā ilā allāh", trans: "Ai thirri drejt Allahut" }]
+      },
+      { id: 5, title: "الدرس الخامس — Mësimi 5", topic: "اسم الفاعل واسم المفعول — Emri Veprues & Objekt",
+        vocab: [{ ar: "اسْمُ الفَاعِل", trans: "emri i vepruesit", roman: "ism al-fā'il" }, { ar: "اسْمُ الْمَفْعُول", trans: "emri i objektit", roman: "ism al-maf'ūl" }, { ar: "كَاتِب", trans: "shkrues / writer", roman: "kātib" }, { ar: "مَكْتُوب", trans: "i shkruar / written", roman: "maktūb" }, { ar: "طَالِب", trans: "ai që kërkon / student", roman: "ṭālib" }, { ar: "مَطْلُوب", trans: "i kërkuar / requested", roman: "maṭlūb" }, { ar: "مُعَلِّم (II)", trans: "mësues / teacher", roman: "mu'allim" }, { ar: "مُعَلَّم (II obj.)", trans: "i mësuar / taught", roman: "mu'allam" }],
+        grammar: "Ism Fa'il F.I: وَزْن فَاعِل. Ism Maf'ul F.I: وَزْن مَفْعُول. Format tjera: مُفَعِّل/مُفَعَّل.",
+        examples: [{ ar: "الطَّالِبُ كَاتِبٌ", roman: "aṭ-ṭālibu kātibun", trans: "Nxënësi është shkrues" }, { ar: "هَذَا كِتَابٌ مَكْتُوبٌ بِالعَرَبِيَّة", roman: "hādhā kitābun maktūbun", trans: "Ky është libër i shkruar në arabisht" }]
+      },
+      { id: 6, title: "الدرس السادس — Mësimi 6", topic: "المصدر — Masdar (Emri i Veprimit)",
+        vocab: [{ ar: "مَصْدَر", trans: "masdar / verbal noun", roman: "maṣdar" }, { ar: "كِتَابَة", trans: "shkrimi / writing (F.I)", roman: "kitāba" }, { ar: "قِرَاءَة", trans: "leximi / reading (F.I)", roman: "qirā'a" }, { ar: "ذَهَاب", trans: "ikja / going (F.I)", roman: "dhahāb" }, { ar: "تَعْلِيم", trans: "mësimdhënia (F.II)", roman: "ta'līm" }, { ar: "إِسْلَام", trans: "nënshtrimi/islami (F.IV)", roman: "islām" }, { ar: "اسْتِفَادَة", trans: "përfitimi (F.X)", roman: "istifāda" }, { ar: "فَهْم", trans: "kuptimi / understanding", roman: "fahm" }],
+        grammar: "Masdar = emri i veprimit (si infinitiv). F.I: forma të ndryshme. F.II=تَفْعِيل, F.IV=إِفْعَال, F.X=اسْتِفْعَال.",
+        examples: [{ ar: "أُحِبُّ القِرَاءَةَ", roman: "uḥibbu al-qirā'ata", trans: "Dua leximin" }, { ar: "التَّعْلِيمُ مِهْنَةٌ شَرِيفَة", roman: "at-ta'līmu mihnatun sharīfa", trans: "Mësimdhënia është profesion i ndershëm" }]
+      },
+      { id: 7, title: "الدرس السابع — Mësimi 7", topic: "كَانَ وَأَخَوَاتُهَا — Kāna & Motrat e Saj",
+        vocab: [{ ar: "كَانَ", trans: "ishte / was", roman: "kāna" }, { ar: "أَصْبَحَ", trans: "u bë (mëngjes)", roman: "aṣbaḥa" }, { ar: "أَمْسَى", trans: "u bë (mbrëmje)", roman: "amsā" }, { ar: "ظَلَّ", trans: "mbeti / remained", roman: "ẓalla" }, { ar: "لَيْسَ", trans: "nuk është / is not", roman: "laysa" }, { ar: "صَارَ", trans: "u bë / became", roman: "ṣāra" }, { ar: "مَا زَالَ", trans: "ende është / still is", roman: "mā zāla" }, { ar: "بَاتَ", trans: "kaloi natën", roman: "bāta" }],
+        grammar: "Kāna dhe motrat (nawāqiṣ): kryefjalë: raf', kallëzuesi → naṣb. Struktura: كَانَ + kryef.(raf') + kallëzues(naṣb).",
+        examples: [{ ar: "كَانَ الطَّالِبُ مُجْتَهِدًا", roman: "kāna aṭ-ṭālibu mujtahidan", trans: "Nxënësi ishte i zellshëm" }, { ar: "لَيْسَ هَذَا كِتَابِي", roman: "laysa hādhā kitābī", trans: "Ky nuk është libri im" }]
+      },
+      { id: 8, title: "الدرس الثامن — Mësimi 8", topic: "إِنَّ وَأَخَوَاتُهَا — Inna & Motrat e Saj",
+        vocab: [{ ar: "إِنَّ", trans: "vërtet / indeed (thekson)", roman: "inna" }, { ar: "أَنَّ", trans: "se / that", roman: "anna" }, { ar: "كَأَنَّ", trans: "si të / as if", roman: "ka'anna" }, { ar: "لَكِنَّ", trans: "por / but", roman: "lākinna" }, { ar: "لَيْتَ", trans: "ah sikur / I wish", roman: "layta" }, { ar: "لَعَلَّ", trans: "ndoshta / perhaps", roman: "la'alla" }, { ar: "إِنَّ اللهَ غَفُورٌ", trans: "Vërtet Allahu është Falës", roman: "inna llāha ghafūrun" }, { ar: "أَعْلَمُ أَنَّهُ صَادِق", trans: "di se ai është i sinqertë", roman: "a'lamu annahu ṣādiq" }],
+        grammar: "Inna & motrat (nawāsikh): ndryshojnë rasën e kryefjalës → naṣb. إِنَّ + kryef.(naṣb) + kallëzues(raf').",
+        examples: [{ ar: "إِنَّ اللهَ عَلِيمٌ حَكِيمٌ", roman: "inna llāha 'alīmun ḥakīmun", trans: "Vërtet Allahu është i Ditur, i Urtë" }, { ar: "لَعَلَّ الطَّالِبَ يَنْجَح", roman: "la'alla aṭ-ṭāliba yanjaḥ", trans: "Ndoshta nxënësi do të kalojë" }]
+      },
+      { id: 9, title: "الدرس التاسع — Mësimi 9", topic: "الجملة الشرطية — Fjali Kushtore",
+        vocab: [{ ar: "إِنْ", trans: "nëse (e ardhme)", roman: "in" }, { ar: "إِذَا", trans: "nëse/kur (e zakonshme)", roman: "idhā" }, { ar: "لَوْ", trans: "po të ishte (ireale)", roman: "law" }, { ar: "مَنْ", trans: "kushdo që (person)", roman: "man" }, { ar: "مَا", trans: "çfarëdo që", roman: "mā" }, { ar: "جَوَاب الشَّرْط", trans: "përgjigja e kushtit", roman: "jawāb ash-sharṭ" }, { ar: "لَوْلَا", trans: "po të mos ishte", roman: "lawlā" }, { ar: "أَيْنَمَا", trans: "kudo që", roman: "aynanamā" }],
+        grammar: "Fjalia kushtore: lidhëz + kushti + (fa') + përgjigja. إِنْ تَدْرُسْ تَنْجَحْ. Law + kaluar = kushti irreal.",
+        examples: [{ ar: "إِنْ تَدْرُسْ تَنْجَحْ", roman: "in tadrus tanjaḥ", trans: "Nëse studion, do të kalosh" }, { ar: "لَوْ كُنْتُ غَنِيًّا لَأَعْطَيْتُكَ", roman: "law kuntu ghaniyyan la-a'ṭaytuka", trans: "Po të isha i pasur, do të të jepja" }]
+      },
+      { id: 10, title: "الدرس العاشر — Mësimi 10", topic: "الجملة الاسمية والفعلية — Fjali Emërore & Foljore",
+        vocab: [{ ar: "الجُمْلَة الاسْمِيَّة", trans: "fjali emërore", roman: "al-jumla al-ismiyya" }, { ar: "الجُمْلَة الفِعْلِيَّة", trans: "fjali foljore", roman: "al-jumla al-fi'liyya" }, { ar: "الْمُبْتَدَأ", trans: "tema (subjekt emëror)", roman: "al-mubtada'" }, { ar: "الْخَبَر", trans: "kallëzuesi emëror", roman: "al-khabar" }, { ar: "الفَاعِل", trans: "kryefjalë foljore", roman: "al-fā'il" }, { ar: "الْمَفْعُول بِه", trans: "kundrinor direkt", roman: "al-maf'ūl bihi" }, { ar: "الْمُبْتَدَأ مَرْفُوع", trans: "tema: emërorë", roman: "mubtada' marfū'" }, { ar: "الْخَبَر مَرْفُوع", trans: "kallëzuesi: emërorë", roman: "khabar marfū'" }],
+        grammar: "Emërore: mubtada'(raf') + khabar(raf') pa folje. Foljore: folje + fā'il(raf') + maf'ūl(naṣb).",
+        examples: [{ ar: "البَيْتُ كَبِيرٌ (اسمية)", roman: "al-baytu kabīrun", trans: "Shtëpia është e madhe (emërore)" }, { ar: "ذَهَبَ الطَّالِبُ إِلَى المَدْرَسَة (فعلية)", roman: "dhahaba aṭ-ṭālibu", trans: "Nxënësi shkoi në shkollë (foljore)" }]
+      },
+      { id: 11, title: "الدرس الحادي عشر — Mësimi 11", topic: "الإضافة — Idafa (Pronësia)",
+        vocab: [{ ar: "مُضَاف", trans: "emri i parë (pa artikull)", roman: "muḍāf" }, { ar: "مُضَاف إِلَيْه", trans: "emri i dytë (gjenitor)", roman: "muḍāf ilayh" }, { ar: "كِتَابُ الطَّالِب", trans: "libri i nxënësit", roman: "kitāb aṭ-ṭālib" }, { ar: "بَيْتُ اللهِ", trans: "shtëpia e Allahut", roman: "bayt allāh" }, { ar: "رَسُولُ اللهِ", trans: "i dërguar i Allahut", roman: "rasūl allāh" }, { ar: "حَذْف (ال)", trans: "heqja e artikullit", roman: "ḥadhf al-" }, { ar: "حَذْف التَّنْوِين", trans: "heqja e tanwīn", roman: "ḥadhf at-tanwīn" }, { ar: "إضافة حقيقية / مجازية", trans: "idafa reale / figurative", roman: "iḍāfa ḥaqīqīya / majāzīya" }],
+        grammar: "Idafa: emri i parë humbet artikullin dhe tanwīn. Emri i dytë → gjenitor (kasra). كِتَابٌ + الطَّالِبُ → كِتَابُ الطَّالِبِ.",
+        examples: [{ ar: "كِتَابُ الطَّالِبِ جَدِيدٌ", roman: "kitābu aṭ-ṭālibi jadīdun", trans: "Libri i nxënësit është i ri" }, { ar: "رَسُولُ اللهِ مُحَمَّدٌ ﷺ", roman: "rasūlu llāhi muḥammadun", trans: "I dërguar i Allahut është Muhammedi ﷺ" }]
+      },
+      { id: 12, title: "الدرس الثاني عشر — Mësimi 12", topic: "الحَال — Hal (Gjendja Shoqëruese)",
+        vocab: [{ ar: "حَال", trans: "gjendja gjatë veprimit", roman: "ḥāl" }, { ar: "صَاحِب الحَال", trans: "ai që ka gjendjen", roman: "ṣāḥib al-ḥāl" }, { ar: "ضَاحِكًا", trans: "duke qeshur", roman: "ḍāḥikan" }, { ar: "مُسْرِعًا", trans: "duke vrapuar", roman: "musri'an" }, { ar: "رَاكِبًا", trans: "duke hipur", roman: "rākiban" }, { ar: "وَاقِفًا", trans: "duke qëndruar", roman: "wāqifan" }, { ar: "مُبْتَسِمًا", trans: "duke buzëqeshur", roman: "mubtasiman" }, { ar: "جَالِسًا", trans: "duke ulur", roman: "jālisan" }],
+        grammar: "Ḥāl tregon gjendjen e kryefjalës gjatë veprimit. Merr naṣb (kallëzuesore). دَخَلَ ضَاحِكًا (hyri duke qeshur).",
+        examples: [{ ar: "دَخَلَ الطَّالِبُ ضَاحِكًا", roman: "dakhala aṭ-ṭālibu ḍāḥikan", trans: "Nxënësi hyri duke qeshur" }, { ar: "جَاءَ مُحَمَّدٌ رَاكِبًا", roman: "jā'a muḥammadun rākiban", trans: "Muhammeti erdhi duke hipur" }]
+      },
+      { id: 13, title: "الدرس الثالث عشر — Mësimi 13", topic: "التَّمْيِيز والبَدَل — Tamyiz & Badal",
+        vocab: [{ ar: "تَمْيِيز", trans: "sqaruesi / specifier", roman: "tamyīz" }, { ar: "بَدَل", trans: "zëvendësuesi / substitute", roman: "badal" }, { ar: "اشْتَرَيْتُ عِشْرِينَ كِتَابًا", trans: "bleva njëzet libra", roman: "ishtaraytu 'ishrīna kitāban" }, { ar: "طَابَ مُحَمَّدٌ نَفْسًا", trans: "Muhammeti qetësoi shpirtin", roman: "ṭāba muḥammadun nafsan" }, { ar: "جَاءَ زَيْدٌ أَخُوكَ", trans: "Erdhi Zejdi, vëllai yt", roman: "jā'a zaydun akhūka" }, { ar: "بَدَل الكُل", trans: "zëvendësuesi total", roman: "badal al-kull" }, { ar: "بَدَل البَعض", trans: "zëvendësuesi parcial", roman: "badal al-ba'ḍ" }, { ar: "بَدَل الاشْتِمَال", trans: "zëvendësuesi kuptimor", roman: "badal al-ishtimāl" }],
+        grammar: "Tamyiz sqaron kuptimin (pas numrave/masave) → naṣb. Badal zëvendëson emrin dhe merr të njëjtën rasë.",
+        examples: [{ ar: "اشْتَرَيْتُ عِشْرِينَ كِتَابًا", roman: "ishtaraytu 'ishrīna kitāban", trans: "Bleva njëzet libra" }, { ar: "جَاءَ مُحَمَّدٌ أَخُوكَ", roman: "jā'a muḥammadun akhūka", trans: "Erdhi Muhammedi, vëllai yt" }]
+      },
+      { id: 14, title: "الدرس الرابع عشر — Mësimi 14", topic: "النَّعْت والتَّوْكِيد — Na't & Tawkid",
+        vocab: [{ ar: "نَعْت (صِفَة)", trans: "mbiemri përshkrues", roman: "na't / ṣifa" }, { ar: "النَّعْت الحَقِيقِي", trans: "na't i drejtpërdrejtë", roman: "an-na't al-ḥaqīqī" }, { ar: "تَوْكِيد لَفْظِي", trans: "theksim me përsëritje", roman: "tawkīd lafẓī" }, { ar: "تَوْكِيد مَعْنَوِي", trans: "theksim kuptimor", roman: "tawkīd ma'nawī" }, { ar: "نَفْسُ / عَيْنُ", trans: "vetë (theksim)", roman: "nafs / 'ayn" }, { ar: "كُلُّ / جَمِيع", trans: "gjithë (theksim total)", roman: "kull / jamī'" }, { ar: "أَجْمَع", trans: "krejt (theksim i plotë)", roman: "ajma'" }, { ar: "كِلَا / كِلْتَا", trans: "të dy (dy sende)", roman: "kilā / kiltā" }],
+        grammar: "Na't përputhej emrin në: gjini, numër, rasë, përcaktim. Tawkid: نَفْسُ(vetë), كُلُّ(gjithë), أَجْمَع(krejt).",
+        examples: [{ ar: "جَاءَ طَالِبٌ مُجْتَهِدٌ", roman: "jā'a ṭālibun mujtahidun", trans: "Erdhi një nxënës i zellshëm" }, { ar: "جَاءَ الطُّلَّابُ كُلُّهُمْ", roman: "jā'a aṭ-ṭullābu kulluhum", trans: "Erdhën të gjithë nxënësit" }]
+      },
+      { id: 15, title: "الدرس الخامس عشر — Mësimi 15", topic: "الظُّرُوف وتحليل النصوص — Ndajfoljet & I'rāb",
+        vocab: [{ ar: "ظَرْف الزَّمَان", trans: "ndajfolja e kohës", roman: "ẓarf az-zamān" }, { ar: "ظَرْف المَكَان", trans: "ndajfolja e vendit", roman: "ẓarf al-makān" }, { ar: "صَبَاحًا / مَسَاءً", trans: "mëngjes / mbrëmje", roman: "ṣabāḥan / masā'an" }, { ar: "أَمَامَ / وَرَاءَ", trans: "para / prapa", roman: "amāma / warā'a" }, { ar: "فَوْقَ / تَحْتَ", trans: "lart / poshtë", roman: "fawqa / taḥta" }, { ar: "تَحْلِيل نَحْوِي", trans: "analizë gramatikore", roman: "taḥlīl naḥwī" }, { ar: "الْإِعْرَاب", trans: "analiza rasore i'rāb", roman: "al-i'rāb" }, { ar: "الْفَاعِل مَرْفُوع", trans: "kryefjalë: emërorë", roman: "al-fā'il marfū'" }],
+        grammar: "Ndajfoljet e kohës/vendit zakonisht naṣb. I'rāb = analiza e plotë gramatikore: lloji, rasa, shkaku.",
+        examples: [{ ar: "ذَهَبَ صَبَاحًا وَعَادَ مَسَاءً", roman: "dhahaba ṣabāḥan wa 'āda masā'an", trans: "Shkoi në mëngjes dhe u kthye mbrëmje" }, { ar: "جَلَسَ أَمَامَ المَسْجِد", roman: "jalasa amāma al-masjid", trans: "U ul para xhamisë" }]
+      },
       {
-        id: 1,
-        title: "الوحدة الأولى — Njësia 1",
-        topic: "Moda & Tonalitet • صيغ واستخدامات متقدمة",
-        vocab: [
-          { ar: "كَاد / أوشَكَ", trans: "gati (pothuajse)", roman: "kāda / awshaka" },
+        id: 1000, title: "PLACEHOLDER", topic: "REMOVE",
+        vocab: [{ ar: "كَاد / أوشَكَ", trans: "gati (pothuajse)", roman: "kāda / awshaka" },
           { ar: "بَدَأَ / شَرَعَ", trans: "filloi", roman: "bada'a / shara'a" },
           { ar: "ظَلَّ / بَقِيَ", trans: "mbeti / qëndroi", roman: "ẓalla / baqiya" },
           { ar: "صارَ / أضْحى", trans: "u bë / bëhet (i mëngjesit)", roman: "ṣāra / aḍḥā" },
