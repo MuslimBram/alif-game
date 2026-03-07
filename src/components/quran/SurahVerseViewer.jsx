@@ -221,11 +221,42 @@ function VoiceTest({ surah, verses }) {
   );
 }
 
+// Per-verse quiz generator
+function generateVerseQuiz(verse, surah, verseNum) {
+  const questions = [];
+  if (verse.sq) {
+    questions.push({
+      q: `Cili është kuptimi i Ajetit ${verseNum} të Sures "${surah.name}"?`,
+      options: shuffle([verse.sq.slice(0, 60) + "...", "Allahu është i vetëm", "Kërko mbrojtje nga e keqja", "Falënderim i takon Allahut"]),
+      correct: verse.sq.slice(0, 60) + "..."
+    });
+  }
+  questions.push({
+    q: `Ajeti ${verseNum} i Sures "${surah.name}" i përket cilës sure?`,
+    options: shuffle([surah.name, "Al-Fatiha", "Al-Ikhlas", "Al-Falaq"].filter((v,i,a) => a.indexOf(v) === i)),
+    correct: surah.name
+  });
+  questions.push({
+    q: `Sa ajete ka Sureja "${surah.name}"?`,
+    options: shuffle([String(surah.verses), String(surah.verses + 5), String(Math.max(1,surah.verses - 3)), String(surah.verses + 12)]),
+    correct: String(surah.verses)
+  });
+  return questions.slice(0, 2);
+}
+
 export default function SurahVerseViewer({ surah, onClose }) {
   const [phase, setPhase] = useState("hadiths"); // hadiths | verses | voicetest | quiz
   const [verseIdx, setVerseIdx] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [audioError, setAudioError] = useState(false);
+  const [showTranslit, setShowTranslit] = useState(false);
+  const [showTranslation, setShowTranslation] = useState(false);
+  const [verseQuizActive, setVerseQuizActive] = useState(false);
+  const [verseQuizQuestions, setVerseQuizQuestions] = useState([]);
+  const [verseQuizIdx, setVerseQuizIdx] = useState(0);
+  const [verseQuizAnswered, setVerseQuizAnswered] = useState(null);
+  const [verseQuizScore, setVerseQuizScore] = useState(0);
+  const [verseQuizDone, setVerseQuizDone] = useState(false);
   const [quizQuestions] = useState(() => generateSurahQuiz(surah));
   const [quizIdx, setQuizIdx] = useState(0);
   const [answered, setAnswered] = useState(null);
