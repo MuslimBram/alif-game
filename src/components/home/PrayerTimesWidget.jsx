@@ -65,6 +65,13 @@ export default function PrayerTimesWidget() {
   };
 
   const nextPrayer = getNextPrayer();
+
+  // Sabahu = Fajr + 30 minuta; Imsaku = koha e Fajrit; Lindja = Sunrise nga API
+  const fajrTime = times?.Fajr || "";
+  const sabahTime = fajrTime ? addMinutes(fajrTime, 30) : "";
+  const imsakTime = times?.Imsak || fajrTime;
+  const sunriseTime = times?.Sunrise || "";
+
   const SHOW_PRAYERS = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
   return (
