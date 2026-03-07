@@ -576,6 +576,8 @@ export default function FE() {
             <Item title="Llojet e Sadakasë" text="1. Sadaka e vullnetshme (Nafile) – në çdo kohë. 2. Sadaka Xharije – vepra e vazhdueshme (pus, xhami, libër i dobishëm). 3. Sadaka Fitrit – obligim para Fitër Bajramit." dalil="Hadith Muslimi: 'Kur vdes njeriu, veprat e tij ndërpriten veç nga tri: sadakaja e vazhdueshme, dituria e dobishme, ose fëmija i mirë që lutet për të.'" />
           </Section>
 
+          <div className="mb-4"><ZekatiCalculator /></div>
+
           <Section title="Sadakaja e Fitrit" icon={<Star className="w-5 h-5 text-green-500" />} color="border-green-300">
             <HadithBox
               text="Ibni Omeri transmeton: 'I Dërguari i Allahut ﷺ e obligoi Sadakatu-l-Fitrin – një Sa' hurma ose elb – mbi çdo musliman, të lirë a skllav, mashkull a femër, të vogël a të madh.' (Buhariu dhe Muslimi)"
