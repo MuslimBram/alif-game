@@ -108,8 +108,18 @@ export default function PrayerTimesWidget() {
 
       {times && !loading && (
         <div className="space-y-2">
+          {/* Imsak */}
+          {imsakTime && (
+            <div className="flex items-center justify-between rounded-2xl px-4 py-2 bg-white/5">
+              <span className="text-xs text-gray-400">🌙 Imsaku (fillim agjërimi)</span>
+              <span className="text-xs font-semibold text-gray-400">{imsakTime}</span>
+            </div>
+          )}
           {SHOW_PRAYERS.map(prayer => {
             const isNext = prayer === nextPrayer;
+            // Për Fajr, shfaqim Sabahun (Fajr+30min) si kohë kryesore dhe Fajrin si nënshënim
+            const displayTime = prayer === "Fajr" ? sabahTime : times[prayer];
+            const displayName = PRAYER_NAMES[prayer] || prayer;
             return (
               <motion.div key={prayer}
                 initial={{ opacity: 0 }}
@@ -119,16 +129,28 @@ export default function PrayerTimesWidget() {
                 }`}>
                 <div className="flex items-center gap-2">
                   {isNext && <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />}
-                  <span className={`text-sm font-semibold ${isNext ? "text-emerald-300" : "text-gray-300"}`}>
-                    {PRAYER_NAMES[prayer] || prayer}
-                  </span>
+                  <div>
+                    <span className={`text-sm font-semibold ${isNext ? "text-emerald-300" : "text-gray-300"}`}>
+                      {displayName}
+                    </span>
+                    {prayer === "Fajr" && fajrTime && (
+                      <p className="text-[10px] text-gray-500">Fajri (ezani): {fajrTime}</p>
+                    )}
+                  </div>
                 </div>
                 <span className={`font-bold text-sm ${isNext ? "text-emerald-300" : "text-white"}`}>
-                  {times[prayer]}
+                  {displayTime}
                 </span>
               </motion.div>
             );
           })}
+          {/* Lindja e Diellit */}
+          {sunriseTime && (
+            <div className="flex items-center justify-between rounded-2xl px-4 py-2 bg-white/5">
+              <span className="text-xs text-amber-300">☀️ Lindja e Diellit</span>
+              <span className="text-xs font-semibold text-amber-300">{sunriseTime}</span>
+            </div>
+          )}
           <p className="text-xs text-gray-500 text-center mt-2 pt-2 border-t border-white/10">
             Ora aktuale: {currentTime.toLocaleTimeString("sq-AL", { hour: "2-digit", minute: "2-digit" })}
           </p>
