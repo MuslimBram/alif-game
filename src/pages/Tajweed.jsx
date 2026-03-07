@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import TajweedFilters from "@/components/tajweed/TajweedFilters";
 import TajweedCard from "@/components/tajweed/TajweedCard";
+import TajweedBuiltIn from "@/components/tajweed/TajweedBuiltIn";
 
 export default function Tajweed({ adminEditMode, isAdmin }) {
   const [selectedLevel, setSelectedLevel] = useState("te_gjitha");
