@@ -130,18 +130,42 @@ export default function PrayerTimesWidget() {
           <Clock className="w-5 h-5 text-emerald-400" />
           <h3 className="font-bold text-base">Kohët e Namazit</h3>
         </div>
-        <div className="flex items-center gap-1 bg-white/10 rounded-xl px-2 py-1">
-          <MapPin className="w-3.5 h-3.5 text-emerald-300" />
-          <select value={city} onChange={e => setCity(e.target.value)}
-            className="bg-transparent text-white text-xs font-semibold outline-none cursor-pointer">
-            <option value="Tirane" className="text-black">Tiranë</option>
-            <option value="Durres" className="text-black">Durrës</option>
-            <option value="Shkoder" className="text-black">Shkodër</option>
-            <option value="Vlore" className="text-black">Vlorë</option>
-            <option value="Elbasan" className="text-black">Elbasan</option>
-            <option value="Skopje" className="text-black">Shkup</option>
-            <option value="Pristina" className="text-black">Prishtinë</option>
-          </select>
+        <div className="flex items-center gap-2">
+          {/* GPS Button */}
+          <button onClick={detectLocation} disabled={gpsLoading}
+            className="flex items-center gap-1 bg-emerald-600/40 hover:bg-emerald-600/60 rounded-xl px-2 py-1 transition-colors"
+            title="Zbulo vendndodhjen aktuale">
+            {gpsLoading
+              ? <div className="w-3.5 h-3.5 border-2 border-emerald-300 border-t-transparent rounded-full animate-spin" />
+              : <LocateFixed className="w-3.5 h-3.5 text-emerald-300" />}
+            <span className="text-xs text-emerald-200 font-semibold">
+              {locationName ? locationName : "GPS"}
+            </span>
+          </button>
+          {/* Manual city selector — hidden when GPS active */}
+          {!coords && (
+            <div className="flex items-center gap-1 bg-white/10 rounded-xl px-2 py-1">
+              <MapPin className="w-3.5 h-3.5 text-emerald-300" />
+              <select value={city} onChange={e => { setCoords(null); setLocationName(null); setCity(e.target.value); }}
+                className="bg-transparent text-white text-xs font-semibold outline-none cursor-pointer">
+                <option value="Tirane" className="text-black">Tiranë</option>
+                <option value="Durres" className="text-black">Durrës</option>
+                <option value="Shkoder" className="text-black">Shkodër</option>
+                <option value="Vlore" className="text-black">Vlorë</option>
+                <option value="Elbasan" className="text-black">Elbasan</option>
+                <option value="Skopje" className="text-black">Shkup</option>
+                <option value="Pristina" className="text-black">Prishtinë</option>
+                <option value="Prizren" className="text-black">Prizren</option>
+                <option value="Tetovo" className="text-black">Tetovë</option>
+              </select>
+            </div>
+          )}
+          {coords && (
+            <button onClick={() => { setCoords(null); setLocationName(null); }}
+              className="text-[10px] text-gray-400 hover:text-white underline">
+              ✕ Manual
+            </button>
+          )}
         </div>
       </div>
 
