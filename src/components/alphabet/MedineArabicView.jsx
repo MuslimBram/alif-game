@@ -447,35 +447,112 @@ export default function MedineArabicView() {
         <p className="text-sm text-gray-500">{data.subtitle}</p>
       </div>
 
-      {/* Info box — vetëm për fillestar, para njësisë 1 */}
-      {level === "fillestar" && (
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-5 space-y-3">
+      {/* Info boxes për të gjithë nivelet */}
+      {(level === "fillestar" || level === "mesatar" || level === "avancuar" || level === "profesionist") && (
+        <div className={`bg-gradient-to-br rounded-2xl p-5 space-y-3 border ${
+          level === "fillestar" ? "from-blue-50 to-indigo-50 border-blue-100" :
+          level === "mesatar" ? "from-emerald-50 to-teal-50 border-emerald-100" :
+          level === "avancuar" ? "from-amber-50 to-orange-50 border-amber-100" :
+          "from-purple-50 to-indigo-50 border-purple-100"
+        }`}>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-2xl">📱</span>
-            <h4 className="font-bold text-blue-800 text-sm">Rreth Kursit — Arabisht Medinase</h4>
+            <span className="text-2xl">{level === "fillestar" ? "📱" : level === "mesatar" ? "📚" : level === "avancuar" ? "🎓" : "🏆"}</span>
+            <h4 className={`font-bold text-sm ${
+              level === "fillestar" ? "text-blue-800" :
+              level === "mesatar" ? "text-emerald-800" :
+              level === "avancuar" ? "text-amber-800" :
+              "text-purple-800"
+            }`}>Rreth Kursit — Arabisht Medinase {level === "fillestar" ? "Pjesa 1" : level === "mesatar" ? "Pjesa 2" : level === "avancuar" ? "Pjesa 3" : "Pjesa 4"}</h4>
           </div>
-          <p className="text-sm text-gray-700 leading-relaxed">
-            Aplikacioni për studimin e gjuhës arabe i zhvilluar sipas metodologjisë së kursit <strong>Medinah pjesa 1</strong>. I përshtatshëm për ata që fillojnë të mësojnë arabisht nga e para, si dhe për ata që duan të forcojnë njohurit e tyre.
-          </p>
-          <p className="text-sm text-gray-700 leading-relaxed">
-            Thelbi i të gjithë aplikacionit është se ju duhet të mbledhni fraza në arabisht. Me ne do të mësoni gjuhën arabe në një kohë të shkurtër <strong>hap pas hapi</strong>.
-          </p>
-          <div className="bg-white/70 rounded-xl p-3 border border-blue-100">
-            <p className="text-xs font-bold text-blue-700 mb-1">📋 Çdo mësim ka 1 deri në 4 skeda:</p>
+
+          {level === "fillestar" && (
+            <>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Aplikacioni për studimin e gjuhës arabe i zhvilluar sipas metodologjisë së kursit <strong>Medinah pjesa 1</strong>. I përshtatshëm për ata që fillojnë të mësojnë arabisht nga e para, si dhe për ata që duan të forcojnë njohurit e tyre.
+              </p>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Thelbi i të gjithë aplikacionit është se ju duhet të mbledhni fraza në arabisht. Me ne do të mësoni gjuhën arabe në një kohë të shkurtër <strong>hap pas hapi</strong>.
+              </p>
+            </>
+          )}
+
+          {level === "mesatar" && (
+            <>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                <strong>Kursi i Medinës Pjesa 2</strong> — Zgjerim i plotë i fjalorit dhe gramatikës arabe. I përshtatshëm për ata që kanë mbaruar Pjesën 1 dhe duan të forcojnë njohuritë e tyre më tej.
+              </p>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Thelbi i të gjithë aplikacionit është se ju duhet të mbledhni fraza në arabisht. Me ne do të mësoni arabisht në një kohë të shkurtër <strong>hap pas hapi</strong>.
+              </p>
+            </>
+          )}
+
+          {level === "avancuar" && (
+            <>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                <strong>Kursi i Medinës Pjesa 3</strong> — Avancim i plotë në arabishten klasike. I përshtatshëm për ata që kanë përfunduar Pjesat 1 dhe 2 dhe duan të avancojnë njohuritë e tyre.
+              </p>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Thelbi i të gjithë aplikacionit është se ju duhet të mbledhni fraza në arabisht. Me ne do të mësoni arabisht në një kohë të shkurtër <strong>hap pas hapi</strong>.
+              </p>
+            </>
+          )}
+
+          {level === "profesionist" && (
+            <>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                <strong>Kursi i Medinës Pjesa 4</strong> — Kjo është <strong>pjesa e katërt e fundit</strong> e kursit të arabishtes Medina. Thellim profesional në arabishten klasike me fokus në morfologjinë e avancuar.
+              </p>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Thelbi i të gjithë aplikacionit është se ju duhet të mbledhni fraza në arabisht. Me ne do të mësoni arabisht në një kohë të shkurtër <strong>hap pas hapi</strong>.
+              </p>
+            </>
+          )}
+
+          <div className="bg-white/70 rounded-xl p-3 border" style={{borderColor: level === "fillestar" ? "#bfdbfe" : level === "mesatar" ? "#a7f3d0" : level === "avancuar" ? "#fed7aa" : "#d8b4fe"}}>
+            <p className={`text-xs font-bold mb-1 ${
+              level === "fillestar" ? "text-blue-700" :
+              level === "mesatar" ? "text-emerald-700" :
+              level === "avancuar" ? "text-amber-700" :
+              "text-purple-700"
+            }`}>📋 Çdo mësim ka 1 deri në {level === "profesionist" ? "3" : "4"} skeda:</p>
             <ul className="text-xs text-gray-600 space-y-1 list-disc ml-4">
               <li><strong>Sharh (Përshkrim)</strong> — Përshkrim i plotë i rregullave gramatikore</li>
-              <li><strong>Fjalët</strong> — Lista e fjalëve të reja me aktrim zanor</li>
+              <li><strong>Fjalët Arabe</strong> — Lista e fjalëve të reja me aktrim zanor</li>
+              {(level === "fillestar" || level === "mesatar") && <li><strong>Lidhja e Foljeve</strong> — Ushtrime me foljet arabe (Pjesa 2)</li>}
               <li><strong>Dialogë</strong> — Mbledh dialogë në arabisht</li>
-              <li><strong>Lidhja e foljeve</strong> — Ushtrime me foljet arabe</li>
             </ul>
           </div>
-          <p className="text-xs text-gray-500 italic">
-            💡 Nëse nuk keni mësuar ende alfabetin arab, rekomandojmë të filloni me modulin <strong>Alfabeti Arab</strong> më parë.
-          </p>
+
           {level === "fillestar" && (
-            <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3">
-              <p className="text-xs font-bold text-emerald-700 mb-1">🎓 Pas Kursit 1, mund të vazhdoni:</p>
-              <p className="text-xs text-gray-600">Kursi i gjuhës arabe Medina <strong>pjesa 2</strong> — Zgjerim i mëtejshëm i fjalorit dhe gramatikës.</p>
+            <p className="text-xs text-gray-500 italic">
+              💡 Nëse nuk keni mësuar ende alfabetin arab, rekomandojmë të filloni me modulin <strong>Alfabeti Arab</strong> më parë.
+            </p>
+          )}
+
+          <div className={`rounded-xl p-3 border ${
+            level === "fillestar" ? "bg-emerald-50 border-emerald-100" :
+            level === "mesatar" ? "bg-blue-50 border-blue-100" :
+            level === "avancuar" ? "bg-emerald-50 border-emerald-100" :
+            "bg-blue-50 border-blue-100"
+          }`}>
+            <p className={`text-xs font-bold mb-1 ${
+              level === "fillestar" || level === "avancuar" ? "text-emerald-700" : "text-blue-700"
+            }`}>
+              {level === "fillestar" ? "🎓 Pas Kursit 1" : level === "mesatar" ? "🎓 Pas Kursit 2" : level === "avancuar" ? "🎓 Pas Kursit 3" : "🏆 Kursi i Katërt"}
+            </p>
+            <p className="text-xs text-gray-600">
+              {level === "fillestar" ? "Mund të vazhdoni me Kursin e Gjuhës Arabe Medina Pjesa 2 — Zgjerim i mëtejshëm i fjalorit dhe gramatikës." :
+               level === "mesatar" ? "Mund të vazhdoni me Kursin e Gjuhës Arabe Medina Pjesa 3 — Avancim i plotë në arabishten klasike." :
+               level === "avancuar" ? "Mund të vazhdoni me Kursin e Gjuhës Arabe Medina Pjesa 4 — Thellim profesional me morfologji të avancuar." :
+               "Ju keni përfunduar serinë e plotë Medina! Aplikacioni ka tre opsione zanore (dy mashkull, një femër) ideale për të mësuar arabisht në grup ose familje."}
+            </p>
+          </div>
+
+          {level === "profesionist" && (
+            <div className="bg-gradient-to-r from-purple-500 to-indigo-500 rounded-xl p-3 text-white">
+              <p className="text-xs font-bold mb-1">✨ Përparimi në Aplikacion</p>
+              <p className="text-xs">Duke përdorur modalitetet e mësimit: mblethje e fjalëve, fusnote manuale (për të avancuara), opsione zanore multiple — mëso arabisht si kurrë më parë!</p>
             </div>
           )}
         </div>
