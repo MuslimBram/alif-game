@@ -287,6 +287,26 @@ export default function SurahVerseViewer({ surah, onClose }) {
   const goTo = (idx) => {
     if (audioRef.current) audioRef.current.pause();
     setPlaying(false); setAudioError(false); setVerseIdx(idx);
+    setShowTranslit(false); setShowTranslation(false);
+    setVerseQuizActive(false); setVerseQuizDone(false); setVerseQuizIdx(0); setVerseQuizAnswered(null);
+  };
+
+  const startVerseQuiz = () => {
+    const qs = generateVerseQuiz(currentVerseData, surah, currentVerse);
+    setVerseQuizQuestions(qs);
+    setVerseQuizIdx(0); setVerseQuizAnswered(null); setVerseQuizScore(0); setVerseQuizDone(false);
+    setVerseQuizActive(true);
+  };
+
+  const handleVerseQuizAnswer = (opt) => {
+    if (verseQuizAnswered !== null) return;
+    const isCorrect = opt === verseQuizQuestions[verseQuizIdx].correct;
+    setVerseQuizAnswered({ selected: opt, correct: verseQuizQuestions[verseQuizIdx].correct, isCorrect });
+    if (isCorrect) setVerseQuizScore(s => s + 1);
+    setTimeout(() => {
+      if (verseQuizIdx + 1 >= verseQuizQuestions.length) { setVerseQuizDone(true); return; }
+      setVerseQuizIdx(i => i + 1); setVerseQuizAnswered(null);
+    }, 1200);
   };
 
   const handleQuizAnswer = (opt) => {
