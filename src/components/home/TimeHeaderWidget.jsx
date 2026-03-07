@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Calendar, Clock, Compass } from "lucide-react";
 
-export default function TimeHeaderWidget({ prayerTimes }) {
+export default function TimeHeaderWidget({ prayerTimes, timeFormat = "24" }) {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
