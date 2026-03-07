@@ -469,8 +469,8 @@ export default function Quran({ adminEditMode, isAdmin }) {
                                  <Volume2 className="w-3.5 h-3.5 mr-1.5" /> Dëgjo Suren
                                </Button>
                              </div>
-                             {/* Audio player for surah */}
-                             <SurahAudioPlayer surahNum={surah.num} surahName={surah.name} />
+                             {/* Audio player for surah — komplet */}
+                             <SurahAudioPlayer surahNum={surah.num} surahName={surah.name} totalVerses={surah.verses} />
                              {/* Verse viewer button */}
                              <button
                                onClick={() => setVerseViewSurah(surah)}
