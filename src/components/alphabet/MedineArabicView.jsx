@@ -474,10 +474,7 @@ const MEDINE_DATA = {
     title: "الكتاب الثالث — Libri i Tretë",
     subtitle: "Madinah Book 3 — Gramatikë e Avancuar Arabe",
     units: [
-      {
-        id: 1,
-        title: "الدرس الأول — Mësimi 1",
-        topic: "Sistemi i Foljeve • أوزان الأفعال",
+      { id: 1, title: "الدرس الأول — Mësimi 1", topic: "أوزان الأفعال — Sistemit i Foljeve",
         vocab: [
           { ar: "فَعَلَ (وزن I)", trans: "Forma I — bazë", roman: "fa'ala" },
           { ar: "فَعَّلَ (وزن II)", trans: "Forma II — intensitet/kausat", roman: "fa''ala" },
