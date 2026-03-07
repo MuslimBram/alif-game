@@ -199,37 +199,50 @@ export default function PrayerTimesWidget() {
           )}
           {SHOW_PRAYERS.map(prayer => {
             const isNext = prayer === nextPrayer;
-            // Për Fajr, shfaqim Sabahun (Fajr+30min) si kohë kryesore dhe Fajrin si nënshënim
             const displayTime = prayer === "Fajr" ? sabahTime : times[prayer];
             const displayName = PRAYER_NAMES[prayer] || prayer;
+            const icon = PRAYER_ICONS[prayer];
             return (
               <React.Fragment key={prayer}>
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className={`flex items-center justify-between rounded-2xl px-4 py-2.5 transition-all ${
-                    isNext ? "bg-emerald-500/30 border border-emerald-500/50" : "bg-white/5"
+                  className={`flex items-center justify-between rounded-2xl px-4 py-2.5 transition-all border ${
+                    isNext
+                      ? "bg-emerald-500/30 border-emerald-500/50"
+                      : `${icon.bg} ${icon.border}`
                   }`}>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-lg leading-none">{icon.emoji}</span>
                     {isNext && <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />}
                     <div>
-                      <span className={`text-sm font-semibold ${isNext ? "text-emerald-300" : "text-gray-300"}`}>
+                      <span className={`text-sm font-semibold ${isNext ? "text-emerald-300" : icon.color}`}>
                         {displayName}
                       </span>
                       {prayer === "Fajr" && fajrTime && (
                         <p className="text-[10px] text-gray-500">Ezani (Fajr): {fajrTime}</p>
                       )}
+                      {!isNext && (
+                        <p className={`text-[10px] opacity-60 ${icon.color}`}>{icon.label}</p>
+                      )}
                     </div>
                   </div>
-                  <span className={`font-bold text-sm ${isNext ? "text-emerald-300" : "text-white"}`}>
+                  <span className={`font-bold text-sm ${isNext ? "text-emerald-300" : icon.color}`}>
                     {displayTime}
                   </span>
                 </motion.div>
                 {/* Lindja e Diellit — direkt pas Sabahut/Fajr */}
                 {prayer === "Fajr" && sunriseTime && (
                   <div className="flex items-center justify-between rounded-2xl px-4 py-2 bg-amber-500/10 border border-amber-500/20">
-                    <span className="text-xs text-amber-300">☀️ Lindja e Diellit</span>
+                    <span className="text-xs text-amber-300 flex items-center gap-1.5">☀️ <span>Lindja e Diellit</span></span>
                     <span className="text-xs font-semibold text-amber-300">{sunriseTime}</span>
+                  </div>
+                )}
+                {/* Perëndimi i Diellit = Maghrib nga API (GPS bazuar) */}
+                {prayer === "Maghrib" && times?.Sunset && (
+                  <div className="flex items-center justify-between rounded-2xl px-4 py-2 bg-rose-500/10 border border-rose-500/20">
+                    <span className="text-xs text-rose-300 flex items-center gap-1.5">🌅 <span>Perëndimi i Diellit</span></span>
+                    <span className="text-xs font-semibold text-rose-300">{times.Sunset}</span>
                   </div>
                 )}
               </React.Fragment>
