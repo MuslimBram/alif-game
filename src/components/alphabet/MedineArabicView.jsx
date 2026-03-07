@@ -529,9 +529,11 @@ const MEDINE_DATA = {
         examples: [
           { ar: "جَاءَ الطَّالِبُ — الطالبُ: مرفوع", roman: "jā'a aṭ-ṭālibu — marfū'", trans: "Nxënësi erdhi — nxënësi: emërore" },
           { ar: "رَأَيْتُ الطَّالِبَ — الطالبَ: منصوب", roman: "ra'aytu aṭ-ṭāliba — manṣūb", trans: "E pashë nxënësin — nxënësin: kallëzuesore" },
-        ]
-      },
-  profesionist: {
+          ]
+          }
+          ],
+          },
+          profesionist: {
     title: "الكتاب الرابع — Libri i Katërt",
     subtitle: "Thellim profesional në arabishten klasike",
     units: [
