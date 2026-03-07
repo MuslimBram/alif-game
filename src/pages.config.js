@@ -60,6 +60,9 @@ import Settings from './pages/Settings';
 import Tajweed from './pages/Tajweed';
 import UmraHajj from './pages/UmraHajj';
 import WordsAdmin from './pages/WordsAdmin';
+import AlphabetMain from './pages/AlphabetMain';
+import TajweedMain from './pages/TajweedMain';
+import MedineArabicMain from './pages/MedineArabicMain';
 import __Layout from './Layout.jsx';
 
 
@@ -77,6 +80,9 @@ export const PAGES = {
     "Tajweed": Tajweed,
     "UmraHajj": UmraHajj,
     "WordsAdmin": WordsAdmin,
+    "AlphabetMain": AlphabetMain,
+    "TajweedMain": TajweedMain,
+    "MedineArabicMain": MedineArabicMain,
 }
 
 export const pagesConfig = {
