@@ -24,9 +24,11 @@ const navItems = [
 { name: "Ballina", page: "Home", icon: Home },
 { name: "Alfabeti", page: "Alphabet", icon: Languages },
 { name: "Kur'ani", page: "Quran", icon: BookOpen },
+{ name: "Texhuidi", page: "Tajweed", icon: BookMarked },
 { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
-{ name: "Lojëra & Sfida", page: "Games", icon: Gamepad2 },
+{ name: "Lojëra", page: "Games", icon: Gamepad2 },
 { name: "Fikh Elementar", page: "FE", icon: BookOpen },
+{ name: "Progresi", page: "Progress", icon: BarChart3 },
 { name: "Cilësimet", page: "Settings", icon: Settings },
 { name: "Fjalë Admin", page: "WordsAdmin", icon: Settings, adminOnly: true }];
 
