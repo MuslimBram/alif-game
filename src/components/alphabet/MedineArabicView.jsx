@@ -10,6 +10,7 @@ const LEVELS = [
   { value: "fillestar", label: "🌱 Fillestar", desc: "Libri 1 — Bazat" },
   { value: "mesatar",   label: "🌿 Mesatar",   desc: "Libri 2 — Zgjerim" },
   { value: "avancuar",  label: "🌲 Avancuar",  desc: "Libri 3 — Avancim" },
+  { value: "profesionist", label: "🏔️ Profesionist", desc: "Libri 4 — Thellim" },
 ];
 
 const MEDINE_DATA = {
@@ -275,6 +276,91 @@ const MEDINE_DATA = {
           { ar: "البَيتُ كَبيرٌ — fjali emërore", roman: "al-baytu kabīrun", trans: "Shtëpia është e madhe" },
           { ar: "ذَهَبَ الطالِبُ — fjali foljore", roman: "dhahaba al-ṭālibu", trans: "Studenti shkoi" },
           { ar: "الكِتابُ الجَديدُ مُفيدٌ جِدًّا", roman: "al-kitābu al-jadīdu mufīdun jiddan", trans: "Libri i ri është shumë i dobishëm" },
+        ]
+      },
+    ]
+  },
+  profesionist: {
+    title: "الكتاب الرابع — Libri i Katërt",
+    subtitle: "Thellim profesional në arabishten klasike",
+    units: [
+      {
+        id: 1,
+        title: "الوحدة الأولى — Njësia 1",
+        topic: "Moda & Tonalitet • صيغ واستخدامات متقدمة",
+        vocab: [
+          { ar: "كَاد / أوشَكَ", trans: "gati (pothuajse)", roman: "kāda / awshaka" },
+          { ar: "بَدَأَ / شَرَعَ", trans: "filloi", roman: "bada'a / shara'a" },
+          { ar: "ظَلَّ / بَقِيَ", trans: "mbeti / qëndroi", roman: "ẓalla / baqiya" },
+          { ar: "صارَ / أضْحى", trans: "u bë / bëhet (i mëngjesit)", roman: "ṣāra / aḍḥā" },
+          { ar: "ما زالَ / ما فتِئَ", trans: "nuk ka pushuar", roman: "mā zāla / mā fatiyya" },
+          { ar: "الفِعلُ النّاقِصُ", trans: "foljet e mangëlluara (është, u bë, etj.)", roman: "al-fi'l al-nāqiṣ" },
+          { ar: "الفِعلُ التَّامُ", trans: "foljet e plota", roman: "al-fi'l al-tāmm" },
+          { ar: "صيغَةُ المُبالَغَةِ", trans: "forma e nënvlerësimit / enfalimeve", roman: "ṣiyaghat al-mubālagha" },
+        ],
+        grammar: "Foljet e mangëlluara (نواقص) ndryshojnë mënyrën e fjalisë: emërori (mubtada') zëvendësohet me kallëzuesin (naṣb) dhe kallëzuesi (khabar) me emërorin (rafa'). P.sh.: كان الطالب ذكيا — kalb. fo. em. call.",
+        examples: [
+          { ar: "ما زالَ الطالِبُ يَدرُسُ اللُّغةَ العَربِيَّةَ", roman: "mā zāla al-ṭālibu yadrūsu al-lughata al-'arabiyyata", trans: "Studenti nuk ka pushuar të mësojë arabishte" },
+          { ar: "بَدَأَ المُعَلِّمُ الدَّرسَ بِبِسمِ اللهِ", roman: "bada'a al-mu'allimu al-darsa bi-bismi llāhi", trans: "Mësuesi filloi mësimin me Bismillah" },
+        ]
+      },
+      {
+        id: 2,
+        title: "الوحدة الثانية — Njësia 2",
+        topic: "Gjenera e Pasive • الصيغ المختلفة والبناء للمجهول",
+        vocab: [
+          { ar: "الفِعلُ المَبنِيُّ لِلْمَعلومِ", trans: "vepra në formën aktive", roman: "al-fi'l al-mabni li-l-ma'lūm" },
+          { ar: "الفِعلُ المَبنِيُّ لِلْمَجهولِ", trans: "vepra në formën pasive", roman: "al-fi'l al-mabni li-l-majhūl" },
+          { ar: "كُتِبَ الدَّرسُ", trans: "Mësimi u shkrua", roman: "kutiba al-darsu" },
+          { ar: "اُفْتُقِدَ الطالِبُ", trans: "Studenti u humbë (im.)", roman: "uftuqida al-ṭālibu" },
+          { ar: "يُقالُ / يُظَنُّ", trans: "thuhet / mendohet", roman: "yaqālu / yuẓannu" },
+          { ar: "الفِعلُ الثُّلاثِيُّ", trans: "foljet trikonsonantike", roman: "al-fi'l al-thulāthī" },
+          { ar: "الفِعلُ الرُّباعِيُّ", trans: "foljet katërkonsnanike", roman: "al-fi'l al-rubā'ī" },
+        ],
+        grammar: "Për të ndërtuar formën pasive, ndryshon vokalizimi i rrënjës. Në të kaluar: فَعَلَ → فُعِلَ; në të tashme: يَفْعَلُ → يُفْعَلُ",
+        examples: [
+          { ar: "اُكتُشِفَتِ الحَقيقَةُ أخيراً", roman: "uktushshifati al-ḥaqīqatu akhīran", trans: "E vërteta u zbulua më në fund" },
+          { ar: "يُفضَّلُ أن تَذهَبَ مَعَنا", roman: "yufaddalu an tadhaba ma'anā", trans: "Preferohet të shkosh me ne" },
+        ]
+      },
+      {
+        id: 3,
+        title: "الوحدة الثالثة — Njësia 3",
+        topic: "Dialogje të avancuara • المحادثات المتقدمة",
+        vocab: [
+          { ar: "الحِوارُ الفِكْرِيُّ", trans: "diskutim intelektual", roman: "al-ḥiwār al-fikriyy" },
+          { ar: "الدِّقاشُ / المُناقَشَة", trans: "debat / diskutim", roman: "al-diqāsh / al-munāqashah" },
+          { ar: "مِن وِجهَة نَظَري", trans: "nga këndvështrimi im", roman: "min wijhat nazarī" },
+          { ar: "أتَّفِقُ مَعَكَ", trans: "jam dakord me ty", roman: "attafiqu ma'aka" },
+          { ar: "أخْتَلِفُ مَعَكَ", trans: "nuk jam dakord", roman: "akhtalifu ma'aka" },
+          { ar: "يَجِبُ أن نُناقِشَ هذا", trans: "duhet të diskutojmë këtë", roman: "yajibu an nunāqisha hādhā" },
+          { ar: "إذا لِم نُحَلِّ هذه المُشكِلَة", trans: "nëse nuk zgjidhim këtë problem", roman: "idhā lam nuhallil hādhihi al-mushkilata" },
+        ],
+        grammar: "Lidhëzat kushtore (إذا، لو، لولا) kur pasojnë me folje në kaluar bëhen përshkrim i mënyrës hipotetike ose imagjinare.",
+        examples: [
+          { ar: "مِن وِجهَة نَظَري، الحَلُّ الأَفضَلُ هو التَّعاوُنُ", roman: "min wijhat nazarī, al-ḥall al-afdal huwa al-ta'āwun", trans: "Nga këndvështrimi im, zgjidhja më e mirë është bashkëpunimi" },
+          { ar: "أتَّفِقُ مَعَكَ فِي أَنَّ هذا مُهِمٌّ جِدًّا", roman: "attafiqu ma'aka fī anna hādhā muhimmun jiddan", trans: "Jam dakord me ty se kjo është shumë e rëndësishme" },
+        ]
+      },
+      {
+        id: 4,
+        title: "الوحدة الرابعة — Njësia 4",
+        topic: "Morfologia e Thelluar • الصرف المتقدم والمشتقات",
+        vocab: [
+          { ar: "المِشتَقّاتُ", trans: "derivatet (nga rrënja)", roman: "al-mishtaqqāt" },
+          { ar: "اِسمُ الفاعِلِ", trans: "emri i të vepruesit", roman: "ism al-fā'il" },
+          { ar: "اِسمُ المَفعولِ", trans: "emri i të padeturit", roman: "ism al-maf'ūl" },
+          { ar: "الصِّفَةُ المُشبَّهَة", trans: "mbiemri i përmendorur (konstant)", roman: "al-ṣifa al-mushaббaha" },
+          { ar: "اِسمُ المَكانِ", trans: "emri i vendit", roman: "ism al-makān" },
+          { ar: "اِسمُ الزَّمانِ", trans: "emri i kohës", roman: "ism al-zamān" },
+          { ar: "اِسمُ الآلَة", trans: "emri i mjeti/allatit", roman: "ism al-ālah" },
+          { ar: "المَصدَرُ", trans: "masdar (emri i veprimit)", roman: "al-maṣdar" },
+        ],
+        grammar: "Derivatet janë emra të prejardhur nga rrënjë folese. Emri i të vepruesit (فاعل) pron fjalën që nuk ka përfunduar veprimin. Emri i të padeturit (مفعول) përshkruan atë që ka pësuar veprimin.",
+        examples: [
+          { ar: "الكِتابُ المَكتوبُ مُفيدٌ", roman: "al-kitābu al-maktubu mufīdun", trans: "Libri i shkruar (mfj) është i dobishëm" },
+          { ar: "الكاتِبُ يَكتُبُ الدَّرسَ", roman: "al-kātibu yaktūbu al-darsa", trans: "Shkruesi (ft) shkruan mësimin" },
+          { ar: "المَدرَسَةُ مَكانٌ لِلدِّراسَةِ", roman: "al-madrasatu makānun li-l-dirāsati", trans: "Shkolla është vend (për studim)" },
         ]
       },
     ]
