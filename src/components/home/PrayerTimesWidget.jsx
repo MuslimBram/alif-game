@@ -4,12 +4,21 @@ import { Clock, MapPin } from "lucide-react";
 
 const PRAYER_NAMES = {
   Fajr: "Sabahu",
-  Sunrise: "Lindja (Imsaku)",
   Dhuhr: "Dreka",
   Asr: "Ikindia",
   Maghrib: "Akshami",
   Isha: "Jacia",
 };
+
+// Shton minuta në formatin HH:MM dhe kthen HH:MM
+function addMinutes(timeStr, mins) {
+  if (!timeStr) return "";
+  const [h, m] = timeStr.split(":").map(Number);
+  const total = h * 60 + m + mins;
+  const newH = Math.floor(total / 60) % 24;
+  const newM = total % 60;
+  return `${String(newH).padStart(2, "0")}:${String(newM).padStart(2, "0")}`;
+}
 
 export default function PrayerTimesWidget() {
   const [times, setTimes] = useState(null);
