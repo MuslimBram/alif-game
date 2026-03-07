@@ -6,6 +6,8 @@ import DailyVerse from "@/components/home/DailyVerse";
 import PrayerTimesWidget from "@/components/home/PrayerTimesWidget";
 import QuickStats from "@/components/home/QuickStats";
 import LevelSelectionModal from "@/components/home/LevelSelectionModal";
+import TimeHeaderWidget from "@/components/home/TimeHeaderWidget";
+import TriLanguageTranslator from "@/components/home/TriLanguageTranslator";
 import { Button } from "@/components/ui/button";
 import { LogIn, UserPlus, Shield } from "lucide-react";
 
