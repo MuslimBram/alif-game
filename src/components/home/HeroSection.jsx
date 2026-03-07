@@ -45,7 +45,7 @@ export default function HeroSection({ stats }) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4 md:gap-6 mb-12">
+          className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
 
           {[
           { label: "Mësime Aktive", value: stats.lessons, icon: "⏱" },
@@ -61,6 +61,50 @@ export default function HeroSection({ stats }) {
               <p className="text-xs text-gray-500 mt-1">{stat.label}</p>
             </div>
           )}
+        </motion.div>
+
+        {/* Main learning sections */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+
+          {[
+            { 
+              title: "TE Alfabeti", 
+              items: ["Germat", "Rrokjet", "Fjalët", "Zgjedhimi", "Lakimi"],
+              icon: "🔤",
+              color: "from-blue-500 to-cyan-500"
+            },
+            {
+              title: "📖 Texhuidi",
+              items: ["Rregulla", "Praktikë", "Audio", "Ushtrime", "Testim"],
+              icon: "📖",
+              color: "from-purple-500 to-violet-500"
+            },
+            {
+              title: "🕌 Arabisht Medinë",
+              items: ["Fillestar", "Mesatar", "Avancuar", "Profesionist", "Mësime"],
+              icon: "🕌",
+              color: "from-green-500 to-emerald-600"
+            }
+          ].map((section, idx) => (
+            <div
+              key={idx}
+              className={`glass-card rounded-2xl p-5 bg-gradient-to-br ${section.color} bg-opacity-5 border border-current border-opacity-20`}>
+
+              <p className="font-bold text-gray-800 mb-3 text-sm">{section.title}</p>
+              <div className="space-y-2">
+                {section.items.map((item, i) => (
+                  <div key={i} className="flex items-center gap-2 text-xs text-gray-700">
+                    <span className="w-1.5 h-1.5 rounded-full bg-current opacity-60" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </motion.div>
 
         {/* Quick links */}
