@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Timer, Trophy, CheckCircle, XCircle, RotateCcw, Star, Zap } from "lucide-react";
 
