@@ -24,14 +24,14 @@ import { Button } from "@/components/ui/button";
 const navItems = [
   { name: "Ballina", page: "Home", icon: Home },
   {
-    name: "Alfabeti", page: "Alphabet", icon: Languages,
+    name: "Alfabeti", page: "AlphabetMain", icon: Languages,
     children: [
-      { name: "Numrat", page: "Alphabet", tab: "numrat" },
-      { name: "Germët", page: "Alphabet", tab: "germat" },
-      { name: "Rrokjet", page: "Alphabet", tab: "rrokjet" },
-      { name: "Fjalët", page: "Alphabet", tab: "fjalet" },
-      { name: "Zgjedhimi", page: "Alphabet", tab: "zgjedhimi" },
-      { name: "Lakimi", page: "Alphabet", tab: "lakimi" },
+      { name: "Numrat", page: "Alphabet", params: "?tab=numrat" },
+      { name: "Germët", page: "Alphabet", params: "?tab=germat" },
+      { name: "Rrokjet", page: "Alphabet", params: "?tab=rrokjet" },
+      { name: "Fjalët", page: "Alphabet", params: "?tab=fjalet" },
+      { name: "Zgjedhimi", page: "Alphabet", params: "?tab=zgjedhimi" },
+      { name: "Lakimi", page: "Alphabet", params: "?tab=lakimi" },
     ]
   },
   {
@@ -40,9 +40,17 @@ const navItems = [
       { name: "Suret me Audio", page: "Quran" },
       { name: "Texhuidi", page: "Tajweed" },
       { name: "Kuiz Kurani", page: "Quran" },
+      { name: "Sevapet", page: "Quran" },
     ]
   },
-
+  {
+    name: "Arabisht Medinë", page: "MedineArabicMain", icon: BookMarked,
+    children: [
+      { name: "Fillestar", page: "MedineArabicMain", params: "?level=fillestar" },
+      { name: "Mesatar", page: "MedineArabicMain", params: "?level=mesatar" },
+      { name: "Avancuar", page: "MedineArabicMain", params: "?level=avancuar" },
+    ]
+  },
   { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
   { name: "Lojëra", page: "Games", icon: Gamepad2 },
   { name: "Fikh Elementar", page: "FE", icon: BookOpen },
