@@ -62,7 +62,7 @@ export default function DragDropSections({ adminEditMode, isAdmin, prayerTimes, 
           const Component = section.component;
           return (
             <div key={section.id}>
-              <Component prayerTimes={prayerTimes} onPrayerTimesUpdate={onPrayerTimesUpdate} />
+              <Component prayerTimes={prayerTimes} onPrayerTimesUpdate={onPrayerTimesUpdate} adminEditMode={adminEditMode} />
             </div>
           );
         })}
@@ -143,7 +143,7 @@ export default function DragDropSections({ adminEditMode, isAdmin, prayerTimes, 
                           </span>
                         </div>
                         <div className="p-4 opacity-60 pointer-events-none">
-                          <Component prayerTimes={prayerTimes} onPrayerTimesUpdate={onPrayerTimesUpdate} />
+                          <Component prayerTimes={prayerTimes} onPrayerTimesUpdate={onPrayerTimesUpdate} adminEditMode={false} />
                         </div>
                       </div>
                     )}
