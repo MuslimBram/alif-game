@@ -597,7 +597,11 @@ export default function PrayerGuide() {
       {activeTab === "steps" && viewMode === "all" && (
         <div className="space-y-4">
           {PRAYER_STEPS.map((step) => (
-            <PrayerStepCard key={step.id} step={step} lang={lang} />
+            <PrayerStepCard key={step.id} step={step} lang={lang}
+              customImage={stepImages[step.id]}
+              onImageUpload={(e) => handleImageUpload(step.id, e)}
+              onRemoveImage={() => removeImage(step.id)}
+            />
           ))}
         </div>
       )}
