@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp, Download } from "lucide-react";
+import { downloadLinks } from "./downloadLinksConfig";
 
 const CHAPTERS = [
   {
@@ -135,12 +136,6 @@ export default function RiyaduSalihin() {
     indigo: { bg: "bg-indigo-50", border: "border-indigo-100", text: "text-indigo-800", badge: "bg-indigo-100 text-indigo-700", header: "bg-indigo-600" },
   };
 
-  const downloadLinks = {
-    sq: "https://sunnah.com/albanian/riyad-us-saliheen",
-    ar: "https://sunnah.com/riyad-us-saliheen",
-    en: "https://sunnah.com/riyad-us-saliheen"
-  };
-
   return (
     <div className="space-y-4">
       <div className="bg-gradient-to-br from-rose-50 to-pink-50 border border-rose-200 rounded-2xl p-5 text-center mb-4">
@@ -148,15 +143,15 @@ export default function RiyaduSalihin() {
         <h2 className="text-xl font-bold text-rose-800 mb-1">Riyadu Es-Salihin & Hadithet Kudsije</h2>
         <p className="text-sm text-rose-700">Imam An-Newewiu · Hadithe Kudsije (fjalë hyjnore)</p>
         <div className="flex gap-2 justify-center mt-3 flex-wrap">
-          <a href={downloadLinks.sq} target="_blank" rel="noopener noreferrer"
+          <a href={downloadLinks.riyaduSalihin.sq} target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-lg transition-colors">
             <Download className="w-3.5 h-3.5" /> 🇦🇱 Shqip
           </a>
-          <a href={downloadLinks.ar} target="_blank" rel="noopener noreferrer"
+          <a href={downloadLinks.riyaduSalihin.ar} target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-lg transition-colors">
             <Download className="w-3.5 h-3.5" /> 🇸🇦 العربية
           </a>
-          <a href={downloadLinks.en} target="_blank" rel="noopener noreferrer"
+          <a href={downloadLinks.riyaduSalihin.en} target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-lg transition-colors">
             <Download className="w-3.5 h-3.5" /> 🇬🇧 English
           </a>

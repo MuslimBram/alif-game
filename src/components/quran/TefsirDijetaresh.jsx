@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp, Download } from "lucide-react";
+import { downloadLinks } from "./downloadLinksConfig";
 
 const TEFSIR_DATA = [
   {
@@ -131,12 +132,6 @@ export default function TefsirDijetaresh() {
     setExpandedScholar(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const downloadLinks = {
-    sq: "https://sunnah.com/albanian/tafsir-ibn-kathir",
-    ar: "https://sunnah.com/ibnkathir",
-    en: "https://sunnah.com/ibnkathir"
-  };
-
   return (
     <div className="space-y-4">
       <div className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-5 text-center mb-4">
@@ -144,15 +139,15 @@ export default function TefsirDijetaresh() {
         <h2 className="text-xl font-bold text-emerald-800 mb-1">Tefsir i Dijetarëve të Mëdhenj</h2>
         <p className="text-sm text-emerald-700">Ibn Kethir · Es-Sadi · Al-Qurtubi · Ibn Tejmijje · Ibn El-Qayyim</p>
         <div className="flex gap-2 justify-center mt-3 flex-wrap">
-          <a href={downloadLinks.sq} target="_blank" rel="noopener noreferrer"
+          <a href={downloadLinks.tefsir.sq} target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
             <Download className="w-3.5 h-3.5" /> 🇦🇱 Shqip
           </a>
-          <a href={downloadLinks.ar} target="_blank" rel="noopener noreferrer"
+          <a href={downloadLinks.tefsir.ar} target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
             <Download className="w-3.5 h-3.5" /> 🇸🇦 العربية
           </a>
-          <a href={downloadLinks.en} target="_blank" rel="noopener noreferrer"
+          <a href={downloadLinks.tefsir.en} target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
             <Download className="w-3.5 h-3.5" /> 🇬🇧 English
           </a>

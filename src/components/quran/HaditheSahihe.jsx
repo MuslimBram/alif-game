@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp, Download } from "lucide-react";
+import { downloadLinks } from "./downloadLinksConfig";
 
 const SAHIH_COLLECTIONS = [
   {
@@ -132,12 +133,6 @@ export default function HaditheSahihe() {
 
   const collection = SAHIH_COLLECTIONS[activeCollection];
 
-  const downloadLinks = {
-    sq: "https://sunnah.com/albanian/sahih-bukhari",
-    ar: "https://sunnah.com/bukhari",
-    en: "https://sunnah.com/bukhari"
-  };
-
   return (
     <div className="space-y-4">
       <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-5 text-center mb-4">
@@ -145,15 +140,15 @@ export default function HaditheSahihe() {
         <h2 className="text-xl font-bold text-blue-800 mb-1">Hadithet e Sahiheve</h2>
         <p className="text-sm text-blue-700">Sahih Buhari · Sahih Muslim · Sunen At-Tirmidhi</p>
         <div className="flex gap-2 justify-center mt-3 flex-wrap">
-          <a href={downloadLinks.sq} target="_blank" rel="noopener noreferrer"
+          <a href={downloadLinks.haditheSahihe.sq} target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition-colors">
             <Download className="w-3.5 h-3.5" /> 🇦🇱 Shqip
           </a>
-          <a href={downloadLinks.ar} target="_blank" rel="noopener noreferrer"
+          <a href={downloadLinks.haditheSahihe.ar} target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition-colors">
             <Download className="w-3.5 h-3.5" /> 🇸🇦 العربية
           </a>
-          <a href={downloadLinks.en} target="_blank" rel="noopener noreferrer"
+          <a href={downloadLinks.haditheSahihe.en} target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition-colors">
             <Download className="w-3.5 h-3.5" /> 🇬🇧 English
           </a>
