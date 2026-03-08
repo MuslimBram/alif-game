@@ -94,6 +94,7 @@ const QUIZ_GAME_MAP = {
 // ─── INLINE: Leaderboard, Groups, Progress (mini versions) ───────────────────
 import MathGame from "@/components/games/MathGame";
 import MemoryGame from "@/components/games/MemoryGame";
+import BrainGymGame from "@/components/games/BrainGymGame";
 import { base44 } from "@/api/base44Client";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
