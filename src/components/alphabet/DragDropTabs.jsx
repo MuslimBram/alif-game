@@ -4,13 +4,15 @@ import { GripVertical, Save, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const INITIAL_TABS = [
+  { id: "numrat", label: "Numrat", icon: "🔢" },
   { id: "germat", label: "Germat", icon: "🔤" },
   { id: "rrokjet", label: "Rrokjet", icon: "🎵" },
   { id: "fjalët", label: "Fjalët", icon: "📝" },
-  { id: "numrat", label: "Numrat", icon: "🔢" },
   { id: "zgjedhimi", label: "Zgjedhimi", icon: "✏️" },
   { id: "lakimi", label: "Lakimi", icon: "📋" },
-  { id: "medine", label: "Arabisht Medinë", icon: "📖" }
+  { id: "texhuidi", label: "Texhuidi", icon: "📜" },
+  { id: "medine", label: "Arabisht Medinë", icon: "📖" },
+  { id: "perkthyes", label: "Përkthyes 3-Gjuhësor", icon: "🌐" }
 ];
 
 export default function DragDropTabs({ activeTab, onTabChange, adminEditMode, children }) {
