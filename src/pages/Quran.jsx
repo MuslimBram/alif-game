@@ -458,9 +458,7 @@ export default function Quran({ adminEditMode, isAdmin }) {
                            </div>
                            <div className="space-y-3">
                              <div className="bg-amber-50 rounded-xl p-4 text-center border border-amber-100">
-                               <p className="text-xs text-amber-600 mb-2 font-medium">Bismillah</p>
-                               <p className="text-2xl font-bold text-gray-900 mb-1" style={{ fontFamily: "serif", direction: "rtl" }}>{surah.arabic}</p>
-                               <p className="text-xs text-gray-400 italic mb-2">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+                               <p className="text-2xl font-bold text-gray-900 mb-3" style={{ fontFamily: "serif", direction: "rtl" }}>{surah.arabic}</p>
                                <Button size="sm" onClick={() => {
                                  const audio = new Audio(`https://everyayah.com/data/Alafasy_128kbps/${String(surah.num).padStart(3,'0')}001.mp3`);
                                  audio.play().catch(() => speakArabic(surah.name));
@@ -475,22 +473,7 @@ export default function Quran({ adminEditMode, isAdmin }) {
                              >
                                📖 Lexo Ajetet — Ajet pas Ajeti
                              </button>
-                             {/* Progress marking */}
-                             <div className="bg-white rounded-xl p-3 border border-gray-100">
-                               <p className="text-xs font-semibold text-gray-600 mb-2">Shëno Progresin:</p>
-                               <div className="flex gap-2 flex-wrap">
-                                 {[
-                                   { val: "read", label: "👁️ Lexova", cls: "bg-gray-100 text-gray-700 hover:bg-gray-200" },
-                                   { val: "learning", label: "📚 Duke mësuar", cls: "bg-blue-50 text-blue-700 hover:bg-blue-100" },
-                                   { val: "memorized", label: "✅ Mësova", cls: "bg-emerald-50 text-emerald-700 hover:bg-emerald-100" },
-                                 ].map(p => (
-                                   <button key={p.val} onClick={() => markProgress(surah.num, p.val)}
-                                     className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border-2 ${progress[surah.num] === p.val ? "border-emerald-400 ring-2 ring-emerald-200" : "border-transparent"} ${p.cls}`}>
-                                     {p.label}
-                                   </button>
-                                 ))}
-                               </div>
-                             </div>
+
                            </div>
                          </div>
                        </div>
