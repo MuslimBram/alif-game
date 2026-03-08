@@ -269,18 +269,18 @@ export default function SurahVerseViewer({ surah, onClose }) {
   const localVerses = VERSE_DATA[surah.num] || [];
   const hasLocalData = localVerses.length > 0;
 
-  // Fetch from API if no local data — with transliteration + Albanian
+  // Fetch from API if no local data — with transliteration + Albanian + tafsir
   useEffect(() => {
     if (hasLocalData) return;
     setApiLoading(true);
 
-    // Fetch Arabic + transliteration in parallel
     Promise.all([
       fetch(`https://api.alquran.cloud/v1/surah/${surah.num}`).then(r => r.json()),
       fetch(`https://api.alquran.cloud/v1/surah/${surah.num}/en.transliteration`).then(r => r.json()),
       fetch(`https://api.alquran.cloud/v1/surah/${surah.num}/sq.ahmeti`).then(r => r.json()).catch(() => null),
+      fetch(`https://api.alquran.cloud/v1/surah/${surah.num}/en.sahih`).then(r => r.json()).catch(() => null),
     ])
-      .then(([arData, translitData, sqData]) => {
+      .then(([arData, translitData, sqData, enData]) => {
         if (arData.code === 200 && arData.data?.ayahs) {
           const translitMap = {};
           if (translitData?.code === 200 && translitData.data?.ayahs) {
@@ -290,11 +290,17 @@ export default function SurahVerseViewer({ surah, onClose }) {
           if (sqData?.code === 200 && sqData.data?.ayahs) {
             sqData.data.ayahs.forEach(a => { sqMap[a.numberInSurah] = a.text; });
           }
+          const enMap = {};
+          if (enData?.code === 200 && enData.data?.ayahs) {
+            enData.data.ayahs.forEach(a => { enMap[a.numberInSurah] = a.text; });
+          }
           setApiVerses(arData.data.ayahs.map(a => ({
             ar: a.text,
             translit: translitMap[a.numberInSurah] || null,
             sq: sqMap[a.numberInSurah] || null,
-            tafsir: null,
+            tafsir: sqMap[a.numberInSurah]
+              ? `Kuptimi: ${sqMap[a.numberInSurah]}${enMap[a.numberInSurah] ? ` — "${enMap[a.numberInSurah]}"` : ""}`
+              : (enMap[a.numberInSurah] ? `Meaning: "${enMap[a.numberInSurah]}"` : null),
           })));
         }
       })
