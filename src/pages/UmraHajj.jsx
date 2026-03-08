@@ -103,7 +103,6 @@ export default function UmraHajj() {
       <div className="flex gap-1.5 mb-5 bg-gray-100 p-1.5 rounded-2xl flex-wrap">
         {[
           { val: "harta3d", label: "🗺️ Harta 3D", desc: "Eksplorim Virtual" },
-          { val: "harita", label: "🗺️ Harta", desc: "Vendet e Shenjta" },
           { val: "umra", label: "🕌 Umra", desc: `${UMRA_STEPS.length} hapa` },
           { val: "hajj", label: "🕋 Haxhi", desc: `${HAJJ_STEPS.length} hapa` },
           { val: "quiz", label: "🎯 Kuiz", desc: `${QUIZ_QUESTIONS.length} pyetje` },

@@ -15,7 +15,6 @@ import {
   Settings,
   Pencil,
   BarChart3,
-  BookMarked,
   ChevronDown } from
 "lucide-react";
 import PointsToast from "@/components/gamification/PointsToast";
@@ -44,14 +43,7 @@ const navItems = [
   { name: "📚 Texhuidi", page: "Tajweed" }]
 
 },
-{
-  name: "Arabisht Medinë", page: "MedineArabicMain", icon: BookMarked,
-  children: [
-  { name: "Fillestar", page: "MedineArabicMain", params: "?level=fillestar" },
-  { name: "Mesatar", page: "MedineArabicMain", params: "?level=mesatar" },
-  { name: "Avancuar", page: "MedineArabicMain", params: "?level=avancuar" }]
 
-},
 {
   name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin,
   children: [
