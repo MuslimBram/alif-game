@@ -468,6 +468,10 @@ export default function PrayerGuide() {
   const [activeTab, setActiveTab] = useState("steps");
   const [currentStep, setCurrentStep] = useState(0);
   const [viewMode, setViewMode] = useState("all"); // "all" or "step-by-step"
+  const [isOpen, setIsOpen] = useState(false);
+  const [stepImages, setStepImages] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("prayer_step_images") || "{}"); } catch { return {}; }
+  });
 
   const tabs = [
     { id: "steps", label: { sq: "📋 Hapat", en: "📋 Steps", ar: "📋 الخطوات" } },
