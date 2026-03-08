@@ -263,8 +263,8 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
         <PrayerAzan selectedAzan={azanId} onChange={handleAzanChange} />
       )}
 
-      {/* Ora aktuale — brenda widget */}
-      <div className="flex items-center justify-between mb-3 bg-white/5 rounded-2xl px-4 py-2">
+      {/* Ora aktuale + Data Hixhrite */}
+      <div className="flex items-center justify-between mb-3 bg-white/5 rounded-2xl px-4 py-2.5">
         <div className="flex items-center gap-2">
           <Clock className="w-4 h-4 text-emerald-400" />
           <span className="text-base font-bold text-white tracking-wider">
@@ -275,6 +275,9 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
           <p className="text-xs text-emerald-300 font-semibold">
             {currentTime.toLocaleDateString("sq-AL", { weekday: "short", day: "numeric", month: "short" })}
           </p>
+          {hijriDate && (
+            <p className="text-[10px] text-amber-300 font-medium mt-0.5">🌙 {hijriDate}</p>
+          )}
         </div>
       </div>
 
