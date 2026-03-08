@@ -72,26 +72,45 @@ export default function HeroSection({ stats, adminEditMode }) {
           className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
 
           {[
-            { 
-              title: "TE Alfabeti", 
-              items: ["Numrat", "Germat", "Rrokjet", "Fjalët", "Zgjedhimi", "Lakimi"],
-              icon: "🔤",
+            {
+              title: "🔤 Alfabeti",
               color: "from-blue-500 to-cyan-500",
-              page: "AlphabetMain"
+              border: "border-blue-200",
+              page: "AlphabetMain",
+              items: [
+                { name: "Numrat", page: "Alphabet" },
+                { name: "Germët", page: "Alphabet" },
+                { name: "Rrokjet", page: "Alphabet" },
+                { name: "Fjalët", page: "Alphabet" },
+                { name: "Zgjedhimi", page: "Alphabet" },
+                { name: "Lakimi", page: "Alphabet" },
+              ]
             },
             {
               title: "🕌 Arabisht Medinë",
-              items: ["Fillestar", "Mesatar", "Avancuar", "Profesionist", "Mësime"],
-              icon: "🕌",
               color: "from-green-500 to-emerald-600",
-              page: "MedineArabicMain"
+              border: "border-emerald-200",
+              page: "MedineArabicMain",
+              items: [
+                { name: "Fillestar", page: "MedineArabicMain" },
+                { name: "Mesatar", page: "MedineArabicMain" },
+                { name: "Avancuar", page: "MedineArabicMain" },
+                { name: "Profesionist", page: "MedineArabicMain" },
+                { name: "Mësimet", page: "MedineArabicMain" },
+              ]
             },
             {
               title: "📖 Kur'ani & Texhuidi",
-              items: ["Suret me Audio", "Texhuidi", "Rregullat Tajweed", "Kuiz Kurani", "Sevapet"],
-              icon: "📖",
               color: "from-amber-500 to-orange-500",
-              page: "Quran"
+              border: "border-amber-200",
+              page: "Quran",
+              items: [
+                { name: "Suret me Audio", page: "Quran" },
+                { name: "Texhuidi", page: "Tajweed" },
+                { name: "Rregullat Tajweed", page: "Tajweed" },
+                { name: "Kuiz Kurani", page: "Quran" },
+                { name: "Sevapet", page: "Quran" },
+              ]
             }
           ].map((section, idx) => (
             <AdminCardOverlay
@@ -100,19 +119,23 @@ export default function HeroSection({ stats, adminEditMode }) {
               editHref={createPageUrl(section.page)}
               label={section.title}
             >
-              <Link
-                to={createPageUrl(section.page)}
-                className={`block glass-card rounded-2xl p-5 bg-gradient-to-br ${section.color} bg-opacity-5 border border-current border-opacity-20 hover:shadow-lg transition-shadow cursor-pointer`}>
-                <p className="font-bold text-gray-800 mb-3 text-sm">{section.title}</p>
-                <div className="space-y-2">
+              <div className={`glass-card rounded-2xl p-5 border ${section.border} hover:shadow-lg transition-shadow`}>
+                <Link to={createPageUrl(section.page)}>
+                  <p className={`font-bold text-gray-800 mb-3 text-sm bg-gradient-to-r ${section.color} bg-clip-text text-transparent`}>{section.title}</p>
+                </Link>
+                <div className="space-y-1.5">
                   {section.items.map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 text-xs text-gray-700">
-                      <span className="w-1.5 h-1.5 rounded-full bg-current opacity-60" />
-                      {item}
-                    </div>
+                    <Link
+                      key={i}
+                      to={createPageUrl(item.page)}
+                      className="flex items-center gap-2 text-xs text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg px-2 py-1 transition-colors"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0" />
+                      {item.name}
+                    </Link>
                   ))}
                 </div>
-              </Link>
+              </div>
             </AdminCardOverlay>
           ))}
         </motion.div>

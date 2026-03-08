@@ -61,6 +61,21 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
     }
   }, [times, onPrayerTimesUpdate]);
 
+  const [hijriDate, setHijriDate] = useState(null);
+
+  const parseApiResponse = (data) => {
+    if (data.data?.timings) {
+      setTimes(data.data.timings);
+      // Extract Hijri date from API response
+      const h = data.data?.date?.hijri;
+      if (h) {
+        setHijriDate(`${h.day} ${h.month?.en || ""} ${h.year} هـ`);
+      }
+    } else {
+      setError("Nuk u gjeten kohët");
+    }
+  };
+
   const fetchByCoords = async (lat, lng) => {
     setLoading(true); setError(null);
     try {
@@ -68,11 +83,7 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
       const dateStr = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
       const res = await fetch(`https://api.aladhan.com/v1/timings/${dateStr}?latitude=${lat}&longitude=${lng}&method=3`);
       const data = await res.json();
-      if (data.data?.timings) {
-        setTimes(data.data.timings);
-      } else {
-        setError("Nuk u gjeten kohët");
-      }
+      parseApiResponse(data);
     } catch {
       setError("Nuk u lidh me serverin");
     }
@@ -86,11 +97,7 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
       const dateStr = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
       const res = await fetch(`https://api.aladhan.com/v1/timingsByCity/${dateStr}?city=${encodeURIComponent(cityName)}&country=Albania&method=3`);
       const data = await res.json();
-      if (data.data?.timings) {
-        setTimes(data.data.timings);
-      } else {
-        setError("Nuk u gjeten kohët");
-      }
+      parseApiResponse(data);
     } catch {
       setError("Nuk u lidh me serverin");
     }

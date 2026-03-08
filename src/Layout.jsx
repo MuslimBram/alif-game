@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
@@ -15,24 +15,96 @@ import {
   Settings,
   Pencil,
   BarChart3,
-  BookMarked } from
-"lucide-react";
+  BookMarked,
+  ChevronDown
+} from "lucide-react";
 import PointsToast from "@/components/gamification/PointsToast";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
-{ name: "Ballina", page: "Home", icon: Home },
-{ name: "Alfabeti", page: "Alphabet", icon: Languages },
-{ name: "Kur'ani", page: "Quran", icon: BookOpen },
+  { name: "Ballina", page: "Home", icon: Home },
+  {
+    name: "Alfabeti", page: "Alphabet", icon: Languages,
+    children: [
+      { name: "Numrat", page: "Alphabet", tab: "numrat" },
+      { name: "Germët", page: "Alphabet", tab: "germat" },
+      { name: "Rrokjet", page: "Alphabet", tab: "rrokjet" },
+      { name: "Fjalët", page: "Alphabet", tab: "fjalet" },
+      { name: "Zgjedhimi", page: "Alphabet", tab: "zgjedhimi" },
+      { name: "Lakimi", page: "Alphabet", tab: "lakimi" },
+    ]
+  },
+  {
+    name: "Kur'ani", page: "Quran", icon: BookOpen,
+    children: [
+      { name: "Suret me Audio", page: "Quran" },
+      { name: "Texhuidi", page: "Tajweed" },
+      { name: "Kuiz Kurani", page: "Quran" },
+    ]
+  },
+  {
+    name: "Arabisht Medinë", page: "MedineArabicMain", icon: BookOpen,
+    children: [
+      { name: "Fillestar", page: "MedineArabicMain", tab: "fillestar" },
+      { name: "Mesatar", page: "MedineArabicMain", tab: "mesatar" },
+      { name: "Avancuar", page: "MedineArabicMain", tab: "avancuar" },
+    ]
+  },
+  { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
+  { name: "Lojëra", page: "Games", icon: Gamepad2 },
+  { name: "Fikh Elementar", page: "FE", icon: BookOpen },
+  { name: "Progresi", page: "Progress", icon: BarChart3 },
+  { name: "Cilësimet", page: "Settings", icon: Settings },
+  { name: "Fjalë Admin", page: "WordsAdmin", icon: Settings, adminOnly: true }
+];
 
-{ name: "Arabisht Medinë", page: "MedineArabicMain", icon: BookOpen },
-{ name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
-{ name: "Lojëra", page: "Games", icon: Gamepad2 },
-{ name: "Fikh Elementar", page: "FE", icon: BookOpen },
-{ name: "Progresi", page: "Progress", icon: BarChart3 },
-{ name: "Cilësimet", page: "Settings", icon: Settings },
-{ name: "Fjalë Admin", page: "WordsAdmin", icon: Settings, adminOnly: true }];
+function NavDropdown({ item, isActive, isAdmin }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const Icon = item.icon;
 
+  useEffect(() => {
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <Link
+        to={createPageUrl(item.page)}
+        className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+          isActive
+            ? "bg-emerald-600 text-white shadow-md shadow-emerald-200"
+            : "text-gray-600 hover:text-emerald-700 hover:bg-emerald-50"
+        }`}
+      >
+        <Icon className="w-4 h-4" />
+        {item.name}
+        <ChevronDown className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`} />
+      </Link>
+
+      {open && (
+        <div className="absolute top-full left-0 mt-1 bg-white border border-emerald-100 rounded-xl shadow-xl py-1.5 min-w-[180px] z-50">
+          {item.children.map((child, i) => (
+            <Link
+              key={i}
+              to={createPageUrl(child.page)}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
+            >
+              {child.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
@@ -40,6 +112,7 @@ export default function Layout({ children, currentPageName }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminEditMode, setAdminEditMode] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState(null);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -79,122 +152,155 @@ export default function Layout({ children, currentPageName }) {
             {navItems.filter((item) => !item.adminOnly || isAdmin).map((item) => {
               const Icon = item.icon;
               const isActive = currentPageName === item.page;
+              if (item.children) {
+                return <NavDropdown key={item.page} item={item} isActive={isActive} isAdmin={isAdmin} />;
+              }
               return (
                 <Link
                   key={item.page}
                   to={createPageUrl(item.page)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  isActive ?
-                  "bg-emerald-600 text-white shadow-md shadow-emerald-200" :
-                  "text-gray-600 hover:text-emerald-700 hover:bg-emerald-50"}`
-                  }>
-
+                    isActive
+                      ? "bg-emerald-600 text-white shadow-md shadow-emerald-200"
+                      : "text-gray-600 hover:text-emerald-700 hover:bg-emerald-50"
+                  }`}
+                >
                   <Icon className="w-4 h-4" />
                   {item.name}
-                </Link>);
-
+                </Link>
+              );
             })}
-  
           </nav>
 
           {/* Right side */}
           <div className="flex items-center gap-3">
-            {isAuthenticated ?
-            <div className="hidden sm:flex items-center gap-2">
-                {isAdmin &&
-              <Button
-                size="sm"
-                onClick={() => setAdminEditMode((m) => !m)}
-                className={`rounded-xl text-xs font-bold gap-1.5 ${adminEditMode ? "bg-amber-500 hover:bg-amber-600 text-white" : "bg-gray-100 hover:bg-gray-200 text-gray-700"}`}>
-
+            {isAuthenticated ? (
+              <div className="hidden sm:flex items-center gap-2">
+                {isAdmin && (
+                  <Button
+                    size="sm"
+                    onClick={() => setAdminEditMode((m) => !m)}
+                    className={`rounded-xl text-xs font-bold gap-1.5 ${adminEditMode ? "bg-amber-500 hover:bg-amber-600 text-white" : "bg-gray-100 hover:bg-gray-200 text-gray-700"}`}
+                  >
                     <Pencil className="w-3.5 h-3.5" />
                     {adminEditMode ? "Edit: ON" : "Edit"}
                   </Button>
-              }
+                )}
                 <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-semibold text-sm">
                   {user?.full_name?.[0] || "U"}
                 </div>
                 <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => base44.auth.logout()}
-                className="text-gray-500 hover:text-red-500">
-
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => base44.auth.logout()}
+                  className="text-gray-500 hover:text-red-500"
+                >
                   <LogOut className="w-4 h-4" />
                 </Button>
-              </div> :
-
-            <Button
-              size="sm"
-              onClick={() => base44.auth.redirectToLogin()}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl">
-
+              </div>
+            ) : (
+              <Button
+                size="sm"
+                onClick={() => base44.auth.redirectToLogin()}
+                className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl"
+              >
                 Hyr / Regjistrohu
               </Button>
-            }
+            )}
 
             {/* Mobile menu button */}
             <button
               className="lg:hidden p-2 rounded-xl hover:bg-emerald-50 transition-colors"
-              onClick={() => setMobileOpen(!mobileOpen)}>
-
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
               {mobileOpen ? <X className="w-5 h-5 text-gray-600" /> : <Menu className="w-5 h-5 text-gray-600" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Nav */}
-        {mobileOpen &&
-        <div className="lg:hidden border-t border-emerald-100 bg-white/95 backdrop-blur-md">
+        {mobileOpen && (
+          <div className="lg:hidden border-t border-emerald-100 bg-white/95 backdrop-blur-md">
             <nav className="px-4 py-3 space-y-1">
               {navItems.filter((item) => !item.adminOnly || isAdmin).map((item) => {
-              const Icon = item.icon;
-              const isActive = currentPageName === item.page;
-              return (
-                <Link
-                  key={item.page}
-                  to={createPageUrl(item.page)}
-                  onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                  isActive ?
-                  "bg-emerald-600 text-white" :
-                  "text-gray-600 hover:bg-emerald-50"}`
-                  }>
-
+                const Icon = item.icon;
+                const isActive = currentPageName === item.page;
+                if (item.children) {
+                  return (
+                    <div key={item.page}>
+                      <button
+                        onClick={() => setMobileExpanded(mobileExpanded === item.page ? null : item.page)}
+                        className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                          isActive ? "bg-emerald-600 text-white" : "text-gray-600 hover:bg-emerald-50"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <Icon className="w-5 h-5" />
+                          {item.name}
+                        </div>
+                        <ChevronDown className={`w-4 h-4 transition-transform ${mobileExpanded === item.page ? "rotate-180" : ""}`} />
+                      </button>
+                      {mobileExpanded === item.page && (
+                        <div className="ml-10 mt-1 space-y-1">
+                          {item.children.map((child, i) => (
+                            <Link
+                              key={i}
+                              to={createPageUrl(child.page)}
+                              onClick={() => setMobileOpen(false)}
+                              className="block px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors"
+                            >
+                              {child.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+                return (
+                  <Link
+                    key={item.page}
+                    to={createPageUrl(item.page)}
+                    onClick={() => setMobileOpen(false)}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                      isActive ? "bg-emerald-600 text-white" : "text-gray-600 hover:bg-emerald-50"
+                    }`}
+                  >
                     <Icon className="w-5 h-5" />
                     {item.name}
-                  </Link>);
-
-            })}
-
+                  </Link>
+                );
+              })}
             </nav>
           </div>
-        }
+        )}
       </header>
 
       {/* Admin edit mode banner */}
-      {adminEditMode &&
-      <div className="bg-amber-500 text-white text-center py-1.5 text-xs font-bold z-40 sticky top-16">
+      {adminEditMode && (
+        <div className="bg-amber-500 text-white text-center py-1.5 text-xs font-bold z-40 sticky top-16">
           ✏️ Modaliteti i Editimit është aktiv — Admini mund të ndryshojë çdo opsion
         </div>
-      }
+      )}
 
       {/* Content */}
       <main className="min-h-[calc(100vh-4rem)]">
-        {React.isValidElement(children) ?
-        React.cloneElement(children, { adminEditMode, isAdmin }) :
-        children}
+        {React.isValidElement(children)
+          ? React.cloneElement(children, { adminEditMode, isAdmin })
+          : children}
       </main>
 
       {/* Floating admin edit button */}
-      {isAdmin && adminEditMode &&
-      <div className="fixed bottom-6 right-6 z-50">
-          <Link to={createPageUrl("Settings")}
-        className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-4 py-3 rounded-2xl shadow-2xl font-bold text-sm transition-all">
+      {isAdmin && adminEditMode && (
+        <div className="fixed bottom-6 right-6 z-50">
+          <Link
+            to={createPageUrl("Settings")}
+            className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-4 py-3 rounded-2xl shadow-2xl font-bold text-sm transition-all"
+          >
             ⚙️ Admin Panel
           </Link>
         </div>
-      }
+      )}
       <PointsToast />
 
       {/* Footer */}
@@ -205,6 +311,6 @@ export default function Layout({ children, currentPageName }) {
           </p>
         </div>
       </footer>
-    </div>);
-
+    </div>
+  );
 }
