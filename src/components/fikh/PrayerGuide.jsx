@@ -679,6 +679,7 @@ export default function PrayerGuide() {
             <BookOpen className="w-5 h-5 text-emerald-600" />
             <h3 className="font-bold text-gray-800">Forma e Namazit — Sheikh Albani</h3>
           </div>
+
           <div className="bg-amber-50 border-l-4 border-amber-500 rounded-xl p-4 mb-5">
             <p className="text-sm font-bold text-amber-900">بسم الله الرحمن الرحيم</p>
             <p className="text-sm text-amber-800 mt-2 leading-relaxed italic">
