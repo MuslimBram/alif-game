@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { BookOpen, Languages, Gamepad2, BookMarked, MapPin, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import AdminCardOverlay from "@/components/admin/AdminCardOverlay";
 
-export default function HeroSection({ stats }) {
+export default function HeroSection({ stats, adminEditMode }) {
   return (
     <section className="relative overflow-hidden">
       {/* Background decorations */}
@@ -87,21 +88,26 @@ export default function HeroSection({ stats }) {
               page: "MedineArabicMain"
             }
           ].map((section, idx) => (
-            <Link
+            <AdminCardOverlay
               key={idx}
-              to={createPageUrl(section.page)}
-              className={`glass-card rounded-2xl p-5 bg-gradient-to-br ${section.color} bg-opacity-5 border border-current border-opacity-20 hover:shadow-lg transition-shadow cursor-pointer`}>
-
-              <p className="font-bold text-gray-800 mb-3 text-sm">{section.title}</p>
-              <div className="space-y-2">
-                {section.items.map((item, i) => (
-                  <div key={i} className="flex items-center gap-2 text-xs text-gray-700">
-                    <span className="w-1.5 h-1.5 rounded-full bg-current opacity-60" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </Link>
+              show={!!adminEditMode}
+              editHref={createPageUrl(section.page)}
+              label={section.title}
+            >
+              <Link
+                to={createPageUrl(section.page)}
+                className={`block glass-card rounded-2xl p-5 bg-gradient-to-br ${section.color} bg-opacity-5 border border-current border-opacity-20 hover:shadow-lg transition-shadow cursor-pointer`}>
+                <p className="font-bold text-gray-800 mb-3 text-sm">{section.title}</p>
+                <div className="space-y-2">
+                  {section.items.map((item, i) => (
+                    <div key={i} className="flex items-center gap-2 text-xs text-gray-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-current opacity-60" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </Link>
+            </AdminCardOverlay>
           ))}
         </motion.div>
 
@@ -122,16 +128,22 @@ export default function HeroSection({ stats }) {
           ].map((item) => {
             const Icon = item.icon;
             return (
-              <Link
+              <AdminCardOverlay
                 key={item.page}
-                to={createPageUrl(item.page)}
-                className="group glass-card rounded-2xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-
-                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-2 mx-auto shadow-lg group-hover:scale-110 transition-transform`}>
-                  <Icon className="w-5 h-5 text-white" />
-                </div>
-                <p className="font-semibold text-gray-800 text-xs leading-tight">{item.name}</p>
-              </Link>);
+                show={!!adminEditMode}
+                editHref={createPageUrl(item.page)}
+                label={item.name}
+              >
+                <Link
+                  to={createPageUrl(item.page)}
+                  className="block group glass-card rounded-2xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-2 mx-auto shadow-lg group-hover:scale-110 transition-transform`}>
+                    <Icon className="w-5 h-5 text-white" />
+                  </div>
+                  <p className="font-semibold text-gray-800 text-xs leading-tight">{item.name}</p>
+                </Link>
+              </AdminCardOverlay>
+            );
           })}
         </motion.div>
       </div>
