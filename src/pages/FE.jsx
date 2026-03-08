@@ -276,6 +276,51 @@ export default function FE() {
             </div>
           </Section>
 
+          {/* Forma e Abdesit — Vizual */}
+          <Section title="Forma e Abdesit — Hap pas Hapi (Ilustrim)" icon={<Droplets className="w-5 h-5 text-blue-600" />} color="border-blue-400">
+            <p className="text-sm text-gray-600 mb-4">Mënyra e plotë e Abdesit sipas Sunnetit të Profetit ﷺ — me çdo hap, thënie dhe argument:</p>
+            <div className="grid grid-cols-1 gap-3">
+              {[
+                { step: 1, emoji: "🤲", title: "Nijeti — Qëllimi", desc: "Bëj nijetin me zemër para se të fillosh. Nuk thuhet me gojë sipas shumicës.", arabic: "نَوَيْتُ الْوُضُوءَ", translit: "Nawaytu-l-wudū'", color: "bg-blue-50 border-blue-200" },
+                { step: 2, emoji: "🗣️", title: "Bismillah", desc: "Thuaj Bismillah para se të fillosh lajen — obligative sipas shumë dijetarëve.", arabic: "بِسْمِ اللَّهِ", translit: "Bismillāh", color: "bg-sky-50 border-sky-200" },
+                { step: 3, emoji: "🙌", title: "Laj Duart 3 Herë", desc: "Laj të dyja duart deri te kyçi, duke filluar me të djathtën.", arabic: "", translit: "", dalil: "Hadith Buhariu 159 — Profeti ﷺ fillonte gjithmonë me larjen e duarve.", color: "bg-cyan-50 border-cyan-200" },
+                { step: 4, emoji: "👄", title: "Shpëlaje Gojën 3 Herë (Madmadah)", desc: "Merr ujë me dorën e djathtë, shpëlaje gojën mirë duke lëvizur ujin brenda.", arabic: "", translit: "", dalil: "Kur'an 5:6 + Hadith Buhariu 159 — pjesë e Abdesit sipas Sunnetit.", color: "bg-teal-50 border-teal-200" },
+                { step: 5, emoji: "👃", title: "Shpëlaje Hundën 3 Herë (Istinshaq)", desc: "Thith ujë me hundë me dorën e djathtë, nxirreni me të majtën.", arabic: "", translit: "", dalil: "Hadith Buhariu 159 — 'Kush bën Abdest le të thithë ujë me hundën e tij, pastaj le ta nxjerrë.'", color: "bg-teal-50 border-teal-200" },
+                { step: 6, emoji: "😊", title: "Laj Fytyrën 3 Herë (Farz)", desc: "Nga balli deri poshtë mjekrës, nga njëra vesh deri te tjetra. Fërkoje mjekrën me gishtat.", arabic: "", translit: "", dalil: "Kur'an 5:6 — 'Lani fytyrat tuaja' — FARZ.", color: "bg-emerald-50 border-emerald-200" },
+                { step: 7, emoji: "💪", title: "Laj Duart deri te Bërrylat 3 Herë (Farz)", desc: "Fillo me dorën e djathtë duke lare deri mbi bërryl, pastaj të majtën. Mes gishtave fërkoji.", arabic: "", translit: "", dalil: "Kur'an 5:6 — 'duart tuaja deri te bërrylat' — FARZ.", color: "bg-emerald-50 border-emerald-200" },
+                { step: 8, emoji: "💆", title: "Fërkoje Kokën Një Herë (Mes'h — Farz)", desc: "Fërkoje kokën me të dyja duart: nga balli deri te qafa, pastaj ktheje prapa. Pastro edhe veshët brenda dhe jashtë.", arabic: "", translit: "", dalil: "Kur'an 5:6 — 'fërkoni kokat tuaja' — FARZ.", color: "bg-emerald-50 border-emerald-200" },
+                { step: 9, emoji: "🦵", title: "Laj Këmbët deri te Nyja 3 Herë (Farz)", desc: "Fillo me këmbën e djathtë, laje deri mbi nyjë. Fërkoji mes gishtave me gishtin e vogël të majtë.", arabic: "", translit: "", dalil: "Kur'an 5:6 — 'këmbët tuaja deri te nyjet' — FARZ.", color: "bg-emerald-50 border-emerald-200" },
+                { step: 10, emoji: "🤍", title: "Dua pas Abdestit (Shehadeti)", desc: "Pas Abdesit kthehu nga Kibla dhe thuaj:", arabic: "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ", translit: "Ashhadu an lā ilāha illā-llāhu waḥdahu lā sharīka lahu wa-ashhadu anna Muḥammadan ʿabduhu wa-rasūluh", dalil: "Muslimi 234 — 'Hapen 8 dyert e Xhennetit'", color: "bg-amber-50 border-amber-200" },
+              ].map((item) => (
+                <div key={item.step} className={`rounded-xl border-2 p-4 ${item.color}`}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-2xl flex-shrink-0">{item.emoji}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 bg-blue-600 text-white rounded-full text-xs font-bold flex items-center justify-center flex-shrink-0">{item.step}</span>
+                      <span className="font-bold text-gray-800">{item.title}</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-700 ml-11 mb-2">{item.desc}</p>
+                  {item.arabic && (
+                    <div className="ml-11 mb-2">
+                      <p className="text-right text-base font-bold text-gray-900 leading-loose mb-1" dir="rtl" style={{fontFamily:"Amiri,serif"}}>{item.arabic}</p>
+                      <p className="text-xs text-teal-700 italic">{item.translit}</p>
+                    </div>
+                  )}
+                  {item.dalil && (
+                    <div className="ml-11 bg-white/70 rounded-lg px-3 py-1.5 border-l-4 border-blue-400">
+                      <p className="text-xs text-blue-800 italic">📖 {item.dalil}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 bg-blue-50 rounded-xl p-4 border border-blue-200">
+              <p className="text-sm font-bold text-blue-800 mb-2">💡 Shënim i rëndësishëm:</p>
+              <p className="text-sm text-blue-700 leading-relaxed">Farzet janë 4: <strong>Fytyra, Duart, Mes'h i Kokës, Këmbët</strong>. Hapat e tjerë janë Sunet. Por Abdesti me të gjithë Sunnetin merr 7 herë më shumë sevape.</p>
+            </div>
+          </Section>
+
           {/* Kushtet e Abdestit */}
           <Section title="Kushtet e Abdestit" icon={<Droplets className="w-5 h-5 text-cyan-500" />} color="border-cyan-300">
             <p className="text-sm font-semibold text-gray-600 mb-3">📌 Farzet e Abdestit (4 Farzet):</p>
