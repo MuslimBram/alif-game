@@ -26,7 +26,19 @@ export default function DragDropSections({ adminEditMode, isAdmin, prayerTimes, 
   useEffect(() => {
     const saved = localStorage.getItem("homeSectionsOrder");
     if (saved) {
-      setSections(JSON.parse(saved));
+      try {
+        const savedIds = JSON.parse(saved).map(s => s.id);
+        const rebuilt = savedIds
+          .map(id => INITIAL_SECTIONS.find(s => s.id === id))
+          .filter(Boolean);
+        // Add any new sections not in saved order
+        INITIAL_SECTIONS.forEach(s => {
+          if (!rebuilt.find(r => r.id === s.id)) rebuilt.push(s);
+        });
+        setSections(rebuilt);
+      } catch {
+        setSections(INITIAL_SECTIONS);
+      }
     } else {
       setSections(INITIAL_SECTIONS);
     }
