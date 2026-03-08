@@ -93,12 +93,17 @@ export default function Settings() {
 
   const applyTheme = (theme) => {
     const root = document.documentElement;
+    root.classList.remove("dark");
+    document.body.style.background = "";
+    document.body.style.setProperty("--theme-override", "");
     if (theme === "dark") {
       root.classList.add("dark");
       document.body.style.background = "#111827";
+    } else if (theme === "emerald") {
+      document.body.style.background = "linear-gradient(180deg, #d1fae5 0%, #ffffff 50%, #d1fae5 100%)";
+      root.style.setProperty("--color-primary", "#059669");
     } else {
-      root.classList.remove("dark");
-      document.body.style.background = "";
+      root.style.removeProperty("--color-primary");
     }
   };
 
