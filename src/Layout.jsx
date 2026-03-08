@@ -42,14 +42,7 @@ const navItems = [
       { name: "Kuiz Kurani", page: "Quran" },
     ]
   },
-  {
-    name: "Arabisht Medinë", page: "MedineArabicMain", icon: BookOpen,
-    children: [
-      { name: "Fillestar", page: "MedineArabicMain", tab: "fillestar" },
-      { name: "Mesatar", page: "MedineArabicMain", tab: "mesatar" },
-      { name: "Avancuar", page: "MedineArabicMain", tab: "avancuar" },
-    ]
-  },
+
   { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
   { name: "Lojëra", page: "Games", icon: Gamepad2 },
   { name: "Fikh Elementar", page: "FE", icon: BookOpen },

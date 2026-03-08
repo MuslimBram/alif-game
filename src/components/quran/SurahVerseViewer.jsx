@@ -269,15 +269,33 @@ export default function SurahVerseViewer({ surah, onClose }) {
   const localVerses = VERSE_DATA[surah.num] || [];
   const hasLocalData = localVerses.length > 0;
 
-  // Fetch from API if no local data
+  // Fetch from API if no local data — with transliteration + Albanian
   useEffect(() => {
     if (hasLocalData) return;
     setApiLoading(true);
-    fetch(`https://api.alquran.cloud/v1/surah/${surah.num}`)
-      .then(r => r.json())
-      .then(data => {
-        if (data.code === 200 && data.data?.ayahs) {
-          setApiVerses(data.data.ayahs.map(a => ({ ar: a.text, translit: null, sq: null, tafsir: null })));
+
+    // Fetch Arabic + transliteration in parallel
+    Promise.all([
+      fetch(`https://api.alquran.cloud/v1/surah/${surah.num}`).then(r => r.json()),
+      fetch(`https://api.alquran.cloud/v1/surah/${surah.num}/en.transliteration`).then(r => r.json()),
+      fetch(`https://api.alquran.cloud/v1/surah/${surah.num}/sq.ahmeti`).then(r => r.json()).catch(() => null),
+    ])
+      .then(([arData, translitData, sqData]) => {
+        if (arData.code === 200 && arData.data?.ayahs) {
+          const translitMap = {};
+          if (translitData?.code === 200 && translitData.data?.ayahs) {
+            translitData.data.ayahs.forEach(a => { translitMap[a.numberInSurah] = a.text; });
+          }
+          const sqMap = {};
+          if (sqData?.code === 200 && sqData.data?.ayahs) {
+            sqData.data.ayahs.forEach(a => { sqMap[a.numberInSurah] = a.text; });
+          }
+          setApiVerses(arData.data.ayahs.map(a => ({
+            ar: a.text,
+            translit: translitMap[a.numberInSurah] || null,
+            sq: sqMap[a.numberInSurah] || null,
+            tafsir: null,
+          })));
         }
       })
       .catch(() => {})
