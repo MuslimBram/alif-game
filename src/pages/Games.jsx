@@ -419,6 +419,10 @@ export default function Games({ adminEditMode, isAdmin }) {
   const [activeGame, setActiveGame] = useState(null);
   const [activeMath, setActiveMath] = useState(false);
   const [activeMemory, setActiveMemory] = useState(false);
+  const [activeBrainGym, setActiveBrainGym] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("game") === "braingym";
+  });
   const [mainTab, setMainTab] = useState("lojerat");
 
   const filtered = allGames.filter(g => {
