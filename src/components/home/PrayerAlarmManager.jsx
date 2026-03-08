@@ -96,9 +96,20 @@ export default function PrayerAlarmManager({ times, azanId, sabahTime }) {
             `Allahu Akbar! Ka ardhur koha e ${PRAYER_NAMES[prayer]}.`
           );
 
-          // Mosque mode
+          // Mosque mode: activate at azan, schedule deactivation notification after N minutes
           if (settings.mosqueModeEnabled) {
-            tryVibrateOrSilent(settings.mosqueModeType, settings.mosqueDurationMinutes * 60000);
+            const deactivateMin = settings.mosqueDeactivateMinutes ?? 29;
+            tryVibrateOrSilent(settings.mosqueModeType, deactivateMin * 60000);
+            // Schedule deactivation notification
+            setTimeout(() => {
+              showNotification(
+                "🔔 Namazi u krye",
+                `Kaloi ${deactivateMin} minuta — mund ta kaloni telefonin në tingull normal.`
+              );
+              if (settings.mosqueModeType === "vibrate" && navigator.vibrate) {
+                navigator.vibrate([200, 100, 200]);
+              }
+            }, deactivateMin * 60000);
           }
         }
       });
