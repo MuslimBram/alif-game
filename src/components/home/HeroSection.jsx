@@ -29,8 +29,8 @@ export default function HeroSection({ stats, adminEditMode }) {
             <span className="text-gradient">Edukim Interaktiv</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-6 leading-relaxed">
-            Mëso alfabetin në 3 gjuhë, Kuranin me texhuid dhe ritualet e Umras dhe Haxhit. Duke u argëtuar.
+          <p className="text-green-50 mb-6 mx-auto text-lg leading-relaxed md:text-xl max-w-2xl">Mëso alfabetin në 3 gjuhë, Kuranin me texhuid dhe ritualet e Umras dhe Haxhit. Duke u argëtuar.
+
           </p>
 
           <div className="bg-white/70 backdrop-blur-sm border border-emerald-100 rounded-2xl px-6 py-4 max-w-xl mx-auto mb-10">
