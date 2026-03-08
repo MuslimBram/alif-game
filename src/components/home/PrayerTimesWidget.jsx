@@ -152,6 +152,31 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
     localStorage.setItem("prayerAzanId", id);
   };
 
+  const handleCustomAudio = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    setCustomAudioUrl(url);
+    localStorage.setItem("prayerCustomAudioUrl", url);
+  };
+
+  const playPrayerAzan = (prayer, url) => {
+    if (playingPrayer === prayer) {
+      prayerAudioRef.current?.pause();
+      setPlayingPrayer(null);
+      return;
+    }
+    if (prayerAudioRef.current) {
+      prayerAudioRef.current.pause();
+    }
+    const audio = new Audio(url);
+    audio.volume = 0.7;
+    audio.play().catch(() => {});
+    audio.onended = () => setPlayingPrayer(null);
+    prayerAudioRef.current = audio;
+    setPlayingPrayer(prayer);
+  };
+
   const SHOW_PRAYERS = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
   return (
