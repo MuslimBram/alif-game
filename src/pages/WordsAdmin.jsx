@@ -3,6 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import PhotoGenerator360 from "@/components/admin/PhotoGenerator360";
+import IconImageGenerator from "@/components/admin/IconImageGenerator";
 
 const UMRA_PLACES = [
   { id: "mikat", name: "Mikati", emoji: "⬜", desc: "Pika e hyrjes në ihram — prag i shenjtë" },
