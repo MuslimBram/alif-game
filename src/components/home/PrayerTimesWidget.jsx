@@ -252,16 +252,6 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
         </div>
       </div>
 
-      {loading && (
-        <div className="flex items-center justify-center py-6">
-          <div className="w-6 h-6 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
-        </div>
-      )}
-
-      {error && (
-        <div className="text-center py-4 text-red-300 text-sm">{error}</div>
-      )}
-
       {showAzanPanel && (
         <PrayerAzan selectedAzan={azanId} onChange={handleAzanChange} />
       )}
