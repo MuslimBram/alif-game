@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import * as THREE from "three";
-import { X, Move, ZoomIn, ZoomOut, RotateCcw, Info, Volume2, Maximize } from "lucide-react";
+import { X, Move, ZoomIn, ZoomOut, RotateCcw, Info, Volume2, Maximize, Upload, ImageIcon } from "lucide-react";
+import { base44 } from "@/api/base44Client";
 
 const SITES = [
   {
