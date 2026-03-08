@@ -246,7 +246,7 @@ export default function Layout({ children, currentPageName }) {
                           {item.children.map((child, i) => (
                             <Link
                               key={i}
-                              to={createPageUrl(child.page)}
+                              to={createPageUrl(child.page) + (child.params || "")}
                               onClick={() => setMobileOpen(false)}
                               className="block px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors"
                             >
