@@ -179,10 +179,22 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
 
   const SHOW_PRAYERS = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
+  // AZAN_OPTIONS mirrored here for inline use
+  const AZAN_OPTIONS_INLINE = [
+    { id: "makkah", name: "Ezan Meke", url: "https://www.islamcan.com/audio/adhan/azan1.mp3" },
+    { id: "madina", name: "Ezan Medine", url: "https://www.islamcan.com/audio/adhan/azan2.mp3" },
+    { id: "egypt", name: "Ezan Egjiptian", url: "https://www.islamcan.com/audio/adhan/azan3.mp3" },
+    { id: "fajr", name: "Ezan Sabahu", url: "https://www.islamcan.com/audio/adhan/azan4.mp3" },
+    ...(customAudioUrl ? [{ id: "custom", name: "🎵 Audio ime", url: customAudioUrl }] : []),
+    { id: "none", name: "Pa Ezan", url: null },
+  ];
+
   return (
     <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-6 text-white">
       <PrayerAlarmManager times={times} azanId={azanId} sabahTime={sabahTime} />
       <PrayerAlarmSettings open={showAlarmSettings} onClose={() => setShowAlarmSettings(false)} />
+      {/* Hidden file input for custom audio */}
+      <input ref={fileInputRef} type="file" accept="audio/*" className="hidden" onChange={handleCustomAudio} />
 
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
