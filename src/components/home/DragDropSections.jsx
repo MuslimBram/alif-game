@@ -19,7 +19,7 @@ const INITIAL_SECTIONS = [
   { id: "translator", name: "🌐 Përkthyesi 3-Gjuhësor", component: TriLanguageTranslator }
 ];
 
-export default function DragDropSections({ adminEditMode, prayerTimes, onPrayerTimesUpdate }) {
+export default function DragDropSections({ adminEditMode, isAdmin, prayerTimes, onPrayerTimesUpdate }) {
   const [sections, setSections] = useState([]);
   const [isDirty, setIsDirty] = useState(false);
 
@@ -70,6 +70,8 @@ export default function DragDropSections({ adminEditMode, prayerTimes, onPrayerT
     );
   }
 
+  // Admin edit mode - show drag handles and edit buttons on each section
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 mb-6">
@@ -116,20 +118,31 @@ export default function DragDropSections({ adminEditMode, prayerTimes, onPrayerT
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
-                        className={`bg-white rounded-xl border-2 overflow-hidden transition-all ${
+                        className={`relative group bg-white rounded-xl border-2 overflow-hidden transition-all ${
                           snapshot.isDragging
                             ? "border-amber-500 shadow-lg scale-105 rotate-2"
-                            : "border-gray-200 hover:border-amber-300"
+                            : "border-gray-200 hover:border-amber-400"
                         }`}
                       >
+                        {/* Drag handle - top left */}
                         <div
                           {...provided.dragHandleProps}
-                          className="bg-gray-50 px-4 py-3 flex items-center gap-3 border-b border-gray-100 cursor-grab active:cursor-grabbing hover:bg-gray-100 transition-colors"
+                          className="absolute top-2 left-2 z-20 bg-amber-500 text-white rounded-lg p-1.5 opacity-0 group-hover:opacity-100 transition-opacity cursor-grab active:cursor-grabbing shadow-lg"
+                          title="Tërhiq për të rirenditur"
                         >
-                          <GripVertical className="w-5 h-5 text-gray-400" />
-                          <span className="font-semibold text-gray-700">{section.name}</span>
+                          <GripVertical className="w-4 h-4" />
                         </div>
-                        <div className="p-4 opacity-60">
+                        {/* Section label */}
+                        <div className="bg-gray-50 px-4 py-3 flex items-center gap-3 border-b border-gray-100">
+                          <span className="font-semibold text-gray-700 text-sm">{section.name}</span>
+                        </div>
+                        {/* Edit button - top right */}
+                        <div className="absolute top-2 right-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <span className="bg-amber-500 text-white rounded-lg px-2 py-1.5 text-xs font-semibold flex items-center gap-1 shadow-lg">
+                            <Pencil className="w-3.5 h-3.5" /> Edit
+                          </span>
+                        </div>
+                        <div className="p-4 opacity-60 pointer-events-none">
                           <Component prayerTimes={prayerTimes} onPrayerTimesUpdate={onPrayerTimesUpdate} />
                         </div>
                       </div>
