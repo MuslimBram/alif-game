@@ -220,6 +220,10 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
         <div className="text-center py-4 text-red-300 text-sm">{error}</div>
       )}
 
+      {showAzanPanel && (
+        <PrayerAzan selectedAzan={azanId} onChange={handleAzanChange} />
+      )}
+
       {times && !loading && (
         <div className="space-y-2">
           {/* Imsak */}
