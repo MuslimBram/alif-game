@@ -194,7 +194,10 @@ export default function Quran({ adminEditMode, isAdmin }) {
   const [filter, setFilter] = useState("te_gjitha");
   const [sortMode, setSortMode] = useState("mushaf"); // mushaf | revelation | favorites
   const [expanded, setExpanded] = useState(null);
-  const [tab, setTab] = useState("suret"); // suret | quiz | progress
+  const [tab, setTab] = useState(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("tab") || "suret";
+  }); // suret | quiz | progress | sevapet
   const [favorites, setFavorites] = useState(() => {
     try { return JSON.parse(localStorage.getItem("quran_favorites") || "[]"); } catch { return []; }
   });
