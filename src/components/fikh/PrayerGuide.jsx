@@ -323,10 +323,23 @@ function PrayerStepCard({ step, lang, onQuiz }) {
         </div>
       </div>
 
-      {/* Figure */}
+      {/* Figure / Image */}
       <div className="text-center py-4 bg-gray-50 border-b border-gray-100">
-        <div className="text-5xl mb-2">{step.figure}</div>
-        <p className="text-xs text-gray-500">{step.figureLabel[lang]}</p>
+        {customImage ? (
+          <div className="relative inline-block">
+            <img src={customImage} alt={step.title[lang]} className="max-h-40 mx-auto rounded-xl object-contain" />
+            <button onClick={onRemoveImage}
+              className="absolute top-1 right-1 w-6 h-6 bg-red-500 rounded-full text-white flex items-center justify-center text-xs font-bold hover:bg-red-600">×</button>
+          </div>
+        ) : (
+          <div className="text-5xl mb-2">{step.figure}</div>
+        )}
+        <p className="text-xs text-gray-500 mb-2">{step.figureLabel[lang]}</p>
+        <label className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-emerald-600 cursor-pointer bg-white border border-dashed border-gray-300 hover:border-emerald-400 rounded-lg px-3 py-1.5 transition-colors">
+          <Upload className="w-3.5 h-3.5" />
+          {customImage ? "Ndrysho Imazhin" : "Shto Imazh"}
+          <input type="file" accept="image/*" className="hidden" onChange={onImageUpload} />
+        </label>
       </div>
 
       {/* Description */}
