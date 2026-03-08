@@ -630,7 +630,11 @@ export default function PrayerGuide() {
 
           <AnimatePresence mode="wait">
             <motion.div key={currentStep} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }}>
-              <PrayerStepCard step={PRAYER_STEPS[currentStep]} lang={lang} />
+              <PrayerStepCard step={PRAYER_STEPS[currentStep]} lang={lang}
+                customImage={stepImages[PRAYER_STEPS[currentStep].id]}
+                onImageUpload={(e) => handleImageUpload(PRAYER_STEPS[currentStep].id, e)}
+                onRemoveImage={() => removeImage(PRAYER_STEPS[currentStep].id)}
+              />
             </motion.div>
           </AnimatePresence>
 
