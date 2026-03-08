@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { GripVertical, Save, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AdminCardOverlay from "@/components/admin/AdminCardOverlay";
 import TimeHeaderWidget from "@/components/home/TimeHeaderWidget";
 import DailyVerse from "@/components/home/DailyVerse";
 import PrayerTimesWidget from "@/components/home/PrayerTimesWidget";

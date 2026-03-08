@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { motion } from "framer-motion";
 import { BookOpen, Gamepad2, MapPin, Star, BookMarked, Languages } from "lucide-react";
+import AdminCardOverlay from "@/components/admin/AdminCardOverlay";
 
 const QUICK_LINKS = [
   {
