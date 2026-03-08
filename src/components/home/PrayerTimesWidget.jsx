@@ -44,6 +44,11 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
   const [azanId, setAzanId] = useState(() => localStorage.getItem("prayerAzanId") || "makkah");
   const [showAlarmSettings, setShowAlarmSettings] = useState(false);
   const [showAzanPanel, setShowAzanPanel] = useState(false);
+  const [activePrayerAzan, setActivePrayerAzan] = useState(null); // which prayer row's azan panel is open
+  const [customAudioUrl, setCustomAudioUrl] = useState(() => localStorage.getItem("prayerCustomAudioUrl") || null);
+  const [playingPrayer, setPlayingPrayer] = useState(null);
+  const prayerAudioRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const t = setInterval(() => setCurrentTime(new Date()), 60000);
