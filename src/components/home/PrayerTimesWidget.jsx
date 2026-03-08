@@ -51,7 +51,7 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
-    const t = setInterval(() => setCurrentTime(new Date()), 60000);
+    const t = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(t);
   }, []);
 
