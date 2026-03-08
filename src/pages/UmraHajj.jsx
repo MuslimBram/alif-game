@@ -61,6 +61,11 @@ export default function UmraHajj() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-6">
       {show3D && <VR3DExperience onClose={() => setShow3D(false)} />}
+      {tab === "harta3d" && !show3D && (
+        <div className="fixed inset-0 z-40">
+          <VR3DExperience onClose={() => setTab("harita")} />
+        </div>
+      )}
       {/* Header */}
       <div className="mb-6">
         <div className="relative bg-gradient-to-br from-emerald-700 via-teal-700 to-emerald-800 rounded-3xl p-6 text-white overflow-hidden shadow-2xl">
