@@ -53,7 +53,7 @@ export default function UmraHajj() {
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(next));
   };
 
-  const steps = (tab === "umra" || tab === "hajj") ? (tab === "umra" ? UMRA_STEPS : HAJJ_STEPS) : [];
+  const steps = tab === "umra" ? UMRA_STEPS : HAJJ_STEPS;
   const completedCount = (tab === "umra" || tab === "hajj") ? steps.filter(s => completedSteps[`${tab}_${s.num}`]).length : 0;
 
   const pct = Math.round((score / QUIZ_QUESTIONS.length) * 100);
@@ -105,6 +105,7 @@ export default function UmraHajj() {
           { val: "harta3d", label: "🗺️ Harta 3D", desc: "Eksplorim Virtual" },
           { val: "umra", label: "🕌 Umra", desc: `${UMRA_STEPS.length} hapa` },
           { val: "hajj", label: "🕋 Haxhi", desc: `${HAJJ_STEPS.length} hapa` },
+          { val: "duate", label: "🤲 Duatë", desc: "Duatë e Umrës" },
           { val: "quiz", label: "🎯 Kuiz", desc: `${QUIZ_QUESTIONS.length} pyetje` },
           { val: "foto360", label: "📸 Foto 360°", desc: "Gjenero imazhe" },
         ].map(t => (
