@@ -354,6 +354,17 @@ export default function UmraHajj() {
           )}
         </div>
       )}
+
+      {/* FOTO 360° */}
+      {tab === "foto360" && (
+        <div>
+          <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-2xl p-4 mb-5">
+            <h2 className="text-lg font-bold">📸 Foto 360° të Vendeve të Shenjta</h2>
+            <p className="text-purple-200 text-sm">Gjenero imazhe me AI të vendeve të shenjta të Haxhit dhe Umrës</p>
+          </div>
+          <PhotoGenerator360 />
+        </div>
+      )}
     </div>
   );
 }
