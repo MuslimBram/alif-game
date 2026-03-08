@@ -79,13 +79,19 @@ export default function HeroSection({ stats, adminEditMode }) {
               color: "from-blue-500 to-cyan-500",
               page: "AlphabetMain"
             },
-
             {
               title: "🕌 Arabisht Medinë",
               items: ["Fillestar", "Mesatar", "Avancuar", "Profesionist", "Mësime"],
               icon: "🕌",
               color: "from-green-500 to-emerald-600",
               page: "MedineArabicMain"
+            },
+            {
+              title: "📖 Kur'ani & Texhuidi",
+              items: ["Suret me Audio", "Texhuidi", "Rregullat Tajweed", "Kuiz Kurani", "Sevapet"],
+              icon: "📖",
+              color: "from-amber-500 to-orange-500",
+              page: "Quran"
             }
           ].map((section, idx) => (
             <AdminCardOverlay
