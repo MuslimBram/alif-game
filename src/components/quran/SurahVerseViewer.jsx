@@ -475,13 +475,23 @@ export default function SurahVerseViewer({ surah, onClose }) {
                       </span>
                     </div>
 
-                    {/* Tafsir — vetëm nëse ekziston */}
-                    {currentVerseData.tafsir && (
-                      <div className="bg-white rounded-xl p-4 border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-700 mb-1">📝 Tefsiri (Kuptimi & Shpjegimi)</p>
+                    {/* Tafsir — always show */}
+                    <div className="bg-white rounded-xl p-4 border border-emerald-100">
+                      <p className="text-xs font-bold text-emerald-700 mb-1">📝 Tefsiri (Kuptimi & Shpjegimi)</p>
+                      {currentVerseData.tafsir ? (
                         <p className="text-sm text-gray-700 leading-relaxed">{currentVerseData.tafsir}</p>
-                      </div>
-                    )}
+                      ) : currentVerseData.sq ? (
+                        <div>
+                          <p className="text-sm text-gray-700 leading-relaxed italic">"{currentVerseData.sq}"</p>
+                          <p className="text-xs text-gray-400 mt-2">— Përkthimi i Ajetit {currentVerse} sipas Shejh Ahmetiut</p>
+                        </div>
+                      ) : (
+                        <div>
+                          <p className="text-sm text-gray-500 italic mb-1">Tefsiri i plotë për këtë ajet po ngarkohet...</p>
+                          <p className="text-xs text-gray-400">Sure {surah.name} ({surah.name_sq}) — Ajeti {currentVerse} nga {surah.verses} · {surah.type} · {surah.revelation}</p>
+                        </div>
+                      )}
+                    </div>
 
                     {/* Kuiz per kete ajet */}
                     {!verseQuizActive ? (
