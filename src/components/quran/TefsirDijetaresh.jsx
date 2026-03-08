@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Download } from "lucide-react";
 
 const TEFSIR_DATA = [
   {
@@ -131,12 +131,32 @@ export default function TefsirDijetaresh() {
     setExpandedScholar(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
+  const downloadLinks = {
+    sq: "https://library.islamweb.net/newlibrary/display_book.php?lang=ar&book=132",
+    ar: "https://waqfeya.net/book.php?bid=5502",
+    en: "https://sunnah.com/bukhari"
+  };
+
   return (
     <div className="space-y-4">
       <div className="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-5 text-center mb-4">
         <p className="text-2xl mb-2">📚</p>
         <h2 className="text-xl font-bold text-emerald-800 mb-1">Tefsir i Dijetarëve të Mëdhenj</h2>
         <p className="text-sm text-emerald-700">Ibn Kethir · Es-Sadi · Al-Qurtubi · Ibn Tejmijje · Ibn El-Qayyim</p>
+        <div className="flex gap-2 justify-center mt-3 flex-wrap">
+          <a href={downloadLinks.sq} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
+            <Download className="w-3.5 h-3.5" /> 🇦🇱 Shqip
+          </a>
+          <a href={downloadLinks.ar} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
+            <Download className="w-3.5 h-3.5" /> 🇸🇦 العربية
+          </a>
+          <a href={downloadLinks.en} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
+            <Download className="w-3.5 h-3.5" /> 🇬🇧 English
+          </a>
+        </div>
       </div>
 
       {TEFSIR_DATA.map((item, idx) => (
