@@ -72,72 +72,72 @@ export default function HeroSection({ stats, adminEditMode }) {
           className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
 
           {[
-            {
-              title: "🔤 Alfabeti",
-              color: "from-blue-500 to-cyan-500",
-              border: "border-blue-200",
-              page: "AlphabetMain",
-              items: [
-                { name: "Numrat", page: "Alphabet" },
-                { name: "Germët", page: "Alphabet" },
-                { name: "Rrokjet", page: "Alphabet" },
-                { name: "Fjalët", page: "Alphabet" },
-                { name: "Zgjedhimi", page: "Alphabet" },
-                { name: "Lakimi", page: "Alphabet" },
-              ]
-            },
-            {
-              title: "🕌 Arabisht Medinë",
-              color: "from-green-500 to-emerald-600",
-              border: "border-emerald-200",
-              page: "MedineArabicMain",
-              items: [
-                { name: "Fillestar", page: "MedineArabicMain" },
-                { name: "Mesatar", page: "MedineArabicMain" },
-                { name: "Avancuar", page: "MedineArabicMain" },
-                { name: "Profesionist", page: "MedineArabicMain" },
-                { name: "Mësimet", page: "MedineArabicMain" },
-              ]
-            },
-            {
-              title: "📖 Kur'ani & Texhuidi",
-              color: "from-amber-500 to-orange-500",
-              border: "border-amber-200",
-              page: "Quran",
-              items: [
-                { name: "Suret me Audio", page: "Quran" },
-                { name: "Texhuidi", page: "Tajweed" },
-                { name: "Rregullat Tajweed", page: "Tajweed" },
-                { name: "Kuiz Kurani", page: "Quran" },
-                { name: "Sevapet", page: "Quran" },
-              ]
-            }
-          ].map((section, idx) => (
-            <AdminCardOverlay
-              key={idx}
-              show={!!adminEditMode}
-              editHref={createPageUrl(section.page)}
-              label={section.title}
-            >
-              <div className={`glass-card rounded-2xl p-5 border ${section.border} hover:shadow-lg transition-shadow`}>
-                <Link to={createPageUrl(section.page)}>
-                  <p className={`font-bold text-gray-800 mb-3 text-sm bg-gradient-to-r ${section.color} bg-clip-text text-transparent`}>{section.title}</p>
-                </Link>
-                <div className="space-y-1.5">
-                  {section.items.map((item, i) => (
-                    <Link
-                      key={i}
-                      to={createPageUrl(item.page)}
-                      className="flex items-center gap-2 text-xs text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg px-2 py-1 transition-colors"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0" />
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
+          {
+            title: "🔤 Alfabeti",
+            color: "from-blue-500 to-cyan-500",
+            border: "border-blue-200",
+            page: "AlphabetMain",
+            items: [
+            { name: "Numrat", page: "Alphabet" },
+            { name: "Germët", page: "Alphabet" },
+            { name: "Rrokjet", page: "Alphabet" },
+            { name: "Fjalët", page: "Alphabet" },
+            { name: "Zgjedhimi", page: "Alphabet" },
+            { name: "Lakimi", page: "Alphabet" }]
+
+          },
+          {
+            title: "🕌 Arabisht Medinë",
+            color: "from-green-500 to-emerald-600",
+            border: "border-emerald-200",
+            page: "MedineArabicMain",
+            items: [
+            { name: "Fillestar", page: "MedineArabicMain" },
+            { name: "Mesatar", page: "MedineArabicMain" },
+            { name: "Avancuar", page: "MedineArabicMain" },
+            { name: "Profesionist", page: "MedineArabicMain" },
+            { name: "Mësimet", page: "MedineArabicMain" }]
+
+          },
+          {
+            title: "📖 Kur'ani & Texhuidi",
+            color: "from-amber-500 to-orange-500",
+            border: "border-amber-200",
+            page: "Quran",
+            items: [
+            { name: "Suret me Audio", page: "Quran" },
+            { name: "Texhuidi", page: "Tajweed" },
+            { name: "Rregullat Tajweed", page: "Tajweed" },
+            { name: "Kuiz Kurani", page: "Quran" },
+            { name: "Sevapet", page: "Quran" }]
+
+          }].
+          map((section, idx) =>
+          <AdminCardOverlay
+            key={idx}
+            show={!!adminEditMode}
+            editHref={createPageUrl(section.page)}
+            label={section.title}>
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </AdminCardOverlay>
-          ))}
+          )}
         </motion.div>
 
         {/* Quick links */}
@@ -153,26 +153,26 @@ export default function HeroSection({ stats, adminEditMode }) {
           { name: "Texhuidi", page: "Tajweed", icon: BookMarked, color: "from-violet-500 to-purple-500" },
           { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin, color: "from-teal-500 to-cyan-500" },
           { name: "Fikh Elementar", page: "FE", icon: Star, color: "from-green-500 to-emerald-600" },
-          { name: "Lojëra", page: "Games", icon: Gamepad2, color: "from-pink-500 to-rose-500" },
-          ].map((item) => {
+          { name: "Lojëra", page: "Games", icon: Gamepad2, color: "from-pink-500 to-rose-500" }].
+          map((item) => {
             const Icon = item.icon;
             return (
               <AdminCardOverlay
                 key={item.page}
                 show={!!adminEditMode}
                 editHref={createPageUrl(item.page)}
-                label={item.name}
-              >
-                <Link
-                  to={createPageUrl(item.page)}
-                  className="block group glass-card rounded-2xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                  <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-2 mx-auto shadow-lg group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
-                  <p className="font-semibold text-gray-800 text-xs leading-tight">{item.name}</p>
-                </Link>
-              </AdminCardOverlay>
-            );
+                label={item.name}>
+
+                
+
+
+
+
+
+
+
+              </AdminCardOverlay>);
+
           })}
         </motion.div>
       </div>
