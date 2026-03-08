@@ -360,6 +360,23 @@ export default function VR3DExperience({ onClose }) {
   const [selectedSite, setSelectedSite] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
+  const [siteImages, setSiteImages] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("vr3d_site_images") || "{}"); } catch { return {}; }
+  });
+  const [uploadingFor, setUploadingFor] = useState(null);
+  const [panoramaView, setPanoramaView] = useState(null); // { siteId, imageUrl }
+  const fileInputRef = useRef(null);
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file || !uploadingFor) return;
+    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    const newImages = { ...siteImages, [uploadingFor]: file_url };
+    setSiteImages(newImages);
+    localStorage.setItem("vr3d_site_images", JSON.stringify(newImages));
+    setUploadingFor(null);
+    setPanoramaView({ siteId: uploadingFor, imageUrl: file_url });
+  };
 
   const goToSite = (index) => {
     const idx = (index + SITES.length) % SITES.length;
