@@ -75,7 +75,19 @@ export default function Settings() {
     });
   }, []);
 
-  const update = (key, value) => setSettings(prev => ({ ...prev, [key]: value }));
+  const update = (key, value) => {
+    setSettings(prev => {
+      const next = { ...prev, [key]: value };
+      // Apply language/dialect immediately and persist
+      if (key === "language" || key === "dialect") {
+        localStorage.setItem("app_settings", JSON.stringify(next));
+        window.dispatchEvent(new CustomEvent("app_language_changed", { detail: { language: next.language, dialect: next.dialect } }));
+        document.documentElement.setAttribute("lang", next.language);
+        document.documentElement.setAttribute("data-dialect", next.dialect || "");
+      }
+      return next;
+    });
+  };
 
   const handleSave = async () => {
     // Always save to localStorage
