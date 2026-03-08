@@ -479,10 +479,62 @@ export default function PrayerGuide() {
     { id: "book", label: { sq: "📖 Libri Plotë", en: "📖 Full Text", ar: "📖 النص الكامل" } },
   ];
 
+  const handleImageUpload = (stepId, e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const updated = { ...stepImages, [stepId]: ev.target.result };
+      setStepImages(updated);
+      localStorage.setItem("prayer_step_images", JSON.stringify(updated));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const removeImage = (stepId) => {
+    const updated = { ...stepImages };
+    delete updated[stepId];
+    setStepImages(updated);
+    localStorage.setItem("prayer_step_images", JSON.stringify(updated));
+  };
+
   return (
     <div className="mt-6">
-      {/* Header */}
+      {/* Collapsible Header */}
+      <button
+        onClick={() => setIsOpen(v => !v)}
+        className="w-full bg-gradient-to-br from-slate-800 via-slate-700 to-emerald-900 rounded-3xl p-6 text-white mb-0 relative overflow-hidden text-left"
+      >
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-8 translate-x-8" />
+        <div className="relative flex items-start justify-between">
+          <div>
+            <h2 className="text-2xl font-extrabold mb-1">🕌 Forma e Namazit</h2>
+            <p className="text-emerald-300 text-sm leading-relaxed">
+              Hap pas hapi — nga Tekbiri fillestar deri në Selam
+            </p>
+          </div>
+          <ChevronDown className={`w-6 h-6 text-white/70 transition-transform flex-shrink-0 mt-1 ${isOpen ? "rotate-180" : ""}`} />
+        </div>
+      </button>
+
+      {!isOpen && <div className="mb-4" />}
+
+      <AnimatePresence>
+      {isOpen && (
+      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+      <div className="pt-4">
+      {/* Header subtitle (visible inside) */}
       <div className="bg-gradient-to-br from-slate-800 via-slate-700 to-emerald-900 rounded-3xl p-6 text-white mb-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-8 translate-x-8" />
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-500/10 rounded-full translate-y-8 -translate-x-8" />
+        <div className="relative">
+          <h2 className="text-2xl font-extrabold mb-1">🕌 Forma e Namazit</h2>
+          <p className="text-emerald-300 text-sm leading-relaxed">
+            Përmbledhje e formës së namazit të Muhamedit ﷺ — nga Tekbiri fillestar deri në dhënien e Selamit
+          </p>
+          <p className="text-xs text-gray-400 mt-2 italic">— Sheikh Muhamed Nasirudin el Albani (Allahu e mëshiroftë!)</p>
+        </div>
+      </div>
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-8 translate-x-8" />
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-500/10 rounded-full translate-y-8 -translate-x-8" />
         <div className="relative">
