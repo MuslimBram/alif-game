@@ -52,7 +52,7 @@ const QUICK_LINKS = [
   },
 ];
 
-export default function QuickStats() {
+export default function QuickStats({ adminEditMode }) {
   return (
     <div className="mb-8">
       <h2 className="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
@@ -67,16 +67,22 @@ export default function QuickStats() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
           >
-            <Link
-              to={createPageUrl(item.page)}
-              className="block bg-white rounded-2xl border border-gray-100 p-4 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group"
+            <AdminCardOverlay
+              show={!!adminEditMode}
+              editHref={createPageUrl(item.page)}
+              label={item.title}
             >
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center text-xl mb-2 group-hover:scale-110 transition-transform`}>
-                {item.emoji}
-              </div>
-              <p className="font-bold text-gray-800 text-sm leading-tight">{item.title}</p>
-              <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{item.desc}</p>
-            </Link>
+              <Link
+                to={createPageUrl(item.page)}
+                className="block bg-white rounded-2xl border border-gray-100 p-4 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group"
+              >
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center text-xl mb-2 group-hover:scale-110 transition-transform`}>
+                  {item.emoji}
+                </div>
+                <p className="font-bold text-gray-800 text-sm leading-tight">{item.title}</p>
+                <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{item.desc}</p>
+              </Link>
+            </AdminCardOverlay>
           </motion.div>
         ))}
       </div>
