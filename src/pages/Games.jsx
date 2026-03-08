@@ -432,14 +432,15 @@ export default function Games({ adminEditMode, isAdmin }) {
   });
 
   const handlePlay = (game) => {
-    if (QUIZ_GAME_MAP[game.id]) {
+    if (game.isBrainGym) {
+      setActiveBrainGym(true);
+    } else if (QUIZ_GAME_MAP[game.id]) {
       setActiveGame({ ...game, quizKey: QUIZ_GAME_MAP[game.id] });
     } else if ([2, 44, 6, 4, 5, 3].includes(game.id)) {
       setActiveMath(true);
     } else if ([12, 24, 27].includes(game.id)) {
       setActiveMemory(true);
     } else {
-      // Default: try to map to a quiz or show math game
       setActiveMath(true);
     }
   };
