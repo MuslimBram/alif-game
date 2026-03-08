@@ -107,6 +107,13 @@ export default function Settings() {
     }
   };
 
+  const applyFontSize = (size) => {
+    const root = document.documentElement;
+    if (size === "small") root.style.fontSize = "13px";
+    else if (size === "large") root.style.fontSize = "18px";
+    else root.style.fontSize = "16px";
+  };
+
   const selectedLang = LANGUAGES.find(l => l.code === settings.language) || LANGUAGES[0];
 
   if (loading) {
