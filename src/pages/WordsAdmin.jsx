@@ -311,6 +311,7 @@ export default function WordsAdmin() {
           { id: "words", label: "🔤 Fjalë" },
           { id: "map", label: "🗺️ Harta Umra/Haxh" },
           { id: "photos", label: "📸 Foto 360°" },
+          { id: "icons", label: "🎨 Ikona & Imazhe" },
           { id: "games", label: "🧠 Brain Gym" },
         ].map(t => (
           <button key={t.id} onClick={() => setAdminTab(t.id)}
