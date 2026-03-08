@@ -92,8 +92,12 @@ export default function Settings() {
   const handleSave = async () => {
     // Always save to localStorage
     localStorage.setItem("app_settings", JSON.stringify(settings));
-    // Also apply theme immediately
+    // Apply theme and language
     applyTheme(settings.theme);
+    applyFontSize(settings.font_size);
+    document.documentElement.setAttribute("lang", settings.language);
+    document.documentElement.setAttribute("data-dialect", settings.dialect || "");
+    window.dispatchEvent(new CustomEvent("app_language_changed", { detail: { language: settings.language, dialect: settings.dialect } }));
 
     if (isAuthenticated) {
       try {
