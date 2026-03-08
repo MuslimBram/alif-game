@@ -461,6 +461,23 @@ export default function VR3DExperience({ onClose }) {
               <Volume2 className="w-4 h-4" /> Dëgjo Shpjegimin
             </button>
 
+            {/* 360° Image section */}
+            <div className="mb-3">
+              {siteImages[selectedSite.id] ? (
+                <div className="relative">
+                  <img src={siteImages[selectedSite.id]} alt={selectedSite.name} className="w-full h-28 object-cover rounded-xl mb-2 cursor-pointer" onClick={() => setPanoramaView({ siteId: selectedSite.id, imageUrl: siteImages[selectedSite.id] })} />
+                  <button onClick={() => setPanoramaView({ siteId: selectedSite.id, imageUrl: siteImages[selectedSite.id] })}
+                    className="w-full py-1.5 bg-indigo-600/80 hover:bg-indigo-600 text-white text-xs font-semibold rounded-xl transition-all mb-1 flex items-center justify-center gap-1.5">
+                    <ImageIcon className="w-3.5 h-3.5" /> Shiko Panoramën 360°
+                  </button>
+                </div>
+              ) : null}
+              <button onClick={() => { setUploadingFor(selectedSite.id); fileInputRef.current?.click(); }}
+                className="w-full py-1.5 bg-white/10 hover:bg-white/20 text-white/80 text-xs font-semibold rounded-xl transition-all border border-white/20 flex items-center justify-center gap-1.5">
+                <Upload className="w-3.5 h-3.5" /> {siteImages[selectedSite.id] ? "Ndrysho imazhin 360°" : "Ngarko imazh 360°"}
+              </button>
+            </div>
+
             {/* Navigation arrows */}
             <div className="flex items-center justify-between gap-2">
               <button
