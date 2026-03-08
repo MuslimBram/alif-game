@@ -49,6 +49,35 @@ const FIKH_QUESTIONS = [
   { q: "Sadaka Xharije do të thotë:", opts: ["Sadaka e detyrueshme", "Sadaka sezonale", "Sadaka e vazhdueshme (pus, xhami, libër i dobishëm)", "Zekat vjetor"], correct: "Sadaka e vazhdueshme (pus, xhami, libër i dobishëm)" },
   { q: "Hadith: 'Kur vdes njeriu, veprat ndërpriten veç nga tri...' — e treta?", opts: ["Zekat", "Namaz", "Fëmija i mirë që lutet", "Agjërim"], correct: "Fëmija i mirë që lutet" },
   { q: "Kur'an 9:60 — Zekati jepet 8 kategorive. Cila e para?", opts: ["Udhëtarët", "Robërit", "Borxhlinjtë", "Të varfrit (Fuqara)"], correct: "Të varfrit (Fuqara)" },
+  // Abdesi
+  { q: "Si quhet lënia e vendit të thatë pa ujë gjatë abdesit?", opts: ["Mustehab", "Gabim i madh (e prish abdestit)", "Sunet", "Vaxhib"], correct: "Gabim i madh (e prish abdestit)" },
+  { q: "Cili organ lahet i pari në abdest sipas Sunnetit?", opts: ["Fytyra", "Duart deri kyçit", "Goja", "Hunda"], correct: "Duart deri kyçit" },
+  { q: "Cila është dua e parë e obliguar në abdest?", opts: ["Bismillah", "Allahu Ekber", "Subhanallah", "Astagfirullah"], correct: "Bismillah" },
+  { q: "Mes'hi i kokës gjatë abdesit — sa herë?", opts: ["3 herë", "2 herë", "1 herë e plotë", "Sipas dëshirës"], correct: "1 herë e plotë" },
+  { q: "A lejohet Tejemmumi kur ka ujë të mjaftueshëm?", opts: ["Po, gjithmonë", "Jo, Tejemmumi lejohet vetëm pa ujë ose kur ujë dëmton shëndetin", "Po, nëse je i zënë", "Po, për grua"], correct: "Jo, Tejemmumi lejohet vetëm pa ujë ose kur ujë dëmton shëndetin" },
+  // Namaz i thellë
+  { q: "Cila është shtyllë (Rukn) e namazit?", opts: ["Tekbiri fillestar, Fatiha, Rukuja, Sexhdja, Selami", "Vetëm Tekbiri fillestar", "Fatiha dhe Selami", "Teshehudi dhe Selami"], correct: "Tekbiri fillestar, Fatiha, Rukuja, Sexhdja, Selami" },
+  { q: "Cila është pozita e qorrët gjatë sexhdes (Sujuud)?", opts: ["7 gjymtyrë prekin tokën", "5 gjymtyrë prekin tokën", "Vetëm balli dhe gjunjët", "Gishtat dhe gjunjët"], correct: "7 gjymtyrë prekin tokën" },
+  { q: "Çfarë thuhet gjatë Rukusë?", opts: ["Subhana rabbijel ala", "Subhana rabbijel adhim", "Allahu Ekber", "Semia Allahu"], correct: "Subhana rabbijel adhim" },
+  { q: "Çfarë thuhet gjatë Sexhdes?", opts: ["Subhana rabbijel adhim", "Subhana rabbijel ala", "Allahu Ekber", "Semia Allahu"], correct: "Subhana rabbijel ala" },
+  { q: "Kur urdhërohet fëmija të fillojë namazin?", opts: ["Nga 5 vjeç", "Nga 7 vjeç", "Nga 10 vjeç", "Vetëm kur bëhet baligh"], correct: "Nga 7 vjeç" },
+  { q: "Sa rekate ka namazi Vaxhib gjithsej i Drekes?", opts: ["4", "6", "8", "12"], correct: "4" },
+  { q: "Cila frazë thuhet kur ngrihesh nga Rukuja?", opts: ["Subhana rabbijel adhim", "Semia Allahu limen hamideh", "Allahu Ekber", "Rabbi igfirli"], correct: "Semia Allahu limen hamideh" },
+  { q: "Cili kusht për namazin lidhet me rrobat?", opts: ["Nijet", "Kibla", "Auret (Mbulimi i trupit)", "Tahara"], correct: "Auret (Mbulimi i trupit)" },
+  { q: "Çfarë do të thotë Tuma'ninah (qëndrimi i qetë)?", opts: ["Leximi i shpejtë i Fatihasë", "Qëndrimi i qetë dhe plotë në çdo pozicion të namazit", "Gjatësia e sexhdes", "Kthimi i shpejtë nga rukuja"], correct: "Qëndrimi i qetë dhe plotë në çdo pozicion të namazit" },
+  // Isra & Mi'raxh
+  { q: "Sa qiej ka kaluar Profeti ﷺ gjatë Mi'raxhit?", opts: ["3 qiej", "5 qiej", "7 qiej", "10 qiej"], correct: "7 qiej" },
+  { q: "Cilin Profet takoi Profeti ﷺ në qiellin e 6-të?", opts: ["Ademi ﷺ", "Ibrahimi ﷺ", "Musa ﷺ", "Isa ﷺ"], correct: "Musa ﷺ" },
+  { q: "Çfarë është Sidretul Munteha?", opts: ["Emri i Xhennetit", "Pema e kufirit të fundit të dijes krijuese", "Mali ku zbret shpallja", "Emri i një sure"], correct: "Pema e kufirit të fundit të dijes krijuese" },
+  { q: "Çfarë zgjodhi Profeti ﷺ: qumështin apo verën?", opts: ["Verën", "Qumështin — fitran (natyrën e pastër)", "Ujin", "Të dyja"], correct: "Qumështin — fitran (natyrën e pastër)" },
+  // Duatë
+  { q: "Cila dua thuhet para gjumit sipas Sunnetit?", opts: ["Subhanallah 33 herë", "Bismikallahume emute ve ahja", "Allahu Ekber 34 herë", "La ilahe illallah"], correct: "Bismikallahume emute ve ahja" },
+  { q: "Cila dua thuhet kur del nga shtëpia?", opts: ["Bismillah tewekkeltu alallah", "Allahu Ekber", "Subhanallah", "Asteghfirullah"], correct: "Bismillah tewekkeltu alallah" },
+  { q: "Dua e Junusit ﷺ kur ishte në bark të balenës?", opts: ["Rabbi igfirli", "La ilahe illa ente subhaneke inni kuntu mined-dhalimin", "Hasbunallah ue ni'mel uekil", "Allahu Ekber"], correct: "La ilahe illa ente subhaneke inni kuntu mined-dhalimin" },
+  // Gusul
+  { q: "Sa gjëra e obligojnë Guslin?", opts: ["3 gjëra kryesore", "5 gjëra", "7 gjëra", "Vetëm marrëdhëniet"], correct: "7 gjëra" },
+  { q: "Cili është farzi i parë i Gusulit?", opts: ["Larja e kokës", "Nijeti", "Shpëlarja e gojës", "Larja e duarve"], correct: "Nijeti" },
+  { q: "Gusuli i Xhumasë (e Premtes) është:", opts: ["Farz i sigurt", "Haram", "Sunet Muekked (i fortë)", "Vaxhib"], correct: "Sunet Muekked (i fortë)" },
 ];
 
 export default function FikhQuiz() {
