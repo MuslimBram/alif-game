@@ -132,9 +132,9 @@ export default function TefsirDijetaresh() {
   };
 
   const downloadLinks = {
-    sq: "https://library.islamweb.net/newlibrary/display_book.php?lang=ar&book=132",
-    ar: "https://waqfeya.net/book.php?bid=5502",
-    en: "https://sunnah.com/bukhari"
+    sq: "https://sunnah.com/albanian/tafsir-ibn-kathir",
+    ar: "https://sunnah.com/ibnkathir",
+    en: "https://sunnah.com/ibnkathir"
   };
 
   return (

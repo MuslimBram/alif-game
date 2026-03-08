@@ -136,8 +136,8 @@ export default function RiyaduSalihin() {
   };
 
   const downloadLinks = {
-    sq: "https://waqfeya.net/book.php?bid=4707",
-    ar: "https://waqfeya.net/book.php?bid=1005",
+    sq: "https://sunnah.com/albanian/riyad-us-saliheen",
+    ar: "https://sunnah.com/riyad-us-saliheen",
     en: "https://sunnah.com/riyad-us-saliheen"
   };
 

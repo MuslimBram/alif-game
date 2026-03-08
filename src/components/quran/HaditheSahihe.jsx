@@ -133,7 +133,7 @@ export default function HaditheSahihe() {
   const collection = SAHIH_COLLECTIONS[activeCollection];
 
   const downloadLinks = {
-    sq: "https://sunnah.com/albanian",
+    sq: "https://sunnah.com/albanian/sahih-bukhari",
     ar: "https://sunnah.com/bukhari",
     en: "https://sunnah.com/bukhari"
   };
