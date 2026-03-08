@@ -74,6 +74,7 @@ export default function HeroSection({ stats, adminEditMode }) {
           {[
           {
             title: "🔤 Alfabeti",
+
             color: "from-blue-500 to-cyan-500",
             border: "border-blue-200",
             page: "AlphabetMain",
