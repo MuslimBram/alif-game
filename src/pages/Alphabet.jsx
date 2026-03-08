@@ -45,8 +45,8 @@ export default function Alphabet({ adminEditMode = false, isAdmin = false }) {
 
   const ALL_TABS = ["numrat", "germat", "rrokjet", "fjalët", "zgjedhimi", "lakimi", "texhuidi", "medine", "perkthyes"];
   const currentTabIndex = ALL_TABS.indexOf(activeTab);
-  const goNext = () => { if (currentTabIndex < ALL_TABS.length - 1) setActiveTab(ALL_TABS[currentTabIndex + 1]); };
-  const goPrev = () => { if (currentTabIndex > 0) setActiveTab(ALL_TABS[currentTabIndex - 1]); };
+  const goNext = () => {if (currentTabIndex < ALL_TABS.length - 1) setActiveTab(ALL_TABS[currentTabIndex + 1]);};
+  const goPrev = () => {if (currentTabIndex > 0) setActiveTab(ALL_TABS[currentTabIndex - 1]);};
 
   const { data: letters = [], isLoading } = useQuery({
     queryKey: ["alphabet-letters"],
@@ -79,8 +79,8 @@ export default function Alphabet({ adminEditMode = false, isAdmin = false }) {
       <DragDropTabs
         activeTab={activeTab}
         onTabChange={setActiveTab}
-        adminEditMode={adminEditMode}
-      ></DragDropTabs>
+        adminEditMode={adminEditMode}>
+      </DragDropTabs>
 
       {/* Language Filter */}
       {(activeTab === "germat" || activeTab === "rrokjet" || activeTab === "fjalët" || activeTab === "numrat") &&
@@ -102,27 +102,27 @@ export default function Alphabet({ adminEditMode = false, isAdmin = false }) {
             </div>
           </div>
 
-          <div>
-            <p className="text-xs font-semibold text-emerald-700 mb-2">Pamje</p>
-            <div className="flex gap-2">
-              <button
-              onClick={() => setViewMode("single")}
-              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-              viewMode === "single" ? "bg-emerald-600 text-white" : "bg-white border border-gray-200 text-gray-600 hover:border-gray-400"}`
-              }>
+          
 
-                📌 Njëa Gjuhe
-              </button>
-              <button
-              onClick={() => setViewMode("triple")}
-              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-              viewMode === "triple" ? "bg-emerald-600 text-white" : "bg-white border border-gray-200 text-gray-600 hover:border-gray-400"}`
-              }>
 
-                🌐 Tri Gjuhe
-              </button>
-            </div>
-          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
       }
 
@@ -242,15 +242,15 @@ export default function Alphabet({ adminEditMode = false, isAdmin = false }) {
       }
       {activeTab === "zgjedhimi" && <VerbConjugationView sharedLang={selectedLang} />}
       {activeTab === "lakimi" && <NounDeclensionView sharedLang={selectedLang} />}
-      {activeTab === "medine" && (
-        <div className="space-y-8">
+      {activeTab === "medine" &&
+      <div className="space-y-8">
           <MedineArabicView />
           <div className="border-t border-gray-100 pt-6">
             <h2 className="text-lg font-bold text-emerald-800 mb-4">🌐 Përkthyes Tri-Gjuhësor</h2>
             <TriLanguageTranslator />
           </div>
         </div>
-      )}
+      }
       {activeTab === "texhuidi" && <TajweedInline />}
       {activeTab === "perkthyes" && <TriLanguageTranslator />}
 
@@ -259,16 +259,16 @@ export default function Alphabet({ adminEditMode = false, isAdmin = false }) {
         <button
           onClick={goPrev}
           disabled={currentTabIndex === 0}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-white border border-gray-200 text-gray-700 hover:border-emerald-400 hover:text-emerald-700"
-        >
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-white border border-gray-200 text-gray-700 hover:border-emerald-400 hover:text-emerald-700">
+
           <ChevronLeft className="w-4 h-4" /> Mëparshme
         </button>
         <span className="text-xs text-gray-400">{currentTabIndex + 1} / {ALL_TABS.length}</span>
         <button
           onClick={goNext}
           disabled={currentTabIndex === ALL_TABS.length - 1}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-emerald-600 text-white hover:bg-emerald-700"
-        >
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-emerald-600 text-white hover:bg-emerald-700">
+
           Tjetra <ChevronRight className="w-4 h-4" />
         </button>
       </div>
