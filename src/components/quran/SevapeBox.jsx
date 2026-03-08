@@ -24,6 +24,8 @@ const KNOWN_LETTER_COUNTS = {
 };
 
 export default function SevapeBox({ surah }) {
+  if (!surah || !surah.num || !surah.verses) return null;
+
   const letterCount = useMemo(() => {
     // Use known count if available, otherwise estimate based on verses
     // Average Arabic surah: ~4 letters/word, ~6 words/verse (varies greatly)
