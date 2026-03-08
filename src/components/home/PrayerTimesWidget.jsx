@@ -266,6 +266,31 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
         <PrayerAzan selectedAzan={azanId} onChange={handleAzanChange} />
       )}
 
+      {/* Ora aktuale — brenda widget */}
+      <div className="flex items-center justify-between mb-3 bg-white/5 rounded-2xl px-4 py-2">
+        <div className="flex items-center gap-2">
+          <Clock className="w-4 h-4 text-emerald-400" />
+          <span className="text-base font-bold text-white tracking-wider">
+            {currentTime.toLocaleTimeString("sq-AL", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+          </span>
+        </div>
+        <div className="text-right">
+          <p className="text-xs text-emerald-300 font-semibold">
+            {currentTime.toLocaleDateString("sq-AL", { weekday: "short", day: "numeric", month: "short" })}
+          </p>
+        </div>
+      </div>
+
+      {loading && (
+        <div className="flex items-center justify-center py-6">
+          <div className="w-6 h-6 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
+
+      {error && (
+        <div className="text-center py-4 text-red-300 text-sm">{error}</div>
+      )}
+
       {times && !loading && (
         <div className="space-y-2">
           {/* Imsak */}
@@ -280,34 +305,73 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
             const displayTime = prayer === "Fajr" ? sabahTime : times[prayer];
             const displayName = PRAYER_NAMES[prayer] || prayer;
             const icon = PRAYER_ICONS[prayer];
+            const isAzanOpen = activePrayerAzan === prayer;
             return (
               <React.Fragment key={prayer}>
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className={`flex items-center justify-between rounded-2xl px-4 py-2.5 transition-all border ${
+                  className={`rounded-2xl transition-all border ${
                     isNext
                       ? "bg-emerald-500/30 border-emerald-500/50"
                       : `${icon.bg} ${icon.border}`
                   }`}>
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-lg leading-none">{icon.emoji}</span>
-                    {isNext && <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />}
-                    <div>
-                      <span className={`text-sm font-semibold ${isNext ? "text-emerald-300" : icon.color}`}>
-                        {displayName}
+                  <div className="flex items-center justify-between px-4 py-2.5">
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-lg leading-none">{icon.emoji}</span>
+                      {isNext && <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />}
+                      <div>
+                        <span className={`text-sm font-semibold ${isNext ? "text-emerald-300" : icon.color}`}>
+                          {displayName}
+                        </span>
+                        {prayer === "Fajr" && fajrTime && (
+                          <p className="text-[10px] text-gray-500">Ezani (Fajr): {fajrTime}</p>
+                        )}
+                        {!isNext && (
+                          <p className={`text-[10px] opacity-60 ${icon.color}`}>{icon.label}</p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className={`font-bold text-sm ${isNext ? "text-emerald-300" : icon.color}`}>
+                        {displayTime}
                       </span>
-                      {prayer === "Fajr" && fajrTime && (
-                        <p className="text-[10px] text-gray-500">Ezani (Fajr): {fajrTime}</p>
-                      )}
-                      {!isNext && (
-                        <p className={`text-[10px] opacity-60 ${icon.color}`}>{icon.label}</p>
-                      )}
+                      {/* Ezan button per prayer */}
+                      <button
+                        onClick={() => setActivePrayerAzan(isAzanOpen ? null : prayer)}
+                        className={`p-1 rounded-lg transition-colors ${isAzanOpen ? "bg-emerald-500/40 text-emerald-300" : "bg-white/10 text-gray-400 hover:text-emerald-300 hover:bg-white/20"}`}
+                        title="Zgjidh Ezanin"
+                      >
+                        <Music className="w-3 h-3" />
+                      </button>
                     </div>
                   </div>
-                  <span className={`font-bold text-sm ${isNext ? "text-emerald-300" : icon.color}`}>
-                    {displayTime}
-                  </span>
+                  {/* Inline Azan panel for this prayer */}
+                  {isAzanOpen && (
+                    <div className="px-4 pb-3 border-t border-white/10 pt-2">
+                      <div className="flex flex-wrap gap-1.5 mb-2">
+                        {AZAN_OPTIONS_INLINE.map(a => (
+                          <button
+                            key={a.id}
+                            onClick={() => { if (a.url) playPrayerAzan(prayer, a.url); }}
+                            className={`text-[10px] px-2 py-1 rounded-lg font-semibold transition-colors ${
+                              playingPrayer === prayer && a.url
+                                ? "bg-emerald-500 text-white"
+                                : "bg-white/10 text-gray-300 hover:bg-white/20"
+                            }`}
+                          >
+                            {playingPrayer === prayer && a.url ? "⏹ " : "▶ "}{a.name}
+                          </button>
+                        ))}
+                        <button
+                          onClick={() => fileInputRef.current?.click()}
+                          className="text-[10px] px-2 py-1 rounded-lg font-semibold bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 transition-colors flex items-center gap-1"
+                        >
+                          <Upload className="w-2.5 h-2.5" /> Ngarko Audio
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
                 {/* Lindja e Diellit — direkt pas Sabahut/Fajr */}
                 {prayer === "Fajr" && sunriseTime && (
@@ -316,7 +380,7 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
                     <span className="text-xs font-semibold text-amber-300">{sunriseTime}</span>
                   </div>
                 )}
-                {/* Perëndimi i Diellit = Maghrib nga API (GPS bazuar) */}
+                {/* Perëndimi i Diellit */}
                 {prayer === "Maghrib" && times?.Sunset && (
                   <div className="flex items-center justify-between rounded-2xl px-4 py-2 bg-rose-500/10 border border-rose-500/20">
                     <span className="text-xs text-rose-300 flex items-center gap-1.5">🌅 <span>Perëndimi i Diellit</span></span>
@@ -326,9 +390,6 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
               </React.Fragment>
             );
           })}
-          <p className="text-xs text-gray-500 text-center mt-2 pt-2 border-t border-white/10">
-            Ora aktuale: {currentTime.toLocaleTimeString("sq-AL", { hour: "2-digit", minute: "2-digit" })}
-          </p>
         </div>
       )}
     </div>
