@@ -55,7 +55,10 @@ const HadithBox = ({ title, arabic, text, tefsir }) => (
 );
 
 export default function FE() {
-  const [mainTab, setMainTab] = useState("akide");
+  const [mainTab, setMainTab] = useState(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("tab") || "akide";
+  });
 
   const tabs = [
     { id: "akide", label: "🕌 Akide" },
