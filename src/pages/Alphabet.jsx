@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
-import { Languages, Pencil } from "lucide-react";
+import { Languages, Pencil, ChevronLeft, ChevronRight } from "lucide-react";
 import AdminEditOverlay from "@/components/admin/AdminEditOverlay";
 import { createPageUrl } from "@/utils";
 import { Skeleton } from "@/components/ui/skeleton";
