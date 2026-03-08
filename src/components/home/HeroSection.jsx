@@ -11,7 +11,7 @@ export default function HeroSection({ stats, adminEditMode }) {
       {/* Background decorations */}
       <div className="absolute inset-0 gradient-hero" />
       <div className="absolute top-20 right-10 w-72 h-72 bg-emerald-200/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-10 left-10 w-56 h-56 bg-teal-200/20 rounded-full blur-3xl" />
+      
 
       <div className="relative max-w-6xl mx-auto px-4 pt-16 pb-20 text-center">
         <motion.div
