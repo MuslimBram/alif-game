@@ -66,7 +66,13 @@ export default function Settings() {
       } catch (e) {}
       setLoading(false);
     };
-    load();
+    load().then(() => {
+      const local = localStorage.getItem("app_settings");
+      if (local) {
+        const s = JSON.parse(local);
+        if (s.font_size) applyFontSize(s.font_size);
+      }
+    });
   }, []);
 
   const update = (key, value) => setSettings(prev => ({ ...prev, [key]: value }));
