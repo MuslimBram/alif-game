@@ -65,15 +65,6 @@ export default function Alphabet({ adminEditMode = false, isAdmin = false }) {
       { label: "Shto Shkronjë", href: createPageUrl("AdminPanel"), icon: "➕" },
       { label: "Menaxho Shkronjat", href: createPageUrl("AdminPanel"), icon: "📝" }]
       } />
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-extrabold text-emerald-800">
-          Alfabeti Shqip – Rrokje, Fjalë dhe Ushtrime
-        </h1>
-        <p className="text-sm text-emerald-600 mt-1">Mësoni germat, rrokjet, fjalët, Zgjedhimi, Lakimi, Texhuidi, Arabisht Medinase dhe bëni ushtrimet!
-
-        </p>
-      </div>
 
       {/* Drag & Drop Tabs */}
       <DragDropTabs
