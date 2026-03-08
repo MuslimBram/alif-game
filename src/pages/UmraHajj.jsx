@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import VR3DExperience from "@/components/umra/VR3DExperience";
+import PhotoGenerator360 from "@/components/admin/PhotoGenerator360";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp, Volume2, CheckCircle, Timer, XCircle, Trophy, RotateCcw, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
