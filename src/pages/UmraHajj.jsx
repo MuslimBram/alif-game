@@ -126,7 +126,7 @@ export default function UmraHajj() {
                 <h2 className="text-lg font-bold text-gray-900">🗺️ Vendet e Shenjta të Haxhit & Umrës</h2>
                 <p className="text-sm text-gray-500">Eksploroni vendet kryesore të pelegrinazhit Islam</p>
               </div>
-              <button onClick={() => setShow3D(true)}
+              <button onClick={() => setTab("harta3d")}
                 className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold rounded-xl hover:opacity-90 transition-all shadow-md">
                 🥽 3D
               </button>
