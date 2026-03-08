@@ -57,7 +57,7 @@ export default function DragDropSections({ adminEditMode, isAdmin, prayerTimes, 
   };
 
   const handleSave = () => {
-    localStorage.setItem("homeSectionsOrder", JSON.stringify(sections));
+    localStorage.setItem("homeSectionsOrder", JSON.stringify(sections.map(s => ({ id: s.id, name: s.name }))));
     setIsDirty(false);
   };
 
