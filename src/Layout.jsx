@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 const navItems = [
   { name: "Ballina", page: "Home", icon: Home },
   {
-    name: "Alfabeti", page: "AlphabetMain", icon: Languages,
+    name: "Alfabeti", page: "Alphabet", icon: Languages,
     children: [
       { name: "Numrat", page: "Alphabet", params: "?tab=numrat" },
       { name: "Germët", page: "Alphabet", params: "?tab=germat" },
@@ -37,10 +37,11 @@ const navItems = [
   {
     name: "Kur'ani", page: "Quran", icon: BookOpen,
     children: [
-      { name: "Suret me Audio", page: "Quran" },
-      { name: "Texhuidi", page: "Tajweed" },
-      { name: "Kuiz Kurani", page: "Quran" },
-      { name: "Sevapet", page: "Quran" },
+      { name: "📖 Suret me Audio", page: "Quran", params: "?tab=suret" },
+      { name: "🎯 Kuiz Kurani", page: "Quran", params: "?tab=quiz" },
+      { name: "📊 Progresi", page: "Quran", params: "?tab=progress" },
+      { name: "✨ Sevapet", page: "Quran", params: "?tab=sevapet" },
+      { name: "📚 Texhuidi", page: "Tajweed" },
     ]
   },
   {
@@ -51,9 +52,35 @@ const navItems = [
       { name: "Avancuar", page: "MedineArabicMain", params: "?level=avancuar" },
     ]
   },
-  { name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin },
-  { name: "Lojëra", page: "Games", icon: Gamepad2 },
-  { name: "Fikh Elementar", page: "FE", icon: BookOpen },
+  {
+    name: "Umra & Haxhi", page: "UmraHajj", icon: MapPin,
+    children: [
+      { name: "🕋 Umra — Hapat", page: "UmraHajj", params: "?tab=umra" },
+      { name: "🏔️ Haxhi — Hapat", page: "UmraHajj", params: "?tab=haxhi" },
+      { name: "🗺️ Hartë 3D", page: "UmraHajj", params: "?tab=harta" },
+      { name: "📖 Duatë e Umras", page: "UmraHajj", params: "?tab=duate" },
+    ]
+  },
+  {
+    name: "Lojëra", page: "Games", icon: Gamepad2,
+    children: [
+      { name: "🧠 Kuiz", page: "Games", params: "?game=quiz" },
+      { name: "🃏 Hafizja", page: "Games", params: "?game=memory" },
+      { name: "🔢 Matematika", page: "Games", params: "?game=math" },
+    ]
+  },
+  {
+    name: "Fikh Elementar", page: "FE", icon: BookOpen,
+    children: [
+      { name: "🕌 Akide", page: "FE", params: "?tab=akide" },
+      { name: "💧 Pastërtia & Abdesi", page: "FE", params: "?tab=pastresia" },
+      { name: "🤲 Namazi", page: "FE", params: "?tab=namazi" },
+      { name: "🌙 Agjërimi", page: "FE", params: "?tab=agjrimi" },
+      { name: "💰 Zekati", page: "FE", params: "?tab=zekati" },
+      { name: "🌿 Duatë", page: "FE", params: "?tab=duate" },
+      { name: "🎯 Kuiz", page: "FE", params: "?tab=kuiz" },
+    ]
+  },
   { name: "Progresi", page: "Progress", icon: BarChart3 },
   { name: "Cilësimet", page: "Settings", icon: Settings },
   { name: "Fjalë Admin", page: "WordsAdmin", icon: Settings, adminOnly: true }
