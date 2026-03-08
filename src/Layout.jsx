@@ -95,7 +95,7 @@ function NavDropdown({ item, isActive, isAdmin }) {
           {item.children.map((child, i) => (
             <Link
               key={i}
-              to={createPageUrl(child.page)}
+              to={createPageUrl(child.page) + (child.params || "")}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
             >
               {child.name}
