@@ -361,6 +361,32 @@ export default function UmraHajj() {
         </div>
       )}
 
+      {/* DUATË */}
+      {tab === "duate" && (
+        <div className="space-y-4">
+          <div className="bg-gradient-to-r from-emerald-700 to-teal-600 rounded-2xl p-4 text-white mb-2">
+            <h2 className="text-lg font-bold">🤲 Duatë e Umrës dhe Haxhit</h2>
+            <p className="text-emerald-100 text-sm">Lutjet kryesore gjatë ritualeve — arabisht me kuptim shqip</p>
+          </div>
+          {[...UMRA_STEPS, ...HAJJ_STEPS].filter(s => s.dua).map((step, i) => (
+            <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xl">{step.icon}</span>
+                <div>
+                  <h3 className="font-bold text-gray-800 text-sm">{step.title}</h3>
+                  <p className="text-xs text-gray-400">{step.location}</p>
+                </div>
+              </div>
+              <p className="text-right text-xl leading-loose text-gray-900 mb-2" style={{ fontFamily: "Amiri, serif", direction: "rtl" }}>{step.dua}</p>
+              <p className="text-sm text-teal-700 italic leading-relaxed">"{step.dua_sq}"</p>
+              <Button size="sm" onClick={() => speak(step.dua)} className="mt-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs">
+                <Volume2 className="w-3 h-3 mr-1" /> Dëgjo
+              </Button>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* FOTO 360° */}
       {tab === "foto360" && (
         <div>

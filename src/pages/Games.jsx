@@ -52,7 +52,13 @@ const allGames = [
   { id: 4,  title: "Puzzle Edukativ", description: "60+ puzzle didaktike me numra dhe shkronja", module: "lojera", level: "fillestar", duration: "60+ puzzle", points: 35 },
   { id: 5,  title: "Labirinti 60 Nivele", description: "60 labirinte me vështirësi progresive — stërvit mendjen", module: "lojera", level: "fillestar", duration: "60 nivele", points: 50 },
   { id: 6,  title: "Shumëzimi & Pjesëtimi", description: "Tabela 1-12 vizuale + 60+ ushtrime shumëzimi, pjesëtimi", module: "lojera", level: "fillestar", duration: "60+ ushtrime", points: 40 },
-  { id: 7,  title: "🧠 Brain Gym Vizual", description: "Gjej modelin e njëjtë — stërvit trurin me lojëra vizuale", module: "lojera", level: "mesatar", duration: "pa limit", points: 60, isBrainGym: true },
+  { id: 7,  title: "🧠 Brain Gym Vizual", description: "Stërvit trurin me 4 nivele — Fillestar deri Profesionist. Gjej modelin e njëjtë!", module: "lojera", level: "fillestar", duration: "pa limit", points: 60, isBrainGym: true },
+  // FIKH
+  { id: 47, title: "Kuiz Akide & Besimi", description: "60+ pyetje mbi Tevhidin, 3 Parimet, 5 Shtyllat dhe 6 Kushtet e Imanit", module: "fikh", level: "fillestar", duration: "60 pyetje", points: 50 },
+  { id: 48, title: "Kuiz Pastërtia & Abdesi", description: "60+ pyetje mbi Abdesin, Guslin, llojet e ujit dhe pastërtinë rituale", module: "fikh", level: "fillestar", duration: "60 pyetje", points: 45 },
+  { id: 49, title: "Kuiz Namazi", description: "60+ pyetje mbi hapat e namazit, kushtet, kohët dhe çfarë e prish namazin", module: "fikh", level: "mesatar", duration: "60 pyetje", points: 55 },
+  { id: 50, title: "Kuiz Agjërimi & Zekati", description: "60+ pyetje mbi kushtet e agjërimit, Ramazanin, Zekatin dhe Fitrin", module: "fikh", level: "mesatar", duration: "60 pyetje", points: 55 },
+  { id: 51, title: "Kuiz Fikh Avancuar", description: "60+ pyetje të avancuara: Isra & Mi'raxhi, Hadithi i Xhibrilit, dispozita të vështira", module: "fikh", level: "avancuar", duration: "60 pyetje", points: 80 },
   { id: 12, title: "Lojë Memorie - Shkronja", description: "Gjej çiftet e shkronjave — 60+ kombinime", module: "lojera", level: "fillestar", duration: "60+ çifte", points: 25 },
   { id: 24, title: "Lojë Memorie - Shkronjat Arabe", description: "Gjej çiftet e shkronjave arabe — 60+ kombinime", module: "lojera", level: "fillestar", duration: "60+ çifte", points: 30 },
   { id: 25, title: "Lojë me Numra Shqip", description: "Mëso numrat nga 1 në 100 me lojëra interaktive — 60+ ushtrime", module: "lojera", level: "fillestar", duration: "60+ ushtrime", points: 25 },
@@ -67,7 +73,8 @@ const modules = [
   { value: "texhuidi",  label: "📖 Texhuidi" },
   { value: "kurani",    label: "☪️ Kur'ani" },
   { value: "umra_haxh", label: "🕌 Umra & Haxhi" },
-  { value: "lojera",    label: "🔢 Numra" },
+  { value: "fikh",      label: "📚 Fikh (FE)" },
+  { value: "lojera",    label: "🔢 Numra & Lojëra" },
 ];
 
 const levels = [
@@ -87,6 +94,7 @@ const QUIZ_GAME_MAP = {
   15: "kurani", 16: "kurani", 20: "kurani", 37: "kurani", 38: "kurani", 39: "kurani", 40: "kurani",
   17: "umra_haxh", 18: "umra_haxh", 21: "umra_haxh", 22: "umra_haxh", 28: "umra_haxh",
   41: "umra_haxh", 42: "umra_haxh", 43: "umra_haxh",
+  47: "fikh", 48: "fikh", 49: "fikh", 50: "fikh", 51: "fikh",
   2: "lojera_numra", 7: "lojera_numra", 25: "lojera_numra", 26: "alfabeti_arab",
   44: "lojera_numra", 45: "alfabeti_arab", 46: "lojera_numra",
 };
