@@ -52,7 +52,7 @@ const allGames = [
   { id: 4,  title: "Puzzle Edukativ", description: "60+ puzzle didaktike me numra dhe shkronja", module: "lojera", level: "fillestar", duration: "60+ puzzle", points: 35 },
   { id: 5,  title: "Labirinti 60 Nivele", description: "60 labirinte me vështirësi progresive — stërvit mendjen", module: "lojera", level: "fillestar", duration: "60 nivele", points: 50 },
   { id: 6,  title: "Shumëzimi & Pjesëtimi", description: "Tabela 1-12 vizuale + 60+ ushtrime shumëzimi, pjesëtimi", module: "lojera", level: "fillestar", duration: "60+ ushtrime", points: 40 },
-  { id: 7,  title: "Brain Gym 60 Runde", description: "Shqip, numra, forma, analitike — 60 ushtrime avancuara me kohë", module: "lojera", level: "mesatar", duration: "60 runde", points: 60 },
+  { id: 7,  title: "🧠 Brain Gym Vizual", description: "Gjej modelin e njëjtë — stërvit trurin me lojëra vizuale", module: "lojera", level: "mesatar", duration: "pa limit", points: 60, isBrainGym: true },
   { id: 12, title: "Lojë Memorie - Shkronja", description: "Gjej çiftet e shkronjave — 60+ kombinime", module: "lojera", level: "fillestar", duration: "60+ çifte", points: 25 },
   { id: 24, title: "Lojë Memorie - Shkronjat Arabe", description: "Gjej çiftet e shkronjave arabe — 60+ kombinime", module: "lojera", level: "fillestar", duration: "60+ çifte", points: 30 },
   { id: 25, title: "Lojë me Numra Shqip", description: "Mëso numrat nga 1 në 100 me lojëra interaktive — 60+ ushtrime", module: "lojera", level: "fillestar", duration: "60+ ushtrime", points: 25 },
