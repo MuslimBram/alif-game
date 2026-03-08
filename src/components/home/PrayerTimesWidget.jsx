@@ -142,16 +142,36 @@ export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
   const imsakTime = times?.Imsak || fajrTime;
   const sunriseTime = times?.Sunrise || "";
 
+  const handleAzanChange = (id) => {
+    setAzanId(id);
+    localStorage.setItem("prayerAzanId", id);
+  };
+
   const SHOW_PRAYERS = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
   return (
     <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-6 text-white">
+      <PrayerAlarmManager times={times} azanId={azanId} sabahTime={sabahTime} />
+      <PrayerAlarmSettings open={showAlarmSettings} onClose={() => setShowAlarmSettings(false)} />
+
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Clock className="w-5 h-5 text-emerald-400" />
           <h3 className="font-bold text-base">Kohët e Namazit</h3>
         </div>
         <div className="flex items-center gap-2">
+          {/* Alarm settings */}
+          <button onClick={() => setShowAlarmSettings(true)}
+            className="flex items-center gap-1 bg-amber-500/20 hover:bg-amber-500/30 rounded-xl px-2 py-1 transition-colors"
+            title="Alarmet & Xhamia">
+            <Bell className="w-3.5 h-3.5 text-amber-400" />
+          </button>
+          {/* Azan toggle */}
+          <button onClick={() => setShowAzanPanel(!showAzanPanel)}
+            className="flex items-center gap-1 bg-emerald-600/20 hover:bg-emerald-600/30 rounded-xl px-2 py-1 transition-colors"
+            title="Zgjidhni Ezanin">
+            <Settings2 className="w-3.5 h-3.5 text-emerald-400" />
+          </button>
           {/* GPS Button */}
           <button onClick={detectLocation} disabled={gpsLoading}
             className="flex items-center gap-1 bg-emerald-600/40 hover:bg-emerald-600/60 rounded-xl px-2 py-1 transition-colors"
