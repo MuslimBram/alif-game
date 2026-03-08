@@ -509,6 +509,32 @@ export default function Quran({ adminEditMode, isAdmin }) {
         <SurahVerseViewer surah={verseViewSurah} onClose={() => setVerseViewSurah(null)} />
       )}
 
+      {/* SEVAPET TAB */}
+      {tab === "sevapet" && (
+        <div className="space-y-4">
+          <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-5 text-center mb-4">
+            <p className="text-2xl mb-2">✨</p>
+            <h2 className="text-xl font-bold text-amber-800 mb-1">Sevapet e Leximit të Kur'anit</h2>
+            <p className="text-sm text-amber-700">Çdo shkronjë merr 10 sevape — llogarit sevapet tua!</p>
+          </div>
+          <SevapeBox surah={null} showAll={true} />
+          <div className="bg-white rounded-2xl border border-gray-100 p-5 space-y-3">
+            {[
+              { arabic: "مَنْ قَرَأَ حَرْفًا مِنْ كِتَابِ اللَّهِ فَلَهُ بِهِ حَسَنَةٌ وَالْحَسَنَةُ بِعَشْرِ أَمْثَالِهَا", text: "'Kush lexon një shkronjë nga Libri i Allahut, merr një të mirë, dhe e mira shumëfishohet dhjetë herë.'", source: "Tirmidhiu 2910 — Sahih" },
+              { arabic: "اقْرَءُوا الْقُرْآنَ فَإِنَّهُ يَأْتِي يَوْمَ الْقِيَامَةِ شَفِيعًا لِأَصْحَابِهِ", text: "'Lexoni Kur'anin, sepse ai do të vijë Ditën e Kiametit si ndërmjetësues për lexuesit e tij.'", source: "Muslimi 804" },
+              { arabic: "الْمَاهِرُ بِالْقُرْآنِ مَعَ السَّفَرَةِ الْكِرَامِ الْبَرَرَةِ", text: "'Ai i cili lexon Kur'anin me lehtësi do të jetë me të Dërguarit (engjëjt) fisnikë dhe të devotshëm.'", source: "Buhariu 4937, Muslimi 798" },
+              { arabic: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ", text: "'Njerëzit më të mirë ndër ju janë ata që mësojnë Kur'anin dhe ua mësojnë të tjerëve.'", source: "Buhariu 5027" },
+            ].map((h, i) => (
+              <div key={i} className="bg-amber-50 rounded-xl p-4 border border-amber-100">
+                <p className="text-right text-base font-bold text-amber-900 mb-2 leading-relaxed" dir="rtl" style={{fontFamily:"Amiri,serif"}}>{h.arabic}</p>
+                <p className="text-sm text-gray-700 italic mb-1">"{h.text}"</p>
+                <p className="text-xs text-emerald-600 font-semibold">— {h.source}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* QUIZ TAB */}
       {tab === "quiz" && <SurahQuiz />}
 
