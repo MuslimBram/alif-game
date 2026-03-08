@@ -12,7 +12,7 @@ function loadUHProgress() { try { return JSON.parse(localStorage.getItem(PROGRES
 const speak = (text) => speakArabic(text);
 
 export default function UmraHajj() {
-  const [tab, setTab] = useState("harita"); // harita | umra | hajj | quiz | foto360
+  const [tab, setTab] = useState("harta3d"); // harta3d | harita | umra | hajj | quiz | foto360
 
   const [expanded, setExpanded] = useState(null);
   const [show3D, setShow3D] = useState(false);
