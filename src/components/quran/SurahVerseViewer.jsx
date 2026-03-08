@@ -294,14 +294,24 @@ export default function SurahVerseViewer({ surah, onClose }) {
           if (enData?.code === 200 && enData.data?.ayahs) {
             enData.data.ayahs.forEach(a => { enMap[a.numberInSurah] = a.text; });
           }
-          setApiVerses(arData.data.ayahs.map(a => ({
-            ar: a.text,
-            translit: translitMap[a.numberInSurah] || null,
-            sq: sqMap[a.numberInSurah] || null,
-            tafsir: sqMap[a.numberInSurah]
-              ? `Kuptimi: ${sqMap[a.numberInSurah]}${enMap[a.numberInSurah] ? ` — "${enMap[a.numberInSurah]}"` : ""}`
-              : (enMap[a.numberInSurah] ? `Meaning: "${enMap[a.numberInSurah]}"` : null),
-          })));
+          // Remove Bismillah from verse 1 text if it starts with it (API includes it in verse text for most surahs)
+          const BISMILLAH = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
+          const BISMILLAH2 = "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ";
+          setApiVerses(arData.data.ayahs.map((a, idx) => {
+            let arText = a.text;
+            if (idx === 0 && surah.num !== 1 && surah.num !== 9) {
+              // Strip Bismillah from start of first ayah if present
+              arText = arText.replace(BISMILLAH, "").replace(BISMILLAH2, "").trim();
+            }
+            return {
+              ar: arText,
+              translit: translitMap[a.numberInSurah] || null,
+              sq: sqMap[a.numberInSurah] || null,
+              tafsir: sqMap[a.numberInSurah]
+                ? `Kuptimi: ${sqMap[a.numberInSurah]}${enMap[a.numberInSurah] ? ` — "${enMap[a.numberInSurah]}"` : ""}`
+                : (enMap[a.numberInSurah] ? `Meaning: "${enMap[a.numberInSurah]}"` : null),
+            };
+          }));
         }
       })
       .catch(() => {})
