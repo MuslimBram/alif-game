@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ChevronDown, ChevronRight, BookOpen, Droplets, Star, Shield, Heart } from "lucide-react";
 import FikhQuiz from "@/components/fikh/FikhQuiz";
 import ZekatiCalculator from "@/components/fikh/ZekatiCalculator";
+import PrayerGuide from "@/components/fikh/PrayerGuide";
 
 const Section = ({ title, icon, color, children }) => {
   const [open, setOpen] = useState(false);
