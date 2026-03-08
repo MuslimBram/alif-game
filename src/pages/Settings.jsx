@@ -215,7 +215,7 @@ export default function Settings() {
             <Label className="text-xs text-gray-500 mb-2 block">Madhësia e shkrimit</Label>
             <div className="flex gap-2">
               {["small", "medium", "large"].map(size => (
-                <button key={size} onClick={() => update("font_size", size)}
+                <button key={size} onClick={() => { update("font_size", size); applyFontSize(size); }}
                   className={`flex-1 py-2 rounded-xl text-xs font-semibold border-2 transition-all ${settings.font_size === size ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-gray-200 text-gray-600"}`}>
                   {size === "small" ? "I vogël" : size === "medium" ? "Normal" : "I madh"}
                 </button>
