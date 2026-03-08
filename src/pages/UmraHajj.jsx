@@ -78,7 +78,7 @@ export default function UmraHajj() {
                 <p className="text-emerald-200 text-sm">Udhëzues interaktiv — hap pas hapi</p>
               </div>
             </div>
-            <button onClick={() => setShow3D(true)}
+            <button onClick={() => setTab("harta3d")}
               className="mb-3 flex items-center gap-2 px-4 py-2.5 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-xl text-white text-sm font-bold transition-all border border-white/30">
               🥽 Eksplorimi 3D i Vendeve të Shenjta — Vizitë Virtuale
             </button>
