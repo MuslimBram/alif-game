@@ -266,14 +266,11 @@ export default function Settings() {
             <h2 className="font-bold text-gray-900">Sinkronizimi dhe Mësimi</h2>
           </div>
           <div className="space-y-3">
-            <div className="flex items-center justify-between py-2 border-b border-gray-50">
-              <div>
-                <p className="text-sm font-semibold text-gray-700">Ruaj progresin nga të gjitha pajisjet</p>
-                <p className="text-xs text-gray-400">Sinkronizo automatikisht me llogarinë tënde</p>
-              </div>
-              <Switch checked={settings.sync_progress} onCheckedChange={v => update("sync_progress", v)} />
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3">
+              <p className="text-sm font-semibold text-emerald-800">🧠 Niveli përcaktohet automatikisht</p>
+              <p className="text-xs text-emerald-600 mt-1">Niveli juaj llogaritet automatikisht bazuar në rezultatet e testeve dhe kuizeve që bëni në platformë. Sa më shumë teste bëni, aq më saktë është niveli juaj.</p>
             </div>
-            <div className="flex items-center justify-between py-2">
+            <div className="flex items-center justify-between py-2 border-t border-gray-50">
               <div>
                 <p className="text-sm font-semibold text-gray-700">Luaj audio automatikisht</p>
                 <p className="text-xs text-gray-400">Shqiptimi automatik gjatë mësimit</p>
