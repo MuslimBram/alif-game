@@ -289,7 +289,7 @@ const HOME_FORMATIONS = [
   { num: 6, title: { sq: "Babai, Djali dhe Nëna", en: "Father, Son and Mother", ar: "الأب والابن والأم" }, desc: { sq: "Djali krahas imamit, nëna pas tyre.", en: "Son alongside imam, mother behind them.", ar: "الابن بجانب الإمام، الأم خلفهما." }, figure: "👨👦👩", arrangement: "son-right-mother-back" },
 ];
 
-function PrayerStepCard({ step, lang, onQuiz }) {
+function PrayerStepCard({ step, lang, onQuiz, customImage, onImageUpload, onRemoveImage }) {
   const [showQuiz, setShowQuiz] = useState(false);
   const [selected, setSelected] = useState(null);
   const audioRef = useRef(null);
