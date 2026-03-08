@@ -53,7 +53,7 @@ export default function UmraHajj() {
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(next));
   };
 
-  const steps = tab === "umra" ? UMRA_STEPS : HAJJ_STEPS;
+  const steps = (tab === "umra" || tab === "hajj") ? (tab === "umra" ? UMRA_STEPS : HAJJ_STEPS) : [];
   const completedCount = (tab === "umra" || tab === "hajj") ? steps.filter(s => completedSteps[`${tab}_${s.num}`]).length : 0;
 
   const pct = Math.round((score / QUIZ_QUESTIONS.length) * 100);
