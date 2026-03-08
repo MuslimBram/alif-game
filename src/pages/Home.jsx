@@ -99,7 +99,8 @@ export default function Home({ adminEditMode, isAdmin }) {
       )}
       <HeroSection stats={stats} adminEditMode={adminEditMode} isAdmin={isAdmin} />
       <DragDropSections 
-        adminEditMode={adminEditMode} 
+        adminEditMode={adminEditMode}
+        isAdmin={isAdmin}
         prayerTimes={prayerTimes} 
         onPrayerTimesUpdate={setPrayerTimes}
       />
