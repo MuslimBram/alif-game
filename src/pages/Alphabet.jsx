@@ -43,6 +43,11 @@ export default function Alphabet({ adminEditMode = false, isAdmin = false }) {
   const [learningIndex, setLearningIndex] = useState(null);
   const [activeTab, setActiveTab] = useState("numrat");
 
+  const ALL_TABS = ["numrat", "germat", "rrokjet", "fjalët", "zgjedhimi", "lakimi", "texhuidi", "medine", "perkthyes"];
+  const currentTabIndex = ALL_TABS.indexOf(activeTab);
+  const goNext = () => { if (currentTabIndex < ALL_TABS.length - 1) setActiveTab(ALL_TABS[currentTabIndex + 1]); };
+  const goPrev = () => { if (currentTabIndex > 0) setActiveTab(ALL_TABS[currentTabIndex - 1]); };
+
   const { data: letters = [], isLoading } = useQuery({
     queryKey: ["alphabet-letters"],
     queryFn: () => base44.entities.AlphabetLetter.list("order_index", 200)
