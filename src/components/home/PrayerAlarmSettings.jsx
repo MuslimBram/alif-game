@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS = {
   minutesBefore: 10,
   mosqueModeEnabled: false,
   mosqueModeType: "vibrate", // "vibrate" | "silent"
-  mosqueDurationMinutes: 30,
+  mosqueDeactivateMinutes: 29, // minutes AFTER azan to deactivate
 };
 
 export function loadAlarmSettings() {
