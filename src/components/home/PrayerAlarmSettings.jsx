@@ -139,21 +139,26 @@ export default function PrayerAlarmSettings({ open, onClose }) {
                   <VolumeX className="w-3.5 h-3.5" /> Heshtje
                 </button>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-400">Kohëzgjatja në xhami</span>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs text-gray-400">Çaktivizo pas Ezanit</span>
                 <div className="flex items-center gap-2">
-                  <input type="range" min={15} max={90} step={15}
-                    value={settings.mosqueDurationMinutes}
-                    onChange={e => update("mosqueDurationMinutes", Number(e.target.value))}
+                  <input type="range" min={10} max={60} step={1}
+                    value={settings.mosqueDeactivateMinutes}
+                    onChange={e => update("mosqueDeactivateMinutes", Number(e.target.value))}
                     className="w-24 accent-violet-400" />
-                  <span className="text-xs text-violet-300 font-bold w-10 text-right">
-                    {settings.mosqueDurationMinutes} min
+                  <span className="text-xs text-violet-300 font-bold w-14 text-right">
+                    {settings.mosqueDeactivateMinutes} min
                   </span>
                 </div>
               </div>
+              <div className="bg-violet-900/30 rounded-xl px-3 py-2">
+                <p className="text-[10px] text-violet-300 leading-relaxed">
+                  🕌 Mënyra aktivizohet me Ezan dhe çaktivzohet automatikisht pas <strong>{settings.mosqueDeactivateMinutes} minutash</strong> — koha standarde e namazit është 29 minuta.
+                </p>
+              </div>
               <p className="text-[10px] text-gray-500 mt-2 leading-relaxed">
                 ⚠️ Disa shfletues kufizojnë aksesin te cilësimet e telefonit. 
-                Aplikacioni do të njoftojë — ndryshimi mund të kërkojë konfirmimin tuaj.
+                Aplikacioni do të njoftojë me alarm.
               </p>
             </>
           )}
