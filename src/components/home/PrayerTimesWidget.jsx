@@ -35,12 +35,15 @@ function addMinutes(timeStr, mins) {
 export default function PrayerTimesWidget({ onPrayerTimesUpdate }) {
   const [times, setTimes] = useState(null);
   const [city, setCity] = useState("Tirane");
-  const [coords, setCoords] = useState(null); // { lat, lng }
+  const [coords, setCoords] = useState(null);
   const [locationName, setLocationName] = useState(null);
   const [loading, setLoading] = useState(false);
   const [gpsLoading, setGpsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [azanId, setAzanId] = useState(() => localStorage.getItem("prayerAzanId") || "makkah");
+  const [showAlarmSettings, setShowAlarmSettings] = useState(false);
+  const [showAzanPanel, setShowAzanPanel] = useState(false);
 
   useEffect(() => {
     const t = setInterval(() => setCurrentTime(new Date()), 60000);
