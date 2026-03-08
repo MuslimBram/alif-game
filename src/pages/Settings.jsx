@@ -182,9 +182,14 @@ export default function Settings() {
             <Globe className="w-5 h-5 text-emerald-600" />
             <h2 className="font-bold text-gray-900">Gjuha dhe Dialekti</h2>
           </div>
+          <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2 mb-3 flex items-center gap-2">
+            <span className="text-lg">{LANGUAGES.find(l => l.code === settings.language)?.flag}</span>
+            <span className="text-sm font-semibold text-emerald-800">Gjuha aktive: <strong>{LANGUAGES.find(l => l.code === settings.language)?.label}</strong>{settings.dialect && settings.dialect !== "Standard" ? ` — ${settings.dialect}` : ""}</span>
+            <span className="ml-auto text-xs text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full">aktive</span>
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
             {LANGUAGES.map(lang => (
-              <button key={lang.code} onClick={() => { update("language", lang.code); update("dialect", lang.dialects[0]); }}
+              <button key={lang.code} onClick={() => { update("language", lang.code); update("dialect", lang.dialects[0]); toast.success(`Gjuha ndryshoi në ${lang.label}`); }}
                 className={`flex items-center gap-2 p-3 rounded-xl border-2 text-sm font-semibold transition-all ${settings.language === lang.code ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-gray-200 hover:border-gray-300 text-gray-700"}`}>
                 <span className="text-lg">{lang.flag}</span>
                 {lang.label}
