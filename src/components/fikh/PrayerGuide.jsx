@@ -716,6 +716,10 @@ export default function PrayerGuide() {
           </div>
         </div>
       )}
+      </div>
+      </motion.div>
+      )}
+      </AnimatePresence>
     </div>
   );
 }
