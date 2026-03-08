@@ -9,6 +9,7 @@ import PrayerTimesWidget from "@/components/home/PrayerTimesWidget";
 import PrayerPositionsGuide from "@/components/home/PrayerPositionsGuide";
 import QuickStats from "@/components/home/QuickStats";
 import TriLanguageTranslator from "@/components/home/TriLanguageTranslator";
+import VisitorOpinions from "@/components/home/VisitorOpinions";
 
 const INITIAL_SECTIONS = [
 { id: "timeheader", name: "🕐 Ora & Kalendari", component: TimeHeaderWidget },
@@ -16,7 +17,8 @@ const INITIAL_SECTIONS = [
 { id: "prayertimes", name: "🕌 Oraret e Namazit", component: PrayerTimesWidget },
 { id: "prayerpositions", name: "🙏 Pozicionet e Namazit", component: PrayerPositionsGuide },
 { id: "quickstats", name: "⚡ Lidhje të Shpejta", component: QuickStats },
-{ id: "translator", name: "🌐 Përkthyesi 3-Gjuhësor", component: TriLanguageTranslator }];
+{ id: "translator", name: "🌐 Përkthyesi 3-Gjuhësor", component: TriLanguageTranslator },
+{ id: "opinions", name: "💬 Opinione Vizitorësh", component: VisitorOpinions }];
 
 
 export default function DragDropSections({ adminEditMode, isAdmin, prayerTimes, onPrayerTimesUpdate }) {
