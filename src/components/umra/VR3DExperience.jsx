@@ -498,6 +498,27 @@ export default function VR3DExperience({ onClose }) {
         )}
       </AnimatePresence>
 
+      {/* Hidden file input */}
+      <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+
+      {/* Panorama fullscreen viewer */}
+      {panoramaView && (
+        <div className="absolute inset-0 z-20 bg-black flex flex-col">
+          <div className="flex items-center justify-between p-4 bg-black/60">
+            <div>
+              <p className="text-white font-bold">{SITES.find(s => s.id === panoramaView.siteId)?.emoji} {SITES.find(s => s.id === panoramaView.siteId)?.name}</p>
+              <p className="text-white/50 text-xs">Imazhi 360° — Panoramë e plotë</p>
+            </div>
+            <button onClick={() => setPanoramaView(null)} className="w-9 h-9 rounded-xl bg-white/10 hover:bg-red-500/70 flex items-center justify-center">
+              <X className="w-4 h-4 text-white" />
+            </button>
+          </div>
+          <div className="flex-1 overflow-hidden">
+            <img src={panoramaView.imageUrl} alt="Panorama" className="w-full h-full object-contain" />
+          </div>
+        </div>
+      )}
+
       {/* Controls hint */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-black/60 backdrop-blur-sm rounded-2xl px-5 py-2.5 z-10">
         <div className="flex items-center gap-1.5 text-white/70 text-xs">
