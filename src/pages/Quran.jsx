@@ -524,6 +524,15 @@ export default function Quran({ adminEditMode, isAdmin }) {
         </div>
       )}
 
+      {/* TEFSIR TAB */}
+      {tab === "tefsir" && <TefsirDijetaresh />}
+
+      {/* HADITHE SAHIHE TAB */}
+      {tab === "hadithe" && <HaditheSahihe />}
+
+      {/* RIYADU ES-SALIHIN TAB */}
+      {tab === "riyadu" && <RiyaduSalihin />}
+
       {/* QUIZ TAB */}
       {tab === "quiz" && <SurahQuiz />}
 
