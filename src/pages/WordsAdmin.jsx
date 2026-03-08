@@ -327,7 +327,16 @@ export default function WordsAdmin() {
         {adminTab === "map" && <PilgrimageMapView />}
         {adminTab === "photos" && <PhotoGenerator360 />}
         {adminTab === "icons" && <IconImageGenerator />}
-        {adminTab === "games" && <BrainGymGame />}
+        {adminTab === "games" && (
+          <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
+            <p className="text-5xl mb-4">🧠</p>
+            <h2 className="text-xl font-bold text-gray-800 mb-2">Brain Gym — Lojëra Vizuale</h2>
+            <p className="text-gray-500 mb-6">Lojërat vizuale janë zhvendosur te seksioni Lojëra!</p>
+            <Link to={createPageUrl("Games") + "?game=braingym"} className="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition-all">
+              🎮 Shko te Lojërat →
+            </Link>
+          </div>
+        )}
         {adminTab === "words" && (
           <div>
             <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6">
