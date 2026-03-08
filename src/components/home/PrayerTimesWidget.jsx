@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Clock, MapPin, LocateFixed } from "lucide-react";
+import { Clock, MapPin, LocateFixed, Bell, Settings2 } from "lucide-react";
+import PrayerAzan from "./PrayerAzan";
+import PrayerAlarmSettings from "./PrayerAlarmSettings";
+import PrayerAlarmManager from "./PrayerAlarmManager";
 
 const PRAYER_NAMES = {
   Fajr: "Sabahu",
