@@ -126,10 +126,23 @@ const TEFSIR_DATA = [
 export default function TefsirDijetaresh() {
   const [expanded, setExpanded] = useState(null);
   const [expandedScholar, setExpandedScholar] = useState({});
+  const [links, setLinks] = useState(downloadLinks.tefsir);
+  const [editMode, setEditMode] = useState(null);
+  const [editValue, setEditValue] = useState("");
 
   const toggleScholar = (surahIdx, scholarIdx) => {
     const key = `${surahIdx}-${scholarIdx}`;
     setExpandedScholar(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const handleEdit = (lang) => {
+    setEditMode(lang);
+    setEditValue(links[lang]);
+  };
+
+  const handleSave = (lang) => {
+    setLinks(prev => ({ ...prev, [lang]: editValue }));
+    setEditMode(null);
   };
 
   return (
@@ -139,18 +152,50 @@ export default function TefsirDijetaresh() {
         <h2 className="text-xl font-bold text-emerald-800 mb-1">Tefsir i Dijetarëve të Mëdhenj</h2>
         <p className="text-sm text-emerald-700">Ibn Kethir · Es-Sadi · Al-Qurtubi · Ibn Tejmijje · Ibn El-Qayyim</p>
         <div className="flex gap-2 justify-center mt-3 flex-wrap">
-          <a href={downloadLinks.tefsir.sq} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
-            <Download className="w-3.5 h-3.5" /> 🇦🇱 Shqip
-          </a>
-          <a href={downloadLinks.tefsir.ar} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
-            <Download className="w-3.5 h-3.5" /> 🇸🇦 العربية
-          </a>
-          <a href={downloadLinks.tefsir.en} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
-            <Download className="w-3.5 h-3.5" /> 🇬🇧 English
-          </a>
+          {editMode === "sq" ? (
+            <div className="flex gap-2">
+              <input type="text" value={editValue} onChange={(e) => setEditValue(e.target.value)} className="px-2 py-1 text-xs border rounded" />
+              <button onClick={() => handleSave("sq")} className="px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700">Save</button>
+              <button onClick={() => setEditMode(null)} className="px-2 py-1 bg-gray-400 text-white text-xs rounded hover:bg-gray-500">Cancel</button>
+            </div>
+          ) : (
+            <div className="flex gap-1.5">
+              <a href={links.sq} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
+                <Download className="w-3.5 h-3.5" /> 🇦🇱
+              </a>
+              <button onClick={() => handleEdit("sq")} className="px-2 py-1.5 bg-gray-400 hover:bg-gray-500 text-white text-xs rounded-lg transition-colors">Edit</button>
+            </div>
+          )}
+          
+          {editMode === "ar" ? (
+            <div className="flex gap-2">
+              <input type="text" value={editValue} onChange={(e) => setEditValue(e.target.value)} className="px-2 py-1 text-xs border rounded" />
+              <button onClick={() => handleSave("ar")} className="px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700">Save</button>
+              <button onClick={() => setEditMode(null)} className="px-2 py-1 bg-gray-400 text-white text-xs rounded hover:bg-gray-500">Cancel</button>
+            </div>
+          ) : (
+            <div className="flex gap-1.5">
+              <a href={links.ar} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
+                <Download className="w-3.5 h-3.5" /> 🇸🇦
+              </a>
+              <button onClick={() => handleEdit("ar")} className="px-2 py-1.5 bg-gray-400 hover:bg-gray-500 text-white text-xs rounded-lg transition-colors">Edit</button>
+            </div>
+          )}
+
+          {editMode === "en" ? (
+            <div className="flex gap-2">
+              <input type="text" value={editValue} onChange={(e) => setEditValue(e.target.value)} className="px-2 py-1 text-xs border rounded" />
+              <button onClick={() => handleSave("en")} className="px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700">Save</button>
+              <button onClick={() => setEditMode(null)} className="px-2 py-1 bg-gray-400 text-white text-xs rounded hover:bg-gray-500">Cancel</button>
+            </div>
+          ) : (
+            <div className="flex gap-1.5">
+              <a href={links.en} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">
+                <Download className="w-3.5 h-3.5" /> 🇬🇧
+              </a>
+              <button onClick={() => handleEdit("en")} className="px-2 py-1.5 bg-gray-400 hover:bg-gray-500 text-white text-xs rounded-lg transition-colors">Edit</button>
+            </div>
+          )}
         </div>
       </div>
 
