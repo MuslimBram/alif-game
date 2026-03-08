@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, Volume2, Check, X, Home, Users, BookOpen } from "lucide-react";
+import { ChevronRight, ChevronLeft, Volume2, Check, X, Home, Users, BookOpen, Upload, ChevronDown } from "lucide-react";
 
 const LANG = {
   sq: "🇦🇱 Shqip",
