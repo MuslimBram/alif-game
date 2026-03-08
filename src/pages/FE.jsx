@@ -520,6 +520,8 @@ export default function FE() {
             ].map(k => <Item key={k.n} num={k.n} title={k.t} dalil={k.d} />)}
           </Section>
 
+          <PrayerGuide />
+
           <Section title="Çfarë e Prish Namazin" icon={<Shield className="w-5 h-5 text-red-500" />} color="border-red-300">
             {[
               { n: 1, t: "Të flasësh me qëllim", d: "Hadith Muslimi: 'Namazi nuk lejon të folurit e njerëzve.'" },
