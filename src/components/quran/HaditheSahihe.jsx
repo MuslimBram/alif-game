@@ -130,20 +130,36 @@ const SAHIH_COLLECTIONS = [
 export default function HaditheSahihe() {
   const [activeCollection, setActiveCollection] = useState(0);
   const [expanded, setExpanded] = useState(null);
-  const [links, setLinks] = useState(downloadLinks.haditheSahihe);
+  const [links, setLinks] = useState({
+    sq: [downloadLinks.haditheSahihe.sq],
+    ar: [downloadLinks.haditheSahihe.ar],
+    en: [downloadLinks.haditheSahihe.en]
+  });
   const [editMode, setEditMode] = useState(null);
   const [editValue, setEditValue] = useState("");
 
   const collection = SAHIH_COLLECTIONS[activeCollection];
 
-  const handleEdit = (lang) => {
-    setEditMode(lang);
-    setEditValue(links[lang]);
+  const handleEdit = (lang, index) => {
+    setEditMode(`${lang}-${index}`);
+    setEditValue(links[lang][index]);
   };
 
-  const handleSave = (lang) => {
-    setLinks(prev => ({ ...prev, [lang]: editValue }));
+  const handleSave = (lang, index) => {
+    setLinks(prev => {
+      const newLinks = [...prev[lang]];
+      newLinks[index] = editValue;
+      return { ...prev, [lang]: newLinks };
+    });
     setEditMode(null);
+  };
+
+  const handleAdd = (lang) => {
+    setLinks(prev => ({ ...prev, [lang]: [...prev[lang], ""] }));
+  };
+
+  const handleDelete = (lang, index) => {
+    setLinks(prev => ({ ...prev, [lang]: prev[lang].filter((_, i) => i !== index) }));
   };
 
   return (
@@ -153,50 +169,32 @@ export default function HaditheSahihe() {
         <h2 className="text-xl font-bold text-blue-800 mb-1">Hadithet e Sahiheve</h2>
         <p className="text-sm text-blue-700">Sahih Buhari · Sahih Muslim · Sunen At-Tirmidhi</p>
         <div className="flex gap-2 justify-center mt-3 flex-wrap">
-          {editMode === "sq" ? (
-            <div className="flex gap-2">
-              <input type="text" value={editValue} onChange={(e) => setEditValue(e.target.value)} className="px-2 py-1 text-xs border rounded" />
-              <button onClick={() => handleSave("sq")} className="px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700">Save</button>
-              <button onClick={() => setEditMode(null)} className="px-2 py-1 bg-gray-400 text-white text-xs rounded hover:bg-gray-500">Cancel</button>
-            </div>
-          ) : (
-            <div className="flex gap-1.5">
-              <a href={links.sq} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition-colors">
-                <Download className="w-3.5 h-3.5" /> 🇦🇱
-              </a>
-              <button onClick={() => handleEdit("sq")} className="px-2 py-1.5 bg-gray-400 hover:bg-gray-500 text-white text-xs rounded-lg transition-colors">Edit</button>
-            </div>
-          )}
-          
-          {editMode === "ar" ? (
-            <div className="flex gap-2">
-              <input type="text" value={editValue} onChange={(e) => setEditValue(e.target.value)} className="px-2 py-1 text-xs border rounded" />
-              <button onClick={() => handleSave("ar")} className="px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700">Save</button>
-              <button onClick={() => setEditMode(null)} className="px-2 py-1 bg-gray-400 text-white text-xs rounded hover:bg-gray-500">Cancel</button>
-            </div>
-          ) : (
-            <div className="flex gap-1.5">
-              <a href={links.ar} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition-colors">
-                <Download className="w-3.5 h-3.5" /> 🇸🇦
-              </a>
-              <button onClick={() => handleEdit("ar")} className="px-2 py-1.5 bg-gray-400 hover:bg-gray-500 text-white text-xs rounded-lg transition-colors">Edit</button>
-            </div>
-          )}
-
-          {editMode === "en" ? (
-            <div className="flex gap-2">
-              <input type="text" value={editValue} onChange={(e) => setEditValue(e.target.value)} className="px-2 py-1 text-xs border rounded" />
-              <button onClick={() => handleSave("en")} className="px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700">Save</button>
-              <button onClick={() => setEditMode(null)} className="px-2 py-1 bg-gray-400 text-white text-xs rounded hover:bg-gray-500">Cancel</button>
-            </div>
-          ) : (
-            <div className="flex gap-1.5">
-              <a href={links.en} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition-colors">
-                <Download className="w-3.5 h-3.5" /> 🇬🇧
-              </a>
-              <button onClick={() => handleEdit("en")} className="px-2 py-1.5 bg-gray-400 hover:bg-gray-500 text-white text-xs rounded-lg transition-colors">Edit</button>
-            </div>
-          )}
+          <div className="flex flex-col gap-2 w-full">
+            {["sq", "ar", "en"].map(lang => (
+              <div key={lang} className="flex flex-wrap gap-2 justify-center">
+                {links[lang].map((link, idx) => (
+                  <div key={idx}>
+                    {editMode === `${lang}-${idx}` ? (
+                      <div className="flex gap-1.5">
+                        <input type="text" value={editValue} onChange={(e) => setEditValue(e.target.value)} className="px-2 py-1 text-xs border rounded w-48" />
+                        <button onClick={() => handleSave(lang, idx)} className="px-2 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700">✓</button>
+                        <button onClick={() => setEditMode(null)} className="px-2 py-1 bg-gray-400 text-white text-xs rounded hover:bg-gray-500">✕</button>
+                      </div>
+                    ) : (
+                      <div className="flex gap-1.5">
+                        <a href={link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition-colors">
+                          <Download className="w-3.5 h-3.5" /> {lang === "sq" ? "🇦🇱" : lang === "ar" ? "🇸🇦" : "🇬🇧"}
+                        </a>
+                        <button onClick={() => handleEdit(lang, idx)} className="px-2 py-1.5 bg-gray-400 hover:bg-gray-500 text-white text-xs rounded-lg transition-colors">Edit</button>
+                        {links[lang].length > 1 && <button onClick={() => handleDelete(lang, idx)} className="px-2 py-1.5 bg-red-500 hover:bg-red-600 text-white text-xs rounded-lg transition-colors">Del</button>}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <button onClick={() => handleAdd(lang)} className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition-colors">+ Add</button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
