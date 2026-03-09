@@ -106,6 +106,7 @@ const QUIZ_GAME_MAP = {
 import MathGame from "@/components/games/MathGame";
 import MemoryGame from "@/components/games/MemoryGame";
 import BrainGymGame from "@/components/games/BrainGymGame.jsx";
+import CustomGamePanel from "@/components/games/CustomGamePanel";
 import { base44 } from "@/api/base44Client";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
