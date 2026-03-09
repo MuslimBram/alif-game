@@ -205,8 +205,8 @@ export default function Settings() {
           <SettingsIcon className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h1 className="text-2xl font-extrabold text-gray-900">Cilësimet Personale</h1>
-          <p className="text-sm text-gray-500">Personalizo përvojën tënde të mësimit</p>
+          <h1 className="text-2xl font-extrabold text-gray-900">{t.title}</h1>
+          <p className="text-sm text-gray-500">{t.subtitle}</p>
         </div>
       </div>
 
@@ -231,12 +231,12 @@ export default function Settings() {
         <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
             <Globe className="w-5 h-5 text-emerald-600" />
-            <h2 className="font-bold text-gray-900">Gjuha dhe Dialekti</h2>
+            <h2 className="font-bold text-gray-900">{t.langSection}</h2>
           </div>
           <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2 mb-3 flex items-center gap-2">
-            <span className="text-lg">{LANGUAGES.find(l => l.code === settings.language)?.flag}</span>
-            <span className="text-sm font-semibold text-emerald-800">Gjuha aktive: <strong>{LANGUAGES.find(l => l.code === settings.language)?.label}</strong>{settings.dialect && settings.dialect !== "Standard" ? ` — ${settings.dialect}` : ""}</span>
-            <span className="ml-auto text-xs text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full">aktive</span>
+            <span className="text-lg">{selectedLang.flag}</span>
+            <span className="text-sm font-semibold text-emerald-800">{t.activeLabel} <strong>{selectedLang.label}</strong>{settings.dialect && settings.dialect !== "Standard" ? ` — ${settings.dialect}` : ""}</span>
+            <span className="ml-auto text-xs text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full">{t.activeTag}</span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
             {LANGUAGES.map(lang => (
@@ -248,9 +248,12 @@ export default function Settings() {
               </button>
             ))}
           </div>
+          <div className="mt-3 bg-blue-50 border border-blue-100 rounded-xl px-3 py-2 text-xs text-blue-600">
+            ℹ️ {t.note}
+          </div>
           {selectedLang.dialects.length > 1 && (
             <div>
-              <Label className="text-xs text-gray-500 mb-2 block">Dialekti i preferuar</Label>
+              <Label className="text-xs text-gray-500 mb-2 block">{t.dialect}</Label>
               <div className="flex flex-wrap gap-2">
                 {selectedLang.dialects.map(d => (
                   <button key={d} onClick={() => update("dialect", d)}
@@ -267,7 +270,7 @@ export default function Settings() {
         <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
             <Palette className="w-5 h-5 text-emerald-600" />
-            <h2 className="font-bold text-gray-900">Tema</h2>
+            <h2 className="font-bold text-gray-900">{t.theme}</h2>
           </div>
           <div className="grid grid-cols-3 gap-3">
             {THEMES.map(theme => {
@@ -290,12 +293,12 @@ export default function Settings() {
             })}
           </div>
           <div className="mt-4">
-            <Label className="text-xs text-gray-500 mb-2 block">Madhësia e shkrimit</Label>
+            <Label className="text-xs text-gray-500 mb-2 block">{t.fontSize}</Label>
             <div className="flex gap-2">
               {["small", "medium", "large"].map(size => (
                 <button key={size} onClick={() => { update("font_size", size); applyFontSize(size); }}
                   className={`flex-1 py-2 rounded-xl text-xs font-semibold border-2 transition-all ${settings.font_size === size ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-gray-200 text-gray-600"}`}>
-                  {size === "small" ? "I vogël" : size === "medium" ? "Normal" : "I madh"}
+                  {size === "small" ? t.small : size === "medium" ? t.medium : t.large}
                 </button>
               ))}
             </div>
@@ -307,7 +310,7 @@ export default function Settings() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Bell className="w-5 h-5 text-emerald-600" />
-              <h2 className="font-bold text-gray-900">Njoftimet</h2>
+              <h2 className="font-bold text-gray-900">{t.notifications}</h2>
             </div>
             <Switch checked={settings.notifications_enabled} onCheckedChange={v => update("notifications_enabled", v)} />
           </div>
@@ -335,7 +338,7 @@ export default function Settings() {
         <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
             <User className="w-5 h-5 text-emerald-600" />
-            <h2 className="font-bold text-gray-900">Sinkronizimi dhe Mësimi</h2>
+            <h2 className="font-bold text-gray-900">{t.syncSection}</h2>
           </div>
           <div className="space-y-3">
             <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3">
@@ -376,7 +379,7 @@ export default function Settings() {
         {/* Save Button */}
         <Button onClick={handleSave}
           className={`w-full py-4 rounded-2xl font-bold text-base shadow-lg transition-all ${saved ? "bg-emerald-500" : "bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-90"}`}>
-          {saved ? <><Check className="w-5 h-5 mr-2" /> U ruajtën!</> : <><Save className="w-5 h-5 mr-2" /> Ruaj Cilësimet</>}
+          {saved ? <><Check className="w-5 h-5 mr-2" /> {t.savedBtn}</> : <><Save className="w-5 h-5 mr-2" /> {t.saveBtn}</>}
         </Button>
       </div>
     </div>
