@@ -232,11 +232,14 @@ function PhaseResult({ game, drawingDataUrl, onClose, onRetry }) {
 
       const urls = game.image_url ? [game.image_url, drawingUrl] : [drawingUrl];
 
+      const conditions = game.conditions?.length ? `Kushtet që duhej të vizatonte: ${game.conditions.join(", ")}.` : "";
+      const options = game.options?.length ? `Opsionet e lojës: ${game.options.join(", ")}.` : "";
+
       const res = await base44.integrations.Core.InvokeLLM({
-        prompt: `Ti je një mësues i fëmijëve. Detyra ishte: "${game.title}" — "${game.description}".
-${game.image_url ? "Imazhi i parë është referenca origjinale. Imazhi i dytë është vizatimi i fëmijës." : "Imazhi është vizatimi i fëmijës."}
-Vlerëso vizatimin e fëmijës nga 0 deri 100 dhe jep një koment inkurajues në shqip (max 2 fjali).
-Gjithashtu jep 2-3 pyetje të shkurtra testimi (me 3 opsione secila, dhe 1 përgjigje të saktë) bazuar në temën "${game.title}".`,
+      prompt: `Ti je një mësues i fëmijëve. Detyra ishte: "${game.title}" — "${game.description}". ${conditions} ${options}
+      ${game.image_url ? "Imazhi i parë është referenca origjinale. Imazhi i dytë është vizatimi i fëmijës." : "Imazhi është vizatimi i fëmijës."}
+      Vlerëso vizatimin e fëmijës nga 0 deri 100 duke u bazuar te kushtet e specifikuara (nëse ka). Jep një koment inkurajues në shqip (max 2 fjali).
+      Gjithashtu jep 2-3 pyetje të shkurtra testimi (me 3 opsione secila, dhe 1 përgjigje të saktë) bazuar në kushtet dhe opsionet e lojës.`,
         file_urls: urls,
         response_json_schema: {
           type: "object",
