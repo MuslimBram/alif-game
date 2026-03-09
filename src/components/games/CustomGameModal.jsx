@@ -144,10 +144,25 @@ function DrawingStep({ condition, conditionIndex, totalConditions, options, refe
 
       {/* Reference */}
       {referenceImage && (
-        <div className="mx-5 mb-2 flex items-center gap-2 bg-amber-50 border border-amber-100 rounded-xl p-2">
-          <img src={referenceImage} alt="ref" className="w-12 h-12 object-contain rounded-lg border border-amber-200" />
-          <p className="text-xs text-amber-700 font-medium">Shiko imazhin referues dhe vizato <strong>{condition}</strong>!</p>
-        </div>
+        <>
+          <div className="mx-5 mb-2 flex items-center gap-2 bg-amber-50 border border-amber-100 rounded-xl p-2 cursor-pointer"
+            onClick={() => setShowFullImage(true)}>
+            <img src={referenceImage} alt="ref" className="w-12 h-12 object-contain rounded-lg border border-amber-200" />
+            <div className="flex-1">
+              <p className="text-xs text-amber-700 font-medium">Shiko imazhin referues dhe vizato <strong>{condition}</strong>!</p>
+              <p className="text-xs text-amber-500 mt-0.5">🔍 Kliko për ta parë të plotë</p>
+            </div>
+          </div>
+          {showFullImage && (
+            <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4"
+              onClick={() => setShowFullImage(false)}>
+              <img src={referenceImage} alt="ref" className="max-w-full max-h-full rounded-2xl shadow-2xl" />
+              <button className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg">
+                <X className="w-5 h-5 text-gray-700" />
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {/* Toolbar */}
