@@ -74,7 +74,7 @@ const modules = [
   { value: "kurani",    label: "Kur'ani" },
   { value: "umra_haxh", label: "Umra & Haxhi" },
   { value: "fikh",      label: "Fikh (FE)" },
-  { value: "lojera",    label: "Numra & Lojëra" },
+  { value: "lojera",    label: "Numrat" },
 ];
 
 const levels = [
