@@ -7,6 +7,25 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import CustomGameModal from "./CustomGameModal";
 
+// ─── SMALL TAG INPUT ───────────────────────────────────────────────────────────
+function AddTagInput({ placeholder, color, onAdd }) {
+  const [val, setVal] = useState("");
+  const colors = {
+    emerald: "border-emerald-200 focus:ring-emerald-300",
+    blue: "border-blue-200 focus:ring-blue-300"
+  };
+  const submit = () => { if (val.trim()) { onAdd(val.trim()); setVal(""); }};
+  return (
+    <div className="flex gap-1">
+      <input value={val} onChange={e => setVal(e.target.value)}
+        onKeyDown={e => e.key === "Enter" && submit()}
+        placeholder={placeholder}
+        className={`flex-1 border rounded-lg px-2 py-1 text-xs focus:outline-none focus:ring-1 ${colors[color]}`} />
+      <button onClick={submit} className="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs font-bold">+</button>
+    </div>
+  );
+}
+
 // ─── ADMIN CREATOR ─────────────────────────────────────────────────────────────
 function GameForm({ initial, onSave, onCancel }) {
   const [form, setForm] = useState(initial || { title: "", description: "", image_url: "", level: "fillestar", points: 50, conditions: [], options: [] });
