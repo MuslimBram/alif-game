@@ -70,6 +70,7 @@ function DrawingStep({ condition, conditionIndex, totalConditions, options, refe
   const [color, setColor] = useState("#1d4ed8");
   const [brushSize, setBrushSize] = useState(4);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [showFullImage, setShowFullImage] = useState(false);
   const lastPos = useRef(null);
 
   const presetColors = ["#1d4ed8", "#dc2626", "#16a34a", "#d97706", "#7c3aed", "#000000"];
