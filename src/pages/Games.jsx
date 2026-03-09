@@ -518,7 +518,9 @@ export default function Games({ adminEditMode, isAdmin }) {
           {activeMath && <MathGame onClose={() => setActiveMath(false)} />}
           {activeMemory && <MemoryGame onClose={() => setActiveMemory(false)} />}
           {activeBrainGym && <BrainGymGame initialLevel={brainGymLevel} onClose={() => setActiveBrainGym(false)} />}
-          {filtered.length === 0 ? (
+          {selectedModule === "te_tjera" ? (
+            <CustomGamePanel isAdmin={isAdmin} selectedLevel={selectedLevel} />
+          ) : filtered.length === 0 ? (
             <div className="text-center py-20"><Gamepad2 className="w-12 h-12 text-gray-300 mx-auto mb-4"/><p className="text-gray-500">Nuk ka lojëra për këto filtra</p></div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
