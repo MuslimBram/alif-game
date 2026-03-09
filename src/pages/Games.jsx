@@ -68,22 +68,21 @@ const allGames = [
 ];
 
 const modules = [
-  { value: "te_gjitha", label: "Të Gjitha" },
-  { value: "alfabeti",  label: "Alfabeti" },
-  { value: "texhuidi",  label: "Texhuidi" },
-  { value: "kurani",    label: "Kur'ani" },
-  { value: "umra_haxh", label: "Umra & Haxhi" },
-  { value: "fikh",      label: "Fikh (FE)" },
-  { value: "lojera",    label: "Numrat" },
-  { value: "braingym",  label: "Brain Gym →" },
+  { value: "te_gjitha", label: "🎮 Të Gjitha" },
+  { value: "alfabeti",  label: "🔤 Alfabeti" },
+  { value: "texhuidi",  label: "📖 Texhuidi" },
+  { value: "kurani",    label: "☪️ Kur'ani" },
+  { value: "umra_haxh", label: "🕌 Umra & Haxhi" },
+  { value: "fikh",      label: "📚 Fikh (FE)" },
+  { value: "lojera",    label: "🔢 Numrat" },
 ];
 
 const levels = [
-  { value: "te_gjitha",   label: "Të Gjitha" },
-  { value: "fillestar",   label: "Fillestar" },
-  { value: "mesatar",     label: "Mesatar" },
-  { value: "avancuar",    label: "Avancuar" },
-  { value: "profesionist",label: "Profesionist" },
+  { value: "te_gjitha",   label: "🌟 Të Gjitha" },
+  { value: "fillestar",   label: "🌱 Fillestar" },
+  { value: "mesatar",     label: "📚 Mesatar" },
+  { value: "avancuar",    label: "🔬 Avancuar" },
+  { value: "profesionist",label: "🏆 Profesionist" },
 ];
 
 const QUIZ_GAME_MAP = {
