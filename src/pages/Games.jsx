@@ -501,17 +501,19 @@ export default function Games({ adminEditMode, isAdmin }) {
               ))}
             </div>
           </div>
-          <div className="mb-6">
-            <p className="text-xs font-semibold text-emerald-700 mb-2">Niveli:</p>
-            <div className="flex flex-wrap gap-2">
-              {levels.map(l => (
-                <button key={l.value} onClick={() => setSelectedLevel(l.value)}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedLevel === l.value ? "bg-teal-600 text-white shadow-md" : "bg-white border border-gray-200 text-gray-600 hover:border-teal-300"}`}>
-                  {l.label}
-                </button>
-              ))}
+          {selectedModule !== "brain_gym" && (
+            <div className="mb-6">
+              <p className="text-xs font-semibold text-emerald-700 mb-2">Niveli:</p>
+              <div className="flex flex-wrap gap-2">
+                {levels.map(l => (
+                  <button key={l.value} onClick={() => setSelectedLevel(l.value)}
+                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedLevel === l.value ? "bg-teal-600 text-white shadow-md" : "bg-white border border-gray-200 text-gray-600 hover:border-teal-300"}`}>
+                    {l.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
           <div className="mb-3">
             <span className="text-xs text-gray-400 font-medium">{filtered.length} lojëra</span>
           </div>
