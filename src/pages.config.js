@@ -51,6 +51,7 @@ import AdminPanel from './pages/AdminPanel';
 import Alphabet from './pages/Alphabet';
 import AlphabetMain from './pages/AlphabetMain';
 import FE from './pages/FE';
+import Games from './pages/Games';
 import Groups from './pages/Groups';
 import Home from './pages/Home';
 import Leaderboard from './pages/Leaderboard';
@@ -62,7 +63,6 @@ import Tajweed from './pages/Tajweed';
 import TajweedMain from './pages/TajweedMain';
 import UmraHajj from './pages/UmraHajj';
 import WordsAdmin from './pages/WordsAdmin';
-import Games from './pages/Games';
 import __Layout from './Layout.jsx';
 
 
@@ -71,6 +71,7 @@ export const PAGES = {
     "Alphabet": Alphabet,
     "AlphabetMain": AlphabetMain,
     "FE": FE,
+    "Games": Games,
     "Groups": Groups,
     "Home": Home,
     "Leaderboard": Leaderboard,
@@ -82,7 +83,6 @@ export const PAGES = {
     "TajweedMain": TajweedMain,
     "UmraHajj": UmraHajj,
     "WordsAdmin": WordsAdmin,
-    "Games": Games,
 }
 
 export const pagesConfig = {
