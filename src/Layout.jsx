@@ -54,14 +54,6 @@ const navItems = [
 
 },
 {
-  name: "Lojëra", page: "Games", icon: Gamepad2,
-  children: [
-  { name: "🧠 Kuiz", page: "Games", params: "?game=quiz" },
-  { name: "🃏 Hafizja", page: "Games", params: "?game=memory" },
-  { name: "🔢 Matematika", page: "Games", params: "?game=math" }]
-
-},
-{
   name: "Fikh Elementar", page: "FE", icon: BookOpen,
   children: [
   { name: "🕌 Akide", page: "FE", params: "?tab=akide" },
