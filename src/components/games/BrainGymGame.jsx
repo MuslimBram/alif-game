@@ -147,6 +147,12 @@ export default function BrainGymGame({ onClose, initialLevel }) {
     setTimeout(nextRound, LEVELS[selectedLevel].autoNext);
   };
 
+  useEffect(() => {
+    if (initialLevel && LEVELS[initialLevel] && !selectedLevel) {
+      handleLevelSelect(initialLevel);
+    }
+  }, [initialLevel]);
+
   const lv = selectedLevel ? LEVELS[selectedLevel] : null;
 
   return (
