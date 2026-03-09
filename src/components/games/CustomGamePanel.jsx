@@ -169,7 +169,7 @@ Ktheni vetëm JSON.`,
       {/* AI Results Preview */}
       {aiGenerated &&
       <div className="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 rounded-2xl p-4 space-y-3">
-          <p className="text-xs font-bold text-purple-700 flex items-center gap-1">✨MODIFIKO</p>
+          <p className="text-purple-700 text-2xl font-bold flex items-center gap-1">✨Plotëso</p>
 
           {/* Level & Points */}
           <div className="flex items-center gap-3">
