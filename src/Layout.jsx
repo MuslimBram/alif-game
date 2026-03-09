@@ -65,6 +65,13 @@ const navItems = [
   { name: "🎯 Kuiz", page: "FE", params: "?tab=kuiz" }]
 
 },
+{
+  name: "Lojëra", page: "Games", icon: Gamepad2,
+  children: [
+  { name: "🧠 Kuiz", page: "Games", params: "?game=quiz" },
+  { name: "🃏 Hafizja", page: "Games", params: "?game=memory" },
+  { name: "🔢 Matematika", page: "Games", params: "?game=math" }]
+},
 { name: "Progresi", page: "Progress", icon: BarChart3 },
 { name: "Cilësimet", page: "Settings", icon: Settings },
 { name: "Fjalë Admin", page: "WordsAdmin", icon: Settings, adminOnly: true }];
