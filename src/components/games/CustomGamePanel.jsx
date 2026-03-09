@@ -97,6 +97,50 @@ function GameForm({ initial, onSave, onCancel }) {
         )}
       </div>
 
+      {/* Conditions */}
+      <div>
+        <label className="text-xs font-semibold text-gray-600 mb-1 block">Kushtet / Figurat që duhen vizatuar</label>
+        <div className="flex gap-2 mb-2">
+          <Input value={condInput} onChange={e => setCondInput(e.target.value)}
+            onKeyDown={e => { if (e.key === "Enter" && condInput.trim()) { setForm(f => ({ ...f, conditions: [...(f.conditions||[]), condInput.trim()] })); setCondInput(""); }}}
+            placeholder="p.sh. Rreth, Katror..." className="rounded-xl text-sm flex-1" />
+          <Button size="sm" type="button" variant="outline" className="rounded-xl"
+            onClick={() => { if (condInput.trim()) { setForm(f => ({ ...f, conditions: [...(f.conditions||[]), condInput.trim()] })); setCondInput(""); }}}>
+            <Plus className="w-4 h-4" />
+          </Button>
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {(form.conditions||[]).map((c, i) => (
+            <span key={i} className="flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs px-2 py-1 rounded-lg font-medium">
+              {c}
+              <button onClick={() => setForm(f => ({ ...f, conditions: f.conditions.filter((_, j) => j !== i) }))}><X className="w-3 h-3" /></button>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Options */}
+      <div>
+        <label className="text-xs font-semibold text-gray-600 mb-1 block">Opsionet e zgjedhjes (emrat e figurave etj.)</label>
+        <div className="flex gap-2 mb-2">
+          <Input value={optInput} onChange={e => setOptInput(e.target.value)}
+            onKeyDown={e => { if (e.key === "Enter" && optInput.trim()) { setForm(f => ({ ...f, options: [...(f.options||[]), optInput.trim()] })); setOptInput(""); }}}
+            placeholder="p.sh. Rreth, Katror, Trekëndësh..." className="rounded-xl text-sm flex-1" />
+          <Button size="sm" type="button" variant="outline" className="rounded-xl"
+            onClick={() => { if (optInput.trim()) { setForm(f => ({ ...f, options: [...(f.options||[]), optInput.trim()] })); setOptInput(""); }}}>
+            <Plus className="w-4 h-4" />
+          </Button>
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {(form.options||[]).map((o, i) => (
+            <span key={i} className="flex items-center gap-1 bg-blue-50 text-blue-700 border border-blue-200 text-xs px-2 py-1 rounded-lg font-medium">
+              {o}
+              <button onClick={() => setForm(f => ({ ...f, options: f.options.filter((_, j) => j !== i) }))}><X className="w-3 h-3" /></button>
+            </span>
+          ))}
+        </div>
+      </div>
+
       {(!form.title || !form.description) && (
         <p className="text-xs text-red-500 font-medium">⚠️ Plotëso Titullin dhe Shpjegimin për të ruajtur</p>
       )}
