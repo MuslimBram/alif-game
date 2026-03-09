@@ -9,7 +9,9 @@ import CustomGameModal from "./CustomGameModal";
 
 // ─── ADMIN CREATOR ─────────────────────────────────────────────────────────────
 function GameForm({ initial, onSave, onCancel }) {
-  const [form, setForm] = useState(initial || { title: "", description: "", image_url: "", level: "fillestar", points: 50 });
+  const [form, setForm] = useState(initial || { title: "", description: "", image_url: "", level: "fillestar", points: 50, conditions: [], options: [] });
+  const [condInput, setCondInput] = useState("");
+  const [optInput, setOptInput] = useState("");
   const [uploading, setUploading] = useState(false);
   const [generating, setGenerating] = useState(false);
 
