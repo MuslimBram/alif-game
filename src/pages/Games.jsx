@@ -519,7 +519,27 @@ export default function Games({ adminEditMode, isAdmin }) {
           {activeMath && <MathGame onClose={() => setActiveMath(false)} />}
           {activeMemory && <MemoryGame onClose={() => setActiveMemory(false)} />}
           {activeBrainGym && <BrainGymGame initialLevel={brainGymLevel} onClose={() => setActiveBrainGym(false)} />}
-          {selectedModule === "te_tjera" ? (
+          {selectedModule === "brain_gym" ? (
+            <div>
+              <p className="text-sm text-gray-500 mb-5">Zgjidh nivelin e vështirësisë për të filluar Brain Gym:</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                {[
+                  { key: "fillestar",    label: "🌱 Fillestar",    desc: "Rrjeta 3×3 — 2-3 sheshe", color: "from-green-400 to-emerald-500",   bg: "bg-green-50 border-green-200",   points: 60 },
+                  { key: "mesatar",      label: "📚 Mesatar",      desc: "Rrjeta 4×4 — 3-5 sheshe", color: "from-blue-400 to-cyan-500",       bg: "bg-blue-50 border-blue-200",     points: 80 },
+                  { key: "avancuar",     label: "⭐ Avancuar",     desc: "Rrjeta 5×5 — 5-8 sheshe", color: "from-purple-400 to-violet-500",   bg: "bg-purple-50 border-purple-200", points: 100 },
+                  { key: "profesionist", label: "🏆 Profesionist", desc: "Rrjeta 6×6 — 8-12 sheshe", color: "from-amber-400 to-orange-500",   bg: "bg-amber-50 border-amber-200",   points: 150 },
+                ].map(lv => (
+                  <button key={lv.key} onClick={() => { setBrainGymLevel(lv.key); setActiveBrainGym(true); }}
+                    className={`group rounded-2xl border-2 ${lv.bg} p-6 text-left transition-all hover:scale-105 hover:shadow-lg`}>
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${lv.color} flex items-center justify-center text-2xl mb-3 shadow-md`}>🧠</div>
+                    <p className="text-base font-extrabold text-gray-800 mb-1">{lv.label}</p>
+                    <p className="text-xs text-gray-500 mb-3">{lv.desc}</p>
+                    <span className="text-xs font-semibold text-amber-600">⭐ {lv.points} pikë</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : selectedModule === "te_tjera" ? (
             <CustomGamePanel isAdmin={isAdmin} selectedLevel={selectedLevel} />
           ) : filtered.length === 0 ? (
             <div className="text-center py-20"><Gamepad2 className="w-12 h-12 text-gray-300 mx-auto mb-4"/><p className="text-gray-500">Nuk ka lojëra për këto filtra</p></div>
