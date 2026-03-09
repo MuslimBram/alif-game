@@ -139,18 +139,24 @@ function CustomGameCard({ game, isAdmin, onEdit, onDelete, onPlay }) {
           </span>
         </div>
         <p className="text-xs text-gray-500 leading-relaxed mb-3">{game.description}</p>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <span className="text-xs font-semibold text-amber-600">⭐ {game.points} pikë</span>
-          {isAdmin && (
-            <div className="flex gap-1">
-              <button onClick={() => onEdit(game)} className="w-7 h-7 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center">
-                <Pencil className="w-3.5 h-3.5 text-gray-500 hover:text-blue-600" />
-              </button>
-              <button onClick={() => onDelete(game)} className="w-7 h-7 bg-gray-100 hover:bg-red-100 rounded-lg flex items-center justify-center">
-                <Trash2 className="w-3.5 h-3.5 text-gray-500 hover:text-red-600" />
-              </button>
-            </div>
-          )}
+          <div className="flex items-center gap-1">
+            {isAdmin && (
+              <>
+                <button onClick={() => onEdit(game)} className="w-7 h-7 bg-gray-100 hover:bg-blue-100 rounded-lg flex items-center justify-center">
+                  <Pencil className="w-3.5 h-3.5 text-gray-500" />
+                </button>
+                <button onClick={() => onDelete(game)} className="w-7 h-7 bg-gray-100 hover:bg-red-100 rounded-lg flex items-center justify-center">
+                  <Trash2 className="w-3.5 h-3.5 text-gray-500" />
+                </button>
+              </>
+            )}
+            <button onClick={onPlay}
+              className="flex items-center gap-1 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all">
+              <Play className="w-3 h-3" /> Luaj
+            </button>
+          </div>
         </div>
       </div>
     </motion.div>
