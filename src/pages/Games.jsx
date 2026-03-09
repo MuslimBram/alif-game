@@ -78,6 +78,7 @@ const modules = [
   { value: "umra_haxh", label: "🕌 Umra & Haxhi" },
   { value: "fikh",      label: "📚 Fikh (FE)" },
   { value: "lojera",    label: "🔢 Numrat" },
+  { value: "te_tjera",  label: "🎲 Të Tjera" },
 ];
 
 const levels = [
