@@ -433,12 +433,6 @@ export default function Games({ adminEditMode, isAdmin }) {
   });
   const [mainTab, setMainTab] = useState("lojerat");
 
-  useEffect(() => {
-    if (selectedModule === "braingym") {
-      setActiveBrainGym(true);
-      setSelectedModule("te_gjitha");
-    }
-  }, [selectedModule]);
 
   const filtered = allGames.filter(g => {
     const mM = selectedModule === "te_gjitha" || g.module === selectedModule;
