@@ -56,10 +56,10 @@ Bazuar VETËM në atë që sheh në imazh (jo në titull apo përshkrim), gjener
 }
 1. Nivelin e vështirësisë (zgjidhni: fillestar, mesatar, avancuar, profesionist)
 2. Pikët (numër nga 10 deri 100)
-3. Kushtet - lista e GJËRAVE QË SHIHEN NË IMAZH që fëmija duhet të vizatojë (3-6 gjëra specifike nga imazhi)
-4. Opsionet - lista e emrave/zgjedhjeve për kuizin (6-10 opsione, duke përfshirë edhe disa që NUK janë në imazh si shpërndarës)
+3. Kushtet - zgjidhni SAKTËSISHT 5 gjëra nga imazhi që fëmija duhet të vizatojë (zgjidhni 5 nga më të lehtat/karakteristiket)
+4. Opsionet - të GJITHA gjërat që shihen në imazh + 2-3 shpërndarës që NUK janë në imazh (për kuizin me zgjedhje të shumëfishta)
 
-${hasImage ? "RËNDËSISHME: Kushtet dhe opsionet duhet të vijnë drejtpërdrejt nga përmbajtja vizuale e imazhit!" : ""}
+${hasImage ? "RËNDËSISHME: Nëse imazhi ka shumë objekte (p.sh. 10+), zgjidh vetëm 5 për kushtet, por vendosi të gjitha si opsione!" : ""}
 Ktheni vetëm JSON.`,
         file_urls: hasImage ? [form.image_url] : undefined,
         response_json_schema: {
