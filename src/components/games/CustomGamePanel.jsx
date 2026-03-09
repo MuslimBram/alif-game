@@ -24,11 +24,19 @@ function GameForm({ initial, onSave, onCancel }) {
   const handleGenerate = async () => {
     if (!form.title && !form.description) return;
     setGenerating(true);
-    const { url } = await base44.integrations.Core.GenerateImage({
-      prompt: `Educational game illustration for: "${form.title}". ${form.description}. Colorful, child-friendly, flat design style.`,
-    });
-    setForm(f => ({ ...f, image_url: url }));
-    setGenerating(false);
+    try {
+      const result = await base44.integrations.Core.GenerateImage({
+        prompt: `Educational game illustration for children: "${form.title}". ${form.description}. Colorful, cheerful, flat design style.`,
+      });
+      const url = result?.url || result;
+      if (!url) throw new Error("Nuk u kthye URL");
+      setForm(f => ({ ...f, image_url: url }));
+      toast.success("Imazhi u gjenerua! ✅");
+    } catch (err) {
+      toast.error("Gabim gjatë gjenerimit: " + err.message);
+    } finally {
+      setGenerating(false);
+    }
   };
 
   return (
