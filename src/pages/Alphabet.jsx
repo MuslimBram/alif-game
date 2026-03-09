@@ -246,23 +246,23 @@ export default function Alphabet({ adminEditMode = false, isAdmin = false }) {
       {activeTab === "perkthyes" && <TriLanguageTranslator />}
 
       {/* Prev / Next navigation */}
-      <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
-        <button
-          onClick={goPrev}
-          disabled={currentTabIndex === 0}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-white border border-gray-200 text-gray-700 hover:border-emerald-400 hover:text-emerald-700">
+      
 
-          <ChevronLeft className="w-4 h-4" /> Mëparshme
-        </button>
-        <span className="text-xs text-gray-400">{currentTabIndex + 1} / {ALL_TABS.length}</span>
-        <button
-          onClick={goNext}
-          disabled={currentTabIndex === ALL_TABS.length - 1}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-emerald-600 text-white hover:bg-emerald-700">
 
-          Tjetra <ChevronRight className="w-4 h-4" />
-        </button>
-      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </div>);
 
