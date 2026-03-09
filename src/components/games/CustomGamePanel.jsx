@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Plus, Trash2, Upload, Lock, Loader2, ImageIcon, Pencil, Check, X } from "lucide-react";
+import { Plus, Trash2, Upload, Lock, Loader2, ImageIcon, Pencil, Check, X, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import CustomGameModal from "./CustomGameModal";
 
 // ─── ADMIN CREATOR ─────────────────────────────────────────────────────────────
 function GameForm({ initial, onSave, onCancel }) {
