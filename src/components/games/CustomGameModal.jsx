@@ -227,7 +227,7 @@ function PhaseDrawing({ game, onFinish, onClose }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [drawings, setDrawings] = useState([]); // [{dataUrl, selectedOption, condition}]
 
-  const conditions = React.useMemo(() => {
+  const conditions = useMemo(() => {
     const arr = game.conditions?.length > 0 ? [...game.conditions] : ["Vizato lirshëm"];
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
