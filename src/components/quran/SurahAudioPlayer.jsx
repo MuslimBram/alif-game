@@ -72,10 +72,15 @@ export default function SurahAudioPlayer({ surahNum, surahName, totalVerses = 1 
   const handleError = () => { setError(true); setLoading(false); setPlaying(false); };
 
   return (
-    <div className="bg-amber-50 border border-amber-200 rounded-xl p-3">
-      <div className="flex items-center gap-2 mb-2">
-        <Volume2 className="w-4 h-4 text-amber-600" />
-        <span className="text-xs font-bold text-amber-700">🎵 Dëgjo Suren Komplet — {surahName}</span>
+    <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <Volume2 className="w-4 h-4 text-amber-600" />
+          <span className="text-sm font-bold text-amber-800">🎵 Audio — {surahName}</span>
+        </div>
+        <span className="text-xs text-amber-600 bg-amber-100 px-2 py-0.5 rounded-full font-semibold">
+          Ajet {currentVerse}/{totalVerses}
+        </span>
       </div>
 
       <audio
@@ -94,23 +99,23 @@ export default function SurahAudioPlayer({ surahNum, surahName, totalVerses = 1 
         <div className="flex items-center gap-2">
           <button
             onClick={togglePlay}
-            className="flex items-center gap-1.5 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-xl transition-all"
+            className="flex items-center gap-1.5 px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-xl transition-all shadow-sm"
           >
             {loading ? <span className="animate-spin">⏳</span>
-              : playing ? <><Pause className="w-3.5 h-3.5" /> Pause</>
-              : <><Play className="w-3.5 h-3.5" /> Dëgjo Suren</>}
+              : playing ? <><Pause className="w-4 h-4" /> Pause</>
+              : <><Play className="w-4 h-4" /> Dëgjo Suren</>}
           </button>
-          <button onClick={restart} className="w-8 h-8 rounded-xl bg-amber-100 hover:bg-amber-200 flex items-center justify-center" title="Rinis">
-            <RotateCcw className="w-3.5 h-3.5 text-amber-700" />
+          <button onClick={restart} className="w-9 h-9 rounded-xl bg-amber-100 hover:bg-amber-200 flex items-center justify-center" title="Rinis">
+            <RotateCcw className="w-4 h-4 text-amber-700" />
           </button>
           {playing && (
-            <span className="text-xs text-amber-600 animate-pulse">
-              🎵 Ajet {currentVerse}/{totalVerses}
+            <span className="text-xs text-amber-600 animate-pulse font-medium">
+              🎵 Po luan...
             </span>
           )}
         </div>
       )}
-      <p className="text-[10px] text-gray-400 mt-1.5">Recitim: Sheikh Mishary Al-Afasy</p>
+      <p className="text-[10px] text-gray-400 mt-2">Recitim: Sheikh Mishary Al-Afasy</p>
     </div>
   );
 

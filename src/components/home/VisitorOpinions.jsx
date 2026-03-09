@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { MessageSquare, Send, Image, X, Star, ThumbsUp, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function VisitorOpinions() {
+  const [user, setUser] = useState(null);
   const [name, setName] = useState("");
   const [text, setText] = useState("");
   const [rating, setRating] = useState(5);
@@ -15,6 +16,12 @@ export default function VisitorOpinions() {
   const [error, setError] = useState(null);
   const fileInputRef = useRef();
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    base44.auth.me().then(u => {
+      if (u?.full_name) setName(u.full_name);
+    }).catch(() => {});
+  }, []);
 
   const { data: opinions = [], isLoading } = useQuery({
     queryKey: ["opinions"],

@@ -78,13 +78,14 @@ export default function Settings() {
   const update = (key, value) => {
     setSettings(prev => {
       const next = { ...prev, [key]: value };
-      // Apply language/dialect immediately and persist
+      localStorage.setItem("app_settings", JSON.stringify(next));
       if (key === "language" || key === "dialect") {
-        localStorage.setItem("app_settings", JSON.stringify(next));
         window.dispatchEvent(new CustomEvent("app_language_changed", { detail: { language: next.language, dialect: next.dialect } }));
         document.documentElement.setAttribute("lang", next.language);
         document.documentElement.setAttribute("data-dialect", next.dialect || "");
       }
+      if (key === "theme") applyTheme(value);
+      if (key === "font_size") applyFontSize(value);
       return next;
     });
   };
