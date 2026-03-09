@@ -103,7 +103,7 @@ function LevelSelect({ onSelect }) {
 }
 
 // ─── MAIN GAME ────────────────────────────────────────────────────────────────
-export default function BrainGymGame({ onClose }) {
+export default function BrainGymGame({ onClose, initialLevel }) {
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [score, setScore] = useState(0);
   const [round, setRound] = useState(0);
