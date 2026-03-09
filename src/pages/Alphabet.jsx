@@ -236,10 +236,10 @@ export default function Alphabet({ adminEditMode = false, isAdmin = false }) {
       {activeTab === "medine" &&
       <div className="space-y-8">
           <MedineArabicView />
-          <div className="border-t border-gray-100 pt-6">
-            <h2 className="text-lg font-bold text-emerald-800 mb-4">🌐 Përkthyes Tri-Gjuhësor</h2>
-            <TriLanguageTranslator />
-          </div>
+          
+
+
+
         </div>
       }
       {activeTab === "texhuidi" && <TajweedInline />}
