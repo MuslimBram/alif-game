@@ -337,7 +337,7 @@ function QuizPhase({ game, drawingDataUrl, aiResult, onClose, onRetry }) {
           <p className="text-gray-500 mt-1">Rezultati i Testit: <span className="font-bold text-emerald-600">{quizScore}%</span></p>
         </div>
         <div className="flex gap-3 w-full">
-          <Button variant="outline" onClick={onRetry} className="flex-1 rounded-2xl h-11 gap-1"><RotateCcw className="w-4 h-4" /> Lojo Sërisht</Button>
+          <Button variant="outline" onClick={onRetry} className="flex-1 rounded-2xl h-11 gap-1"><RotateCcw className="w-4 h-4" /> Përsërite</Button>
           <Button onClick={onClose} className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl h-11">Mbyll</Button>
         </div>
       </div>
