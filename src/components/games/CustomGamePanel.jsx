@@ -50,7 +50,8 @@ function GameForm({ initial, onSave, onCancel }) {
     setGeneratingImage(true);
     try {
       const result = await base44.integrations.Core.GenerateImage({
-        prompt: `Educational game illustration for children: "${form.title}". ${form.description}. Colorful, cheerful, flat design style.`
+        prompt: `Educational game illustration for children: "${form.title}". ${form.description}. Colorful, cheerful, flat design style.`,
+        existing_image_urls: form.image_url ? [form.image_url] : undefined
       });
       const url = result?.url || result;
       if (!url) throw new Error("Nuk u kthye URL");
