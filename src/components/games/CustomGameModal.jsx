@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Pencil, Trash2, RotateCcw, CheckCircle2, Loader2, ChevronRight } from "lucide-react";
+import { X, RotateCcw, CheckCircle2, Loader2, ChevronRight, Pipette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { base44 } from "@/api/base44Client";
 import { toast } from "sonner";
@@ -29,31 +29,22 @@ function PhaseView({ game, onNext, onClose }) {
         </button>
       </div>
 
-      {/* Full image */}
       {game.image_url && (
-        <div className="mx-5 rounded-2xl overflow-hidden border border-gray-100 shadow-sm" style={{ maxHeight: 320 }}>
-          <img src={game.image_url} alt={game.title} className="w-full h-full object-contain bg-gray-50" style={{ maxHeight: 320 }} />
+        <div className="mx-5 rounded-2xl overflow-hidden border border-gray-100 shadow-sm" style={{ maxHeight: 280 }}>
+          <img src={game.image_url} alt={game.title} className="w-full h-full object-contain bg-gray-50" style={{ maxHeight: 280 }} />
         </div>
       )}
 
       <div className="px-5 py-4">
         <p className="text-sm text-gray-600 leading-relaxed">{game.description}</p>
-        {game.conditions && game.conditions.length > 0 && (
-          <div className="mt-2 bg-emerald-50 border border-emerald-100 rounded-xl p-3">
-            <p className="text-xs font-bold text-emerald-700 mb-1">📋 Duhet të vizatosh:</p>
+        {game.conditions?.length > 0 && (
+          <div className="mt-3 bg-emerald-50 border border-emerald-100 rounded-xl p-3">
+            <p className="text-xs font-bold text-emerald-700 mb-2">📋 Do të vizatosh këto ({game.conditions.length} gjëra, një nga një):</p>
             <div className="flex flex-wrap gap-1">
               {game.conditions.map((c, i) => (
-                <span key={i} className="bg-white border border-emerald-200 text-emerald-700 text-xs px-2 py-0.5 rounded-lg font-semibold">{c}</span>
-              ))}
-            </div>
-          </div>
-        )}
-        {game.options && game.options.length > 0 && (
-          <div className="mt-2 bg-blue-50 border border-blue-100 rounded-xl p-3">
-            <p className="text-xs font-bold text-blue-700 mb-1">🔢 Opsionet:</p>
-            <div className="flex flex-wrap gap-1">
-              {game.options.map((o, i) => (
-                <span key={i} className="bg-white border border-blue-200 text-blue-700 text-xs px-2 py-0.5 rounded-lg font-semibold">{o}</span>
+                <span key={i} className="bg-white border border-emerald-200 text-emerald-700 text-xs px-2 py-0.5 rounded-lg font-semibold">
+                  {i + 1}. {c}
+                </span>
               ))}
             </div>
           </div>
@@ -72,15 +63,16 @@ function PhaseView({ game, onNext, onClose }) {
   );
 }
 
-// ─── PHASE 2: Drawing canvas ─────────────────────────────────────────────────
-function PhaseDrawing({ game, onNext, onClose }) {
+// ─── DRAWING CANVAS (per condition) ──────────────────────────────────────────
+function DrawingStep({ condition, conditionIndex, totalConditions, options, referenceImage, onDone, onClose }) {
   const canvasRef = useRef(null);
   const [drawing, setDrawing] = useState(false);
   const [color, setColor] = useState("#1d4ed8");
   const [brushSize, setBrushSize] = useState(4);
+  const [selectedOption, setSelectedOption] = useState(null);
   const lastPos = useRef(null);
 
-  const colors = ["#1d4ed8","#dc2626","#16a34a","#d97706","#7c3aed","#000000","#ffffff"];
+  const presetColors = ["#1d4ed8", "#dc2626", "#16a34a", "#d97706", "#7c3aed", "#000000"];
 
   const getPos = (e) => {
     const canvas = canvasRef.current;
@@ -99,17 +91,11 @@ function PhaseDrawing({ game, onNext, onClose }) {
     };
   };
 
-  const startDraw = (e) => {
-    e.preventDefault();
-    setDrawing(true);
-    lastPos.current = getPos(e);
-  };
-
+  const startDraw = (e) => { e.preventDefault(); setDrawing(true); lastPos.current = getPos(e); };
   const draw = (e) => {
     e.preventDefault();
     if (!drawing) return;
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvasRef.current.getContext("2d");
     const pos = getPos(e);
     ctx.beginPath();
     ctx.strokeStyle = color;
@@ -121,146 +107,184 @@ function PhaseDrawing({ game, onNext, onClose }) {
     ctx.stroke();
     lastPos.current = pos;
   };
-
   const stopDraw = () => setDrawing(false);
 
   const clearCanvas = () => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvasRef.current.getContext("2d");
     ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
   };
 
-  useEffect(() => {
-    clearCanvas();
-  }, []);
+  useEffect(() => { clearCanvas(); }, []);
 
-  const handleSubmit = () => {
-    const canvas = canvasRef.current;
-    const dataUrl = canvas.toDataURL("image/png");
-    onNext(dataUrl);
+  const handleDone = () => {
+    const dataUrl = canvasRef.current.toDataURL("image/png");
+    onDone({ dataUrl, selectedOption, condition });
   };
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex items-center justify-between px-5 pt-5 pb-2">
+      {/* Header */}
+      <div className="flex items-center justify-between px-5 pt-4 pb-2">
         <div>
-          <p className="text-xs text-emerald-600 font-semibold uppercase tracking-wide">Faza 2 — Vizato</p>
-          <h2 className="text-lg font-extrabold text-gray-900">{game.title}</h2>
+          <p className="text-xs text-emerald-600 font-bold uppercase tracking-wide">
+            {conditionIndex + 1} / {totalConditions}
+          </p>
+          <h2 className="text-lg font-extrabold text-gray-900">Vizato: <span className="text-emerald-600">{condition}</span></h2>
         </div>
         <button onClick={onClose} className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center">
           <X className="w-5 h-5" />
         </button>
       </div>
 
-      <p className="px-5 text-xs text-gray-500 mb-2">{game.description}</p>
-
-      {/* Reference image + conditions */}
-      <div className="mx-5 mb-2 space-y-2">
-        {game.image_url && (
-          <div className="flex items-center gap-2 bg-amber-50 border border-amber-100 rounded-xl p-2">
-            <img src={game.image_url} alt="ref" className="w-14 h-14 object-contain rounded-lg border border-amber-200" />
-            <p className="text-xs text-amber-700 font-medium">Shiko imazhin referues dhe vizato sa më mirë!</p>
-          </div>
-        )}
-        {game.conditions && game.conditions.length > 0 && (
-          <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-2">
-            <p className="text-xs font-bold text-emerald-700 mb-1">📋 Duhet të vizatosh:</p>
-            <div className="flex flex-wrap gap-1">
-              {game.conditions.map((c, i) => (
-                <span key={i} className="bg-white border border-emerald-200 text-emerald-700 text-xs px-2 py-0.5 rounded-lg font-semibold">{c}</span>
-              ))}
-            </div>
-          </div>
-        )}
-        {game.options && game.options.length > 0 && (
-          <div className="bg-blue-50 border border-blue-100 rounded-xl p-2">
-            <p className="text-xs font-bold text-blue-700 mb-1">🔢 Opsionet:</p>
-            <div className="flex flex-wrap gap-1">
-              {game.options.map((o, i) => (
-                <span key={i} className="bg-white border border-blue-200 text-blue-700 text-xs px-2 py-0.5 rounded-lg font-semibold">{o}</span>
-              ))}
-            </div>
-          </div>
-        )}
+      {/* Progress bar */}
+      <div className="mx-5 h-1.5 bg-gray-100 rounded-full mb-3">
+        <div className="h-full bg-emerald-400 rounded-full transition-all" style={{ width: `${((conditionIndex) / totalConditions) * 100}%` }} />
       </div>
+
+      {/* Reference */}
+      {referenceImage && (
+        <div className="mx-5 mb-2 flex items-center gap-2 bg-amber-50 border border-amber-100 rounded-xl p-2">
+          <img src={referenceImage} alt="ref" className="w-12 h-12 object-contain rounded-lg border border-amber-200" />
+          <p className="text-xs text-amber-700 font-medium">Shiko imazhin referues dhe vizato <strong>{condition}</strong>!</p>
+        </div>
+      )}
 
       {/* Toolbar */}
       <div className="flex items-center gap-2 px-5 mb-2 flex-wrap">
-        {colors.map(c => (
+        {presetColors.map(c => (
           <button key={c} onClick={() => setColor(c)}
             style={{ backgroundColor: c, border: color === c ? "3px solid #059669" : "2px solid #e5e7eb" }}
-            className="w-7 h-7 rounded-full transition-transform hover:scale-110" />
+            className="w-6 h-6 rounded-full transition-transform hover:scale-110" />
         ))}
-        <div className="flex items-center gap-1 ml-2">
+        {/* Color picker (pipette) */}
+        <label className="relative cursor-pointer" title="Zgjidh ngjyrë me pikatore">
+          <div className="w-6 h-6 rounded-full border-2 flex items-center justify-center overflow-hidden"
+            style={{ borderColor: "#e5e7eb", backgroundColor: color }}>
+            <Pipette className="w-3 h-3 text-white drop-shadow" />
+          </div>
+          <input type="color" value={color} onChange={e => setColor(e.target.value)}
+            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
+        </label>
+
+        {/* Brush sizes */}
+        <div className="flex items-center gap-1 ml-1">
           {[2, 4, 8, 14].map(s => (
             <button key={s} onClick={() => setBrushSize(s)}
               className={`rounded-full flex items-center justify-center transition-all ${brushSize === s ? "bg-emerald-100 ring-2 ring-emerald-400" : "bg-gray-100"}`}
-              style={{ width: s * 2.5 + 12, height: s * 2.5 + 12 }}>
+              style={{ width: s * 2.2 + 10, height: s * 2.2 + 10 }}>
               <div style={{ width: s, height: s, backgroundColor: color, borderRadius: "50%" }} />
             </button>
           ))}
         </div>
-        <button onClick={clearCanvas} className="ml-auto flex items-center gap-1 text-xs text-gray-500 hover:text-red-500 px-2 py-1 rounded-lg bg-gray-100 hover:bg-red-50">
-          <RotateCcw className="w-3.5 h-3.5" /> Pastro
+        <button onClick={clearCanvas} className="ml-auto text-xs text-gray-500 hover:text-red-500 px-2 py-1 rounded-lg bg-gray-100 hover:bg-red-50 flex items-center gap-1">
+          <RotateCcw className="w-3 h-3" /> Pastro
         </button>
       </div>
 
       {/* Canvas */}
-      <div className="mx-5 flex-1 rounded-2xl overflow-hidden border-2 border-emerald-200 shadow-inner bg-white" style={{ minHeight: 200 }}>
+      <div className="mx-5 rounded-2xl overflow-hidden border-2 border-emerald-200 shadow-inner bg-white flex-1" style={{ minHeight: 180 }}>
         <canvas
-          ref={canvasRef}
-          width={600}
-          height={350}
+          ref={canvasRef} width={600} height={300}
           className="w-full h-full touch-none cursor-crosshair"
           style={{ display: "block" }}
-          onMouseDown={startDraw}
-          onMouseMove={draw}
-          onMouseUp={stopDraw}
-          onMouseLeave={stopDraw}
-          onTouchStart={startDraw}
-          onTouchMove={draw}
-          onTouchEnd={stopDraw}
+          onMouseDown={startDraw} onMouseMove={draw} onMouseUp={stopDraw} onMouseLeave={stopDraw}
+          onTouchStart={startDraw} onTouchMove={draw} onTouchEnd={stopDraw}
         />
       </div>
 
-      <div className="px-5 py-4">
-        <Button onClick={handleSubmit} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl h-11 font-bold gap-2">
-          Dërgo për Vlerësim <ChevronRight className="w-5 h-5" />
+      {/* Option selection */}
+      {options?.length > 0 && (
+        <div className="px-5 mt-3">
+          <p className="text-xs font-bold text-gray-600 mb-1.5">✏️ Çfarë vizatove? Zgjidhni opsionin:</p>
+          <div className="flex flex-wrap gap-1.5">
+            {options.map((opt, i) => (
+              <button key={i} onClick={() => setSelectedOption(opt)}
+                className={`text-xs px-3 py-1.5 rounded-xl border-2 font-semibold transition-all ${
+                  selectedOption === opt
+                    ? "bg-emerald-500 text-white border-emerald-500"
+                    : "bg-white text-gray-700 border-gray-200 hover:border-emerald-300"
+                }`}>
+                {opt}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="px-5 py-3">
+        <Button onClick={handleDone} disabled={options?.length > 0 && !selectedOption}
+          className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-2xl h-11 font-bold gap-2">
+          {conditionIndex + 1 < totalConditions ? `Kushti Tjetër (${conditionIndex + 2}/${totalConditions}) →` : "Dërgo për Vlerësim 🎯"}
         </Button>
       </div>
     </div>
   );
 }
 
+// ─── PHASE 2: Step-by-step drawing ───────────────────────────────────────────
+function PhaseDrawing({ game, onFinish, onClose }) {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [drawings, setDrawings] = useState([]); // [{dataUrl, selectedOption, condition}]
+
+  const conditions = game.conditions?.length > 0 ? game.conditions : ["Vizato lirshëm"];
+
+  const handleStepDone = (stepData) => {
+    const updated = [...drawings, stepData];
+    setDrawings(updated);
+    if (currentStep + 1 < conditions.length) {
+      setCurrentStep(s => s + 1);
+    } else {
+      onFinish(updated);
+    }
+  };
+
+  return (
+    <DrawingStep
+      key={currentStep}
+      condition={conditions[currentStep]}
+      conditionIndex={currentStep}
+      totalConditions={conditions.length}
+      options={game.options || []}
+      referenceImage={game.image_url}
+      onDone={handleStepDone}
+      onClose={onClose}
+    />
+  );
+}
+
 // ─── PHASE 3: AI Evaluation ──────────────────────────────────────────────────
-function PhaseResult({ game, drawingDataUrl, onClose, onRetry }) {
+function PhaseResult({ game, drawings, onClose, onRetry }) {
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState(null);
 
-  useEffect(() => {
-    evaluate();
-  }, []);
+  useEffect(() => { evaluate(); }, []);
 
   const evaluate = async () => {
     setLoading(true);
     try {
-      // Upload drawing
-      const blob = await (await fetch(drawingDataUrl)).blob();
-      const file = new File([blob], "drawing.png", { type: "image/png" });
-      const { file_url: drawingUrl } = await base44.integrations.Core.UploadFile({ file });
+      // Upload all drawings
+      const uploadedUrls = [];
+      for (const d of drawings) {
+        const blob = await (await fetch(d.dataUrl)).blob();
+        const file = new File([blob], "drawing.png", { type: "image/png" });
+        const { file_url } = await base44.integrations.Core.UploadFile({ file });
+        uploadedUrls.push(file_url);
+      }
 
-      const urls = game.image_url ? [game.image_url, drawingUrl] : [drawingUrl];
+      const stepSummary = drawings.map((d, i) =>
+        `Hapi ${i + 1}: "${d.condition}" — zgjedhja: "${d.selectedOption || "pa zgjedhje"}"`
+      ).join("; ");
 
-      const conditions = game.conditions?.length ? `Kushtet që duhej të vizatonte: ${game.conditions.join(", ")}.` : "";
-      const options = game.options?.length ? `Opsionet e lojës: ${game.options.join(", ")}.` : "";
+      const allUrls = game.image_url ? [game.image_url, ...uploadedUrls] : uploadedUrls;
 
       const res = await base44.integrations.Core.InvokeLLM({
-      prompt: `Ti je një mësues i fëmijëve. Detyra ishte: "${game.title}" — "${game.description}". ${conditions} ${options}
-      ${game.image_url ? "Imazhi i parë është referenca origjinale. Imazhi i dytë është vizatimi i fëmijës." : "Imazhi është vizatimi i fëmijës."}
-      Vlerëso vizatimin e fëmijës nga 0 deri 100 duke u bazuar te kushtet e specifikuara (nëse ka). Jep një koment inkurajues në shqip (max 2 fjali).
-      Gjithashtu jep 2-3 pyetje të shkurtra testimi (me 3 opsione secila, dhe 1 përgjigje të saktë) bazuar në kushtet dhe opsionet e lojës.`,
-        file_urls: urls,
+        prompt: `Ti je mësues fëmijësh. Loja: "${game.title}". 
+Fëmija vizatoi ${drawings.length} hapa: ${stepSummary}.
+${game.image_url ? "Imazhi i parë është referenca. Vizatimet vijuese janë të fëmijës." : ""}
+Vlerëso të gjitha vizatimet nga 0-100. Jep koment inkurajues (max 2 fjali) në shqip.
+Gjithashtu gjenero 2-3 pyetje testimi (3 opsione secila, 1 e saktë) bazuar në kushtet e lojës.`,
+        file_urls: allUrls,
         response_json_schema: {
           type: "object",
           properties: {
@@ -283,7 +307,7 @@ function PhaseResult({ game, drawingDataUrl, onClose, onRetry }) {
       setResult(res);
     } catch (err) {
       toast.error("Gabim gjatë vlerësimit");
-      setResult({ score: 0, comment: "Nuk mund të vlerësohet tani. Provo përsëri.", questions: [] });
+      setResult({ score: 0, comment: "Nuk mund të vlerësohet tani.", questions: [] });
     } finally {
       setLoading(false);
     }
@@ -292,23 +316,23 @@ function PhaseResult({ game, drawingDataUrl, onClose, onRetry }) {
   if (loading) return (
     <div className="flex flex-col items-center justify-center h-full gap-4 py-20">
       <Loader2 className="w-12 h-12 text-emerald-500 animate-spin" />
-      <p className="text-gray-600 font-semibold">AI po vlerëson vizatimin tënd...</p>
+      <p className="text-gray-600 font-semibold">AI po vlerëson vizatimet tuaja...</p>
+      <p className="text-xs text-gray-400">Duke analizuar {drawings.length} vizatime...</p>
     </div>
   );
 
-  return <QuizPhase game={game} drawingDataUrl={drawingDataUrl} aiResult={result} onClose={onClose} onRetry={onRetry} />;
+  return <QuizPhase game={game} drawings={drawings} aiResult={result} onClose={onClose} onRetry={onRetry} />;
 }
 
 // ─── PHASE 3b: Quiz after drawing ───────────────────────────────────────────
-function QuizPhase({ game, drawingDataUrl, aiResult, onClose, onRetry }) {
-  const [quizIndex, setQuizIndex] = useState(-1); // -1 = show drawing result
+function QuizPhase({ game, drawings, aiResult, onClose, onRetry }) {
+  const [quizIndex, setQuizIndex] = useState(-1);
   const [selected, setSelected] = useState(null);
   const [answers, setAnswers] = useState([]);
 
   const score = aiResult?.score || 0;
   const comment = aiResult?.comment || "";
   const questions = aiResult?.questions || [];
-
   const scoreColor = score >= 70 ? "text-emerald-600" : score >= 40 ? "text-amber-600" : "text-red-500";
   const scoreBg = score >= 70 ? "bg-emerald-50 border-emerald-200" : score >= 40 ? "bg-amber-50 border-amber-200" : "bg-red-50 border-red-200";
 
@@ -318,39 +342,36 @@ function QuizPhase({ game, drawingDataUrl, aiResult, onClose, onRetry }) {
     setAnswers(prev => [...prev, i === questions[quizIndex].correct]);
   };
 
-  const nextQuestion = () => {
-    setSelected(null);
-    setQuizIndex(qi => qi + 1);
-  };
-
-  // Show drawing result
+  // Drawing results summary
   if (quizIndex === -1) {
     return (
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-between px-5 pt-5 pb-3">
-          <p className="text-xs text-emerald-600 font-semibold uppercase tracking-wide">Rezultati i Vizatimit</p>
+          <p className="text-xs text-emerald-600 font-semibold uppercase tracking-wide">Rezultati i Vizatimeve</p>
           <button onClick={onClose} className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center"><X className="w-5 h-5" /></button>
         </div>
 
-        <div className="px-5 space-y-4 flex-1 overflow-y-auto">
-          {/* Side by side */}
-          <div className="grid grid-cols-2 gap-3">
-            {game.image_url && (
-              <div className="text-center">
-                <p className="text-xs text-gray-400 mb-1 font-medium">Origjinali</p>
-                <img src={game.image_url} className="w-full h-32 object-contain rounded-xl border border-gray-100 bg-gray-50" />
-              </div>
-            )}
-            <div className={game.image_url ? "text-center" : "text-center col-span-2"}>
-              <p className="text-xs text-gray-400 mb-1 font-medium">Vizatimi yt</p>
-              <img src={drawingDataUrl} className="w-full h-32 object-contain rounded-xl border border-emerald-100 bg-white" />
-            </div>
-          </div>
-
+        <div className="px-5 space-y-3 flex-1 overflow-y-auto">
           {/* Score */}
           <div className={`rounded-2xl border p-4 text-center ${scoreBg}`}>
             <p className={`text-5xl font-extrabold ${scoreColor}`}>{score}<span className="text-2xl">/100</span></p>
             <p className="text-sm text-gray-600 mt-2 leading-relaxed">{comment}</p>
+          </div>
+
+          {/* Per-step summary */}
+          <div>
+            <p className="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">Hapat e vizatimit:</p>
+            <div className="grid grid-cols-2 gap-2">
+              {drawings.map((d, i) => (
+                <div key={i} className="bg-gray-50 rounded-xl border border-gray-100 p-2 text-center">
+                  <img src={d.dataUrl} className="w-full h-20 object-contain rounded-lg mb-1 bg-white border border-gray-100" />
+                  <p className="text-xs font-semibold text-emerald-700">{d.condition}</p>
+                  {d.selectedOption && (
+                    <p className="text-xs text-blue-600 mt-0.5">✅ {d.selectedOption}</p>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -369,17 +390,16 @@ function QuizPhase({ game, drawingDataUrl, aiResult, onClose, onRetry }) {
     );
   }
 
-  // All questions done
+  // All done
   if (quizIndex >= questions.length) {
     const correct = answers.filter(Boolean).length;
     const total = questions.length;
-    const quizScore = Math.round((correct / total) * 100);
     return (
       <div className="flex flex-col items-center justify-center h-full px-5 gap-6">
         <div className="text-center">
-          <p className="text-6xl mb-3">{quizScore >= 70 ? "🏆" : quizScore >= 40 ? "👍" : "💪"}</p>
+          <p className="text-6xl mb-3">{correct / total >= 0.7 ? "🏆" : correct / total >= 0.4 ? "👍" : "💪"}</p>
           <h2 className="text-2xl font-extrabold text-gray-900">{correct}/{total} Saktë!</h2>
-          <p className="text-gray-500 mt-1">Rezultati i Testit: <span className="font-bold text-emerald-600">{quizScore}%</span></p>
+          <p className="text-gray-500 mt-1">Rezultati: <span className="font-bold text-emerald-600">{Math.round((correct / total) * 100)}%</span></p>
         </div>
         <div className="flex gap-3 w-full">
           <Button variant="outline" onClick={onRetry} className="flex-1 rounded-2xl h-11 gap-1"><RotateCcw className="w-4 h-4" /> Përsërite</Button>
@@ -395,7 +415,7 @@ function QuizPhase({ game, drawingDataUrl, aiResult, onClose, onRetry }) {
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between px-5 pt-5 pb-3">
         <div>
-          <p className="text-xs text-blue-600 font-semibold uppercase tracking-wide">Test — Pyetja {quizIndex + 1}/{questions.length}</p>
+          <p className="text-xs text-blue-600 font-semibold uppercase tracking-wide">Test — {quizIndex + 1}/{questions.length}</p>
           <h2 className="text-base font-extrabold text-gray-900 mt-0.5">{game.title}</h2>
         </div>
         <button onClick={onClose} className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center"><X className="w-5 h-5" /></button>
@@ -407,12 +427,11 @@ function QuizPhase({ game, drawingDataUrl, aiResult, onClose, onRetry }) {
         </div>
         <div className="space-y-2">
           {q.options?.map((opt, i) => {
-            const isSelected = selected === i;
             const isCorrect = i === q.correct;
             let bg = "bg-white border-gray-200 hover:border-emerald-300";
             if (selected !== null) {
               if (isCorrect) bg = "bg-emerald-50 border-emerald-400";
-              else if (isSelected) bg = "bg-red-50 border-red-400";
+              else if (selected === i) bg = "bg-red-50 border-red-400";
             }
             return (
               <button key={i} onClick={() => handleAnswer(i)}
@@ -427,7 +446,8 @@ function QuizPhase({ game, drawingDataUrl, aiResult, onClose, onRetry }) {
 
       <div className="px-5 py-4">
         {selected !== null && (
-          <Button onClick={nextQuestion} className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-2xl h-11 font-bold">
+          <Button onClick={() => { setSelected(null); setQuizIndex(qi => qi + 1); }}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-2xl h-11 font-bold">
             {quizIndex + 1 < questions.length ? "Pyetja Tjetër →" : "Shiko Rezultatin →"}
           </Button>
         )}
@@ -438,8 +458,8 @@ function QuizPhase({ game, drawingDataUrl, aiResult, onClose, onRetry }) {
 
 // ─── MAIN MODAL ──────────────────────────────────────────────────────────────
 export default function CustomGameModal({ game, onClose }) {
-  const [phase, setPhase] = useState("view"); // view | draw | result
-  const [drawingDataUrl, setDrawingDataUrl] = useState(null);
+  const [phase, setPhase] = useState("view");
+  const [drawings, setDrawings] = useState([]);
 
   return (
     <AnimatePresence>
@@ -449,17 +469,19 @@ export default function CustomGameModal({ game, onClose }) {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.95, opacity: 0 }}
           className="bg-white rounded-3xl shadow-2xl w-full max-w-lg flex flex-col"
-          style={{ maxHeight: "90vh", overflowY: "auto" }}
+          style={{ maxHeight: "92vh", overflowY: "auto" }}
         >
           {phase === "view" && (
             <PhaseView game={game} onNext={() => setPhase("draw")} onClose={onClose} />
           )}
           {phase === "draw" && (
-            <PhaseDrawing game={game} onNext={(url) => { setDrawingDataUrl(url); setPhase("result"); }} onClose={onClose} />
+            <PhaseDrawing game={game}
+              onFinish={(d) => { setDrawings(d); setPhase("result"); }}
+              onClose={onClose} />
           )}
           {phase === "result" && (
-            <PhaseResult game={game} drawingDataUrl={drawingDataUrl} onClose={onClose}
-              onRetry={() => { setDrawingDataUrl(null); setPhase("draw"); }} />
+            <PhaseResult game={game} drawings={drawings} onClose={onClose}
+              onRetry={() => { setDrawings([]); setPhase("draw"); }} />
           )}
         </motion.div>
       </div>
