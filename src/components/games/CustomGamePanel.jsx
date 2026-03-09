@@ -32,7 +32,9 @@ function GameForm({ initial, onSave, onCancel }) {
   const [uploading, setUploading] = useState(false);
   const [generatingImage, setGeneratingImage] = useState(false);
   const [generatingAI, setGeneratingAI] = useState(false);
-  const [aiGenerated, setAiGenerated] = useState(false);
+  const [aiGenerated, setAiGenerated] = useState(
+    !!(initial?.conditions?.length || initial?.options?.length || initial?.level)
+  );
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
