@@ -10,10 +10,10 @@ import CustomGameModal from "./CustomGameModal";
 // ─── ADMIN CREATOR ─────────────────────────────────────────────────────────────
 function GameForm({ initial, onSave, onCancel }) {
   const [form, setForm] = useState(initial || { title: "", description: "", image_url: "", level: "fillestar", points: 50, conditions: [], options: [] });
-  const [condInput, setCondInput] = useState("");
-  const [optInput, setOptInput] = useState("");
   const [uploading, setUploading] = useState(false);
-  const [generating, setGenerating] = useState(false);
+  const [generatingImage, setGeneratingImage] = useState(false);
+  const [generatingAI, setGeneratingAI] = useState(false);
+  const [aiGenerated, setAiGenerated] = useState(false);
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -24,9 +24,9 @@ function GameForm({ initial, onSave, onCancel }) {
     setUploading(false);
   };
 
-  const handleGenerate = async () => {
+  const handleGenerateImage = async () => {
     if (!form.title && !form.description) return;
-    setGenerating(true);
+    setGeneratingImage(true);
     try {
       const result = await base44.integrations.Core.GenerateImage({
         prompt: `Educational game illustration for children: "${form.title}". ${form.description}. Colorful, cheerful, flat design style.`,
@@ -38,40 +38,68 @@ function GameForm({ initial, onSave, onCancel }) {
     } catch (err) {
       toast.error("Gabim gjatë gjenerimit: " + err.message);
     } finally {
-      setGenerating(false);
+      setGeneratingImage(false);
     }
   };
 
+  const handleGenerateWithAI = async () => {
+    if (!form.title || !form.description) return;
+    setGeneratingAI(true);
+    try {
+      const result = await base44.integrations.Core.InvokeLLM({
+        prompt: `Jeni një ekspert pedagogjik. Bazuar në lojën me titull "${form.title}" dhe përshkrim "${form.description}", gjeneroni:
+1. Nivelin e vështirësisë (zgjidhni: fillestar, mesatar, avancuar, profesionist)
+2. Pikët (numër nga 10 deri 100, bazuar në vështirësi)
+3. Kushtet - lista e figurave/objekteve që fëmija duhet të vizatojë (3-5 gjëra konkrete)
+4. Opsionet - lista e emrave/zgjedhjeve të mundshme për kuizin (5-8 opsione)
+
+Ktheni në JSON.`,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            level: { type: "string" },
+            points: { type: "number" },
+            conditions: { type: "array", items: { type: "string" } },
+            options: { type: "array", items: { type: "string" } }
+          }
+        }
+      });
+      setForm(f => ({
+        ...f,
+        level: result.level || "fillestar",
+        points: result.points || 50,
+        conditions: result.conditions || [],
+        options: result.options || []
+      }));
+      setAiGenerated(true);
+      toast.success("AI gjeneroi detajet e lojës! ✅");
+    } catch (err) {
+      toast.error("Gabim: " + err.message);
+    } finally {
+      setGeneratingAI(false);
+    }
+  };
+
+  const levelColors = { fillestar: "bg-green-100 text-green-700", mesatar: "bg-blue-100 text-blue-700", avancuar: "bg-purple-100 text-purple-700", profesionist: "bg-amber-100 text-amber-700" };
+  const levelIcons = { fillestar: "🌱", mesatar: "📚", avancuar: "⭐", profesionist: "🏆" };
+
   return (
-    <div className="bg-white rounded-2xl border border-emerald-100 p-5 space-y-3 shadow-sm">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <label className="text-xs font-semibold text-gray-600 mb-1 block">Titulli *</label>
-          <Input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="p.sh. Kuiz i Veçantë" className="rounded-xl" />
-        </div>
-        <div>
-          <label className="text-xs font-semibold text-gray-600 mb-1 block">Niveli</label>
-          <select value={form.level} onChange={e => setForm(f => ({ ...f, level: e.target.value }))}
-            className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm">
-            <option value="fillestar">🌱 Fillestar</option>
-            <option value="mesatar">📚 Mesatar</option>
-            <option value="avancuar">⭐ Avancuar</option>
-            <option value="profesionist">🏆 Profesionist</option>
-          </select>
-        </div>
+    <div className="bg-white rounded-2xl border border-emerald-100 p-5 space-y-4 shadow-sm">
+      {/* Titulli */}
+      <div>
+        <label className="text-xs font-semibold text-gray-600 mb-1 block">Titulli *</label>
+        <Input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="p.sh. Vizato Figurat" className="rounded-xl" />
       </div>
+
+      {/* Shpjegimi */}
       <div>
         <label className="text-xs font-semibold text-gray-600 mb-1 block">Shpjegimi *</label>
         <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
           placeholder="Përshkruaj lojën..." rows={3}
           className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-emerald-300" />
       </div>
-      <div>
-        <label className="text-xs font-semibold text-gray-600 mb-1 block">Pikët</label>
-        <Input type="number" value={form.points} onChange={e => setForm(f => ({ ...f, points: +e.target.value }))} className="rounded-xl w-32" />
-      </div>
 
-      {/* Image section */}
+      {/* Imazhi */}
       <div>
         <label className="text-xs font-semibold text-gray-600 mb-1 block">Imazhi i Lojës</label>
         <div className="flex flex-wrap gap-2 mb-2">
@@ -80,10 +108,10 @@ function GameForm({ initial, onSave, onCancel }) {
             Ngarko Imazh
             <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
           </label>
-          <Button size="sm" variant="outline" onClick={handleGenerate} disabled={generating || (!form.title && !form.description)}
+          <Button size="sm" variant="outline" onClick={handleGenerateImage} disabled={generatingImage || (!form.title && !form.description)}
             className="rounded-xl text-xs gap-1.5 border-purple-200 text-purple-700 hover:bg-purple-50">
-            {generating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <ImageIcon className="w-3.5 h-3.5" />}
-            Gjenero me AI
+            {generatingImage ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <ImageIcon className="w-3.5 h-3.5" />}
+            Gjenero Imazh me AI
           </Button>
         </div>
         {form.image_url && (
@@ -97,49 +125,71 @@ function GameForm({ initial, onSave, onCancel }) {
         )}
       </div>
 
-      {/* Conditions */}
-      <div>
-        <label className="text-xs font-semibold text-gray-600 mb-1 block">Kushtet / Figurat që duhen vizatuar</label>
-        <div className="flex gap-2 mb-2">
-          <Input value={condInput} onChange={e => setCondInput(e.target.value)}
-            onKeyDown={e => { if (e.key === "Enter" && condInput.trim()) { setForm(f => ({ ...f, conditions: [...(f.conditions||[]), condInput.trim()] })); setCondInput(""); }}}
-            placeholder="p.sh. Rreth, Katror..." className="rounded-xl text-sm flex-1" />
-          <Button size="sm" type="button" variant="outline" className="rounded-xl"
-            onClick={() => { if (condInput.trim()) { setForm(f => ({ ...f, conditions: [...(f.conditions||[]), condInput.trim()] })); setCondInput(""); }}}>
-            <Plus className="w-4 h-4" />
-          </Button>
-        </div>
-        <div className="flex flex-wrap gap-1.5">
-          {(form.conditions||[]).map((c, i) => (
-            <span key={i} className="flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs px-2 py-1 rounded-lg font-medium">
-              {c}
-              <button onClick={() => setForm(f => ({ ...f, conditions: f.conditions.filter((_, j) => j !== i) }))}><X className="w-3 h-3" /></button>
-            </span>
-          ))}
-        </div>
+      {/* AI Generate Button */}
+      <div className="border-t border-dashed border-gray-200 pt-3">
+        <Button type="button" onClick={handleGenerateWithAI}
+          disabled={generatingAI || !form.title.trim() || !form.description.trim()}
+          className="w-full rounded-xl gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold">
+          {generatingAI ? <Loader2 className="w-4 h-4 animate-spin" /> : <span>✨</span>}
+          {generatingAI ? "AI po gjeneron detajet..." : "Gjenero Nivel, Pikë, Kushte & Opsione me AI"}
+        </Button>
+        {!aiGenerated && <p className="text-xs text-gray-400 text-center mt-1">Kliko pasi ke shkruar titullin dhe përshkrimin</p>}
       </div>
 
-      {/* Options */}
-      <div>
-        <label className="text-xs font-semibold text-gray-600 mb-1 block">Opsionet e zgjedhjes (emrat e figurave etj.)</label>
-        <div className="flex gap-2 mb-2">
-          <Input value={optInput} onChange={e => setOptInput(e.target.value)}
-            onKeyDown={e => { if (e.key === "Enter" && optInput.trim()) { setForm(f => ({ ...f, options: [...(f.options||[]), optInput.trim()] })); setOptInput(""); }}}
-            placeholder="p.sh. Rreth, Katror, Trekëndësh..." className="rounded-xl text-sm flex-1" />
-          <Button size="sm" type="button" variant="outline" className="rounded-xl"
-            onClick={() => { if (optInput.trim()) { setForm(f => ({ ...f, options: [...(f.options||[]), optInput.trim()] })); setOptInput(""); }}}>
-            <Plus className="w-4 h-4" />
-          </Button>
+      {/* AI Results Preview */}
+      {aiGenerated && (
+        <div className="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 rounded-2xl p-4 space-y-3">
+          <p className="text-xs font-bold text-purple-700 flex items-center gap-1">✨ Gjeneruar nga AI — mund t'i modifikosh</p>
+
+          {/* Level & Points */}
+          <div className="flex items-center gap-3">
+            <div className="flex-1">
+              <label className="text-xs font-semibold text-gray-500 mb-1 block">Niveli</label>
+              <select value={form.level} onChange={e => setForm(f => ({ ...f, level: e.target.value }))}
+                className="w-full border border-purple-200 rounded-xl px-3 py-2 text-sm bg-white">
+                <option value="fillestar">🌱 Fillestar</option>
+                <option value="mesatar">📚 Mesatar</option>
+                <option value="avancuar">⭐ Avancuar</option>
+                <option value="profesionist">🏆 Profesionist</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-gray-500 mb-1 block">Pikët</label>
+              <Input type="number" value={form.points} onChange={e => setForm(f => ({ ...f, points: +e.target.value }))} className="rounded-xl w-24 border-purple-200" />
+            </div>
+          </div>
+
+          {/* Conditions */}
+          {form.conditions?.length > 0 && (
+            <div>
+              <label className="text-xs font-semibold text-gray-500 mb-1 block">📋 Kushtet</label>
+              <div className="flex flex-wrap gap-1.5">
+                {form.conditions.map((c, i) => (
+                  <span key={i} className="flex items-center gap-1 bg-white border border-emerald-200 text-emerald-700 text-xs px-2 py-1 rounded-lg font-medium">
+                    {c}
+                    <button onClick={() => setForm(f => ({ ...f, conditions: f.conditions.filter((_, j) => j !== i) }))}><X className="w-3 h-3" /></button>
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Options */}
+          {form.options?.length > 0 && (
+            <div>
+              <label className="text-xs font-semibold text-gray-500 mb-1 block">🔢 Opsionet</label>
+              <div className="flex flex-wrap gap-1.5">
+                {form.options.map((o, i) => (
+                  <span key={i} className="flex items-center gap-1 bg-white border border-blue-200 text-blue-700 text-xs px-2 py-1 rounded-lg font-medium">
+                    {o}
+                    <button onClick={() => setForm(f => ({ ...f, options: f.options.filter((_, j) => j !== i) }))}><X className="w-3 h-3" /></button>
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-        <div className="flex flex-wrap gap-1.5">
-          {(form.options||[]).map((o, i) => (
-            <span key={i} className="flex items-center gap-1 bg-blue-50 text-blue-700 border border-blue-200 text-xs px-2 py-1 rounded-lg font-medium">
-              {o}
-              <button onClick={() => setForm(f => ({ ...f, options: f.options.filter((_, j) => j !== i) }))}><X className="w-3 h-3" /></button>
-            </span>
-          ))}
-        </div>
-      </div>
+      )}
 
       {(!form.title || !form.description) && (
         <p className="text-xs text-red-500 font-medium">⚠️ Plotëso Titullin dhe Shpjegimin për të ruajtur</p>
