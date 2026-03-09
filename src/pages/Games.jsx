@@ -68,13 +68,13 @@ const allGames = [
 ];
 
 const modules = [
-  { value: "te_gjitha", label: "Të Gjitha" },
-  { value: "alfabeti",  label: "Alfabeti" },
-  { value: "texhuidi",  label: "Texhuidi" },
-  { value: "kurani",    label: "Kur'ani" },
-  { value: "umra_haxh", label: "Umra & Haxhi" },
-  { value: "fikh",      label: "Fikh (FE)" },
-  { value: "lojera",    label: "Numra & Lojëra" },
+  { value: "te_gjitha", label: "🎮 Të Gjitha" },
+  { value: "alfabeti",  label: "🔤 Alfabeti" },
+  { value: "texhuidi",  label: "📖 Texhuidi" },
+  { value: "kurani",    label: "☪️ Kur'ani" },
+  { value: "umra_haxh", label: "🕌 Umra & Haxhi" },
+  { value: "fikh",      label: "📚 Fikh (FE)" },
+  { value: "lojera",    label: "🔢 Numra & Lojëra" },
 ];
 
 const levels = [
