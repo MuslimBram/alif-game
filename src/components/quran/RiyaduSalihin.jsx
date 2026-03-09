@@ -607,7 +607,10 @@ export default function RiyaduSalihin() {
                 className="w-full p-4 text-left hover:bg-purple-50 transition-colors">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1">
-                    <span className="text-xs px-2 py-1 rounded-full bg-purple-100 text-purple-700 font-semibold mb-2 inline-block">Hadith Kudsi</span>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">{h.num}</span>
+                      <span className="text-xs px-2 py-1 rounded-full bg-purple-100 text-purple-700 font-semibold">Hadith Kudsi</span>
+                    </div>
                     <p className="text-right text-base font-bold text-purple-900 leading-relaxed mb-2" dir="rtl" style={{ fontFamily: "Amiri,serif" }}>
                       {h.arabic}
                     </p>
