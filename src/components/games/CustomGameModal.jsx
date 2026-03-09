@@ -227,7 +227,14 @@ function PhaseDrawing({ game, onFinish, onClose }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [drawings, setDrawings] = useState([]); // [{dataUrl, selectedOption, condition}]
 
-  const conditions = game.conditions?.length > 0 ? game.conditions : ["Vizato lirshëm"];
+  const conditions = React.useMemo(() => {
+    const arr = game.conditions?.length > 0 ? [...game.conditions] : ["Vizato lirshëm"];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }, [game.id]);
 
   const handleStepDone = (stepData) => {
     const updated = [...drawings, stepData];
