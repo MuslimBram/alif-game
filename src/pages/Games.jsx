@@ -52,7 +52,10 @@ const allGames = [
   { id: 4,  title: "Puzzle Edukativ", description: "60+ puzzle didaktike me numra dhe shkronja", module: "lojera", level: "fillestar", duration: "60+ puzzle", points: 35 },
   { id: 5,  title: "Labirinti 60 Nivele", description: "60 labirinte me vështirësi progresive — stërvit mendjen", module: "lojera", level: "fillestar", duration: "60 nivele", points: 50 },
   { id: 6,  title: "Shumëzimi & Pjesëtimi", description: "Tabela 1-12 vizuale + 60+ ushtrime shumëzimi, pjesëtimi", module: "lojera", level: "fillestar", duration: "60+ ushtrime", points: 40 },
-  { id: 7,  title: "🧠 Brain Gym Vizual", description: "Stërvit trurin me 4 nivele — Fillestar deri Profesionist. Gjej modelin e njëjtë!", module: "lojera", level: "fillestar", duration: "pa limit", points: 60, isBrainGym: true },
+  { id: 7,   title: "🧠 Brain Gym Vizual", description: "Gjej modelin e njëjtë! Rrjeta 3×3, koha e limituar.", module: "lojera", level: "fillestar", duration: "pa limit", points: 60, isBrainGym: true, brainGymLevel: "fillestar" },
+  { id: 71,  title: "🧠 Brain Gym Vizual", description: "Gjej modelin e njëjtë! Rrjeta 4×4, vështirësi mesatare.", module: "lojera", level: "mesatar", duration: "pa limit", points: 80, isBrainGym: true, brainGymLevel: "mesatar" },
+  { id: 72,  title: "🧠 Brain Gym Vizual", description: "Gjej modelin e njëjtë! Rrjeta 5×5, vështirësi e lartë.", module: "lojera", level: "avancuar", duration: "pa limit", points: 100, isBrainGym: true, brainGymLevel: "avancuar" },
+  { id: 73,  title: "🧠 Brain Gym Vizual", description: "Gjej modelin e njëjtë! Rrjeta 6×6, nivel profesionist.", module: "lojera", level: "profesionist", duration: "pa limit", points: 150, isBrainGym: true, brainGymLevel: "profesionist" },
   // FIKH
   { id: 47, title: "Kuiz Akide & Besimi", description: "60+ pyetje mbi Tevhidin, 3 Parimet, 5 Shtyllat dhe 6 Kushtet e Imanit", module: "fikh", level: "fillestar", duration: "60 pyetje", points: 50 },
   { id: 48, title: "Kuiz Pastërtia & Abdesi", description: "60+ pyetje mbi Abdesin, Guslin, llojet e ujit dhe pastërtinë rituale", module: "fikh", level: "fillestar", duration: "60 pyetje", points: 45 },
