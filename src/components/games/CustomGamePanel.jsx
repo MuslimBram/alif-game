@@ -94,12 +94,15 @@ function GameForm({ initial, onSave, onCancel }) {
         )}
       </div>
 
+      {(!form.title || !form.description) && (
+        <p className="text-xs text-red-500 font-medium">⚠️ Plotëso Titullin dhe Shpjegimin për të ruajtur</p>
+      )}
       <div className="flex gap-2 pt-1">
-        <Button onClick={() => onSave(form)} disabled={!form.title || !form.description}
+        <Button type="button" onClick={() => onSave(form)} disabled={!form.title.trim() || !form.description.trim()}
           className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl gap-1.5 flex-1">
           <Check className="w-4 h-4" /> Ruaj Lojën
         </Button>
-        <Button variant="outline" onClick={onCancel} className="rounded-xl">Anulo</Button>
+        <Button type="button" variant="outline" onClick={onCancel} className="rounded-xl">Anulo</Button>
       </div>
     </div>
   );
