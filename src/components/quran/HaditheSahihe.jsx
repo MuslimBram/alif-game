@@ -46,6 +46,27 @@ const SAHIH_COLLECTIONS = [
         source: "Buhari 6464",
         context: "Konsistenca në adhurim është më e dashur tek Allahu sesa adhurime të mëdha por të rralla. Kjo mëson modestinë dhe qëndrueshmërinë shpirtërore.",
         topic: "Adhurim & Vazhdimësi"
+      },
+      {
+        arabic: "مَنْ أَذَى مُسْلِمًا فَقَدْ أَذَانِي وَمَنْ أَذَانِي فَقَدْ أَذَى اللَّهَ",
+        text: "Kush lëndon një musliman, ka lënduar mua; kush lëndon mua, ka lënduar Allahun.",
+        source: "Taberani — Sahih",
+        context: "Ky hadith tregon lidhjen e drejtpërdrejtë midis trajtimit të muslimanëve dhe respektit ndaj Allahut dhe Profetit ﷺ. Lëndimi i besimtarëve është nga gjynahet më të rënda.",
+        topic: "Të drejtat e muslimanit"
+      },
+      {
+        arabic: "أَكْمَلُ الْمُؤْمِنِينَ إِيمَانًا أَحْسَنُهُمْ خُلُقًا",
+        text: "Besimtari me iman më të plotë është ai me moral më të mirë.",
+        source: "Buhari (Edebul-Mufred) — Sahih",
+        context: "Morali i lartë është shenjë e imanit të fortë. Profeti ﷺ, morali i të cilit ishte Kur'ani vetë, është shembulli suprem. Besimi nuk matet vetëm me adhurime, por me sjelljen ndaj njerëzve.",
+        topic: "Morali & Imani"
+      },
+      {
+        arabic: "إِنَّ مِنْ خِيَارِكُمْ أَحْسَنَكُمْ أَخْلَاقًا",
+        text: "Ndër njerëzit tuaj më të mirë janë ata me moral më të mirë.",
+        source: "Buhari 3559",
+        context: "Profeti ﷺ e vlerëson moralin si kriter kryesor të shkallëzimit mes njerëzve. Pasurinë, gjininë, ngjyrën Allahu nuk i konsideron kritere vlerësimi — vetëm devotshmëria dhe morali i mirë.",
+        topic: "Morali i lartë"
       }
     ]
   },
@@ -84,6 +105,27 @@ const SAHIH_COLLECTIONS = [
         source: "Muslim 2658",
         context: "Islami është feja e natyrës njerëzore. Fëmija lind me njohje të natyrshme të Allahut. Prindërit dhe mjedisi mund ta ndryshojnë këtë drejtim, por fitrati mbetet i pranishëm.",
         topic: "Fitrati & Natyra Njerëzore"
+      },
+      {
+        arabic: "الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا",
+        text: "Besimtari për besimtarin është si ndërtesa — njëri forcë tjetrin.",
+        source: "Muslim 2585",
+        context: "Solidariteti islam shprehet me këtë metaforë të mrekullueshme. Profeti ﷺ i ndërthuri gishtat e tij për të ilustruar lidhjen. Umma islame funksionon vetëm kur çdo individ mbështet tjetrin — jo të izolohen.",
+        topic: "Solidariteti Islam"
+      },
+      {
+        arabic: "لَا تَحَاسَدُوا وَلَا تَنَاجَشُوا وَلَا تَبَاغَضُوا",
+        text: "Mos u zillisni me njëri-tjetrin, mos u mashtroni, mos e urreni njëri-tjetrin.",
+        source: "Muslim 2563",
+        context: "Profeti ﷺ ndaloi tre sëmundje shpirtërore që prishin komunitetin: 1) Hasedi (zilia) që djeg zemrën, 2) Naxhash (mashtrimi në tregti), 3) Bugd (urrejtja pa arsye). Muslimanët janë vëllezër — këto ndalime janë themelet e paqes sociale.",
+        topic: "Marrëdhëniet sociale"
+      },
+      {
+        arabic: "بُعِثْتُ لِأُتَمِّمَ مَكَارِمَ الْأَخْلَاقِ",
+        text: "Jam dërguar për të plotësuar virtytet e moralit të lartë.",
+        source: "Beyhaki — Sahih",
+        context: "Ky hadith tregon misionin qenësor të Profetit ﷺ. Islami nuk erdhi të rrënojë vlerat njerëzore, por t'i plotësojë dhe ngrejë në shkallën më të lartë. Morali i mirë është themeli i qytetërimit islam.",
+        topic: "Misioni i Profetit ﷺ"
       }
     ]
   },
@@ -122,6 +164,20 @@ const SAHIH_COLLECTIONS = [
         source: "Ibn Maxheh 2781 — Hassan",
         context: "Islami i jep nënës rolin dhe nderin më të lartë. Profeti ﷺ u pyet tre herë kush meriton shoqërinë më të mirë — dhe tre herë tha 'Nëna.' Vetëm herën e katërt tha 'Babai.'",
         topic: "Familja & Respekti"
+      },
+      {
+        arabic: "كُلُّ أُمَّتِي يَدْخُلُونَ الْجَنَّةَ إِلَّا مَنْ أَبَى",
+        text: "Gjithë umeti im hyn në Xhennet, përveç atij që refuzon. I thanë: Kush refuzon? Tha: Kush më bindej hyri në Xhennet, kush nuk më bindet, ka refuzuar.",
+        source: "Buhari 7280",
+        context: "Rruga drejt Xhennetit është e qartë: pasimi i Profetit ﷺ. 'Refuzimi' nuk është mos-besim i vullnetshëm, por neglizhimi i urdhrave dhe ndalesave. Çdo musliman ka shpresë për Xhennet nëse ndjek Sunetin.",
+        topic: "Xhenneti & Pasimi"
+      },
+      {
+        arabic: "مَنْ صَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ",
+        text: "Kush agjëron Ramazanin me iman dhe duke shpresuar shpërblimin, i falen mëkatet e mëparshme.",
+        source: "Buhari 38 — Muslim 760",
+        context: "Tre kushte për falje: 1) Iman (besim i sinqertë), 2) Ihtisab (shpresa e shpërblimit vetëm tek Allahu), 3) Veprimi (agjërimi). Ramazani është mundësia vjetore për 'riset' shpirtëror — fshirja e gjynaheve të vitit të shkuar.",
+        topic: "Ramazani & Falja"
       }
     ]
   }

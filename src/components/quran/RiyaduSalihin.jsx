@@ -87,6 +87,78 @@ const CHAPTERS = [
         explanation: "Dija islame nuk është opsionale — ajo është detyrim. Dija minimale rreth namazit, agjërimit, hallallit dhe haramit është farz. Pastaj dija specifike si mjekësia, inxhinieria etj., është farz kifaje (detyrim kolektiv) — duhet të ketë nga komuniteti."
       }
     ]
+  },
+  {
+    chapter: "Kapitulli 6 — Bamirësia & Sadakaja",
+    color: "emerald",
+    hadiths: [
+      {
+        arabic: "الصَّدَقَةُ تُطْفِئُ الْخَطِيئَةَ كَمَا يُطْفِئُ الْمَاءُ النَّارَ",
+        text: "Sadakaja e shuajnë mëkatin ashtu si uji shuajnë zjarrin.",
+        source: "Tirmidhi — Riyadu Es-Salihin 121",
+        explanation: "Sadakaja ka tri fuqi: 1) Fshin mëkatet, 2) Shëron sëmundjet (trajtoni të sëmurët tuaj me sadaka — hadithe), 3) Largon balën. Sadakaja e fshehtë tek Allahu është nga shtatë llojet e njerëzve që do të mbrohen Ditën e Kiametit."
+      },
+      {
+        arabic: "لَا يَقْبَلُ اللَّهُ صَلَاةَ أَحَدِكُمْ إِذَا أَحْدَثَ حَتَّى يَتَوَضَّأَ",
+        text: "Allahu nuk pranon namazin e ndonjërit prej jush nëse ka humbur abdesin deri sa të marrë abdest.",
+        source: "Buhari — Riyadu Es-Salihin 130",
+        explanation: "Pastërtia (tahara) është kushti i parë i namazit. Pa abdest, namazi nuk pranohet. Kjo mëson rëndësinë e pastërtisë fizike dhe shpirtërore në islam — të dyja janë të ndërlidhura."
+      }
+    ]
+  },
+  {
+    chapter: "Kapitulli 7 — Lutja (Dua)",
+    color: "amber",
+    hadiths: [
+      {
+        arabic: "الدُّعَاءُ هُوَ الْعِبَادَةُ",
+        text: "Dua është adhurim.",
+        source: "Tirmidhi — Riyadu Es-Salihin 145",
+        explanation: "Dua (lutja) nuk është thjesht kërkesë — ajo është thelbi i adhurimit. Kush lutet, njeh varësinë e tij nga Allahu. Kush nuk lutet, ka krenari. Allahu thotë: 'Lutmuni, do t'u përgjigjem' — kjo është premtim hyjnor."
+      },
+      {
+        arabic: "أَقْرَبُ مَا يَكُونُ الْعَبْدُ مِنْ رَبِّهِ وَهُوَ سَاجِدٌ",
+        text: "Robi është më afër Zotit të tij kur është në sexhde.",
+        source: "Muslim — Riyadu Es-Salihin 152",
+        explanation: "Sexhdeja është kulmi i adhurimit — koka (organi i krenaris) preket toka (simboli i modestis). Kush lutet me sinqeritet në sexhde, lutja pranohet. Ky moment i afërsisë hyjnore është mundësia e artë — shfrytëzoje para ngritjes nga sexhdeja."
+      }
+    ]
+  },
+  {
+    chapter: "Kapitulli 8 — Siguria & Frika nga Allahu",
+    color: "rose",
+    hadiths: [
+      {
+        arabic: "لَوْ تَعْلَمُونَ مَا أَعْلَمُ لَضَحِكْتُمْ قَلِيلًا وَلَبَكَيْتُمْ كَثِيرًا",
+        text: "Nëse do të dinjit ç'di unë, do të qeshniit pak dhe do të qanit shumë.",
+        source: "Buhari & Muslim — Riyadu Es-Salihin 410",
+        explanation: "Profeti ﷺ kishte njohuri rreth botës tjetër, Kiametit dhe dënimeve që ne nuk kemi. Kjo fjalë duhet të na bëjë reflektuar — sa pak mendojmë për Ahiretin! Qarja nga frika e Allahut është ibadet dhe tregues i imanit."
+      },
+      {
+        arabic: "اتَّقِ الْمُحَرَّمَاتِ تَكُنْ أَعْبَدَ النَّاسِ",
+        text: "Ruaju nga të ndaluarat dhe do të jesh njeriu më adhurues.",
+        source: "Tirmidhi — Riyadu Es-Salihin 420",
+        explanation: "Shmangja e haramit është formë e adhurimit — madje mund të jetë më e rëndësishme sesa adhurimet shtesë. Njeriu që nuk bën namaze nafile por ruan veten nga harami, mund të jetë afër Allahut sesa ai që bën shumë adhurime por bie në harame."
+      }
+    ]
+  },
+  {
+    chapter: "Kapitulli 9 — Vëllazëria & Dashuria për Allahun",
+    color: "blue",
+    hadiths: [
+      {
+        arabic: "لَا تَدْخُلُونَ الْجَنَّةَ حَتَّى تُؤْمِنُوا وَلَا تُؤْمِنُوا حَتَّى تَحَابُّوا",
+        text: "Nuk hyni në Xhennet derisa të besoni, dhe nuk besoni plotësisht derisa të duheni.",
+        source: "Muslim — Riyadu Es-Salihin 188",
+        explanation: "Lidhja midis imanit dhe dashurisë vëllazërore është thelbësore. Iman i plotë → dashuri ndaj vëllezërve. Profeti ﷺ dha ilaçin: 'A doni t'ju tregoj çfarë të forcojë dashurinë midis jush? Përshëndetni shumë njëri-tjetrin me selam.'"
+      },
+      {
+        arabic: "أَحِبَّ لِلنَّاسِ مَا تُحِبُّ لِنَفْسِكَ تَكُنْ مُسْلِمًا",
+        text: "Dëshiro për njerëzit ç'dëshiron për veten tënde dhe do të jesh musliman (i vërtetë).",
+        source: "Ibn Maxheh — Riyadu Es-Salihin 197",
+        explanation: "Ky hadith është pasaporta e Islamit. Muslimani i vërtetë nuk mendon vetëm për veten — ai dëshiron të mirën për të gjithë. Kjo dashuri universale është shenja e imanit autentik."
+      }
+    ]
   }
 ];
 
@@ -120,6 +192,30 @@ const KUDSI_HADITHS = [
     text: "Çdo vepër e birit të Ademit i takon atij, me përjashtim të agjërimit — ai është për Mua dhe Unë shpërblyej për të.",
     source: "Buhari & Muslim — Hadith Kudsi",
     explanation: "Allahu e veçoi agjërimin si adhurim të Tij të posaçëm. Agjëruesi i braktis ushqimin, pijen dhe dëshirat trupore vetëm për Allahun — prandaj shpërblimi është i pakufizuar. 'Allahu shpërblyej për të' nënkupton se shpërblimi i agjërimit është i papërcaktuar dhe i pakufizuar."
+  },
+  {
+    arabic: "إِنَّ اللَّهَ كَتَبَ الْإِحْسَانَ عَلَى كُلِّ شَيْءٍ",
+    text: "Allahu ka urdhëruar Ihsanin (shkëlqyeshmërinë) në çdo gjë.",
+    source: "Muslim — Hadith Kudsi",
+    explanation: "Ihsani do të thotë të bësh çdo gjë me shkëlqyeshmëri — sikur ta shohë Allahu. Kur theri kafshën, mprehni mirë thikën. Kur punoni, punoni shkëlqyeshëm. Kur adhuroni, adhuroni me zemër të plotë. Kjo filozofi transformon çdo vepër të përditshme në ibadet."
+  },
+  {
+    arabic: "وَعِزَّتِي وَجَلَالِي لَا أَجْمَعُ عَلَى عَبْدِي خَوْفَيْنِ وَلَا أَجْمَعُ لَهُ أَمْنَيْنِ",
+    text: "Betohem në madhërinë Time — nuk bashkoj dy frikë mbi robin Tim dhe nuk bashkoj dy siguri për të.",
+    source: "Ibn Hibban — Hadith Kudsi — Sahih",
+    explanation: "Kush i frikësohet Allahut në dynja (duke iu larguar mëkateve), Allahu e siguron në Ahiret. Kush ndihet i sigurt nga dënimi i Allahut në dynja (duke mëkatuar lirisht), do t'i frikësohet Atij në Ahiret. Frika nga Allahu në dynja = siguri në Ahiret."
+  },
+  {
+    arabic: "يَا عِبَادِي كُلُّكُمْ ضَالٌّ إِلَّا مَنْ هَدَيْتُهُ فَاسْتَهْدُونِي أَهْدِكُمْ",
+    text: "O robërit e Mi! Të gjithë jeni të humbur, përveç atij që Unë udhëzova — kërkoni udhëzim prej Meje, do t'ju udhëzoj.",
+    source: "Muslim — Hadith Kudsi (nga Ebu Dherri)",
+    explanation: "Ky hadith kudsi i madh mëson varësinë absolute të njeriut nga Allahu. Njeriu pa udhëzim hyjnor është i humbur. Prandaj 'Ihdinas sirratal mustekim' (Udhëzona në rrugën e drejtë) thuhet 17 herë në ditë në Al-Fatiha — sepse udhëzimi është nevoja jonë e vazhdueshme."
+  },
+  {
+    arabic: "يَا ابْنَ آدَمَ، قُمْ إِلَيَّ تَمْشِ أَجِئْ إِلَيْكَ أُهَرْوِلُ",
+    text: "O bir i Ademit! Çohu drejt Meje duke ecur — do të vij drejt teje duke vrapuar.",
+    source: "Tirmidhi — Hadith Kudsi — Sahih",
+    explanation: "Allahu e pret çdo kthim te Tij me kënaqësi të madhe. Sa herë njeriu ngrihet për namaz, Allahu 'vjen' drejt tij. Sa herë pendohet, Allahu 'vrapën' drejt tij. Kjo tregon dashurinë dhe gëzimin e Allahut kur robi i tij kthehet. Mos hezito kurrë nga pendimi!"
   }
 ];
 

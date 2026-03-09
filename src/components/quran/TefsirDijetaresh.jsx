@@ -120,6 +120,101 @@ const TEFSIR_DATA = [
         source: "Al-Xhami' li Ahkam Al-Quran, Vëll. 10, f. 351"
       }
     ]
+  },
+  {
+    surah: "Al-Baqarah 2:286 — Allahu nuk ngarkon askënd",
+    arabic: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا",
+    verse: "Allahu nuk ngarkon asnjë shpirt përtej mundësive të tij.",
+    tefsir: [
+      {
+        scholar: "Ibn Kethir",
+        text: "Ky ajet është nga mëshira e madhe e Allahut ndaj njerëzimit. Allahu nuk kërkon nga njeriu gjëra të pamundshme. Çdo detyrim fetar është brenda kapacitetit njerëzor. Ajeti vazhdon me duanë: 'Zoti ynë, mos na ndëshko nëse harrojmë ose gabojmë' — Profeti ﷺ tha: 'Allahu tha: Po, e pranova.'",
+        source: "Tefsiru Ibn Kethir, Vëll. 1, f. 765"
+      },
+      {
+        scholar: "Es-Sadi",
+        text: "Kjo dispozitë hyjnore tregon se Allahu është Ar-Rahman, Ar-Rahim. Feja islame është feja e lehtësisë — kur ekziston vështirësia, lejimi (rukhsa) hyn. Kur dikush sëmuret, falet ulur; kur udhëton, shorten namazin. Kjo është mëshirë e pafund.",
+        source: "Taisiru Al-Kerimi Ar-Rahman, f. 116"
+      },
+      {
+        scholar: "Ibn El-Qayyim",
+        text: "Ajeti 285-286 i Al-Baqarahs janë thesaret e Kur'anit. Profeti ﷺ tha: 'Kush i lexon dy ajetet e fundit të Al-Baqarahs natën, ato i mjaftojnë.' Duaja e fundit e sures është ndër duatë më të plota: falni, mëshironi, ndihmoni kundër jobesimtarëve.",
+        source: "Al-Fawaid, f. 71"
+      }
+    ]
+  },
+  {
+    surah: "Al-Baqarah 2:153 — Durimi dhe Namazi",
+    arabic: "يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ",
+    verse: "O ju që besuat! Kërkoni ndihmë me durim dhe namaz.",
+    tefsir: [
+      {
+        scholar: "Ibn Kethir",
+        text: "Allahu urdhëron besimtarët të kërkojnë ndihmë me dy fuqi: sabrin (durimin) dhe namazin. Sabri ka tre lloje: durim ndaj adhurimit, durim ndaj sprovave dhe durim ndaj ndalimeve. Namazi është lidhja e drejtpërdrejtë me Allahun dhe burim fuqie shpirtërore.",
+        source: "Tefsiru Ibn Kethir, Vëll. 1, f. 200"
+      },
+      {
+        scholar: "Al-Qurtubi",
+        text: "Imam Al-Qurtubi shpjegon se Profeti ﷺ kur e godiste ndonjë çështje e rëndë, shkonte menjëherë te namazi. Namazi është ilaç për ankthin, dëshpërimin dhe vështirësitë e jetës. 'Kool' (qetësia) vjen nga namazi.",
+        source: "Al-Xhami' li Ahkam Al-Quran, Vëll. 2, f. 173"
+      }
+    ]
+  },
+  {
+    surah: "An-Nisa 4:36 — Të drejtat e njeriut",
+    arabic: "وَاعْبُدُوا اللَّهَ وَلَا تُشْرِكُوا بِهِ شَيْئًا",
+    verse: "Adhurojeni Allahun dhe mos i shoqëroni Atij asgjë.",
+    tefsir: [
+      {
+        scholar: "Es-Sadi",
+        text: "Ky ajet vendos hierarkinë islame të detyrimeve: 1) Adhurimi i Allahut pa shirk, 2) Mirësia ndaj prindërve, 3) Farefisit, 4) Jetimëve, 5) Të varfërve, 6) Fqinjit të afërt dhe të largët, 7) Shokut, 8) Udhëtarit, 9) Të punësuarve. Islami nuk është vetëm ritual — ai rregullon të gjitha marrëdhëniet sociale.",
+        source: "Taisiru Al-Kerimi Ar-Rahman, f. 178"
+      },
+      {
+        scholar: "Ibn Kethir",
+        text: "Fjala 'Ihsana' (bamirësi) ndaj prindërve do të thotë t'i trajtosh me butësi, respekt dhe ndihmë. Allahu e vendosi bamirësinë ndaj prindërve menjëherë pas teuhidit — kjo tregon rëndësinë supreme të kësaj detyrimi.",
+        source: "Tefsiru Ibn Kethir, Vëll. 1, f. 492"
+      }
+    ]
+  },
+  {
+    surah: "Az-Zumar 39:53 — Mëshira e Allahut",
+    arabic: "قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ",
+    verse: "Thuaj: O robërit e Mi, ju që keni tejkaluar kufijtë kundër vetes, mos e humbni shpresën nga mëshira e Allahut.",
+    tefsir: [
+      {
+        scholar: "Ibn Kethir",
+        text: "Ky ajet quhet 'ajeti më shpresëdhënës i Kur'anit'. Allahu drejtohet personalisht tek mëkatarët — 'robërit e Mi' — me ngrohtësi dhe dashuri. 'Mos e humbni shpresën' — dëshpërimi nga mëshira e Allahut është haram. Edhe kush ka bërë mëkate të mëdha mund të pendohet.",
+        source: "Tefsiru Ibn Kethir, Vëll. 4, f. 68"
+      },
+      {
+        scholar: "Ibn Tejmijje",
+        text: "Dy ekstreme janë të ndaluara: 1) 'Kibr' (arroganca) — mendimi se je shumë i mirë pa nevojë për pendim, 2) 'Kunut' (dëshpërim) — mendimi se mëkatet janë shumë të mëdha për t'u falur. Rruga e mesme është: njohja e mëkatit + besimi i plotë në faljen hyjnore.",
+        source: "Mexhmu Al-Fetawa, Vëll. 10, f. 45"
+      },
+      {
+        scholar: "Es-Sadi",
+        text: "Ajeti vazhdon: 'Allahu i fal të gjitha mëkatet — Ai është Ghafor (Falësi i Madh) dhe Rahim (Mëshirëploti).' Fjala 'xhemi'an' (të gjitha) nuk lë jashtë asnjë mëkat — me kusht pendimi të sinqertë. Kjo është lajmi më i mirë për çdo muslimanin mëkatar.",
+        source: "Taisiru Al-Kerimi Ar-Rahman, f. 728"
+      }
+    ]
+  },
+  {
+    surah: "Al-Hashr 59:22-24 — Emrat e Allahut",
+    arabic: "هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ عَالِمُ الْغَيْبِ وَالشَّهَادَةِ",
+    verse: "Ai është Allahu — nuk ka zot tjetër veç Tij — Njohësi i të fshehtës dhe të dukshmes.",
+    tefsir: [
+      {
+        scholar: "Ibn Kethir",
+        text: "Ajetet 22-24 të Al-Hashrit përmbajnë mbi 15 emra dhe cilësi të Allahut: Al-Hakim (i Gjalli), Al-Qayyum (Mbajtësi), Al-Quddus (i Shenjtë), As-Salam (Paqja), Al-Mu'min (Besëdhënësi), Al-Muhaymin (Mbikëqyrësi), Al-Aziz (i Fuqishmi), Al-Jabbar (Dominuesi), Al-Mutakabbir (i Madhërishëm).",
+        source: "Tefsiru Ibn Kethir, Vëll. 4, f. 353"
+      },
+      {
+        scholar: "Es-Sadi",
+        text: "Emrat e Allahut janë bazë e teuhidit. Kush i njeh emrat e Allahut, e njeh vetë Allahun. 'Al-Khaliq' — Krijuesi i çdo gjëje, 'Al-Bari' — Ai që i jep formën krijesave, 'Al-Musawwir' — Ai që pikturon (formëson) çdo gjë sipas urtisë Së Tij.",
+        source: "Taisiru Al-Kerimi Ar-Rahman, f. 856"
+      }
+    ]
   }
 ];
 
