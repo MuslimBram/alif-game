@@ -46,14 +46,22 @@ function GameForm({ initial, onSave, onCancel }) {
     if (!form.title || !form.description) return;
     setGeneratingAI(true);
     try {
+      const hasImage = !!form.image_url;
       const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `Jeni një ekspert pedagogjik. Bazuar në lojën me titull "${form.title}" dhe përshkrim "${form.description}", gjeneroni:
+        prompt: `Jeni një ekspert pedagogjik për fëmijë.
+${hasImage
+  ? `Shiko me kujdes IMAZHIN e lojës. Identifiko çdo figurë, formë, vijë ose objekt që shfaqet në imazh.
+Bazuar VETËM në atë që sheh në imazh (jo në titull apo përshkrim), gjenero:`
+  : `Bazuar në lojën me titull "${form.title}" dhe përshkrim "${form.description}", gjeneroni:`
+}
 1. Nivelin e vështirësisë (zgjidhni: fillestar, mesatar, avancuar, profesionist)
-2. Pikët (numër nga 10 deri 100, bazuar në vështirësi)
-3. Kushtet - lista e figurave/objekteve që fëmija duhet të vizatojë (3-5 gjëra konkrete)
-4. Opsionet - lista e emrave/zgjedhjeve të mundshme për kuizin (5-8 opsione)
+2. Pikët (numër nga 10 deri 100)
+3. Kushtet - lista e GJËRAVE QË SHIHEN NË IMAZH që fëmija duhet të vizatojë (3-6 gjëra specifike nga imazhi)
+4. Opsionet - lista e emrave/zgjedhjeve për kuizin (6-10 opsione, duke përfshirë edhe disa që NUK janë në imazh si shpërndarës)
 
-Ktheni në JSON.`,
+${hasImage ? "RËNDËSISHME: Kushtet dhe opsionet duhet të vijnë drejtpërdrejt nga përmbajtja vizuale e imazhit!" : ""}
+Ktheni vetëm JSON.`,
+        file_urls: hasImage ? [form.image_url] : undefined,
         response_json_schema: {
           type: "object",
           properties: {
