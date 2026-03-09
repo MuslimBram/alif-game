@@ -187,6 +187,7 @@ export default function Settings() {
   };
 
   const selectedLang = LANGUAGES.find(l => l.code === settings.language) || LANGUAGES[0];
+  const t = UI_LABELS[settings.language] || UI_LABELS.sq;
 
   if (loading) {
     return (
