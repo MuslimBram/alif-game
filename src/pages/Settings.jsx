@@ -16,6 +16,55 @@ const LANGUAGES = [
   { code: "de", label: "Deutsch", flag: "🇩🇪", dialects: ["Standard"] },
 ];
 
+// UI labels translated per language
+const UI_LABELS = {
+  sq: {
+    title: "Cilësimet Personale", subtitle: "Personalizo përvojën tënde të mësimit",
+    langSection: "Gjuha dhe Dialekti", activeLabel: "Gjuha aktive:", activeTag: "aktive",
+    dialect: "Dialekti i preferuar", theme: "Tema", fontSize: "Madhësia e shkrimit",
+    small: "I vogël", medium: "Normal", large: "I madh",
+    notifications: "Njoftimet", syncSection: "Sinkronizimi dhe Mësimi",
+    saveBtn: "Ruaj Cilësimet", savedBtn: "U ruajtën!",
+    note: "Platforma është ndërtuar në shqip. Gjuha e zgjedhur ruhet për funksione të ardhshme.",
+  },
+  en: {
+    title: "Personal Settings", subtitle: "Customize your learning experience",
+    langSection: "Language & Dialect", activeLabel: "Active language:", activeTag: "active",
+    dialect: "Preferred dialect", theme: "Theme", fontSize: "Font Size",
+    small: "Small", medium: "Normal", large: "Large",
+    notifications: "Notifications", syncSection: "Sync & Learning",
+    saveBtn: "Save Settings", savedBtn: "Saved!",
+    note: "Platform is built in Albanian. Selected language is saved for future features.",
+  },
+  ar: {
+    title: "الإعدادات الشخصية", subtitle: "خصّص تجربة التعلم الخاصة بك",
+    langSection: "اللغة واللهجة", activeLabel: "اللغة النشطة:", activeTag: "نشطة",
+    dialect: "اللهجة المفضلة", theme: "المظهر", fontSize: "حجم الخط",
+    small: "صغير", medium: "عادي", large: "كبير",
+    notifications: "الإشعارات", syncSection: "المزامنة والتعلم",
+    saveBtn: "حفظ الإعدادات", savedBtn: "تم الحفظ!",
+    note: "المنصة مبنية باللغة الألبانية. اللغة المختارة محفوظة للميزات المستقبلية.",
+  },
+  tr: {
+    title: "Kişisel Ayarlar", subtitle: "Öğrenme deneyimini kişiselleştir",
+    langSection: "Dil ve Lehçe", activeLabel: "Aktif dil:", activeTag: "aktif",
+    dialect: "Tercih edilen lehçe", theme: "Tema", fontSize: "Yazı Boyutu",
+    small: "Küçük", medium: "Normal", large: "Büyük",
+    notifications: "Bildirimler", syncSection: "Senkronizasyon ve Öğrenme",
+    saveBtn: "Ayarları Kaydet", savedBtn: "Kaydedildi!",
+    note: "Platform Arnavutça olarak geliştirilmiştir. Seçilen dil gelecekteki özellikler için kaydedilir.",
+  },
+  de: {
+    title: "Persönliche Einstellungen", subtitle: "Personalisiere deine Lernerfahrung",
+    langSection: "Sprache & Dialekt", activeLabel: "Aktive Sprache:", activeTag: "aktiv",
+    dialect: "Bevorzugter Dialekt", theme: "Design", fontSize: "Schriftgröße",
+    small: "Klein", medium: "Normal", large: "Groß",
+    notifications: "Benachrichtigungen", syncSection: "Synchronisation & Lernen",
+    saveBtn: "Einstellungen speichern", savedBtn: "Gespeichert!",
+    note: "Die Plattform ist auf Albanisch aufgebaut. Die gewählte Sprache wird für zukünftige Funktionen gespeichert.",
+  },
+};
+
 const THEMES = [
   { id: "light", label: "E çelët", icon: Sun, preview: "bg-white border-gray-200" },
   { id: "dark", label: "E errët", icon: Moon, preview: "bg-gray-900 border-gray-700" },
