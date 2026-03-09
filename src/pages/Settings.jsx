@@ -9,12 +9,12 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 
 const LANGUAGES = [
-  { code: "sq", label: "Shqip", flag: "🇦🇱", dialects: ["Standard", "Gegërishte", "Toskërishte"] },
-  { code: "en", label: "English", flag: "🇬🇧", dialects: ["British", "American"] },
-  { code: "ar", label: "العربية", flag: "🇸🇦", dialects: ["Fusha (Standard)", "Hixhazi", "Misri"] },
-  { code: "tr", label: "Türkçe", flag: "🇹🇷", dialects: ["Standard"] },
-  { code: "de", label: "Deutsch", flag: "🇩🇪", dialects: ["Standard"] },
-];
+{ code: "sq", label: "Shqip", flag: "🇦🇱", dialects: ["Standard", "Gegërishte", "Toskërishte"] },
+{ code: "en", label: "English", flag: "🇬🇧", dialects: ["British", "American"] },
+{ code: "ar", label: "العربية", flag: "🇸🇦", dialects: ["Fusha (Standard)", "Hixhazi", "Misri"] },
+{ code: "tr", label: "Türkçe", flag: "🇹🇷", dialects: ["Standard"] },
+{ code: "de", label: "Deutsch", flag: "🇩🇪", dialects: ["Standard"] }];
+
 
 // UI labels translated per language
 const UI_LABELS = {
@@ -25,7 +25,7 @@ const UI_LABELS = {
     small: "I vogël", medium: "Normal", large: "I madh",
     notifications: "Njoftimet", syncSection: "Sinkronizimi dhe Mësimi",
     saveBtn: "Ruaj Cilësimet", savedBtn: "U ruajtën!",
-    note: "Platforma është ndërtuar në shqip. Gjuha e zgjedhur ruhet për funksione të ardhshme.",
+    note: "Platforma është ndërtuar në shqip. Gjuha e zgjedhur ruhet për funksione të ardhshme."
   },
   en: {
     title: "Personal Settings", subtitle: "Customize your learning experience",
@@ -34,7 +34,7 @@ const UI_LABELS = {
     small: "Small", medium: "Normal", large: "Large",
     notifications: "Notifications", syncSection: "Sync & Learning",
     saveBtn: "Save Settings", savedBtn: "Saved!",
-    note: "Platform is built in Albanian. Selected language is saved for future features.",
+    note: "Platform is built in Albanian. Selected language is saved for future features."
   },
   ar: {
     title: "الإعدادات الشخصية", subtitle: "خصّص تجربة التعلم الخاصة بك",
@@ -43,7 +43,7 @@ const UI_LABELS = {
     small: "صغير", medium: "عادي", large: "كبير",
     notifications: "الإشعارات", syncSection: "المزامنة والتعلم",
     saveBtn: "حفظ الإعدادات", savedBtn: "تم الحفظ!",
-    note: "المنصة مبنية باللغة الألبانية. اللغة المختارة محفوظة للميزات المستقبلية.",
+    note: "المنصة مبنية باللغة الألبانية. اللغة المختارة محفوظة للميزات المستقبلية."
   },
   tr: {
     title: "Kişisel Ayarlar", subtitle: "Öğrenme deneyimini kişiselleştir",
@@ -52,7 +52,7 @@ const UI_LABELS = {
     small: "Küçük", medium: "Normal", large: "Büyük",
     notifications: "Bildirimler", syncSection: "Senkronizasyon ve Öğrenme",
     saveBtn: "Ayarları Kaydet", savedBtn: "Kaydedildi!",
-    note: "Platform Arnavutça olarak geliştirilmiştir. Seçilen dil gelecekteki özellikler için kaydedilir.",
+    note: "Platform Arnavutça olarak geliştirilmiştir. Seçilen dil gelecekteki özellikler için kaydedilir."
   },
   de: {
     title: "Persönliche Einstellungen", subtitle: "Personalisiere deine Lernerfahrung",
@@ -61,15 +61,15 @@ const UI_LABELS = {
     small: "Klein", medium: "Normal", large: "Groß",
     notifications: "Benachrichtigungen", syncSection: "Synchronisation & Lernen",
     saveBtn: "Einstellungen speichern", savedBtn: "Gespeichert!",
-    note: "Die Plattform ist auf Albanisch aufgebaut. Die gewählte Sprache wird für zukünftige Funktionen gespeichert.",
-  },
+    note: "Die Plattform ist auf Albanisch aufgebaut. Die gewählte Sprache wird für zukünftige Funktionen gespeichert."
+  }
 };
 
 const THEMES = [
-  { id: "light", label: "E çelët", icon: Sun, preview: "bg-white border-gray-200" },
-  { id: "dark", label: "E errët", icon: Moon, preview: "bg-gray-900 border-gray-700" },
-  { id: "emerald", label: "Gjelbërt", icon: Palette, preview: "bg-emerald-50 border-emerald-200" },
-];
+{ id: "light", label: "E çelët", icon: Sun, preview: "bg-white border-gray-200" },
+{ id: "dark", label: "E errët", icon: Moon, preview: "bg-gray-900 border-gray-700" },
+{ id: "emerald", label: "Gjelbërt", icon: Palette, preview: "bg-emerald-50 border-emerald-200" }];
+
 
 const DEFAULT_SETTINGS = {
   language: "sq",
@@ -82,7 +82,7 @@ const DEFAULT_SETTINGS = {
   notify_achievements: true,
   sync_progress: true,
   auto_play_audio: true,
-  font_size: "medium",
+  font_size: "medium"
 };
 
 export default function Settings() {
@@ -125,7 +125,7 @@ export default function Settings() {
   }, []);
 
   const update = (key, value) => {
-    setSettings(prev => {
+    setSettings((prev) => {
       const next = { ...prev, [key]: value };
       localStorage.setItem("app_settings", JSON.stringify(next));
       if (key === "language" || key === "dialect") {
@@ -181,20 +181,20 @@ export default function Settings() {
 
   const applyFontSize = (size) => {
     const root = document.documentElement;
-    if (size === "small") root.style.fontSize = "13px";
-    else if (size === "large") root.style.fontSize = "18px";
-    else root.style.fontSize = "16px";
+    if (size === "small") root.style.fontSize = "13px";else
+    if (size === "large") root.style.fontSize = "18px";else
+    root.style.fontSize = "16px";
   };
 
-  const selectedLang = LANGUAGES.find(l => l.code === settings.language) || LANGUAGES[0];
+  const selectedLang = LANGUAGES.find((l) => l.code === settings.language) || LANGUAGES[0];
   const t = UI_LABELS[settings.language] || UI_LABELS.sq;
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -211,8 +211,8 @@ export default function Settings() {
       </div>
 
       {/* User info */}
-      {user && (
-        <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 flex items-center gap-3 mb-6">
+      {user &&
+      <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 flex items-center gap-3 mb-6">
           <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold">
             {user.full_name?.[0] || "U"}
           </div>
@@ -224,47 +224,47 @@ export default function Settings() {
             <Check className="w-3 h-3" /> Sinkronizim aktiv
           </div>
         </div>
-      )}
+      }
 
       <div className="space-y-5">
         {/* Language Section */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
-          <div className="flex items-center gap-2 mb-4">
-            <Globe className="w-5 h-5 text-emerald-600" />
-            <h2 className="font-bold text-gray-900">{t.langSection}</h2>
-          </div>
-          <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2 mb-3 flex items-center gap-2">
-            <span className="text-lg">{selectedLang.flag}</span>
-            <span className="text-sm font-semibold text-emerald-800">{t.activeLabel} <strong>{selectedLang.label}</strong>{settings.dialect && settings.dialect !== "Standard" ? ` — ${settings.dialect}` : ""}</span>
-            <span className="ml-auto text-xs text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full">{t.activeTag}</span>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
-            {LANGUAGES.map(lang => (
-              <button key={lang.code} onClick={() => { update("language", lang.code); update("dialect", lang.dialects[0]); toast.success(`Gjuha ndryshoi në ${lang.label}`); }}
-                className={`flex items-center gap-2 p-3 rounded-xl border-2 text-sm font-semibold transition-all ${settings.language === lang.code ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-gray-200 hover:border-gray-300 text-gray-700"}`}>
-                <span className="text-lg">{lang.flag}</span>
-                {lang.label}
-                {settings.language === lang.code && <Check className="w-3.5 h-3.5 ml-auto text-emerald-600" />}
-              </button>
-            ))}
-          </div>
-          <div className="mt-3 bg-blue-50 border border-blue-100 rounded-xl px-3 py-2 text-xs text-blue-600">
-            ℹ️ {t.note}
-          </div>
-          {selectedLang.dialects.length > 1 && (
-            <div>
-              <Label className="text-xs text-gray-500 mb-2 block">{t.dialect}</Label>
-              <div className="flex flex-wrap gap-2">
-                {selectedLang.dialects.map(d => (
-                  <button key={d} onClick={() => update("dialect", d)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold border-2 transition-all ${settings.dialect === d ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-gray-200 text-gray-600 hover:border-gray-300"}`}>
-                    {d}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         {/* Theme Section */}
         <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
@@ -273,34 +273,34 @@ export default function Settings() {
             <h2 className="font-bold text-gray-900">{t.theme}</h2>
           </div>
           <div className="grid grid-cols-3 gap-3">
-            {THEMES.map(theme => {
+            {THEMES.map((theme) => {
               const Icon = theme.icon;
               return (
-                <button key={theme.id} onClick={() => { update("theme", theme.id); applyTheme(theme.id); }}
-                  className={`relative p-4 rounded-2xl border-2 transition-all ${settings.theme === theme.id ? "border-emerald-500 ring-2 ring-emerald-100" : "border-gray-200 hover:border-gray-300"}`}>
+                <button key={theme.id} onClick={() => {update("theme", theme.id);applyTheme(theme.id);}}
+                className={`relative p-4 rounded-2xl border-2 transition-all ${settings.theme === theme.id ? "border-emerald-500 ring-2 ring-emerald-100" : "border-gray-200 hover:border-gray-300"}`}>
                   <div className={`w-full h-10 rounded-lg mb-2 border ${theme.preview}`} />
                   <div className="flex items-center justify-center gap-1.5">
                     <Icon className="w-3.5 h-3.5" />
                     <span className="text-xs font-semibold">{theme.label}</span>
                   </div>
-                  {settings.theme === theme.id && (
-                    <div className="absolute top-2 right-2 w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center">
+                  {settings.theme === theme.id &&
+                  <div className="absolute top-2 right-2 w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center">
                       <Check className="w-2.5 h-2.5 text-white" />
                     </div>
-                  )}
-                </button>
-              );
+                  }
+                </button>);
+
             })}
           </div>
           <div className="mt-4">
             <Label className="text-xs text-gray-500 mb-2 block">{t.fontSize}</Label>
             <div className="flex gap-2">
-              {["small", "medium", "large"].map(size => (
-                <button key={size} onClick={() => { update("font_size", size); applyFontSize(size); }}
-                  className={`flex-1 py-2 rounded-xl text-xs font-semibold border-2 transition-all ${settings.font_size === size ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-gray-200 text-gray-600"}`}>
+              {["small", "medium", "large"].map((size) =>
+              <button key={size} onClick={() => {update("font_size", size);applyFontSize(size);}}
+              className={`flex-1 py-2 rounded-xl text-xs font-semibold border-2 transition-all ${settings.font_size === size ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-gray-200 text-gray-600"}`}>
                   {size === "small" ? t.small : size === "medium" ? t.medium : t.large}
                 </button>
-              ))}
+              )}
             </div>
           </div>
         </div>
@@ -312,26 +312,26 @@ export default function Settings() {
               <Bell className="w-5 h-5 text-emerald-600" />
               <h2 className="font-bold text-gray-900">{t.notifications}</h2>
             </div>
-            <Switch checked={settings.notifications_enabled} onCheckedChange={v => update("notifications_enabled", v)} />
+            <Switch checked={settings.notifications_enabled} onCheckedChange={(v) => update("notifications_enabled", v)} />
           </div>
-          {settings.notifications_enabled && (
-            <div className="space-y-3">
+          {settings.notifications_enabled &&
+          <div className="space-y-3">
               {[
-                { key: "notify_daily_reminder", label: "Kujtues ditor mësimi", icon: "📅" },
-                { key: "notify_challenges", label: "Sfida të reja", icon: "⚔️" },
-                { key: "notify_group_activity", label: "Aktiviteti i grupit", icon: "👥" },
-                { key: "notify_achievements", label: "Arritje dhe badges", icon: "🏆" },
-              ].map(item => (
-                <div key={item.key} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+            { key: "notify_daily_reminder", label: "Kujtues ditor mësimi", icon: "📅" },
+            { key: "notify_challenges", label: "Sfida të reja", icon: "⚔️" },
+            { key: "notify_group_activity", label: "Aktiviteti i grupit", icon: "👥" },
+            { key: "notify_achievements", label: "Arritje dhe badges", icon: "🏆" }].
+            map((item) =>
+            <div key={item.key} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
                   <div className="flex items-center gap-2">
                     <span>{item.icon}</span>
                     <span className="text-sm text-gray-700">{item.label}</span>
                   </div>
-                  <Switch checked={settings[item.key]} onCheckedChange={v => update(item.key, v)} />
+                  <Switch checked={settings[item.key]} onCheckedChange={(v) => update(item.key, v)} />
                 </div>
-              ))}
+            )}
             </div>
-          )}
+          }
         </div>
 
         {/* Sync & Learning Section */}
@@ -350,21 +350,21 @@ export default function Settings() {
                 <p className="text-sm font-semibold text-gray-700">Luaj audio automatikisht</p>
                 <p className="text-xs text-gray-400">Shqiptimi automatik gjatë mësimit</p>
               </div>
-              <Switch checked={settings.auto_play_audio} onCheckedChange={v => update("auto_play_audio", v)} />
+              <Switch checked={settings.auto_play_audio} onCheckedChange={(v) => update("auto_play_audio", v)} />
             </div>
           </div>
-          {!isAuthenticated && (
-            <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-700">
+          {!isAuthenticated &&
+          <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-700">
               ⚠️ Hyr në llogari për të sinkronizuar progresin ndërmjet pajisjeve.
               <button onClick={() => base44.auth.redirectToLogin()} className="ml-1 underline font-semibold">Hyr tani</button>
             </div>
-          )}
+          }
         </div>
 
         {/* Admin Panel Link — only for admins */}
-        {user?.role === "admin" && (
-          <Link to={createPageUrl("AdminPanel")}
-            className="flex items-center gap-3 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-2xl p-5 shadow-lg hover:opacity-90 transition-all">
+        {user?.role === "admin" &&
+        <Link to={createPageUrl("AdminPanel")}
+        className="flex items-center gap-3 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-2xl p-5 shadow-lg hover:opacity-90 transition-all">
             <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
               <Shield className="w-5 h-5 text-white" />
             </div>
@@ -374,14 +374,14 @@ export default function Settings() {
             </div>
             <span className="text-white/70 text-lg">→</span>
           </Link>
-        )}
+        }
 
         {/* Save Button */}
         <Button onClick={handleSave}
-          className={`w-full py-4 rounded-2xl font-bold text-base shadow-lg transition-all ${saved ? "bg-emerald-500" : "bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-90"}`}>
+        className={`w-full py-4 rounded-2xl font-bold text-base shadow-lg transition-all ${saved ? "bg-emerald-500" : "bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-90"}`}>
           {saved ? <><Check className="w-5 h-5 mr-2" /> {t.savedBtn}</> : <><Save className="w-5 h-5 mr-2" /> {t.saveBtn}</>}
         </Button>
       </div>
-    </div>
-  );
+    </div>);
+
 }
