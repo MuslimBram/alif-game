@@ -163,6 +163,7 @@ export default function CustomGamePanel({ isAdmin, selectedLevel }) {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editGame, setEditGame] = useState(null);
+  const [activeGame, setActiveGame] = useState(null);
 
   const load = async () => {
     setLoading(true);
