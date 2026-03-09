@@ -75,6 +75,7 @@ const modules = [
   { value: "umra_haxh", label: "Umra & Haxhi" },
   { value: "fikh",      label: "Fikh (FE)" },
   { value: "lojera",    label: "Numrat" },
+  { value: "braingym",  label: "Brain Gym →" },
 ];
 
 const levels = [
