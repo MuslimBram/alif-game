@@ -237,9 +237,13 @@ export default function CustomGamePanel({ isAdmin, selectedLevel }) {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map(game => (
-            <CustomGameCard key={game.id} game={game} isAdmin={isAdmin} onEdit={handleEdit} onDelete={handleDelete} />
+            <CustomGameCard key={game.id} game={game} isAdmin={isAdmin} onEdit={handleEdit} onDelete={handleDelete} onPlay={() => setActiveGame(game)} />
           ))}
         </div>
+      )}
+
+      {activeGame && (
+        <CustomGameModal game={activeGame} onClose={() => setActiveGame(null)} />
       )}
     </div>
   );
