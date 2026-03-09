@@ -135,13 +135,35 @@ function PhaseDrawing({ game, onNext, onClose }) {
 
       <p className="px-5 text-xs text-gray-500 mb-2">{game.description}</p>
 
-      {/* Reference image small */}
-      {game.image_url && (
-        <div className="mx-5 mb-2 flex items-center gap-2 bg-amber-50 border border-amber-100 rounded-xl p-2">
-          <img src={game.image_url} alt="ref" className="w-14 h-14 object-contain rounded-lg border border-amber-200" />
-          <p className="text-xs text-amber-700 font-medium">Shiko imazhin referues dhe vizato sa më mirë!</p>
-        </div>
-      )}
+      {/* Reference image + conditions */}
+      <div className="mx-5 mb-2 space-y-2">
+        {game.image_url && (
+          <div className="flex items-center gap-2 bg-amber-50 border border-amber-100 rounded-xl p-2">
+            <img src={game.image_url} alt="ref" className="w-14 h-14 object-contain rounded-lg border border-amber-200" />
+            <p className="text-xs text-amber-700 font-medium">Shiko imazhin referues dhe vizato sa më mirë!</p>
+          </div>
+        )}
+        {game.conditions && game.conditions.length > 0 && (
+          <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-2">
+            <p className="text-xs font-bold text-emerald-700 mb-1">📋 Duhet të vizatosh:</p>
+            <div className="flex flex-wrap gap-1">
+              {game.conditions.map((c, i) => (
+                <span key={i} className="bg-white border border-emerald-200 text-emerald-700 text-xs px-2 py-0.5 rounded-lg font-semibold">{c}</span>
+              ))}
+            </div>
+          </div>
+        )}
+        {game.options && game.options.length > 0 && (
+          <div className="bg-blue-50 border border-blue-100 rounded-xl p-2">
+            <p className="text-xs font-bold text-blue-700 mb-1">🔢 Opsionet:</p>
+            <div className="flex flex-wrap gap-1">
+              {game.options.map((o, i) => (
+                <span key={i} className="bg-white border border-blue-200 text-blue-700 text-xs px-2 py-0.5 rounded-lg font-semibold">{o}</span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Toolbar */}
       <div className="flex items-center gap-2 px-5 mb-2 flex-wrap">
