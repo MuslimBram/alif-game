@@ -110,7 +110,7 @@ function GameForm({ initial, onSave, onCancel }) {
 }
 
 // ─── DISPLAY CARD ──────────────────────────────────────────────────────────────
-function CustomGameCard({ game, isAdmin, onEdit, onDelete }) {
+function CustomGameCard({ game, isAdmin, onEdit, onDelete, onPlay }) {
   const levelColors = {
     fillestar: "bg-green-100 text-green-700",
     mesatar: "bg-blue-100 text-blue-700",
