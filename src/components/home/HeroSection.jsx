@@ -19,7 +19,7 @@ export default function HeroSection({ stats, adminEditMode }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}>
 
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-sm font-medium mb-6">Platformë e plotë edukative
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-sm font-medium mb-6">Platformë  edukative
 
 
           </span>
