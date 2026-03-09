@@ -168,34 +168,34 @@ Ktheni vetëm JSON.`,
           </div>
 
           {/* Conditions */}
-          {form.conditions?.length > 0 && (
-            <div>
-              <label className="text-xs font-semibold text-gray-500 mb-1 block">📋 Kushtet</label>
-              <div className="flex flex-wrap gap-1.5">
-                {form.conditions.map((c, i) => (
-                  <span key={i} className="flex items-center gap-1 bg-white border border-emerald-200 text-emerald-700 text-xs px-2 py-1 rounded-lg font-medium">
-                    {c}
-                    <button onClick={() => setForm(f => ({ ...f, conditions: f.conditions.filter((_, j) => j !== i) }))}><X className="w-3 h-3" /></button>
-                  </span>
-                ))}
-              </div>
+          <div>
+            <label className="text-xs font-semibold text-gray-500 mb-1 block">📋 Kushtet (5 për lojë)</label>
+            <div className="flex flex-wrap gap-1.5 mb-1.5">
+              {(form.conditions||[]).map((c, i) => (
+                <span key={i} className="flex items-center gap-1 bg-white border border-emerald-200 text-emerald-700 text-xs px-2 py-1 rounded-lg font-medium">
+                  {c}
+                  <button onClick={() => setForm(f => ({ ...f, conditions: f.conditions.filter((_, j) => j !== i) }))}><X className="w-3 h-3" /></button>
+                </span>
+              ))}
             </div>
-          )}
+            <AddTagInput placeholder="Shto kusht..." color="emerald"
+              onAdd={val => setForm(f => ({ ...f, conditions: [...(f.conditions||[]), val] }))} />
+          </div>
 
           {/* Options */}
-          {form.options?.length > 0 && (
-            <div>
-              <label className="text-xs font-semibold text-gray-500 mb-1 block">🔢 Opsionet</label>
-              <div className="flex flex-wrap gap-1.5">
-                {form.options.map((o, i) => (
-                  <span key={i} className="flex items-center gap-1 bg-white border border-blue-200 text-blue-700 text-xs px-2 py-1 rounded-lg font-medium">
-                    {o}
-                    <button onClick={() => setForm(f => ({ ...f, options: f.options.filter((_, j) => j !== i) }))}><X className="w-3 h-3" /></button>
-                  </span>
-                ))}
-              </div>
+          <div>
+            <label className="text-xs font-semibold text-gray-500 mb-1 block">🔢 Opsionet (të gjitha zgjedhjet)</label>
+            <div className="flex flex-wrap gap-1.5 mb-1.5">
+              {(form.options||[]).map((o, i) => (
+                <span key={i} className="flex items-center gap-1 bg-white border border-blue-200 text-blue-700 text-xs px-2 py-1 rounded-lg font-medium">
+                  {o}
+                  <button onClick={() => setForm(f => ({ ...f, options: f.options.filter((_, j) => j !== i) }))}><X className="w-3 h-3" /></button>
+                </span>
+              ))}
             </div>
-          )}
+            <AddTagInput placeholder="Shto opsion..." color="blue"
+              onAdd={val => setForm(f => ({ ...f, options: [...(f.options||[]), val] }))} />
+          </div>
         </div>
       )}
 
