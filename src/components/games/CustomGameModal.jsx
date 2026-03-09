@@ -38,6 +38,26 @@ function PhaseView({ game, onNext, onClose }) {
 
       <div className="px-5 py-4">
         <p className="text-sm text-gray-600 leading-relaxed">{game.description}</p>
+        {game.conditions && game.conditions.length > 0 && (
+          <div className="mt-2 bg-emerald-50 border border-emerald-100 rounded-xl p-3">
+            <p className="text-xs font-bold text-emerald-700 mb-1">📋 Duhet të vizatosh:</p>
+            <div className="flex flex-wrap gap-1">
+              {game.conditions.map((c, i) => (
+                <span key={i} className="bg-white border border-emerald-200 text-emerald-700 text-xs px-2 py-0.5 rounded-lg font-semibold">{c}</span>
+              ))}
+            </div>
+          </div>
+        )}
+        {game.options && game.options.length > 0 && (
+          <div className="mt-2 bg-blue-50 border border-blue-100 rounded-xl p-3">
+            <p className="text-xs font-bold text-blue-700 mb-1">🔢 Opsionet:</p>
+            <div className="flex flex-wrap gap-1">
+              {game.options.map((o, i) => (
+                <span key={i} className="bg-white border border-blue-200 text-blue-700 text-xs px-2 py-0.5 rounded-lg font-semibold">{o}</span>
+              ))}
+            </div>
+          </div>
+        )}
         <div className="flex items-center gap-2 mt-2">
           <span className="text-xs font-semibold text-amber-600">⭐ {game.points} pikë</span>
         </div>
