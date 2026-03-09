@@ -47,12 +47,12 @@ const allGames = [
   { id: 42, title: "Duatë e Haxhit", description: "60+ pyetje mbi duatë që lexohen gjatë ritualeve të Haxhit", module: "umra_haxh", level: "mesatar", duration: "60 pyetje", points: 65 },
   { id: 43, title: "Historia e Haxhit", description: "60+ pyetje mbi historinë dhe kuptimin shpirtëror të Haxhit", module: "umra_haxh", level: "avancuar", duration: "60 pyetje", points: 75 },
   // NUMRA & LOJËRA
-  { id: 7,  title: "🧠 Brain Gym Vizual", description: "Stërvit trurin me 4 nivele — Fillestar deri Profesionist. Gjej modelin e njëjtë!", module: "lojera", level: "fillestar", duration: "pa limit", points: 60, isBrainGym: true },
   { id: 2,  title: "Loja e Numrave", description: "60+ ushtrime matematikore: mbledhje, zbritje, shumëzo, pjesëto", module: "lojera", level: "fillestar", duration: "60+ pyetje", points: 40 },
   { id: 3,  title: "Koordinimi i 2 Duarve", description: "60+ lunde për të stërvitur koordinimin bilateral", module: "lojera", level: "fillestar", duration: "60+ lunde", points: 30 },
   { id: 4,  title: "Puzzle Edukativ", description: "60+ puzzle didaktike me numra dhe shkronja", module: "lojera", level: "fillestar", duration: "60+ puzzle", points: 35 },
   { id: 5,  title: "Labirinti 60 Nivele", description: "60 labirinte me vështirësi progresive — stërvit mendjen", module: "lojera", level: "fillestar", duration: "60 nivele", points: 50 },
   { id: 6,  title: "Shumëzimi & Pjesëtimi", description: "Tabela 1-12 vizuale + 60+ ushtrime shumëzimi, pjesëtimi", module: "lojera", level: "fillestar", duration: "60+ ushtrime", points: 40 },
+  { id: 7,  title: "🧠 Brain Gym Vizual", description: "Stërvit trurin me 4 nivele — Fillestar deri Profesionist. Gjej modelin e njëjtë!", module: "lojera", level: "fillestar", duration: "pa limit", points: 60, isBrainGym: true },
   // FIKH
   { id: 47, title: "Kuiz Akide & Besimi", description: "60+ pyetje mbi Tevhidin, 3 Parimet, 5 Shtyllat dhe 6 Kushtet e Imanit", module: "fikh", level: "fillestar", duration: "60 pyetje", points: 50 },
   { id: 48, title: "Kuiz Pastërtia & Abdesi", description: "60+ pyetje mbi Abdesin, Guslin, llojet e ujit dhe pastërtinë rituale", module: "fikh", level: "fillestar", duration: "60 pyetje", points: 45 },
