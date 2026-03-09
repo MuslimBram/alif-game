@@ -443,6 +443,7 @@ export default function Games({ adminEditMode, isAdmin }) {
 
   const handlePlay = (game) => {
     if (game.isBrainGym) {
+      setBrainGymLevel(game.brainGymLevel || "fillestar");
       setActiveBrainGym(true);
     } else if (QUIZ_GAME_MAP[game.id]) {
       setActiveGame({ ...game, quizKey: QUIZ_GAME_MAP[game.id] });
