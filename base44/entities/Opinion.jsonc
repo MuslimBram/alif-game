@@ -1,0 +1,25 @@
+{
+  "name": "Opinion",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Emri i vizitorit"
+    },
+    "text": {
+      "type": "string",
+      "description": "Teksti i opinionit"
+    },
+    "rating": {
+      "type": "number",
+      "description": "Vler\u00ebsimi 1-5"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "URL e screenshot-it"
+    }
+  },
+  "required": [
+    "text"
+  ]
+}

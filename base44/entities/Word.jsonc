@@ -1,0 +1,61 @@
+{
+  "name": "Word",
+  "type": "object",
+  "properties": {
+    "language": {
+      "type": "string",
+      "enum": [
+        "shqip",
+        "anglisht",
+        "arabisht"
+      ],
+      "description": "Gjuha e fjal\u00ebs"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "fillestar",
+        "mesatar",
+        "avancuar",
+        "profesionist"
+      ],
+      "description": "Niveli i v\u00ebshtir\u00ebsis\u00eb"
+    },
+    "word": {
+      "type": "string",
+      "description": "Fjala (forma e shfaqur)"
+    },
+    "meaning": {
+      "type": "string",
+      "description": "Fjala origjinale (e past\u00ebr)"
+    },
+    "translation": {
+      "type": "string",
+      "description": "P\u00ebrkthimi"
+    },
+    "emoji": {
+      "type": "string",
+      "description": "Emoji p\u00ebrfaq\u00ebsuese"
+    },
+    "missing": {
+      "type": "string",
+      "description": "Shkronja q\u00eb mungon p\u00ebr kuiz"
+    },
+    "transliteration": {
+      "type": "string",
+      "description": "Transliterimi (p\u00ebr arabisht)"
+    },
+    "category": {
+      "type": "string",
+      "description": "Kategoria e fjal\u00ebs (kafsh\u00eb, ushqim, etj.)"
+    }
+  },
+  "required": [
+    "language",
+    "level",
+    "word",
+    "meaning",
+    "translation",
+    "emoji"
+  ]
+}

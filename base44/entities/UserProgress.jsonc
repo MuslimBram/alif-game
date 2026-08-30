@@ -1,0 +1,50 @@
+{
+  "name": "UserProgress",
+  "type": "object",
+  "properties": {
+    "module": {
+      "type": "string",
+      "enum": [
+        "alfabeti",
+        "texhuidi",
+        "kurani",
+        "umra_haxh",
+        "lojera"
+      ],
+      "description": "Moduli"
+    },
+    "lesson_id": {
+      "type": "string",
+      "description": "ID e m\u00ebsimit ose rregull\u00ebs"
+    },
+    "lesson_title": {
+      "type": "string",
+      "description": "Titulli i m\u00ebsimit"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "completed"
+      ],
+      "default": "not_started"
+    },
+    "score": {
+      "type": "number",
+      "description": "Rezultati 0-100"
+    },
+    "attempts": {
+      "type": "number",
+      "default": 0
+    },
+    "last_accessed": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "module",
+    "lesson_id"
+  ]
+}

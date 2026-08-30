@@ -1,0 +1,72 @@
+{
+  "name": "AlphabetLetter",
+  "type": "object",
+  "properties": {
+    "letter": {
+      "type": "string",
+      "description": "Shkronja"
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "shqip",
+        "anglisht",
+        "arabisht"
+      ],
+      "description": "Gjuha"
+    },
+    "pronunciation": {
+      "type": "string",
+      "description": "Si shqiptohet"
+    },
+    "description": {
+      "type": "string",
+      "description": "P\u00ebrshkrimi"
+    },
+    "form_uppercase": {
+      "type": "string"
+    },
+    "form_lowercase": {
+      "type": "string"
+    },
+    "form_handwritten_upper": {
+      "type": "string"
+    },
+    "form_handwritten_lower": {
+      "type": "string"
+    },
+    "example_words": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "word": {
+            "type": "string"
+          },
+          "translation": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "fillestar",
+        "mesatar",
+        "avancuar",
+        "profesionist"
+      ]
+    },
+    "audio_url": {
+      "type": "string"
+    },
+    "order_index": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "letter",
+    "language"
+  ]
+}

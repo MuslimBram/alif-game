@@ -1,0 +1,57 @@
+{
+  "name": "CustomGame",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Titulli i loj\u00ebs"
+    },
+    "description": {
+      "type": "string",
+      "description": "Shpjegimi i loj\u00ebs"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "URL e imazhit t\u00eb loj\u00ebs"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "fillestar",
+        "mesatar",
+        "avancuar",
+        "profesionist"
+      ],
+      "default": "fillestar",
+      "description": "Niveli i v\u00ebshtir\u00ebsis\u00eb"
+    },
+    "points": {
+      "type": "number",
+      "default": 50,
+      "description": "Pik\u00ebt e fituara"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "A \u00ebsht\u00eb aktive loja"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Kushtet/figurat q\u00eb duhet t\u00eb vizatohen (p.sh. rreth, katror, trek\u00ebnd\u00ebsh)"
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Opsionet e loj\u00ebs (p.sh. emrat e figurave p\u00ebr t\u00eb zgjedhur)"
+    }
+  },
+  "required": [
+    "title",
+    "description"
+  ]
+}

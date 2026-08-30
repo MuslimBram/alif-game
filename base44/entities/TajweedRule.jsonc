@@ -1,0 +1,77 @@
+{
+  "name": "TajweedRule",
+  "type": "object",
+  "properties": {
+    "name_sq": {
+      "type": "string",
+      "description": "Emri i rregull\u00ebs n\u00eb shqip"
+    },
+    "name_ar": {
+      "type": "string",
+      "description": "Emri i rregull\u00ebs n\u00eb arabisht"
+    },
+    "arabic_symbol": {
+      "type": "string",
+      "description": "Simboli arab i rregull\u00ebs"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "noon_sakinah",
+        "meem_sakinah",
+        "madd",
+        "qalqalah",
+        "ghunnah",
+        "idgham",
+        "ikhfa",
+        "iqlab",
+        "izhar",
+        "tjera"
+      ],
+      "description": "Kategoria e rregull\u00ebs"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "fillestar",
+        "mesatar",
+        "avancuar",
+        "profesionist"
+      ],
+      "description": "Niveli i v\u00ebshtir\u00ebsis\u00eb"
+    },
+    "description_sq": {
+      "type": "string",
+      "description": "P\u00ebrshkrimi i plot\u00eb n\u00eb shqip"
+    },
+    "example_text": {
+      "type": "string",
+      "description": "Shembulli n\u00eb arabisht"
+    },
+    "example_transliteration": {
+      "type": "string",
+      "description": "Transliterimi i shembullit"
+    },
+    "letters": {
+      "type": "string",
+      "description": "Shkronjat p\u00ebrkat\u00ebse"
+    },
+    "duration": {
+      "type": "string",
+      "description": "Koh\u00ebzgjatja (diple/harekash)"
+    },
+    "audio_url": {
+      "type": "string",
+      "description": "URL e audios shembull"
+    },
+    "order_index": {
+      "type": "number",
+      "description": "Radhitja brenda kategoris\u00eb"
+    }
+  },
+  "required": [
+    "name_sq",
+    "category",
+    "level"
+  ]
+}

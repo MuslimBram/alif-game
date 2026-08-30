@@ -1,0 +1,42 @@
+{
+  "name": "Group",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "avatar_emoji": {
+      "type": "string",
+      "default": "\ud83d\udd4c"
+    },
+    "owner_email": {
+      "type": "string"
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Lista e email-eve t\u00eb an\u00ebtar\u00ebve"
+    },
+    "total_group_points": {
+      "type": "number",
+      "default": 0
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true
+    },
+    "challenge_active": {
+      "type": "string",
+      "description": "Sfida aktive"
+    }
+  },
+  "required": [
+    "name",
+    "owner_email"
+  ]
+}

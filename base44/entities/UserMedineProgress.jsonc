@@ -1,0 +1,42 @@
+{
+  "name": "UserMedineProgress",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "Email i p\u00ebrdoruesit"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "fillestar",
+        "mesatar",
+        "avancuar"
+      ],
+      "description": "Niveli i Medin\u00ebs"
+    },
+    "unit_id": {
+      "type": "number",
+      "description": "ID e nj\u00ebsis\u00eb"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false,
+      "description": "A \u00ebsht\u00eb nj\u00ebsia e plotesuara"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Koha kur u plotesua"
+    },
+    "score": {
+      "type": "number",
+      "description": "Rezultati n\u00eb ushtrime (0-100)"
+    }
+  },
+  "required": [
+    "user_email",
+    "level",
+    "unit_id"
+  ]
+}

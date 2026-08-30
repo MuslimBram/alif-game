@@ -1,0 +1,56 @@
+{
+  "name": "Challenge",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "challenger_email": {
+      "type": "string"
+    },
+    "challenged_email": {
+      "type": "string"
+    },
+    "group_id": {
+      "type": "string"
+    },
+    "module": {
+      "type": "string",
+      "enum": [
+        "kurani",
+        "texhuidi",
+        "alfabeti",
+        "umra_haxh",
+        "te_gjitha"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "accepted",
+        "completed",
+        "declined"
+      ],
+      "default": "pending"
+    },
+    "challenger_score": {
+      "type": "number"
+    },
+    "challenged_score": {
+      "type": "number"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "title",
+    "challenger_email",
+    "module"
+  ]
+}

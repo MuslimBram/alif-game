@@ -1,0 +1,60 @@
+{
+  "name": "UserScore",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string"
+    },
+    "user_name": {
+      "type": "string"
+    },
+    "total_points": {
+      "type": "number",
+      "default": 0
+    },
+    "quiz_points": {
+      "type": "number",
+      "default": 0
+    },
+    "quran_points": {
+      "type": "number",
+      "default": 0
+    },
+    "tajweed_points": {
+      "type": "number",
+      "default": 0
+    },
+    "umra_points": {
+      "type": "number",
+      "default": 0
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "Fillestar",
+        "Nx\u00ebn\u00ebs",
+        "Studiues",
+        "Hafiz",
+        "Alim"
+      ],
+      "default": "Fillestar"
+    },
+    "streak_days": {
+      "type": "number",
+      "default": 0
+    },
+    "badges": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "last_activity": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "user_email"
+  ]
+}
