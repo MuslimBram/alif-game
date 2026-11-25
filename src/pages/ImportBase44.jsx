@@ -26,12 +26,19 @@ export default function ImportBase44() {
       for (const entity of ORDER) {
         const rows = all[entity] || [];
         if (!rows.length) { add(`${entity}: bosh, kalohet.`); continue; }
-        const { count, error: cErr } = await supabase.from('records').select('id', { count: 'exact', head: true }).eq('entity', entity);
-        if (cErr) throw cErr;
-        if (count > 0) { add(`${entity}: ka tashmë ${count} rreshta në databazë – nuk importohet përsëri.`); continue; }
+        // Shtohen vetëm rreshtat që nuk janë importuar më parë (sipas base44_id).
+        const existing = new Set();
+        for (let from = 0; ; from += 1000) {
+          const { data: ex, error: exErr } = await supabase.from('records').select('data->>base44_id').eq('entity', entity).range(from, from + 999);
+          if (exErr) throw exErr;
+          ex.forEach((x) => { const v = x.base44_id; if (v) existing.add(v); });
+          if (ex.length < 1000) break;
+        }
+        const todo = rows.filter((r) => !existing.has(r.data.base44_id));
+        if (!todo.length) { add(`${entity}: të gjitha ${rows.length} janë tashmë në databazë.`); continue; }
         let done = 0;
-        for (let i = 0; i < rows.length; i += CHUNK) {
-          const batch = rows.slice(i, i + CHUNK).map((r) => {
+        for (let i = 0; i < todo.length; i += CHUNK) {
+          const batch = todo.slice(i, i + CHUNK).map((r) => {
             const data = { ...r.data };
             if (entity === 'Challenge' && data.group_id && groupMap[data.group_id]) data.group_id = groupMap[data.group_id];
             const row = { entity, data, created_by: user.id, created_by_email: user.email };
@@ -43,7 +50,7 @@ export default function ImportBase44() {
           if (error) throw new Error(`${entity}: ${error.message}`);
           if (entity === 'Group') inserted.forEach((x) => { if (x.data?.base44_id) groupMap[x.data.base44_id] = x.id; });
           done += batch.length;
-          add(`${entity}: ${done} / ${rows.length}`);
+          add(`${entity}: ${done} / ${todo.length} të reja`);
         }
       }
       add('✅ Importi përfundoi.');
@@ -61,7 +68,7 @@ export default function ImportBase44() {
   return (
     <div className="max-w-xl mx-auto p-6 space-y-4">
       <h1 className="text-2xl font-bold">Import nga Base44</h1>
-      <p className="text-sm text-slate-600">Importon shkronjat, fjalët, rregullat e texhvidit, lojërat, opinionet, grupet dhe sfidat nga eksporti i Base44. Tabelat që kanë tashmë të dhëna nuk preken.</p>
+      <p className="text-sm text-slate-600">Importon shkronjat, fjalët, rregullat e texhvidit, lojërat, opinionet, grupet dhe sfidat nga eksporti i Base44. Shtohen vetëm të dhënat që mungojnë; asgjë nuk dyfishohet.</p>
       <button disabled={busy} onClick={run} className="w-full bg-emerald-600 text-white rounded-xl py-3 font-semibold disabled:opacity-60">
         {busy ? 'Duke importuar…' : 'Fillo importin'}
       </button>
